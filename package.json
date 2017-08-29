@@ -1,0 +1,63 @@
+{
+  "name": "freemarker",
+  "version": "1.0.0",
+  "description": "FreemarkerJs is a javascript implementation of the Freemarker",
+  "scripts": {
+    "test": "mocha test/test2.js --growl",
+    "lint": "eslint .",
+    "watch": "run-p watch:*",
+    "watch:tsc": "tsc --watch",
+    "watch:rollup": "wait-on .temp/index.js && rollup -c -o index.js --watch",
+    "watch:test": "wait-on index.js && npm run test -- --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armano2/freemarkerjs.git"
+  },
+  "keywords": [
+    "freemarker",
+    "js",
+    "fmpp"
+  ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "author": "Armano",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/armano2/freemarkerjs/issues"
+  },
+  "main": "index.js",
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "index.js.map"
+  ],
+  "homepage": "https://github.com/armano2/freemarkerjs#readme",
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.25",
+    "assert": "^1.4.1",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jsesc": "^2.5.1",
+    "mocha": "^3.5.0",
+    "npm-run-all": "^4.1.1",
+    "rollup": "^0.45.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-watch": "^4.3.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.1",
+    "wait-on": "^2.0.2"
+  },
+  "dependencies": {
+    "debug": "^3.0.1"
+  }
+}

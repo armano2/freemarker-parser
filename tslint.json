@@ -1,0 +1,18 @@
+{
+  "extends": "tslint:latest",
+  "rules": {
+    "semicolon": [true, "never"],
+    "typedef-whitespace": [true, {
+      "call-signature": "onespace",
+      "index-signature": "onespace",
+      "parameter": "onespace",
+      "property-declaration": "onespace",
+      "variable-declaration": "onespace"
+    }],
+    "space-before-function-paren": true,
+    "quotemark": [true, "single"],
+    "no-bitwise": false,
+    "max-line-length": [false],
+    "object-literal-sort-keys": false
+  }
+}
