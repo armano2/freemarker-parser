@@ -87,31 +87,18 @@ export class Parser {
 
     this.pos += symbol.startToken.length
 
-    let typeString : string = ''
-    const params : string[] = []
     let node : INode | null = null
 
-    // TODO: split this to separate functions
     switch (symbol.type) {
       case ETypeSymbol.Directive:
-        typeString = this.parseTag()
-        if (!(typeString in EType)) {
-          throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
-        }
-        this.pos += typeString.length
-        // TODO; read params
-
-        node = this.makeNode(startPos, this.pos, typeString as EType, params)
+        node = this.parseDirective(startPos)
         break
       case ETypeSymbol.Macro:
-        typeString = this.parseTag()
-        this.pos += typeString.length
-        // TODO; read params
-
-        node = this.makeNode(startPos, this.pos, EType.MacroCall, params, typeString)
+        node = this.parseMacro(startPos)
         break
       case ETypeSymbol.Print:
         // TODO: add support for expression
+        // this.parsePrint(startPos)
         break
     }
 
@@ -122,4 +109,38 @@ export class Parser {
     ++this.pos
     return true
   }
+
+  // private parsePrint (startPos : number) : INode {
+  //   return
+  // }
+
+  private parseMacro (startPos : number) : INode {
+    const params : string[] = []
+    const typeString = this.parseTag()
+    this.pos += typeString.length
+    // TODO; read params
+
+    const node = this.makeNode(startPos, this.pos, EType.MacroCall, params, typeString)
+
+    return node
+  }
+
+  private parseDirective (startPos : number) : INode {
+    const params : string[] = []
+    const typeString = this.parseTag()
+    if (!(typeString in EType)) {
+      throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
+    }
+    this.pos += typeString.length
+    // TODO; read params
+
+    const node : INode = this.makeNode(startPos, this.pos, typeString as EType, params)
+
+    return node
+  }
 }
+
+// When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
+// as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
+// Also note that if the comparison occurs inside parentheses, you will have no such problem,
+// like <#if foo.bar(x > 0)> works as expected.

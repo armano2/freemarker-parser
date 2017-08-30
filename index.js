@@ -141,22 +141,13 @@ class Parser {
             this.pos = startPos;
         }
         this.pos += symbol.startToken.length;
-        let typeString = '';
-        const params = [];
         let node = null;
         switch (symbol.type) {
             case ETypeSymbol.Directive:
-                typeString = this.parseTag();
-                if (!(typeString in EType)) {
-                    throw new ParserError(`Unsupported directive ${typeString}`);
-                }
-                this.pos += typeString.length;
-                node = this.makeNode(startPos, this.pos, typeString, params);
+                node = this.parseDirective(startPos);
                 break;
             case ETypeSymbol.Macro:
-                typeString = this.parseTag();
-                this.pos += typeString.length;
-                node = this.makeNode(startPos, this.pos, EType.MacroCall, params, typeString);
+                node = this.parseMacro(startPos);
                 break;
             case ETypeSymbol.Print:
                 break;
@@ -166,6 +157,23 @@ class Parser {
         }
         ++this.pos;
         return true;
+    }
+    parseMacro(startPos) {
+        const params = [];
+        const typeString = this.parseTag();
+        this.pos += typeString.length;
+        const node = this.makeNode(startPos, this.pos, EType.MacroCall, params, typeString);
+        return node;
+    }
+    parseDirective(startPos) {
+        const params = [];
+        const typeString = this.parseTag();
+        if (!(typeString in EType)) {
+            throw new ParserError(`Unsupported directive ${typeString}`);
+        }
+        this.pos += typeString.length;
+        const node = this.makeNode(startPos, this.pos, typeString, params);
+        return node;
     }
 }
 

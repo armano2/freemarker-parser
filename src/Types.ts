@@ -9,6 +9,7 @@ export enum ETypeSymbol {
 // TODO: change this to object with configuration
 // - allowParams
 // - allowChildrens
+// - sub elements
 export enum EType {
   Program = '@program',
   Text = '@text',
