@@ -1,27 +1,32 @@
-import { IBaseNode, INode, IToken } from './Node'
 import { INodeConfig, NodeConfig } from './NodeConfig'
 import ParserError from './ParserError'
 import { ISymbol, symbols, whitespaces } from './Symbols'
-import { EType, ETypeSymbol } from './Types'
+import { ENodeType, EType } from './Types'
+
+import { BaseNode } from './nodes/BaseNode'
+import Directive from './nodes/Directive'
+import Interpolation from './nodes/Interpolation'
+import Macro from './nodes/Macro'
+import ProgramNode from './nodes/Program'
+import Text from './nodes/Text'
+
+import { Token } from './tokens/Token'
 
 export class Parser {
   private cursorPos : number = 0
   private template : string = ''
-  private AST : IBaseNode
-  private tokens : IToken[] = []
+  private AST : ProgramNode
+  private tokens : Token[] = []
 
   constructor () {
     this.template = ''
     this.cursorPos = 0
   }
 
-  public parse (template : string) : IBaseNode {
+  public parse (template : string) : ProgramNode {
     this.template = template
     this.tokens = []
-    this.AST = {
-      type: EType.Program,
-      children: [],
-    }
+    this.AST = new ProgramNode(0, template.length)
     this.cursorPos = 0
     this.parseTokens()
     this.buildAST()
@@ -37,8 +42,8 @@ export class Parser {
   }
 
   private buildAST () {
-    const stack : IBaseNode[] = []
-    let parent : IBaseNode = this.AST
+    const stack : BaseNode[] = []
+    let parent : BaseNode = this.AST
 
     for (const token of this.tokens) {
       const cfg = this.getConfig(token.type)
@@ -50,9 +55,9 @@ export class Parser {
         const node = this.makeNode(token)
         parent.children.push(node)
       } else if (token.isClose) {
-        let parentNode : IBaseNode | undefined = parent
+        let parentNode : BaseNode | undefined = parent
         while (parentNode) {
-          if (parentNode.type === token.type) {
+          if (parentNode.type === token.symbol) {
             break
           }
           const parentCfg = this.getConfig(token.type)
@@ -88,35 +93,29 @@ export class Parser {
     while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
       const token = this.parseToken()
       if (!token) {
-        this.tokens.push(this.makeToken(this.cursorPos, this.template.length))
+        this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, this.template.length))
         break
       }
     }
   }
 
-  private makeToken (startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '', isClose : boolean = false) : IToken {
-    return {
-      type,
-      isClose,
-      tag,
-      text: type !== EType.Text ? '' : this.template.substring(startPos, endPos),
-      params,
-      loc: {
-        startPos,
-        endPos,
-      },
-    }
+  private makeToken (symbol : ENodeType, startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '', isClose : boolean = false) : Token {
+    // Get text => this.template.substring(startPos, endPos),
+    return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos))
   }
 
-  private makeNode (token : IToken) : INode {
-    return {
-      type: token.type,
-      tag: token.tag,
-      text: token.text,
-      params: token.params,
-      loc: token.loc,
-      children: [],
+  private makeNode (token : Token) : BaseNode {
+    switch (token.symbol) {
+      case ENodeType.Directive:
+        return new Directive(token.type, token.params, token.startPos, token.endPos)
+      case ENodeType.Macro:
+        return new Macro(token.tag, token.params, token.startPos, token.endPos)
+      case ENodeType.Interpolation:
+        return new Interpolation(token.startPos, token.endPos)
+      case ENodeType.Text:
+        return new Text(token.text, token.startPos, token.endPos)
     }
+    throw new ParserError('Unknown symbol')
   }
 
   private getNextPos (items : string[]) : number {
@@ -157,26 +156,23 @@ export class Parser {
     }
 
     if (startPos - 1 > this.cursorPos) {
-      this.tokens.push(this.makeToken(this.cursorPos, startPos - 1))
+      this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, startPos - 1))
     }
     this.cursorPos = startPos
 
     this.cursorPos += symbol.startToken.length
 
-    let node : IToken | null = null
+    let node : Token | null = null
 
     switch (symbol.type) {
-      case ETypeSymbol.Directive: // <#foo>
-        node = this.parseDirective(symbol, startPos)
+      case ENodeType.Directive: // <#foo>/</#foo>
+        node = this.parseDirective(symbol, startPos, symbol.end)
         break
-      case ETypeSymbol.DirectiveEnd: // </#foo>
-        node = this.parseDirective(symbol, startPos, true)
-        break
-      case ETypeSymbol.Macro: // <@foo>
+      case ENodeType.Macro: // <@foo>
         node = this.parseMacro(symbol, startPos)
         break
-      case ETypeSymbol.Interpolation: // ${ foo?string }
-        node = this.parsePrint(symbol, startPos)
+      case ENodeType.Interpolation: // ${ foo?string }
+        node = this.parseInterpolation(symbol, startPos)
         break
       default:
         break
@@ -190,24 +186,24 @@ export class Parser {
     return true
   }
 
-  private parsePrint (symbol : ISymbol, startPos : number) : IToken {
+  private parseInterpolation (symbol : ISymbol, startPos : number) : Token {
     const params : string[] = this.parseParams(symbol.endToken)
-    const node = this.makeToken(startPos, this.cursorPos, EType.Interpolation, params)
+    const node = this.makeToken(ENodeType.Interpolation, startPos, this.cursorPos, EType.Interpolation, params)
     return node
   }
 
-  private parseMacro (symbol : ISymbol, startPos : number) : IToken {
+  private parseMacro (symbol : ISymbol, startPos : number) : Token {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
     const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeToken(startPos, this.cursorPos, EType.MacroCall, params, typeString)
+    const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString)
 
     return node
   }
 
-  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : IToken {
+  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : Token {
     const typeString = this.parseTag(symbol.endToken)
     if (!(typeString in EType)) {
       throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
@@ -216,7 +212,7 @@ export class Parser {
 
     const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeToken(startPos, this.cursorPos, typeString as EType, params, '', isClose)
+    const node = this.makeToken(ENodeType.Directive, startPos, this.cursorPos, typeString as EType, params, '', isClose)
     // TODO; read params
 
     return node
@@ -226,13 +222,10 @@ export class Parser {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n'
   }
 
-  // foo?string
-  // foo.foo
-  // (foo * 2)
-  // <#if "adsddsasd >"
-  // <#if foo == 2>
-  // "foo bar"
-  // (foo > bar)
+  // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
+  // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
+  // Also note that if the comparison occurs inside parentheses, you will have no such problem,
+  // like <#if foo.bar(x > 0)> works as expected.
   private parseParams (engTag : string) : string[] {
     const text = this.template.substring(this.cursorPos)
     const params : string[] = []
@@ -285,8 +278,3 @@ export class Parser {
     throw new ParserError(`Unclosed directive or macro`) // TODO: add more info like location
   }
 }
-
-// When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
-// as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
-// Also note that if the comparison occurs inside parentheses, you will have no such problem,
-// like <#if foo.bar(x > 0)> works as expected.

@@ -1,59 +1,72 @@
 {
-  "type": "@program",
+  "type": "Program",
+  "isSelfClosing": false,
+  "start": 0,
+  "end": 217,
   "children": [
     {
-      "type": "@interpolation",
-      "tag": "",
-      "text": "",
-      "params": [
-        "foo"
-      ],
-      "loc": {
-        "startPos": 0,
-        "endPos": 6
-      },
+      "type": "Interpolation",
+      "isSelfClosing": true,
+      "start": 0,
+      "end": 6,
       "children": []
     },
     {
-      "type": "include",
-      "tag": "",
-      "text": "",
+      "type": "Directive",
+      "isSelfClosing": true,
+      "start": 8,
+      "end": 47,
+      "children": [],
+      "name": "include",
       "params": [
         "\"./include/test_include.ftl\""
-      ],
-      "loc": {
-        "startPos": 8,
-        "endPos": 47
-      },
-      "children": []
+      ]
     },
     {
-      "type": "if",
-      "tag": "",
-      "text": "",
-      "params": [
-        "(foo > 1)"
-      ],
-      "loc": {
-        "startPos": 49,
-        "endPos": 64
-      },
+      "type": "Directive",
+      "isSelfClosing": true,
+      "start": 49,
+      "end": 64,
       "children": [
         {
-          "type": "@text",
-          "tag": "",
-          "text": " ",
-          "params": [],
-          "loc": {
-            "startPos": 65,
-            "endPos": 66
-          },
-          "children": []
+          "type": "Text",
+          "isSelfClosing": true,
+          "start": 65,
+          "end": 66,
+          "children": [],
+          "text": " "
         },
         {
-          "type": "if",
-          "tag": "",
-          "text": "",
+          "type": "Directive",
+          "isSelfClosing": true,
+          "start": 67,
+          "end": 120,
+          "children": [
+            {
+              "type": "Text",
+              "isSelfClosing": true,
+              "start": 121,
+              "end": 124,
+              "children": [],
+              "text": "   "
+            },
+            {
+              "type": "Interpolation",
+              "isSelfClosing": true,
+              "start": 125,
+              "end": 135,
+              "children": []
+            },
+            {
+              "type": "Text",
+              "isSelfClosing": true,
+              "start": 136,
+              "end": 137,
+              "children": [],
+              "text": " "
+            }
+          ],
+          "name": "if",
           "params": [
             "foo",
             "gt",
@@ -64,88 +77,40 @@
             "asd",
             "as",
             "das"
-          ],
-          "loc": {
-            "startPos": 67,
-            "endPos": 120
-          },
-          "children": [
-            {
-              "type": "@text",
-              "tag": "",
-              "text": "   ",
-              "params": [],
-              "loc": {
-                "startPos": 121,
-                "endPos": 124
-              },
-              "children": []
-            },
-            {
-              "type": "@interpolation",
-              "tag": "",
-              "text": "",
-              "params": [
-                "foo.bar"
-              ],
-              "loc": {
-                "startPos": 125,
-                "endPos": 135
-              },
-              "children": []
-            },
-            {
-              "type": "@text",
-              "tag": "",
-              "text": " ",
-              "params": [],
-              "loc": {
-                "startPos": 136,
-                "endPos": 137
-              },
-              "children": []
-            }
           ]
         },
         {
-          "type": "@text",
-          "tag": "",
-          "text": " ",
-          "params": [],
-          "loc": {
-            "startPos": 145,
-            "endPos": 146
-          },
-          "children": []
+          "type": "Text",
+          "isSelfClosing": true,
+          "start": 145,
+          "end": 146,
+          "children": [],
+          "text": " "
         },
         {
-          "type": "@interpolation",
-          "tag": "",
-          "text": "",
-          "params": [
-            "foo.bar?toString"
-          ],
-          "loc": {
-            "startPos": 147,
-            "endPos": 166
-          },
+          "type": "Interpolation",
+          "isSelfClosing": true,
+          "start": 147,
+          "end": 166,
           "children": []
         }
+      ],
+      "name": "if",
+      "params": [
+        "(foo > 1)"
       ]
     },
     {
-      "type": "@macro",
-      "tag": "macro",
-      "text": "",
+      "type": "Macro",
+      "isSelfClosing": true,
+      "start": 175,
+      "end": 216,
+      "children": [],
+      "name": "macro",
       "params": [
         "foo",
         "\"./include/test_include.ftl\""
-      ],
-      "loc": {
-        "startPos": 175,
-        "endPos": 216
-      },
-      "children": []
+      ]
     }
   ]
 }

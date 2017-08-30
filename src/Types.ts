@@ -1,10 +1,10 @@
 // TODO: create specific classes/objects for each of this types with additional fields required for them
-export enum ETypeSymbol {
-  None,
-  Directive,
-  DirectiveEnd,
-  Macro,
-  Interpolation,
+export enum ENodeType {
+  Program = 'Program',
+  Directive = 'Directive',
+  Macro = 'Macro',
+  Text = 'Text',
+  Interpolation = 'Interpolation',
 }
 
 // TODO: change this to object with configuration

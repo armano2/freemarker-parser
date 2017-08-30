@@ -1,17 +1,18 @@
-import { ETypeSymbol } from './Types'
+import { ENodeType } from './Types'
 
 export interface ISymbol {
   startToken : string
   endToken : string
-  type : ETypeSymbol
+  type : ENodeType
+  end : boolean
 }
 
 export const symbols : ISymbol[] = [
-  { startToken: '</#', endToken: '>', type: ETypeSymbol.DirectiveEnd },
-  { startToken: '<#', endToken: '>', type: ETypeSymbol.Directive },
-  { startToken: '<@', endToken: '>', type: ETypeSymbol.Macro },
+  { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
+  { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
+  { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
   // tslint:disable-next-line:no-invalid-template-strings
-  { startToken: '${', endToken: '}', type: ETypeSymbol.Interpolation },
+  { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
 ]
 
 export const whitespaces : string[] = [

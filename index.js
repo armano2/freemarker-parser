@@ -2,14 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var ETypeSymbol;
-(function (ETypeSymbol) {
-    ETypeSymbol[ETypeSymbol["None"] = 0] = "None";
-    ETypeSymbol[ETypeSymbol["Directive"] = 1] = "Directive";
-    ETypeSymbol[ETypeSymbol["DirectiveEnd"] = 2] = "DirectiveEnd";
-    ETypeSymbol[ETypeSymbol["Macro"] = 3] = "Macro";
-    ETypeSymbol[ETypeSymbol["Interpolation"] = 4] = "Interpolation";
-})(ETypeSymbol || (ETypeSymbol = {}));
+var ENodeType;
+(function (ENodeType) {
+    ENodeType["Program"] = "Program";
+    ENodeType["Directive"] = "Directive";
+    ENodeType["Macro"] = "Macro";
+    ENodeType["Text"] = "Text";
+    ENodeType["Interpolation"] = "Interpolation";
+})(ENodeType || (ENodeType = {}));
 var EType;
 (function (EType) {
     EType["Program"] = "@program";
@@ -160,6 +160,7 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
+//# sourceMappingURL=NodeConfig.js.map
 
 class ParserError extends Error {
     constructor(m) {
@@ -170,10 +171,10 @@ class ParserError extends Error {
 //# sourceMappingURL=ParserError.js.map
 
 const symbols = [
-    { startToken: '</#', endToken: '>', type: ETypeSymbol.DirectiveEnd },
-    { startToken: '<#', endToken: '>', type: ETypeSymbol.Directive },
-    { startToken: '<@', endToken: '>', type: ETypeSymbol.Macro },
-    { startToken: '${', endToken: '}', type: ETypeSymbol.Interpolation },
+    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
+    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
+    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
+    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
 ];
 const whitespaces = [
     ' ',
@@ -182,6 +183,71 @@ const whitespaces = [
     '\r',
 ];
 //# sourceMappingURL=Symbols.js.map
+
+class BaseNode {
+    constructor(nodeType, start, end, isSelfClosing = false) {
+        this.type = nodeType;
+        this.isSelfClosing = isSelfClosing;
+        this.start = start;
+        this.end = end;
+        this.children = [];
+    }
+}
+
+class Directive extends BaseNode {
+    constructor(name, params, start, end) {
+        super(ENodeType.Directive, start, end, true);
+        this.name = name;
+        this.params = params;
+    }
+}
+//# sourceMappingURL=Directive.js.map
+
+class Interpolation extends BaseNode {
+    constructor(start, end) {
+        super(ENodeType.Interpolation, start, end, true);
+    }
+}
+//# sourceMappingURL=Interpolation.js.map
+
+class Macro extends BaseNode {
+    constructor(name, params, start, end) {
+        super(ENodeType.Macro, start, end, true);
+        this.name = name;
+        this.params = params;
+    }
+}
+//# sourceMappingURL=Macro.js.map
+
+class ProgramNode extends BaseNode {
+    constructor(start, end) {
+        super(ENodeType.Program, start, end);
+    }
+}
+//# sourceMappingURL=Program.js.map
+
+class Text extends BaseNode {
+    constructor(text = '', start, end) {
+        super(ENodeType.Text, start, end, true);
+        this.text = '';
+        this.text = text;
+    }
+}
+//# sourceMappingURL=Text.js.map
+
+class Token {
+    constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
+        this.symbol = symbol;
+        this.startPos = startPos;
+        this.endPos = endPos;
+        this.type = type;
+        this.params = params;
+        this.tag = tag;
+        this.isClose = isClose;
+        this.text = text;
+    }
+}
+//# sourceMappingURL=Token.js.map
 
 class Parser {
     constructor() {
@@ -194,10 +260,7 @@ class Parser {
     parse(template) {
         this.template = template;
         this.tokens = [];
-        this.AST = {
-            type: EType.Program,
-            children: [],
-        };
+        this.AST = new ProgramNode(0, template.length);
         this.cursorPos = 0;
         this.parseTokens();
         this.buildAST();
@@ -225,7 +288,7 @@ class Parser {
             else if (token.isClose) {
                 let parentNode = parent;
                 while (parentNode) {
-                    if (parentNode.type === token.type) {
+                    if (parentNode.type === token.symbol) {
                         break;
                     }
                     const parentCfg = this.getConfig(token.type);
@@ -258,33 +321,26 @@ class Parser {
         while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
             const token = this.parseToken();
             if (!token) {
-                this.tokens.push(this.makeToken(this.cursorPos, this.template.length));
+                this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, this.template.length));
                 break;
             }
         }
     }
-    makeToken(startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false) {
-        return {
-            type,
-            isClose,
-            tag,
-            text: type !== EType.Text ? '' : this.template.substring(startPos, endPos),
-            params,
-            loc: {
-                startPos,
-                endPos,
-            },
-        };
+    makeToken(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false) {
+        return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos));
     }
     makeNode(token) {
-        return {
-            type: token.type,
-            tag: token.tag,
-            text: token.text,
-            params: token.params,
-            loc: token.loc,
-            children: [],
-        };
+        switch (token.symbol) {
+            case ENodeType.Directive:
+                return new Directive(token.type, token.params, token.startPos, token.endPos);
+            case ENodeType.Macro:
+                return new Macro(token.tag, token.params, token.startPos, token.endPos);
+            case ENodeType.Interpolation:
+                return new Interpolation(token.startPos, token.endPos);
+            case ENodeType.Text:
+                return new Text(token.text, token.startPos, token.endPos);
+        }
+        throw new ParserError('Unknown symbol');
     }
     getNextPos(items) {
         let pos = -1;
@@ -320,23 +376,20 @@ class Parser {
             return false;
         }
         if (startPos - 1 > this.cursorPos) {
-            this.tokens.push(this.makeToken(this.cursorPos, startPos - 1));
+            this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, startPos - 1));
         }
         this.cursorPos = startPos;
         this.cursorPos += symbol.startToken.length;
         let node = null;
         switch (symbol.type) {
-            case ETypeSymbol.Directive:
-                node = this.parseDirective(symbol, startPos);
+            case ENodeType.Directive:
+                node = this.parseDirective(symbol, startPos, symbol.end);
                 break;
-            case ETypeSymbol.DirectiveEnd:
-                node = this.parseDirective(symbol, startPos, true);
-                break;
-            case ETypeSymbol.Macro:
+            case ENodeType.Macro:
                 node = this.parseMacro(symbol, startPos);
                 break;
-            case ETypeSymbol.Interpolation:
-                node = this.parsePrint(symbol, startPos);
+            case ENodeType.Interpolation:
+                node = this.parseInterpolation(symbol, startPos);
                 break;
             default:
                 break;
@@ -347,16 +400,16 @@ class Parser {
         ++this.cursorPos;
         return true;
     }
-    parsePrint(symbol, startPos) {
+    parseInterpolation(symbol, startPos) {
         const params = this.parseParams(symbol.endToken);
-        const node = this.makeToken(startPos, this.cursorPos, EType.Interpolation, params);
+        const node = this.makeToken(ENodeType.Interpolation, startPos, this.cursorPos, EType.Interpolation, params);
         return node;
     }
     parseMacro(symbol, startPos) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
         const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
-        const node = this.makeToken(startPos, this.cursorPos, EType.MacroCall, params, typeString);
+        const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString);
         return node;
     }
     parseDirective(symbol, startPos, isClose = false) {
@@ -366,7 +419,7 @@ class Parser {
         }
         this.cursorPos += typeString.length;
         const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
-        const node = this.makeToken(startPos, this.cursorPos, typeString, params, '', isClose);
+        const node = this.makeToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, '', isClose);
         return node;
     }
     isWhitespace(char) {
