@@ -16,7 +16,7 @@ export class BaseNode {
     this.children = []
     this.cfg = NodeConfig[eType]
     if (!this.cfg) {
-      throw new NodeError(`Invalid Token`, this) // TODO: add more info like location
+      throw new NodeError(`Invalid Token`, this, null) // TODO: add more info like location
     }
   }
 }

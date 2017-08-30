@@ -14,8 +14,9 @@ for (const name of tests) {
     it('should have no errors', function () {
       const dir = path.join(testsPath, name)
       try {
-        const file = fs.readFileSync(path.join(dir, 'template.ftl'), 'utf8')
-        const ast = parser.parse(file)
+        const file = path.join(dir, 'template.ftl')
+        const code = fs.readFileSync(file, 'utf8')
+        const ast = parser.parse(code, file)
 
         fs.writeFileSync(path.join(dir, 'tokens.json'), JSON.stringify(parser.tokens, null, 2))
         fs.writeFileSync(path.join(dir, 'ast.json'), JSON.stringify(ast, null, 2))

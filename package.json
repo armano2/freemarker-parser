@@ -36,7 +36,7 @@
   "homepage": "https://github.com/armano2/freemarkerjs#readme",
   "devDependencies": {
     "@types/mocha": "^2.2.42",
-    "@types/node": "^8.0.25",
+    "@types/node": "^8.0.26",
     "assert": "^1.4.1",
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",
@@ -58,6 +58,7 @@
     "wait-on": "^2.0.2"
   },
   "dependencies": {
-    "debug": "^3.0.1"
+    "debug": "^3.0.1",
+    "line-column": "^1.0.2"
   }
 }

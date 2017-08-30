@@ -14,8 +14,9 @@ import Text from './nodes/Text'
 import { Token } from './tokens/Token'
 
 export class Parser {
+  public template : string = ''
+  public filename : string | null
   private cursorPos : number = 0
-  private template : string = ''
   private AST : ProgramNode
   private tokens : Token[] = []
 
@@ -24,8 +25,9 @@ export class Parser {
     this.cursorPos = 0
   }
 
-  public parse (template : string) : ProgramNode {
+  public parse (template : string, filename : string | null = null) : ProgramNode {
     this.template = template
+    this.filename = filename
     this.tokens = []
     this.AST = new ProgramNode(0, template.length)
     this.cursorPos = 0
@@ -43,7 +45,7 @@ export class Parser {
 
       if (node.cfg.isSelfClosing) {
         if (token.isClose) {
-          throw new NodeError(`Self closing tag can't have close tag`, node)
+          throw new NodeError(`Self closing tag can't have close tag`, node, this)
         }
         parent.children.push(node)
       } else if (token.isClose) {
@@ -54,13 +56,13 @@ export class Parser {
             break
           }
           if (!parentNode.cfg.isSelfClosing) {
-            throw new NodeError(`Missing close tag`, parentNode)
+            throw new NodeError(`Missing close tag`, parentNode, this)
           }
           parentNode = stack.pop()
         }
 
         if (!parentNode) {
-          throw new NodeError(`Closing tag is not alowed`, node)
+          throw new NodeError(`Closing tag is not alowed`, node, this)
         }
         parent = parentNode
 
@@ -72,7 +74,7 @@ export class Parser {
     }
 
     if (stack.length > 0) {
-      throw new NodeError(`Unclosed tag`, parent) // TODO: add more info like location
+      throw new NodeError(`Unclosed tag`, parent, this)
     }
   }
 

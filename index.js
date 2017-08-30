@@ -2,21 +2,27 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var lineColumn = _interopDefault(require('line-column'));
+
 class ParserError extends Error {
     constructor(m) {
         super(m);
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
-//# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
-    constructor(m, node) {
+    constructor(m, node, parser) {
         m = `${m}: ${node.type} (${node.start}-${node.end})`;
+        if (parser && parser.filename) {
+            const loc = lineColumn(parser.template).fromIndex(node.start);
+            m += `\n - ${parser.filename}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`;
+        }
         super(m);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -64,7 +70,6 @@ var EType;
     EType["t"] = "t";
     EType["visit"] = "visit";
 })(EType || (EType = {}));
-//# sourceMappingURL=Types.js.map
 
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
@@ -78,7 +83,6 @@ const whitespaces = [
     '\n',
     '\r',
 ];
-//# sourceMappingURL=Symbols.js.map
 
 const NodeConfig = {
     [EType.Program]: {
@@ -187,7 +191,6 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
-//# sourceMappingURL=NodeConfig.js.map
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
@@ -197,11 +200,10 @@ class BaseNode {
         this.children = [];
         this.cfg = NodeConfig[eType];
         if (!this.cfg) {
-            throw new NodeError(`Invalid Token`, this);
+            throw new NodeError(`Invalid Token`, this, null);
         }
     }
 }
-//# sourceMappingURL=BaseNode.js.map
 
 class Directive extends BaseNode {
     constructor(name, params, start, end) {
@@ -210,14 +212,12 @@ class Directive extends BaseNode {
         this.params = params;
     }
 }
-//# sourceMappingURL=Directive.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end) {
         super(ENodeType.Interpolation, start, end, EType.Interpolation);
     }
 }
-//# sourceMappingURL=Interpolation.js.map
 
 class Macro extends BaseNode {
     constructor(name, params, start, end) {
@@ -226,14 +226,12 @@ class Macro extends BaseNode {
         this.params = params;
     }
 }
-//# sourceMappingURL=Macro.js.map
 
 class ProgramNode extends BaseNode {
     constructor(start, end) {
         super(ENodeType.Program, start, end, EType.Program);
     }
 }
-//# sourceMappingURL=Program.js.map
 
 class Text extends BaseNode {
     constructor(text = '', start, end) {
@@ -242,7 +240,6 @@ class Text extends BaseNode {
         this.text = text;
     }
 }
-//# sourceMappingURL=Text.js.map
 
 class Token {
     constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
@@ -256,18 +253,18 @@ class Token {
         this.text = text;
     }
 }
-//# sourceMappingURL=Token.js.map
 
 class Parser {
     constructor() {
-        this.cursorPos = 0;
         this.template = '';
+        this.cursorPos = 0;
         this.tokens = [];
         this.template = '';
         this.cursorPos = 0;
     }
-    parse(template) {
+    parse(template, filename = null) {
         this.template = template;
+        this.filename = filename;
         this.tokens = [];
         this.AST = new ProgramNode(0, template.length);
         this.cursorPos = 0;
@@ -282,7 +279,7 @@ class Parser {
             const node = this.makeNode(token);
             if (node.cfg.isSelfClosing) {
                 if (token.isClose) {
-                    throw new NodeError(`Self closing tag can't have close tag`, node);
+                    throw new NodeError(`Self closing tag can't have close tag`, node, this);
                 }
                 parent.children.push(node);
             }
@@ -294,12 +291,12 @@ class Parser {
                         break;
                     }
                     if (!parentNode.cfg.isSelfClosing) {
-                        throw new NodeError(`Missing close tag`, parentNode);
+                        throw new NodeError(`Missing close tag`, parentNode, this);
                     }
                     parentNode = stack.pop();
                 }
                 if (!parentNode) {
-                    throw new NodeError(`Closing tag is not alowed`, node);
+                    throw new NodeError(`Closing tag is not alowed`, node, this);
                 }
                 parent = parentNode;
             }
@@ -310,7 +307,7 @@ class Parser {
             }
         }
         if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, parent);
+            throw new NodeError(`Unclosed tag`, parent, this);
         }
     }
     parseTokens() {
@@ -473,8 +470,6 @@ class Parser {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map
