@@ -1,4 +1,5 @@
-import { INode } from './Node'
+import { IBaseNode, INode, IToken } from './Node'
+import { INodeConfig, NodeConfig } from './NodeConfig'
 import ParserError from './ParserError'
 import { ISymbol, symbols, whitespaces } from './Symbols'
 import { EType, ETypeSymbol } from './Types'
@@ -6,35 +7,97 @@ import { EType, ETypeSymbol } from './Types'
 export class Parser {
   private cursorPos : number = 0
   private template : string = ''
-  private AST : INode
+  private AST : IBaseNode
+  private tokens : IToken[] = []
 
   constructor () {
     this.template = ''
-    this.AST = this.makeNode(0, 0, EType.Program)
     this.cursorPos = 0
   }
 
-  public parseTokens () {
+  public parse (template : string) : IBaseNode {
+    this.template = template
+    this.tokens = []
+    this.AST = {
+      type: EType.Program,
+      children: [],
+    }
+    this.cursorPos = 0
+    this.parseTokens()
+    this.buildAST()
+    return this.AST
+  }
+
+  private getConfig (type : EType) : INodeConfig {
+    const cfg = NodeConfig[type]
+    if (!cfg) {
+      throw new ParserError(`Invalid Token`) // TODO: add more info like location
+    }
+    return cfg
+  }
+
+  private buildAST () {
+    const stack : IBaseNode[] = []
+    let parent : IBaseNode = this.AST
+
+    for (const token of this.tokens) {
+      const cfg = this.getConfig(token.type)
+
+      if (cfg.isSelfClosing) {
+        if (token.isClose) {
+          throw new ParserError(`Self closing token can't have close tag`) // TODO: add more info like location
+        }
+        const node = this.makeNode(token)
+        parent.children.push(node)
+      } else if (token.isClose) {
+        let parentNode : IBaseNode | undefined = parent
+        while (parentNode) {
+          if (parentNode.type === token.type) {
+            break
+          }
+          const parentCfg = this.getConfig(token.type)
+          if (!parentCfg.isSelfClosing) {
+            throw new ParserError(`Missing close tag`) // TODO: add more info like location
+          }
+          parentNode = stack.pop()
+        }
+
+        if (!parentNode) {
+          throw new ParserError(`Closing tag is not alowed here`) // TODO: add more info like location
+        }
+        parentNode = stack.pop()
+        if (!parentNode) {
+          throw new ParserError(`Closing tag is not alowed here`) // TODO: add more info like location
+        }
+        parent = parentNode
+
+      } else {
+        const node = this.makeNode(token)
+        parent.children.push(node)
+        stack.push(parent)
+        parent = node
+      }
+    }
+
+    if (stack.length > 0) {
+      throw new ParserError(`Unclosed tag`) // TODO: add more info like location
+    }
+  }
+
+  private parseTokens () {
     while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
-      const token = this.parseNode(this.AST)
+      const token = this.parseToken()
       if (!token) {
-        this.AST.children.push(this.makeNode(this.cursorPos, this.template.length))
+        this.tokens.push(this.makeToken(this.cursorPos, this.template.length))
         break
       }
     }
   }
 
-  public parse (template : string) : object {
-    this.template = template
-    this.AST = this.makeNode(0, 0, EType.Program)
-    this.cursorPos = 0
-    this.parseTokens()
-    return this.AST
-  }
-
-  private makeNode (startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '') : INode {
+  private makeToken (startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '', isClose : boolean = false) : IToken {
     return {
       type,
+      isClose,
       tag,
       text: type !== EType.Text ? '' : this.template.substring(startPos, endPos),
       params,
@@ -42,13 +105,23 @@ export class Parser {
         startPos,
         endPos,
       },
+    }
+  }
+
+  private makeNode (token : IToken) : INode {
+    return {
+      type: token.type,
+      tag: token.tag,
+      text: token.text,
+      params: token.params,
+      loc: token.loc,
       children: [],
     }
   }
 
-  private getNextWhitespacePos () : number {
+  private getNextPos (items : string[]) : number {
     let pos = -1
-    for (const item of whitespaces) {
+    for (const item of items) {
       const n = this.template.indexOf(item, this.cursorPos)
       if (n >= 0 && (pos === -1 || n < pos)) {
         pos = n
@@ -57,15 +130,18 @@ export class Parser {
     return pos
   }
 
-  private parseTag () : string {
-    const pos = this.getNextWhitespacePos()
+  private parseTag (endTag : string) : string {
+    const pos = this.getNextPos([
+      ...whitespaces,
+      endTag,
+    ])
     if (pos < 0) {
       throw new ParserError('Missing closing tag') // TODO: add more info like location
     }
     return this.template.substring(this.cursorPos, pos)
   }
 
-  private parseNode (parent : INode) : boolean {
+  private parseToken () : boolean {
     let symbol : ISymbol | null = null
     let startPos : number = 0
     for (const item of symbols) {
@@ -81,17 +157,20 @@ export class Parser {
     }
 
     if (startPos - 1 > this.cursorPos) {
-      parent.children.push(this.makeNode(this.cursorPos, startPos - 1))
+      this.tokens.push(this.makeToken(this.cursorPos, startPos - 1))
     }
     this.cursorPos = startPos
 
     this.cursorPos += symbol.startToken.length
 
-    let node : INode | null = null
+    let node : IToken | null = null
 
     switch (symbol.type) {
       case ETypeSymbol.Directive: // <#foo>
         node = this.parseDirective(symbol, startPos)
+        break
+      case ETypeSymbol.DirectiveEnd: // </#foo>
+        node = this.parseDirective(symbol, startPos, true)
         break
       case ETypeSymbol.Macro: // <@foo>
         node = this.parseMacro(symbol, startPos)
@@ -104,40 +183,40 @@ export class Parser {
     }
 
     if (node) {
-      parent.children.push(node)
+      this.tokens.push(node)
     }
 
     ++this.cursorPos
     return true
   }
 
-  private parsePrint (symbol : ISymbol, startPos : number) : INode {
+  private parsePrint (symbol : ISymbol, startPos : number) : IToken {
     const params : string[] = this.parseParams(symbol.endToken)
-    const node = this.makeNode(startPos, this.cursorPos, EType.Interpolation, params)
+    const node = this.makeToken(startPos, this.cursorPos, EType.Interpolation, params)
     return node
   }
 
-  private parseMacro (symbol : ISymbol, startPos : number) : INode {
-    const typeString = this.parseTag()
+  private parseMacro (symbol : ISymbol, startPos : number) : IToken {
+    const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
-    const params : string[] = this.parseParams(symbol.endToken)
+    const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeNode(startPos, this.cursorPos, EType.MacroCall, params, typeString)
+    const node = this.makeToken(startPos, this.cursorPos, EType.MacroCall, params, typeString)
 
     return node
   }
 
-  private parseDirective (symbol : ISymbol, startPos : number) : INode {
-    const typeString = this.parseTag()
+  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : IToken {
+    const typeString = this.parseTag(symbol.endToken)
     if (!(typeString in EType)) {
       throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
     }
     this.cursorPos += typeString.length
 
-    const params : string[] = this.parseParams(symbol.endToken)
+    const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node : INode = this.makeNode(startPos, this.cursorPos, typeString as EType, params)
+    const node = this.makeToken(startPos, this.cursorPos, typeString as EType, params, '', isClose)
     // TODO; read params
 
     return node
@@ -185,8 +264,7 @@ export class Parser {
             params.push(paramText)
             paramText = ''
           }
-          ++paramPos
-          this.cursorPos = paramPos
+          this.cursorPos = paramPos + engTag.length
           return params
         } else if (this.isWhitespace(char)) {
           if (paramText !== '') {

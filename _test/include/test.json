@@ -1,0 +1,43 @@
+{
+  "solarsystem_data": {
+    "name": "solar system",
+    "location": "Orion Arm of the Milky Way",
+    "age": "5 billion years"
+  },
+  "planets": [
+    "Mercury",
+    "Venus",
+    "Earth",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune"
+  ],
+  "planet_data": [
+    {
+      "name": "Mercury",
+      "radius": 2439.7,
+      "volume": 60830000000000,
+      "mass": 3301100000000000000000000000
+    },
+    {
+      "name": "Venus",
+      "radius": 6051,
+      "volume": 9284300000000000,
+      "mass": 48675000000000000000000000000
+    },
+    {
+      "name": "Earth",
+      "radius": 6371,
+      "volume": 108321000000000000,
+      "mass": 597237000000000000000000000000
+    },
+    {
+      "name": "Mars",
+      "radius": 3390,
+      "volume": 1631800000000000,
+      "mass": 6417100000000000000000000000
+    }
+  ]
+}

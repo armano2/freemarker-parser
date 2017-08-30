@@ -5,10 +5,22 @@ export interface ILoc {
   endPos : number
 }
 
-export interface INode {
+export interface IBaseNode {
+  type : EType
+  children : INode[]
+}
+
+export interface INode extends IBaseNode {
+  tag : string
+  params : string[]
+  text : string
+  loc : ILoc
+}
+
+export interface IToken {
   type : EType
   tag : string
-  children : INode[]
+  isClose : boolean
   params : string[]
   text : string
   loc : ILoc

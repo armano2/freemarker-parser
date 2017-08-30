@@ -2,6 +2,7 @@
 export enum ETypeSymbol {
   None,
   Directive,
+  DirectiveEnd,
   Macro,
   Interpolation,
 }

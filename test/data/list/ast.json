@@ -1,0 +1,288 @@
+{
+  "type": "@program",
+  "children": [
+    {
+      "type": "@text",
+      "tag": "",
+      "text": "Solarsystem name:    ",
+      "params": [],
+      "loc": {
+        "startPos": 0,
+        "endPos": 21
+      },
+      "children": []
+    },
+    {
+      "type": "@interpolation",
+      "tag": "",
+      "text": "",
+      "params": [
+        "solarsystem_data.name?capitalize"
+      ],
+      "loc": {
+        "startPos": 22,
+        "endPos": 57
+      },
+      "children": []
+    },
+    {
+      "type": "@text",
+      "tag": "",
+      "text": "Solarsystem location:",
+      "params": [],
+      "loc": {
+        "startPos": 58,
+        "endPos": 79
+      },
+      "children": []
+    },
+    {
+      "type": "@interpolation",
+      "tag": "",
+      "text": "",
+      "params": [
+        "solarsystem_data.location"
+      ],
+      "loc": {
+        "startPos": 80,
+        "endPos": 108
+      },
+      "children": []
+    },
+    {
+      "type": "@text",
+      "tag": "",
+      "text": "Solarsystem age:     ",
+      "params": [],
+      "loc": {
+        "startPos": 109,
+        "endPos": 130
+      },
+      "children": []
+    },
+    {
+      "type": "@interpolation",
+      "tag": "",
+      "text": "",
+      "params": [
+        "solarsystem_data.age"
+      ],
+      "loc": {
+        "startPos": 131,
+        "endPos": 154
+      },
+      "children": []
+    },
+    {
+      "type": "@text",
+      "tag": "",
+      "text": "\nThe planets in our solarsystem:",
+      "params": [],
+      "loc": {
+        "startPos": 155,
+        "endPos": 187
+      },
+      "children": []
+    },
+    {
+      "type": "list",
+      "tag": "",
+      "text": "",
+      "params": [
+        "planets",
+        "as",
+        "planet"
+      ],
+      "loc": {
+        "startPos": 188,
+        "endPos": 213
+      },
+      "children": [
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "There are",
+          "params": [],
+          "loc": {
+            "startPos": 214,
+            "endPos": 223
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "planet?length"
+          ],
+          "loc": {
+            "startPos": 224,
+            "endPos": 240
+          },
+          "children": []
+        },
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "letters in",
+          "params": [],
+          "loc": {
+            "startPos": 241,
+            "endPos": 251
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "planet?upper_case"
+          ],
+          "loc": {
+            "startPos": 252,
+            "endPos": 272
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "include",
+      "tag": "",
+      "text": "",
+      "params": [
+        "\"./include/test_include.ftl\""
+      ],
+      "loc": {
+        "startPos": 283,
+        "endPos": 322
+      },
+      "children": []
+    },
+    {
+      "type": "@text",
+      "tag": "",
+      "text": "\nInner plannets data:",
+      "params": [],
+      "loc": {
+        "startPos": 323,
+        "endPos": 344
+      },
+      "children": []
+    },
+    {
+      "type": "list",
+      "tag": "",
+      "text": "",
+      "params": [
+        "planet_data",
+        "as",
+        "data"
+      ],
+      "loc": {
+        "startPos": 345,
+        "endPos": 372
+      },
+      "children": [
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "Name:  ",
+          "params": [],
+          "loc": {
+            "startPos": 373,
+            "endPos": 380
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "data.name?lower_case"
+          ],
+          "loc": {
+            "startPos": 381,
+            "endPos": 404
+          },
+          "children": []
+        },
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "Radius:",
+          "params": [],
+          "loc": {
+            "startPos": 405,
+            "endPos": 412
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "data.radius"
+          ],
+          "loc": {
+            "startPos": 413,
+            "endPos": 427
+          },
+          "children": []
+        },
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "Mass:  ",
+          "params": [],
+          "loc": {
+            "startPos": 428,
+            "endPos": 435
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "data.mass"
+          ],
+          "loc": {
+            "startPos": 436,
+            "endPos": 448
+          },
+          "children": []
+        },
+        {
+          "type": "@text",
+          "tag": "",
+          "text": "Volume:",
+          "params": [],
+          "loc": {
+            "startPos": 449,
+            "endPos": 456
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "data.volume"
+          ],
+          "loc": {
+            "startPos": 457,
+            "endPos": 471
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}

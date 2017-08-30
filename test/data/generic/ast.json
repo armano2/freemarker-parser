@@ -1,0 +1,151 @@
+{
+  "type": "@program",
+  "children": [
+    {
+      "type": "@interpolation",
+      "tag": "",
+      "text": "",
+      "params": [
+        "foo"
+      ],
+      "loc": {
+        "startPos": 0,
+        "endPos": 6
+      },
+      "children": []
+    },
+    {
+      "type": "include",
+      "tag": "",
+      "text": "",
+      "params": [
+        "\"./include/test_include.ftl\""
+      ],
+      "loc": {
+        "startPos": 8,
+        "endPos": 47
+      },
+      "children": []
+    },
+    {
+      "type": "if",
+      "tag": "",
+      "text": "",
+      "params": [
+        "(foo > 1)"
+      ],
+      "loc": {
+        "startPos": 49,
+        "endPos": 64
+      },
+      "children": [
+        {
+          "type": "@text",
+          "tag": "",
+          "text": " ",
+          "params": [],
+          "loc": {
+            "startPos": 65,
+            "endPos": 66
+          },
+          "children": []
+        },
+        {
+          "type": "if",
+          "tag": "",
+          "text": "",
+          "params": [
+            "foo",
+            "gt",
+            "a",
+            "adasd",
+            "asd",
+            "asd",
+            "asd",
+            "as",
+            "das"
+          ],
+          "loc": {
+            "startPos": 67,
+            "endPos": 120
+          },
+          "children": [
+            {
+              "type": "@text",
+              "tag": "",
+              "text": "   ",
+              "params": [],
+              "loc": {
+                "startPos": 121,
+                "endPos": 124
+              },
+              "children": []
+            },
+            {
+              "type": "@interpolation",
+              "tag": "",
+              "text": "",
+              "params": [
+                "foo.bar"
+              ],
+              "loc": {
+                "startPos": 125,
+                "endPos": 135
+              },
+              "children": []
+            },
+            {
+              "type": "@text",
+              "tag": "",
+              "text": " ",
+              "params": [],
+              "loc": {
+                "startPos": 136,
+                "endPos": 137
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "@text",
+          "tag": "",
+          "text": " ",
+          "params": [],
+          "loc": {
+            "startPos": 145,
+            "endPos": 146
+          },
+          "children": []
+        },
+        {
+          "type": "@interpolation",
+          "tag": "",
+          "text": "",
+          "params": [
+            "foo.bar?toString"
+          ],
+          "loc": {
+            "startPos": 147,
+            "endPos": 166
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "@macro",
+      "tag": "macro",
+      "text": "",
+      "params": [
+        "foo",
+        "\"./include/test_include.ftl\""
+      ],
+      "loc": {
+        "startPos": 175,
+        "endPos": 216
+      },
+      "children": []
+    }
+  ]
+}

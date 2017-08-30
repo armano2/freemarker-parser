@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "FreemarkerJs is a javascript implementation of the Freemarker",
   "scripts": {
-    "test": "mocha test/test2.js --growl",
+    "test": "mocha test/update.js --growl",
     "lint": "eslint .",
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
