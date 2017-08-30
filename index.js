@@ -2,6 +2,22 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+class ParserError extends Error {
+    constructor(m) {
+        super(m);
+        Object.setPrototypeOf(this, ParserError.prototype);
+    }
+}
+//# sourceMappingURL=ParserError.js.map
+
+class NodeError extends ParserError {
+    constructor(m, node) {
+        m = `${m}: ${node.type} (${node.start}-${node.end})`;
+        super(m);
+    }
+}
+//# sourceMappingURL=NodeError.js.map
+
 var ENodeType;
 (function (ENodeType) {
     ENodeType["Program"] = "Program";
@@ -50,6 +66,20 @@ var EType;
 })(EType || (EType = {}));
 //# sourceMappingURL=Types.js.map
 
+const symbols = [
+    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
+    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
+    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
+    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
+];
+const whitespaces = [
+    ' ',
+    '\t',
+    '\n',
+    '\r',
+];
+//# sourceMappingURL=Symbols.js.map
+
 const NodeConfig = {
     [EType.Program]: {
         isSelfClosing: false,
@@ -62,9 +92,6 @@ const NodeConfig = {
     },
     [EType.Interpolation]: {
         isSelfClosing: true,
-    },
-    [EType.if]: {
-        isSelfClosing: false,
     },
     [EType.include]: {
         isSelfClosing: true,
@@ -162,66 +189,39 @@ const NodeConfig = {
 };
 //# sourceMappingURL=NodeConfig.js.map
 
-class ParserError extends Error {
-    constructor(m) {
-        super(m);
-        Object.setPrototypeOf(this, ParserError.prototype);
-    }
-}
-//# sourceMappingURL=ParserError.js.map
-
-const symbols = [
-    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
-    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
-    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
-    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
-];
-const whitespaces = [
-    ' ',
-    '\t',
-    '\n',
-    '\r',
-];
-//# sourceMappingURL=Symbols.js.map
-
 class BaseNode {
-    constructor(nodeType, start, end, isSelfClosing = false) {
+    constructor(nodeType, start, end, eType) {
         this.type = nodeType;
-        this.isSelfClosing = isSelfClosing;
         this.start = start;
         this.end = end;
         this.children = [];
+        this.cfg = NodeConfig[eType];
+        if (!this.cfg) {
+            throw new NodeError(`Invalid Token`, this);
+        }
     }
 }
 //# sourceMappingURL=BaseNode.js.map
 
 class Directive extends BaseNode {
     constructor(name, params, start, end) {
-        super(ENodeType.Directive, start, end, true);
+        super(ENodeType.Directive, start, end, name);
         this.name = name;
         this.params = params;
-        this.isSelfClosing = this.getConfig(name);
-    }
-    getConfig(type) {
-        const cfg = NodeConfig[type];
-        if (!cfg) {
-            throw new ParserError(`Invalid Token`);
-        }
-        return cfg.isSelfClosing;
     }
 }
 //# sourceMappingURL=Directive.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end) {
-        super(ENodeType.Interpolation, start, end, true);
+        super(ENodeType.Interpolation, start, end, EType.Interpolation);
     }
 }
 //# sourceMappingURL=Interpolation.js.map
 
 class Macro extends BaseNode {
     constructor(name, params, start, end) {
-        super(ENodeType.Macro, start, end, true);
+        super(ENodeType.Macro, start, end, EType.MacroCall);
         this.name = name;
         this.params = params;
     }
@@ -230,14 +230,14 @@ class Macro extends BaseNode {
 
 class ProgramNode extends BaseNode {
     constructor(start, end) {
-        super(ENodeType.Program, start, end);
+        super(ENodeType.Program, start, end, EType.Program);
     }
 }
 //# sourceMappingURL=Program.js.map
 
 class Text extends BaseNode {
     constructor(text = '', start, end) {
-        super(ENodeType.Text, start, end, true);
+        super(ENodeType.Text, start, end, EType.Text);
         this.text = '';
         this.text = text;
     }
@@ -256,6 +256,7 @@ class Token {
         this.text = text;
     }
 }
+//# sourceMappingURL=Token.js.map
 
 class Parser {
     constructor() {
@@ -274,23 +275,15 @@ class Parser {
         this.buildAST();
         return this.AST;
     }
-    getConfig(type) {
-        const cfg = NodeConfig[type];
-        if (!cfg) {
-            throw new ParserError(`Invalid Token`);
-        }
-        return cfg;
-    }
     buildAST() {
         const stack = [];
         let parent = this.AST;
         for (const token of this.tokens) {
-            const cfg = this.getConfig(token.type);
-            if (cfg.isSelfClosing) {
+            const node = this.makeNode(token);
+            if (node.cfg.isSelfClosing) {
                 if (token.isClose) {
-                    throw new ParserError(`Self closing token can't have close tag`);
+                    throw new NodeError(`Self closing tag can't have close tag`, node);
                 }
-                const node = this.makeNode(token);
                 parent.children.push(node);
             }
             else if (token.isClose) {
@@ -300,25 +293,24 @@ class Parser {
                         parentNode = stack.pop();
                         break;
                     }
-                    if (!parentNode.isSelfClosing) {
-                        throw new ParserError(`Missing close tag`);
+                    if (!parentNode.cfg.isSelfClosing) {
+                        throw new NodeError(`Missing close tag`, parentNode);
                     }
                     parentNode = stack.pop();
                 }
                 if (!parentNode) {
-                    throw new ParserError(`Closing tag is not alowed here`);
+                    throw new NodeError(`Closing tag is not alowed`, node);
                 }
                 parent = parentNode;
             }
             else {
-                const node = this.makeNode(token);
                 parent.children.push(node);
                 stack.push(parent);
                 parent = node;
             }
         }
         if (stack.length > 0) {
-            throw new ParserError(`Unclosed tag`);
+            throw new NodeError(`Unclosed tag`, parent);
         }
     }
     parseTokens() {

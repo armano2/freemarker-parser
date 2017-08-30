@@ -1,5 +1,6 @@
-import { INodeConfig, NodeConfig } from './NodeConfig'
-import ParserError from './ParserError'
+import NodeError from './errors/NodeError'
+import ParserError from './errors/ParserError'
+
 import { ISymbol, symbols, whitespaces } from './Symbols'
 import { ENodeType, EType } from './Types'
 
@@ -33,26 +34,17 @@ export class Parser {
     return this.AST
   }
 
-  private getConfig (type : EType) : INodeConfig {
-    const cfg = NodeConfig[type]
-    if (!cfg) {
-      throw new ParserError(`Invalid Token`) // TODO: add more info like location
-    }
-    return cfg
-  }
-
   private buildAST () {
     const stack : BaseNode[] = []
     let parent : BaseNode = this.AST
 
     for (const token of this.tokens) {
-      const cfg = this.getConfig(token.type)
+      const node = this.makeNode(token)
 
-      if (cfg.isSelfClosing) {
+      if (node.cfg.isSelfClosing) {
         if (token.isClose) {
-          throw new ParserError(`Self closing token can't have close tag`) // TODO: add more info like location
+          throw new NodeError(`Self closing tag can't have close tag`, node)
         }
-        const node = this.makeNode(token)
         parent.children.push(node)
       } else if (token.isClose) {
         let parentNode : BaseNode | undefined = parent
@@ -61,19 +53,18 @@ export class Parser {
             parentNode = stack.pop()
             break
           }
-          if (!parentNode.isSelfClosing) {
-            throw new ParserError(`Missing close tag`) // TODO: add more info like location
+          if (!parentNode.cfg.isSelfClosing) {
+            throw new NodeError(`Missing close tag`, parentNode)
           }
           parentNode = stack.pop()
         }
 
         if (!parentNode) {
-          throw new ParserError(`Closing tag is not alowed here`) // TODO: add more info like location
+          throw new NodeError(`Closing tag is not alowed`, node)
         }
         parent = parentNode
 
       } else {
-        const node = this.makeNode(token)
         parent.children.push(node)
         stack.push(parent)
         parent = node
@@ -81,7 +72,7 @@ export class Parser {
     }
 
     if (stack.length > 0) {
-      throw new ParserError(`Unclosed tag`) // TODO: add more info like location
+      throw new NodeError(`Unclosed tag`, parent) // TODO: add more info like location
     }
   }
 

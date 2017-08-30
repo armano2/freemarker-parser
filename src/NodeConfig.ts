@@ -7,24 +7,6 @@ export interface INodeConfig {
 export interface INodeConfigObj {
   [c : string] : INodeConfig
 }
-// <div>
-// asddssdaasd
-// </div>
-
-// <div>
-// <assign c = 0>
-// asdasdassad
-// <assign c = 2>
-//  <@foo>
-//  ${c} = 0
-//  sdfsdsdf
-// </assign>
-//  ${c} = 2
-
-// <assign>
-//  <@foo>
-//  sdfsdsdf
-// </assign>
 
 export const NodeConfig : INodeConfigObj = {
   [EType.Program]: {
@@ -38,9 +20,6 @@ export const NodeConfig : INodeConfigObj = {
   },
   [EType.Interpolation]: {
     isSelfClosing: true,
-  },
-  [EType.if]: {
-    isSelfClosing: false,
   },
 
   // Build in macro

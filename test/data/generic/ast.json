@@ -1,22 +1,25 @@
 {
   "type": "Program",
-  "isSelfClosing": false,
   "start": 0,
   "end": 217,
   "children": [
     {
       "type": "Interpolation",
-      "isSelfClosing": true,
       "start": 0,
       "end": 6,
-      "children": []
+      "children": [],
+      "cfg": {
+        "isSelfClosing": true
+      }
     },
     {
       "type": "Directive",
-      "isSelfClosing": true,
       "start": 8,
       "end": 47,
       "children": [],
+      "cfg": {
+        "isSelfClosing": true
+      },
       "name": "include",
       "params": [
         "\"./include/test_include.ftl\""
@@ -24,48 +27,57 @@
     },
     {
       "type": "Directive",
-      "isSelfClosing": false,
       "start": 49,
       "end": 64,
       "children": [
         {
           "type": "Text",
-          "isSelfClosing": true,
           "start": 65,
           "end": 66,
           "children": [],
+          "cfg": {
+            "isSelfClosing": true
+          },
           "text": " "
         },
         {
           "type": "Directive",
-          "isSelfClosing": false,
           "start": 67,
           "end": 120,
           "children": [
             {
               "type": "Text",
-              "isSelfClosing": true,
               "start": 121,
               "end": 124,
               "children": [],
+              "cfg": {
+                "isSelfClosing": true
+              },
               "text": "   "
             },
             {
               "type": "Interpolation",
-              "isSelfClosing": true,
               "start": 125,
               "end": 135,
-              "children": []
+              "children": [],
+              "cfg": {
+                "isSelfClosing": true
+              }
             },
             {
               "type": "Text",
-              "isSelfClosing": true,
               "start": 136,
               "end": 137,
               "children": [],
+              "cfg": {
+                "isSelfClosing": true
+              },
               "text": " "
             }
           ],
+          "cfg": {
+            "isSelfClosing": false
+          },
           "name": "if",
           "params": [
             "foo",
@@ -81,20 +93,27 @@
         },
         {
           "type": "Text",
-          "isSelfClosing": true,
           "start": 145,
           "end": 146,
           "children": [],
+          "cfg": {
+            "isSelfClosing": true
+          },
           "text": " "
         },
         {
           "type": "Interpolation",
-          "isSelfClosing": true,
           "start": 147,
           "end": 166,
-          "children": []
+          "children": [],
+          "cfg": {
+            "isSelfClosing": true
+          }
         }
       ],
+      "cfg": {
+        "isSelfClosing": false
+      },
       "name": "if",
       "params": [
         "(foo > 1)"
@@ -102,15 +121,20 @@
     },
     {
       "type": "Macro",
-      "isSelfClosing": true,
       "start": 175,
       "end": 216,
       "children": [],
+      "cfg": {
+        "isSelfClosing": true
+      },
       "name": "macro",
       "params": [
         "foo",
         "\"./include/test_include.ftl\""
       ]
     }
-  ]
+  ],
+  "cfg": {
+    "isSelfClosing": false
+  }
 }

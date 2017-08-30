@@ -1,4 +1,4 @@
-import { ENodeType } from '../Types'
+import { ENodeType, EType } from '../Types'
 import { BaseNode } from './BaseNode'
 
 export default class Macro extends BaseNode {
@@ -6,7 +6,7 @@ export default class Macro extends BaseNode {
   public params : string[]
 
   constructor (name : string, params : string[], start : number, end : number) {
-    super(ENodeType.Macro, start, end, true)
+    super(ENodeType.Macro, start, end, EType.MacroCall)
     this.name = name
     this.params = params
   }
