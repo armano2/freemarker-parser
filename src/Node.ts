@@ -8,7 +8,7 @@ export interface ILoc {
 export interface INode {
   type : EType
   tag : string
-  childrens : INode[]
+  children : INode[]
   params : string[]
   text : string
   loc : ILoc

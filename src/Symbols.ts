@@ -10,7 +10,7 @@ export const symbols : ISymbol[] = [
   { startToken: '<#', endToken: '>', type: ETypeSymbol.Directive },
   { startToken: '<@', endToken: '>', type: ETypeSymbol.Macro },
   // tslint:disable-next-line:no-invalid-template-strings
-  { startToken: '${', endToken: '}', type: ETypeSymbol.Print },
+  { startToken: '${', endToken: '}', type: ETypeSymbol.Interpolation },
 ]
 
 export const whitespaces : string[] = [

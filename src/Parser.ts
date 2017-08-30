@@ -4,21 +4,21 @@ import { ISymbol, symbols, whitespaces } from './Symbols'
 import { EType, ETypeSymbol } from './Types'
 
 export class Parser {
-  private pos : number = 0
+  private cursorPos : number = 0
   private template : string = ''
   private AST : INode
 
   constructor () {
     this.template = ''
     this.AST = this.makeNode(0, 0, EType.Program)
-    this.pos = 0
+    this.cursorPos = 0
   }
 
   public parseTokens () {
-    while (this.pos >= 0 && this.pos < this.template.length) {
+    while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
       const token = this.parseNode(this.AST)
       if (!token) {
-        this.AST.childrens.push(this.makeNode(this.pos, this.template.length))
+        this.AST.children.push(this.makeNode(this.cursorPos, this.template.length))
         break
       }
     }
@@ -27,7 +27,7 @@ export class Parser {
   public parse (template : string) : object {
     this.template = template
     this.AST = this.makeNode(0, 0, EType.Program)
-    this.pos = 0
+    this.cursorPos = 0
     this.parseTokens()
     return this.AST
   }
@@ -42,14 +42,14 @@ export class Parser {
         startPos,
         endPos,
       },
-      childrens: [],
+      children: [],
     }
   }
 
   private getNextWhitespacePos () : number {
     let pos = -1
     for (const item of whitespaces) {
-      const n = this.template.indexOf(item, this.pos)
+      const n = this.template.indexOf(item, this.cursorPos)
       if (n >= 0 && (pos === -1 || n < pos)) {
         pos = n
       }
@@ -62,14 +62,14 @@ export class Parser {
     if (pos < 0) {
       throw new ParserError('Missing closing tag') // TODO: add more info like location
     }
-    return this.template.substring(this.pos, pos)
+    return this.template.substring(this.cursorPos, pos)
   }
 
   private parseNode (parent : INode) : boolean {
     let symbol : ISymbol | null = null
     let startPos : number = 0
     for (const item of symbols) {
-      const n = this.template.indexOf(item.startToken, this.pos)
+      const n = this.template.indexOf(item.startToken, this.cursorPos)
       if (n >= 0 && (!symbol || n < startPos)) {
         symbol = item,
         startPos = n
@@ -80,63 +80,131 @@ export class Parser {
       return false
     }
 
-    if (startPos - 1 > this.pos) {
-      parent.childrens.push(this.makeNode(this.pos, startPos - 1))
-      this.pos = startPos
+    if (startPos - 1 > this.cursorPos) {
+      parent.children.push(this.makeNode(this.cursorPos, startPos - 1))
     }
+    this.cursorPos = startPos
 
-    this.pos += symbol.startToken.length
+    this.cursorPos += symbol.startToken.length
 
     let node : INode | null = null
 
     switch (symbol.type) {
-      case ETypeSymbol.Directive:
-        node = this.parseDirective(startPos)
+      case ETypeSymbol.Directive: // <#foo>
+        node = this.parseDirective(symbol, startPos)
         break
-      case ETypeSymbol.Macro:
-        node = this.parseMacro(startPos)
+      case ETypeSymbol.Macro: // <@foo>
+        node = this.parseMacro(symbol, startPos)
         break
-      case ETypeSymbol.Print:
-        // TODO: add support for expression
-        // this.parsePrint(startPos)
+      case ETypeSymbol.Interpolation: // ${ foo?string }
+        node = this.parsePrint(symbol, startPos)
+        break
+      default:
         break
     }
 
     if (node) {
-      parent.childrens.push(node)
+      parent.children.push(node)
     }
 
-    ++this.pos
+    ++this.cursorPos
     return true
   }
 
-  // private parsePrint (startPos : number) : INode {
-  //   return
-  // }
+  private parsePrint (symbol : ISymbol, startPos : number) : INode {
+    const params : string[] = this.parseParams(symbol.endToken)
+    const node = this.makeNode(startPos, this.cursorPos, EType.Interpolation, params)
+    return node
+  }
 
-  private parseMacro (startPos : number) : INode {
-    const params : string[] = []
+  private parseMacro (symbol : ISymbol, startPos : number) : INode {
     const typeString = this.parseTag()
-    this.pos += typeString.length
-    // TODO; read params
+    this.cursorPos += typeString.length
 
-    const node = this.makeNode(startPos, this.pos, EType.MacroCall, params, typeString)
+    const params : string[] = this.parseParams(symbol.endToken)
+
+    const node = this.makeNode(startPos, this.cursorPos, EType.MacroCall, params, typeString)
 
     return node
   }
 
-  private parseDirective (startPos : number) : INode {
-    const params : string[] = []
+  private parseDirective (symbol : ISymbol, startPos : number) : INode {
     const typeString = this.parseTag()
     if (!(typeString in EType)) {
       throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
     }
-    this.pos += typeString.length
+    this.cursorPos += typeString.length
+
+    const params : string[] = this.parseParams(symbol.endToken)
+
+    const node : INode = this.makeNode(startPos, this.cursorPos, typeString as EType, params)
     // TODO; read params
 
-    const node : INode = this.makeNode(startPos, this.pos, typeString as EType, params)
-
     return node
+  }
+
+  private isWhitespace (char : string) : boolean {
+    return char === ' ' || char === '\t' || char === '\r' || char === '\n'
+  }
+
+  // foo?string
+  // foo.foo
+  // (foo * 2)
+  // <#if "adsddsasd >"
+  // <#if foo == 2>
+  // "foo bar"
+  // (foo > bar)
+  private parseParams (engTag : string) : string[] {
+    const text = this.template.substring(this.cursorPos)
+    const params : string[] = []
+    let paramText : string = ''
+    let paramPos : number = this.cursorPos
+    let bracketLevel = 0
+    let inString = false
+
+    for (const char of text) {
+      if (char === '"') {
+        inString = !inString
+      }
+
+      if (!inString) {
+        if (char === '(') {
+          ++bracketLevel
+        } else if (char === ')') {
+          --bracketLevel
+        }
+      }
+
+      if (bracketLevel < 0) {
+        throw new ParserError(`bracketLevel < 0`) // TODO: add more info like location
+      }
+
+      if (bracketLevel === 0 && !inString) {
+        if (char === engTag) {
+          if (paramText !== '') {
+            params.push(paramText)
+            paramText = ''
+          }
+          ++paramPos
+          this.cursorPos = paramPos
+          return params
+        } else if (this.isWhitespace(char)) {
+          if (paramText !== '') {
+            params.push(paramText)
+            paramText = ''
+          }
+          ++paramPos
+          this.cursorPos = paramPos
+        } else {
+          paramText += char
+          ++paramPos
+        }
+      } else {
+        paramText += char
+        ++paramPos
+      }
+    }
+    throw new ParserError(`Unclosed directive or macro`) // TODO: add more info like location
   }
 }
 

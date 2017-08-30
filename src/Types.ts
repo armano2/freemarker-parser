@@ -3,17 +3,18 @@ export enum ETypeSymbol {
   None,
   Directive,
   Macro,
-  Print,
+  Interpolation,
 }
 
 // TODO: change this to object with configuration
 // - allowParams
-// - allowChildrens
+// - allowchildren
 // - sub elements
 export enum EType {
   Program = '@program',
   Text = '@text',
   MacroCall = '@macro',
+  Interpolation = '@interpolation',
   // Build in macro
   if = 'if',
     else = 'else',
