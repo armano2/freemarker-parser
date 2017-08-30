@@ -24,7 +24,7 @@
     },
     {
       "type": "Directive",
-      "isSelfClosing": true,
+      "isSelfClosing": false,
       "start": 49,
       "end": 64,
       "children": [
@@ -38,7 +38,7 @@
         },
         {
           "type": "Directive",
-          "isSelfClosing": true,
+          "isSelfClosing": false,
           "start": 67,
           "end": 120,
           "children": [

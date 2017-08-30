@@ -57,20 +57,16 @@ export class Parser {
       } else if (token.isClose) {
         let parentNode : BaseNode | undefined = parent
         while (parentNode) {
-          if (parentNode.type === token.symbol) {
+          if (parentNode.type === token.nodeType) {
+            parentNode = stack.pop()
             break
           }
-          const parentCfg = this.getConfig(token.type)
-          if (!parentCfg.isSelfClosing) {
+          if (!parentNode.isSelfClosing) {
             throw new ParserError(`Missing close tag`) // TODO: add more info like location
           }
           parentNode = stack.pop()
         }
 
-        if (!parentNode) {
-          throw new ParserError(`Closing tag is not alowed here`) // TODO: add more info like location
-        }
-        parentNode = stack.pop()
         if (!parentNode) {
           throw new ParserError(`Closing tag is not alowed here`) // TODO: add more info like location
         }
@@ -105,7 +101,7 @@ export class Parser {
   }
 
   private makeNode (token : Token) : BaseNode {
-    switch (token.symbol) {
+    switch (token.nodeType) {
       case ENodeType.Directive:
         return new Directive(token.type, token.params, token.startPos, token.endPos)
       case ENodeType.Macro:

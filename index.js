@@ -193,12 +193,21 @@ class BaseNode {
         this.children = [];
     }
 }
+//# sourceMappingURL=BaseNode.js.map
 
 class Directive extends BaseNode {
     constructor(name, params, start, end) {
         super(ENodeType.Directive, start, end, true);
         this.name = name;
         this.params = params;
+        this.isSelfClosing = this.getConfig(name);
+    }
+    getConfig(type) {
+        const cfg = NodeConfig[type];
+        if (!cfg) {
+            throw new ParserError(`Invalid Token`);
+        }
+        return cfg.isSelfClosing;
     }
 }
 //# sourceMappingURL=Directive.js.map
@@ -237,7 +246,7 @@ class Text extends BaseNode {
 
 class Token {
     constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
-        this.symbol = symbol;
+        this.nodeType = symbol;
         this.startPos = startPos;
         this.endPos = endPos;
         this.type = type;
@@ -247,7 +256,6 @@ class Token {
         this.text = text;
     }
 }
-//# sourceMappingURL=Token.js.map
 
 class Parser {
     constructor() {
@@ -288,19 +296,15 @@ class Parser {
             else if (token.isClose) {
                 let parentNode = parent;
                 while (parentNode) {
-                    if (parentNode.type === token.symbol) {
+                    if (parentNode.type === token.nodeType) {
+                        parentNode = stack.pop();
                         break;
                     }
-                    const parentCfg = this.getConfig(token.type);
-                    if (!parentCfg.isSelfClosing) {
+                    if (!parentNode.isSelfClosing) {
                         throw new ParserError(`Missing close tag`);
                     }
                     parentNode = stack.pop();
                 }
-                if (!parentNode) {
-                    throw new ParserError(`Closing tag is not alowed here`);
-                }
-                parentNode = stack.pop();
                 if (!parentNode) {
                     throw new ParserError(`Closing tag is not alowed here`);
                 }
@@ -330,7 +334,7 @@ class Parser {
         return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos));
     }
     makeNode(token) {
-        switch (token.symbol) {
+        switch (token.nodeType) {
             case ENodeType.Directive:
                 return new Directive(token.type, token.params, token.startPos, token.endPos);
             case ENodeType.Macro:
@@ -477,7 +481,6 @@ class Parser {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Parser.js.map
 
 //# sourceMappingURL=index.js.map
 

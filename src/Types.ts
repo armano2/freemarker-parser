@@ -16,7 +16,7 @@ export enum EType {
   Text = '@text',
   MacroCall = '@macro',
   Interpolation = '@interpolation',
-  // Build in macro
+  // Build in directive
   if = 'if',
     else = 'else',
     elseif = 'elseif',
