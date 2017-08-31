@@ -3,5 +3,5 @@
 </#macro>
 
 <@foo "test">
-  test
-</@foo>
+
+test
