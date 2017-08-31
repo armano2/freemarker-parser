@@ -1,6 +1,7 @@
 import ParserError from './errors/ParserError'
 import Directive from './nodes/Directive'
 import IfCondtionDirective from './nodes/directives/IfCondtion'
+import List from './nodes/directives/List'
 import UnknownDirective from './nodes/directives/UnknownDirective'
 import Interpolation from './nodes/Interpolation'
 import Macro from './nodes/Macro'
@@ -15,6 +16,8 @@ function createDirective (token : Token) : Directive {
     case EType.if:
     case EType.elseif:
       return new IfCondtionDirective(token.type, token.params, token.startPos, token.endPos)
+    case EType.list:
+      return new List(token.type, token.params, token.startPos, token.endPos)
     // TODO: add more types
   }
 

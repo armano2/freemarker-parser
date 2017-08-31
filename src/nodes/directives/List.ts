@@ -3,32 +3,26 @@ import { EType } from '../../Types'
 import { BaseNode } from '../BaseNode'
 import Directive from '../Directive'
 
-export default class IfCondtion extends Directive {
-  public consequent : BaseNode[]
-  public alternate : BaseNode[]
+export default class List extends Directive {
+  public body : BaseNode[]
+  public fallback : BaseNode[]
   protected $inElse : boolean
 
   constructor (name : EType, params : string[], start : number, end : number) {
     super(name, params, start, end)
-    this.consequent = []
-    this.alternate = []
+    this.body = []
+    this.fallback = []
     this.$inElse = false
   }
 
   public addChild (node : BaseNode) : BaseNode {
     if (node instanceof Directive) {
-      if ((node.name === EType.else || node.name === EType.elseif) && this.$inElse) {
-        throw new ParserError(`Unexpected token <#${node.name}>`)
-      }
-
       if (node.name === EType.else) {
+        if (this.$inElse) {
+          throw new ParserError(`Unexpected token <#${EType.else}>`)
+        }
         this.$inElse = true
         return this
-      }
-      if (node.name === EType.elseif) {
-        this.$inElse = true
-        this.pushChild(node)
-        return node
       }
     }
     this.pushChild(node)
@@ -37,9 +31,9 @@ export default class IfCondtion extends Directive {
 
   private pushChild (node : BaseNode) {
     if (this.$inElse) {
-      this.alternate.push(node)
+      this.fallback.push(node)
     } else {
-      this.consequent.push(node)
+      this.body.push(node)
     }
   }
 }

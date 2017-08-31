@@ -218,7 +218,7 @@ class IfCondtion extends Directive {
     addChild(node) {
         if (node instanceof Directive) {
             if ((node.name === EType.else || node.name === EType.elseif) && this.$inElse) {
-                throw new ParserError('Unexpected token <#else>');
+                throw new ParserError(`Unexpected token <#${node.name}>`);
             }
             if (node.name === EType.else) {
                 this.$inElse = true;
@@ -242,7 +242,37 @@ class IfCondtion extends Directive {
         }
     }
 }
-//# sourceMappingURL=IfCondtion.js.map
+
+class List extends Directive {
+    constructor(name, params, start, end) {
+        super(name, params, start, end);
+        this.body = [];
+        this.fallback = [];
+        this.$inElse = false;
+    }
+    addChild(node) {
+        if (node instanceof Directive) {
+            if (node.name === EType.else) {
+                if (this.$inElse) {
+                    throw new ParserError(`Unexpected token <#${EType.else}>`);
+                }
+                this.$inElse = true;
+                return this;
+            }
+        }
+        this.pushChild(node);
+        return this;
+    }
+    pushChild(node) {
+        if (this.$inElse) {
+            this.fallback.push(node);
+        }
+        else {
+            this.body.push(node);
+        }
+    }
+}
+//# sourceMappingURL=List.js.map
 
 class UnknownDirective extends Directive {
     constructor(name, params, start, end) {
@@ -287,6 +317,8 @@ function createDirective(token) {
         case EType.if:
         case EType.elseif:
             return new IfCondtion(token.type, token.params, token.startPos, token.endPos);
+        case EType.list:
+            return new List(token.type, token.params, token.startPos, token.endPos);
     }
     return new UnknownDirective(token.type, token.params, token.startPos, token.endPos);
 }
@@ -588,6 +620,7 @@ class Parser {
         return `\`${data}\``;
     }
 }
+//# sourceMappingURL=Parser.js.map
 
 //# sourceMappingURL=index.js.map
 
