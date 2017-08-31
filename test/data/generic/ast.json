@@ -12,14 +12,13 @@
       ]
     },
     {
-      "type": "UnknownDirective",
+      "type": "Include",
       "start": 8,
       "end": 47,
       "name": "include",
       "params": [
         "\"./include/test_include.ftl\""
-      ],
-      "children": []
+      ]
     },
     {
       "type": "IfCondtion",

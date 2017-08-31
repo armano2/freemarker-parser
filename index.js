@@ -70,9 +70,11 @@ var EType;
 const NodeConfig = {
     [EType.Program]: {
         isSelfClosing: false,
+        disallowParams: true,
     },
     [EType.Text]: {
         isSelfClosing: true,
+        disallowParams: true,
     },
     [EType.MacroCall]: {
         isSelfClosing: true,
@@ -92,6 +94,7 @@ const NodeConfig = {
     [EType.else]: {
         isSelfClosing: true,
         onlyIn: [EType.if, EType.elseif, EType.list],
+        disallowParams: true,
     },
     [EType.elseif]: {
         isSelfClosing: true,
@@ -242,6 +245,17 @@ class IfCondtion extends Directive {
         }
     }
 }
+//# sourceMappingURL=IfCondtion.js.map
+
+class Include extends Directive {
+    constructor(name, params, start, end) {
+        super(name, params, start, end);
+    }
+    addChild(node) {
+        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
+    }
+}
+//# sourceMappingURL=Include.js.map
 
 class List extends Directive {
     constructor(name, params, start, end) {
@@ -312,20 +326,22 @@ class Text extends BaseNode {
 }
 //# sourceMappingURL=Text.js.map
 
-function createDirective(token) {
+function newDirective(token) {
     switch (token.type) {
         case EType.if:
         case EType.elseif:
             return new IfCondtion(token.type, token.params, token.startPos, token.endPos);
         case EType.list:
             return new List(token.type, token.params, token.startPos, token.endPos);
+        case EType.include:
+            return new Include(token.type, token.params, token.startPos, token.endPos);
     }
     return new UnknownDirective(token.type, token.params, token.startPos, token.endPos);
 }
-function createNode(token) {
+function newNode(token) {
     switch (token.nodeType) {
         case ENodeType.Directive:
-            return createDirective(token);
+            return newDirective(token);
         case ENodeType.Macro:
             return new Macro(token.tag, token.params, token.startPos, token.endPos);
         case ENodeType.Interpolation:
@@ -334,6 +350,13 @@ function createNode(token) {
             return new Text(token.text, token.startPos, token.endPos);
     }
     throw new ParserError('Unknown symbol');
+}
+function createNode(token) {
+    const node = newNode(token);
+    if (node.$config.disallowParams && token.params.length > 0) {
+        throw new ParserError(`Params are not allowed in \`${node.$eType}\``);
+    }
+    return node;
 }
 //# sourceMappingURL=NodeHelper.js.map
 
@@ -442,7 +465,7 @@ class Tokenizer {
                 node = this.parseDirective(symbol, startPos, symbol.end);
                 break;
             case ENodeType.Macro:
-                node = this.parseMacro(symbol, startPos);
+                node = this.parseMacro(symbol, startPos, symbol.end);
                 break;
             case ENodeType.Interpolation:
                 node = this.parseInterpolation(symbol, startPos);
@@ -461,11 +484,11 @@ class Tokenizer {
         const node = this.makeToken(ENodeType.Interpolation, startPos, this.cursorPos, EType.Interpolation, params);
         return node;
     }
-    parseMacro(symbol, startPos) {
+    parseMacro(symbol, startPos, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
         const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
-        const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString);
+        const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString, isClose);
         return node;
     }
     parseDirective(symbol, startPos, isClose = false) {
@@ -574,7 +597,7 @@ class Parser {
             this.canContain(node, parent);
             if (node.$config.isSelfClosing) {
                 if (token.isClose) {
-                    throw new NodeError(`Self closing tag can't have close tag`, node);
+                    throw new NodeError(`Unexpected close tag`, node);
                 }
                 parent = parent.addChild(node);
             }
@@ -620,7 +643,6 @@ class Parser {
         return `\`${data}\``;
     }
 }
-//# sourceMappingURL=Parser.js.map
 
 //# sourceMappingURL=index.js.map
 

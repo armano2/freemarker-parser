@@ -76,7 +76,7 @@ export default class Tokenizer {
         node = this.parseDirective(symbol, startPos, symbol.end)
         break
       case ENodeType.Macro: // <@foo>
-        node = this.parseMacro(symbol, startPos)
+        node = this.parseMacro(symbol, startPos, symbol.end)
         break
       case ENodeType.Interpolation: // ${ foo?string }
         node = this.parseInterpolation(symbol, startPos)
@@ -99,13 +99,13 @@ export default class Tokenizer {
     return node
   }
 
-  private parseMacro (symbol : ISymbol, startPos : number) : Token {
+  private parseMacro (symbol : ISymbol, startPos : number, isClose : boolean = false) : Token {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
     const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString)
+    const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString, isClose)
 
     return node
   }

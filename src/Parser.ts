@@ -60,7 +60,7 @@ export class Parser {
 
       if (node.$config.isSelfClosing) {
         if (token.isClose) {
-          throw new NodeError(`Self closing tag can't have close tag`, node)
+          throw new NodeError(`Unexpected close tag`, node)
         }
         parent = parent.addChild(node)
       } else if (token.isClose) {

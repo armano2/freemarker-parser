@@ -3,6 +3,7 @@ import { EType } from './Types'
 export interface INodeConfig {
   isSelfClosing : boolean
   onlyIn? : EType[]
+  disallowParams? : boolean
 }
 
 export interface INodeConfigObj {
@@ -12,9 +13,11 @@ export interface INodeConfigObj {
 export const NodeConfig : INodeConfigObj = {
   [EType.Program]: {
     isSelfClosing: false,
+    disallowParams: true,
   },
   [EType.Text]: {
     isSelfClosing: true,
+    disallowParams: true,
   },
   [EType.MacroCall]: {
     isSelfClosing: true,
@@ -36,6 +39,7 @@ export const NodeConfig : INodeConfigObj = {
   [EType.else]: {
     isSelfClosing: true,
     onlyIn: [EType.if, EType.elseif, EType.list],
+    disallowParams: true,
   },
   [EType.elseif]: {
     isSelfClosing: true,

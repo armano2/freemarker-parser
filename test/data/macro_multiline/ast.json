@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 70,
+  "end": 62,
   "children": [
     {
       "type": "UnknownDirective",
@@ -41,15 +41,8 @@
     {
       "type": "Text",
       "start": 55,
-      "end": 61,
-      "text": "  test"
-    },
-    {
-      "type": "Macro",
-      "start": 62,
-      "end": 69,
-      "name": "foo",
-      "params": []
+      "end": 62,
+      "text": "  test\n"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { ENodeType, EType } from '../Types'
 import { BaseNode } from './BaseNode'
 
+// TODO: rename this
 export default class Macro extends BaseNode {
   public name : string
   public params : string[]
