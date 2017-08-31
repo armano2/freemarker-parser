@@ -6,7 +6,7 @@
     "_mocha": "_mocha \"test/*.js\" --reporter dot --timeout 5000",
     "build": "tsc && rollup -c -o index.js && dts-bundle --name freemarkerjs --main .temp/index.d.ts --out ../index.d.ts",
     "test": "nyc npm run _mocha",
-    "lint": "eslint ./test && tslint src/.",
+    "lint": "eslint ./test && tslint './src/**/*.ts'",
     "posttest": "nyc report --reporter=json && codecov -f coverage/*.json",
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
