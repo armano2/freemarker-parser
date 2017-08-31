@@ -1,15 +1,12 @@
 import NodeError from './errors/NodeError'
 import ParserError from './errors/ParserError'
 
+import { createNode } from './NodeHelper'
 import { ISymbol, symbols, whitespaces } from './Symbols'
 import { ENodeType, EType } from './Types'
 
 import { BaseNode } from './nodes/BaseNode'
-import Directive from './nodes/Directive'
-import Interpolation from './nodes/Interpolation'
-import Macro from './nodes/Macro'
-import ProgramNode from './nodes/Program'
-import Text from './nodes/Text'
+import Program from './nodes/Program'
 
 import { Token } from './tokens/Token'
 
@@ -17,7 +14,7 @@ export class Parser {
   public template : string = ''
   public filename : string | null
   private cursorPos : number = 0
-  private AST : ProgramNode
+  private AST : Program
   private tokens : Token[] = []
 
   constructor () {
@@ -25,11 +22,11 @@ export class Parser {
     this.cursorPos = 0
   }
 
-  public parse (template : string, filename : string | null = null) : ProgramNode {
+  public parse (template : string, filename : string | null = null) : Program {
     this.template = template
     this.filename = filename
     this.tokens = []
-    this.AST = new ProgramNode(0, template.length)
+    this.AST = new Program(0, template.length)
     this.cursorPos = 0
     this.parseTokens()
     this.buildAST()
@@ -41,13 +38,13 @@ export class Parser {
     let parent : BaseNode = this.AST
 
     for (const token of this.tokens) {
-      const node = this.makeNode(token)
+      const node = createNode(token)
 
       if (node.cfg.isSelfClosing) {
         if (token.isClose) {
           throw new NodeError(`Self closing tag can't have close tag`, node, this)
         }
-        parent.children.push(node)
+        parent = parent.addChild(node)
       } else if (token.isClose) {
         let parentNode : BaseNode | undefined = parent
         while (parentNode) {
@@ -67,7 +64,7 @@ export class Parser {
         parent = parentNode
 
       } else {
-        parent.children.push(node)
+        parent = parent.addChild(node)
         stack.push(parent)
         parent = node
       }
@@ -91,20 +88,6 @@ export class Parser {
   private makeToken (symbol : ENodeType, startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '', isClose : boolean = false) : Token {
     // Get text => this.template.substring(startPos, endPos),
     return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos))
-  }
-
-  private makeNode (token : Token) : BaseNode {
-    switch (token.nodeType) {
-      case ENodeType.Directive:
-        return new Directive(token.type, token.params, token.startPos, token.endPos)
-      case ENodeType.Macro:
-        return new Macro(token.tag, token.params, token.startPos, token.endPos)
-      case ENodeType.Interpolation:
-        return new Interpolation(token.startPos, token.endPos)
-      case ENodeType.Text:
-        return new Text(token.text, token.startPos, token.endPos)
-    }
-    throw new ParserError('Unknown symbol')
   }
 
   private getNextPos (items : string[]) : number {

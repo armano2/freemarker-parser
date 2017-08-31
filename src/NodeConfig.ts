@@ -2,6 +2,7 @@ import { EType } from './Types'
 
 export interface INodeConfig {
   isSelfClosing : boolean
+  relations? : EType[]
 }
 
 export interface INodeConfigObj {
@@ -27,93 +28,93 @@ export const NodeConfig : INodeConfigObj = {
     isSelfClosing: true,
   },
   [EType.assign]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.if]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.else]: {
-     isSelfClosing: false,
+    isSelfClosing: true,
   },
   [EType.elseif]: {
-     isSelfClosing: false,
+    isSelfClosing: true,
   },
   [EType.list]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.attempt]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.recurse]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.compress]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.escape]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.noescape]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.fallback]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.function]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.flush]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.global]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.import]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.local]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.lt]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.macro]: {
-     isSelfClosing: false,
+    isSelfClosing: false,
   },
   [EType.nested]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.nt]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.recover]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.return]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.rt]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.setting]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.stop]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.switch]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.case]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.break]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.t]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
   [EType.visit]: {
-     isSelfClosing: true,
+    isSelfClosing: true,
   },
 }
