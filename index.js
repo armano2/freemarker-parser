@@ -8,7 +8,6 @@ class ParserError extends Error {
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
-//# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
     constructor(m, node) {
@@ -17,7 +16,6 @@ class NodeError extends ParserError {
         this.node = node;
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -65,7 +63,6 @@ var EType;
     EType["t"] = "t";
     EType["visit"] = "visit";
 })(EType || (EType = {}));
-//# sourceMappingURL=Types.js.map
 
 const NodeConfig = {
     [EType.Program]: {
@@ -179,7 +176,6 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
-//# sourceMappingURL=NodeConfig.js.map
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
@@ -200,7 +196,6 @@ class BaseNode {
         throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
     }
 }
-//# sourceMappingURL=BaseNode.js.map
 
 class Directive extends BaseNode {
     constructor(name, params, start, end) {
@@ -209,7 +204,6 @@ class Directive extends BaseNode {
         this.params = params;
     }
 }
-//# sourceMappingURL=Directive.js.map
 
 class IfCondtion extends Directive {
     constructor(name, params, start, end) {
@@ -245,7 +239,6 @@ class IfCondtion extends Directive {
         }
     }
 }
-//# sourceMappingURL=IfCondtion.js.map
 
 class Include extends Directive {
     constructor(name, params, start, end) {
@@ -255,7 +248,6 @@ class Include extends Directive {
         throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
     }
 }
-//# sourceMappingURL=Include.js.map
 
 class List extends Directive {
     constructor(name, params, start, end) {
@@ -286,7 +278,6 @@ class List extends Directive {
         }
     }
 }
-//# sourceMappingURL=List.js.map
 
 class UnknownDirective extends Directive {
     constructor(name, params, start, end) {
@@ -298,7 +289,6 @@ class UnknownDirective extends Directive {
         return this;
     }
 }
-//# sourceMappingURL=UnknownDirective.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end, params) {
@@ -306,7 +296,6 @@ class Interpolation extends BaseNode {
         this.params = params;
     }
 }
-//# sourceMappingURL=Interpolation.js.map
 
 class Macro extends BaseNode {
     constructor(name, params, start, end) {
@@ -315,7 +304,6 @@ class Macro extends BaseNode {
         this.params = params;
     }
 }
-//# sourceMappingURL=Macro.js.map
 
 class Text extends BaseNode {
     constructor(text = '', start, end) {
@@ -324,7 +312,6 @@ class Text extends BaseNode {
         this.text = text;
     }
 }
-//# sourceMappingURL=Text.js.map
 
 function newDirective(token) {
     switch (token.type) {
@@ -358,7 +345,6 @@ function createNode(token) {
     }
     return node;
 }
-//# sourceMappingURL=NodeHelper.js.map
 
 class Program extends BaseNode {
     constructor(start, end) {
@@ -370,7 +356,6 @@ class Program extends BaseNode {
         return this;
     }
 }
-//# sourceMappingURL=Program.js.map
 
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
@@ -385,7 +370,6 @@ const whitespaces = [
     '\n',
     '\r',
 ];
-//# sourceMappingURL=Symbols.js.map
 
 class Token {
     constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
@@ -399,7 +383,6 @@ class Token {
         this.text = text;
     }
 }
-//# sourceMappingURL=Token.js.map
 
 class Tokenizer {
     constructor() {
@@ -556,7 +539,6 @@ class Tokenizer {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 class Parser {
     constructor() {
@@ -643,8 +625,6 @@ class Parser {
         return `\`${data}\``;
     }
 }
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map
