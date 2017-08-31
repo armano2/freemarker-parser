@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "description": "FreemarkerJs is a javascript implementation of the Freemarker",
   "scripts": {
-    "_mocha": "_mocha \"test/*.js\" --reporter dot --timeout 5000",
-    "build": "tsc && rollup -c -o index.js && dts-bundle --name freemarkerjs --main .temp/index.d.ts --out ../index.d.ts",
+    "_mocha": "mocha \"test/*.js\" --reporter dot --timeout 5000",
+    "build": "tsc && rollup -c && dts-bundle --name freemarkerjs --main .temp/index.d.ts --out ../index.d.ts",
     "test": "nyc npm run _mocha",
     "lint": "eslint ./test && tslint './src/**/*.ts'",
+    "pretest": "npm run build",
     "posttest": "nyc report --reporter=json && codecov -f coverage/*.json",
+    "update-ast": "node ./scripts/update-ast.js",
+    "watch-ast": "wait-on index.js && warun index.js \"test/data/*/*.ftl\" -- ",
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
-    "watch:rollup": "wait-on .temp/index.js && rollup -c -o index.js --watch",
-    "watch:test": "wait-on index.js && npm run test -- --watch index.js"
+    "watch:rollup": "wait-on .temp/index.js && rollup -c --watch",
+    "watch:ast": "npm run watch-ast -- npm run update-ast",
+    "watch:test": "npm run watch-ast -- npm run _mocha"
   },
   "repository": {
     "type": "git",
@@ -55,13 +59,14 @@
     "mocha": "^3.5.0",
     "npm-run-all": "^4.1.1",
     "nyc": "^11.1.0",
-    "rollup": "^0.45.2",
+    "rollup": "^0.49.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-watch": "^4.3.1",
     "tslint": "^5.7.0",
     "typescript": "^2.5.1",
-    "wait-on": "^2.0.2"
+    "wait-on": "^2.0.2",
+    "warun": "^1.0.0"
   },
   "dependencies": {
     "debug": "^3.0.1",

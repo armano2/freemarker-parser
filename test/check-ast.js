@@ -11,21 +11,17 @@ const testsPath = path.join(__dirname, '/data/')
 const tests = fs.readdirSync(testsPath)
   .filter(f => fs.statSync(path.join(testsPath, f)).isDirectory())
 
-// function describe (name, cb) {
-//   console.log(name)
-//   cb()
-// }
-// function it (name, cb) {
-//   console.log(name)
-//   cb()
-// }
+function stringify (text) {
+  return JSON.stringify(text, null, 2)
+}
 
 for (const name of tests) {
   describe(name, function () {
+    const dir = path.join(testsPath, name)
+    let ast = {}
+    const file = path.join(dir, 'template.ftl')
+
     it('should have no errors', function () {
-      const dir = path.join(testsPath, name)
-      let ast = {}
-      const file = path.join(dir, 'template.ftl')
       try {
         const code = fs.readFileSync(file, 'utf8')
         ast = parser.parse(code)
@@ -37,12 +33,14 @@ for (const name of tests) {
         }
         assert.fail(message)
       }
-      try {
-        fs.writeFileSync(path.join(dir, 'tokens.json'), JSON.stringify(parser.tokens, null, 2))
-        fs.writeFileSync(path.join(dir, 'ast.json'), JSON.stringify(ast, null, 2))
-      } catch (e) {
-        assert.fail(e.message)
-      }
+    })
+    it('should have correct tokens', function () {
+      const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
+      assert.equal(stringify(parser.tokens), code, 'tokens do match')
+    })
+    it('should have correct ast', function () {
+      const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
+      assert.equal(stringify(ast), code, 'tokens do match')
     })
   })
 }
