@@ -4,4 +4,6 @@ Inner plannets data:
   Radius: ${data.radius}
   Mass:   ${data.mass}
   Volume: ${data.volume}
+<#else>
+  Not found
 </#list>

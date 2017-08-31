@@ -176,6 +176,7 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
+//# sourceMappingURL=NodeConfig.js.map
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
@@ -304,6 +305,18 @@ function createNode(token) {
 }
 //# sourceMappingURL=NodeHelper.js.map
 
+class Program extends BaseNode {
+    constructor(start, end) {
+        super(ENodeType.Program, start, end, EType.Program);
+        this.children = [];
+    }
+    addChild(node) {
+        this.children.push(node);
+        return this;
+    }
+}
+//# sourceMappingURL=Program.js.map
+
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
     { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
@@ -319,18 +332,6 @@ const whitespaces = [
 ];
 //# sourceMappingURL=Symbols.js.map
 
-class Program extends BaseNode {
-    constructor(start, end) {
-        super(ENodeType.Program, start, end, EType.Program);
-        this.children = [];
-    }
-    addChild(node) {
-        this.children.push(node);
-        return this;
-    }
-}
-//# sourceMappingURL=Program.js.map
-
 class Token {
     constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
         this.nodeType = symbol;
@@ -345,79 +346,14 @@ class Token {
 }
 //# sourceMappingURL=Token.js.map
 
-class Parser {
+class Tokenizer {
     constructor() {
         this.template = '';
-        this.cursorPos = 0;
         this.tokens = [];
-        this.template = '';
         this.cursorPos = 0;
     }
-    parse(template, filename = null) {
+    parse(template) {
         this.template = template;
-        this.filename = filename;
-        this.tokens = [];
-        this.AST = new Program(0, template.length);
-        this.cursorPos = 0;
-        this.parseTokens();
-        this.buildAST();
-        return this.AST;
-    }
-    buildAST() {
-        const stack = [];
-        let parent = this.AST;
-        let node = null;
-        for (const token of this.tokens) {
-            node = createNode(token);
-            this.canContain(node, parent);
-            if (node.$config.isSelfClosing) {
-                if (token.isClose) {
-                    throw new NodeError(`Self closing tag can't have close tag`, node);
-                }
-                parent = parent.addChild(node);
-            }
-            else if (token.isClose) {
-                let parentNode = parent;
-                while (parentNode) {
-                    if (parentNode.$nodeType === token.nodeType) {
-                        parentNode = stack.pop();
-                        break;
-                    }
-                    if (!parentNode.$config.isSelfClosing) {
-                        throw new NodeError(`Missing close tag`, parentNode);
-                    }
-                    parentNode = stack.pop();
-                }
-                if (!parentNode) {
-                    throw new NodeError(`Closing tag is not alowed`, node);
-                }
-                parent = parentNode;
-            }
-            else {
-                parent = parent.addChild(node);
-                stack.push(parent);
-                parent = node;
-            }
-        }
-        if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, parent);
-        }
-    }
-    canContain(node, parent) {
-        if (!node.canAddTo(parent)) {
-            throw new NodeError(`${this.debugNode(node.$eType)} require one of parents ${this.debugNode(node.$config.onlyIn)} but found in ${this.debugNode(parent.$eType)}`, node);
-        }
-    }
-    debugNode(data) {
-        if (!data) {
-            return '[?]';
-        }
-        if (data instanceof Array) {
-            return `[\`${data.map((it) => `${it}`).join(', ')}\`]`;
-        }
-        return `\`${data}\``;
-    }
-    parseTokens() {
         while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
             const token = this.parseToken();
             if (!token) {
@@ -425,6 +361,7 @@ class Parser {
                 break;
             }
         }
+        return this.tokens;
     }
     makeToken(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false) {
         return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos));
@@ -564,7 +501,78 @@ class Parser {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Parser.js.map
+//# sourceMappingURL=Tokenizer.js.map
+
+class Parser {
+    constructor() {
+        this.template = '';
+        this.template = '';
+        this.tokens = [];
+    }
+    parse(template, filename = null) {
+        this.template = template;
+        this.filename = filename;
+        this.AST = new Program(0, template.length);
+        this.build();
+        return this.AST;
+    }
+    build() {
+        const stack = [];
+        let parent = this.AST;
+        let node = null;
+        const tokenizer = new Tokenizer();
+        this.tokens = tokenizer.parse(this.template);
+        for (const token of this.tokens) {
+            node = createNode(token);
+            this.canContain(node, parent);
+            if (node.$config.isSelfClosing) {
+                if (token.isClose) {
+                    throw new NodeError(`Self closing tag can't have close tag`, node);
+                }
+                parent = parent.addChild(node);
+            }
+            else if (token.isClose) {
+                let parentNode = parent;
+                while (parentNode) {
+                    if (parentNode.$nodeType === token.nodeType) {
+                        parentNode = stack.pop();
+                        break;
+                    }
+                    if (!parentNode.$config.isSelfClosing) {
+                        throw new NodeError(`Missing close tag`, parentNode);
+                    }
+                    parentNode = stack.pop();
+                }
+                if (!parentNode) {
+                    throw new NodeError(`Closing tag is not alowed`, node);
+                }
+                parent = parentNode;
+            }
+            else {
+                parent = parent.addChild(node);
+                stack.push(parent);
+                parent = node;
+            }
+        }
+        if (stack.length > 0) {
+            throw new NodeError(`Unclosed tag`, parent);
+        }
+    }
+    canContain(node, parent) {
+        if (!node.canAddTo(parent)) {
+            throw new NodeError(`${this.debugNode(node.$eType)} require one of parents ${this.debugNode(node.$config.onlyIn)} but found in ${this.debugNode(parent.$eType)}`, node);
+        }
+    }
+    debugNode(data) {
+        if (!data) {
+            return '[?]';
+        }
+        if (data instanceof Array) {
+            return `[\`${data.map((it) => `${it}`).join(', ')}\`]`;
+        }
+        return `\`${data}\``;
+    }
+}
 
 //# sourceMappingURL=index.js.map
 
