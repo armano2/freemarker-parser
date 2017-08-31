@@ -7,14 +7,12 @@ export default class IfCondtion extends Directive {
   public consequent : BaseNode[]
   public alternate : BaseNode[]
   protected $inElse : boolean
-  protected $isElseIf : boolean
 
-  constructor (name : EType, params : string[], start : number, end : number, isElseIf : boolean) {
+  constructor (name : EType, params : string[], start : number, end : number) {
     super(name, params, start, end)
     this.consequent = []
     this.alternate = []
     this.$inElse = false
-    this.$isElseIf = isElseIf
   }
 
   public addChild (node : BaseNode) : BaseNode {

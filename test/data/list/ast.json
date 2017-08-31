@@ -1,107 +1,18 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 440,
+  "end": 165,
   "children": [
     {
       "type": "Text",
       "start": 0,
-      "end": 21,
-      "text": "Solarsystem name:    "
-    },
-    {
-      "type": "Interpolation",
-      "start": 22,
-      "end": 57,
-      "params": [
-        "solarsystem_data.name?capitalize"
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 58,
-      "end": 79,
-      "text": "Solarsystem location:"
-    },
-    {
-      "type": "Interpolation",
-      "start": 80,
-      "end": 108,
-      "params": [
-        "solarsystem_data.location"
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 109,
-      "end": 130,
-      "text": "Solarsystem age:     "
-    },
-    {
-      "type": "Interpolation",
-      "start": 131,
-      "end": 154,
-      "params": [
-        "solarsystem_data.age"
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 155,
-      "end": 187,
-      "text": "\nThe planets in our solarsystem:"
+      "end": 20,
+      "text": "Inner plannets data:"
     },
     {
       "type": "UnknownDirective",
-      "start": 188,
-      "end": 213,
-      "name": "list",
-      "params": [
-        "planets",
-        "as",
-        "planet"
-      ],
-      "children": [
-        {
-          "type": "Text",
-          "start": 214,
-          "end": 223,
-          "text": "There are"
-        },
-        {
-          "type": "Interpolation",
-          "start": 224,
-          "end": 240,
-          "params": [
-            "planet?length"
-          ]
-        },
-        {
-          "type": "Text",
-          "start": 241,
-          "end": 251,
-          "text": "letters in"
-        },
-        {
-          "type": "Interpolation",
-          "start": 252,
-          "end": 272,
-          "params": [
-            "planet?upper_case"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 282,
-      "end": 303,
-      "text": "\nInner plannets data:"
-    },
-    {
-      "type": "UnknownDirective",
-      "start": 304,
-      "end": 331,
+      "start": 21,
+      "end": 48,
       "name": "list",
       "params": [
         "planet_data",
@@ -111,56 +22,56 @@
       "children": [
         {
           "type": "Text",
-          "start": 332,
-          "end": 339,
-          "text": "Name:  "
+          "start": 49,
+          "end": 58,
+          "text": "  Name:  "
         },
         {
           "type": "Interpolation",
-          "start": 340,
-          "end": 363,
+          "start": 59,
+          "end": 82,
           "params": [
             "data.name?lower_case"
           ]
         },
         {
           "type": "Text",
-          "start": 364,
-          "end": 371,
-          "text": "Radius:"
+          "start": 83,
+          "end": 92,
+          "text": "  Radius:"
         },
         {
           "type": "Interpolation",
-          "start": 372,
-          "end": 386,
+          "start": 93,
+          "end": 107,
           "params": [
             "data.radius"
           ]
         },
         {
           "type": "Text",
-          "start": 387,
-          "end": 394,
-          "text": "Mass:  "
+          "start": 108,
+          "end": 117,
+          "text": "  Mass:  "
         },
         {
           "type": "Interpolation",
-          "start": 395,
-          "end": 407,
+          "start": 118,
+          "end": 130,
           "params": [
             "data.mass"
           ]
         },
         {
           "type": "Text",
-          "start": 408,
-          "end": 415,
-          "text": "Volume:"
+          "start": 131,
+          "end": 140,
+          "text": "  Volume:"
         },
         {
           "type": "Interpolation",
-          "start": 416,
-          "end": 430,
+          "start": 141,
+          "end": 155,
           "params": [
             "data.volume"
           ]

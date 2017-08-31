@@ -2,7 +2,7 @@ import { EType } from './Types'
 
 export interface INodeConfig {
   isSelfClosing : boolean
-  relations? : EType[]
+  onlyIn? : EType[]
 }
 
 export interface INodeConfigObj {
@@ -35,9 +35,11 @@ export const NodeConfig : INodeConfigObj = {
   },
   [EType.else]: {
     isSelfClosing: true,
+    onlyIn: [EType.if, EType.elseif, EType.list],
   },
   [EType.elseif]: {
     isSelfClosing: true,
+    onlyIn: [EType.if],
   },
   [EType.list]: {
     isSelfClosing: false,

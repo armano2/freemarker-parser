@@ -2,10 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var lineColumn = _interopDefault(require('line-column'));
-
 class ParserError extends Error {
     constructor(m) {
         super(m);
@@ -15,13 +11,10 @@ class ParserError extends Error {
 //# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
-    constructor(m, node, parser) {
-        m = `${m}: ${node.$nodeType} (${node.start}-${node.end})`;
-        if (parser && parser.filename) {
-            const loc = lineColumn(parser.template).fromIndex(node.start);
-            m += `\n - ${parser.filename}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`;
-        }
+    constructor(m, node) {
+        m = `${m}\n\t${node.$nodeType}(${node.start}-${node.end})`;
         super(m);
+        this.node = node;
     }
 }
 //# sourceMappingURL=NodeError.js.map
@@ -98,9 +91,11 @@ const NodeConfig = {
     },
     [EType.else]: {
         isSelfClosing: true,
+        onlyIn: [EType.if, EType.elseif, EType.list],
     },
     [EType.elseif]: {
         isSelfClosing: true,
+        onlyIn: [EType.if],
     },
     [EType.list]: {
         isSelfClosing: false,
@@ -181,21 +176,24 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
-//# sourceMappingURL=NodeConfig.js.map
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
         this.type = this.constructor.name;
         this.$nodeType = nodeType;
+        this.$eType = eType;
         this.start = start;
         this.end = end;
         this.$config = NodeConfig[eType];
         if (!this.$config) {
-            throw new NodeError(`Invalid Token`, this, null);
+            throw new NodeError(`Invalid Token`, this);
         }
     }
+    canAddTo(node) {
+        return !this.$config.onlyIn || Boolean(this.$config.onlyIn.find((item) => item === node.$eType));
+    }
     addChild(node) {
-        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this, null);
+        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
     }
 }
 //# sourceMappingURL=BaseNode.js.map
@@ -210,12 +208,11 @@ class Directive extends BaseNode {
 //# sourceMappingURL=Directive.js.map
 
 class IfCondtion extends Directive {
-    constructor(name, params, start, end, isElseIf) {
+    constructor(name, params, start, end) {
         super(name, params, start, end);
         this.consequent = [];
         this.alternate = [];
         this.$inElse = false;
-        this.$isElseIf = isElseIf;
     }
     addChild(node) {
         if (node instanceof Directive) {
@@ -256,6 +253,7 @@ class UnknownDirective extends Directive {
         return this;
     }
 }
+//# sourceMappingURL=UnknownDirective.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end, params) {
@@ -287,7 +285,7 @@ function createDirective(token) {
     switch (token.type) {
         case EType.if:
         case EType.elseif:
-            return new IfCondtion(token.type, token.params, token.startPos, token.endPos, token.type !== EType.if);
+            return new IfCondtion(token.type, token.params, token.startPos, token.endPos);
     }
     return new UnknownDirective(token.type, token.params, token.startPos, token.endPos);
 }
@@ -304,6 +302,7 @@ function createNode(token) {
     }
     throw new ParserError('Unknown symbol');
 }
+//# sourceMappingURL=NodeHelper.js.map
 
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
@@ -367,11 +366,13 @@ class Parser {
     buildAST() {
         const stack = [];
         let parent = this.AST;
+        let node = null;
         for (const token of this.tokens) {
-            const node = createNode(token);
+            node = createNode(token);
+            this.canContain(node, parent);
             if (node.$config.isSelfClosing) {
                 if (token.isClose) {
-                    throw new NodeError(`Self closing tag can't have close tag`, node, this);
+                    throw new NodeError(`Self closing tag can't have close tag`, node);
                 }
                 parent = parent.addChild(node);
             }
@@ -383,12 +384,12 @@ class Parser {
                         break;
                     }
                     if (!parentNode.$config.isSelfClosing) {
-                        throw new NodeError(`Missing close tag`, parentNode, this);
+                        throw new NodeError(`Missing close tag`, parentNode);
                     }
                     parentNode = stack.pop();
                 }
                 if (!parentNode) {
-                    throw new NodeError(`Closing tag is not alowed`, node, this);
+                    throw new NodeError(`Closing tag is not alowed`, node);
                 }
                 parent = parentNode;
             }
@@ -399,8 +400,22 @@ class Parser {
             }
         }
         if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, parent, this);
+            throw new NodeError(`Unclosed tag`, parent);
         }
+    }
+    canContain(node, parent) {
+        if (!node.canAddTo(parent)) {
+            throw new NodeError(`${this.debugNode(node.$eType)} require one of parents ${this.debugNode(node.$config.onlyIn)} but found in ${this.debugNode(parent.$eType)}`, node);
+        }
+    }
+    debugNode(data) {
+        if (!data) {
+            return '[?]';
+        }
+        if (data instanceof Array) {
+            return `[\`${data.map((it) => `${it}`).join(', ')}\`]`;
+        }
+        return `\`${data}\``;
     }
     parseTokens() {
         while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {

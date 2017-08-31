@@ -14,7 +14,7 @@ function createDirective (token : Token) : Directive {
   switch (token.type) {
     case EType.if:
     case EType.elseif:
-      return new IfCondtionDirective(token.type, token.params, token.startPos, token.endPos, token.type !== EType.if)
+      return new IfCondtionDirective(token.type, token.params, token.startPos, token.endPos)
     // TODO: add more types
   }
 
