@@ -7,7 +7,7 @@
     "build": "tsc && rollup -c -o index.js && dts-bundle --name freemarkerjs --main .temp/index.d.ts --out ../index.d.ts",
     "test": "nyc npm run _mocha",
     "lint": "eslint ./test && tslint src/.",
-    "codecov": "nyc report --reporter lcovonly && codecov",
+    "posttest": "nyc report --reporter=json && codecov -f coverage/*.json",
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
     "watch:rollup": "wait-on .temp/index.js && rollup -c -o index.js --watch",
