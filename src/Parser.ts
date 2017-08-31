@@ -11,7 +11,6 @@ import { Token } from './tokens/Token'
 
 export class Parser {
   public template : string = ''
-  public filename : string | null
   private AST : Program
   private tokens : Token[]
 
@@ -20,12 +19,30 @@ export class Parser {
     this.tokens = []
   }
 
-  public parse (template : string, filename : string | null = null) : Program {
+  public parse (template : string) : Program {
     this.template = template
-    this.filename = filename
     this.AST = new Program(0, template.length)
     this.build()
-    return this.AST
+    return this.deepClone(this.AST)
+  }
+
+  private deepClone (text : Program) {
+    const cache : BaseNode[] = []
+    const json = JSON.stringify(text, (key, value) => {
+      if (key.startsWith('$')) {
+        return
+      }
+      if (typeof value === 'object' && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // Circular reference found, discard key
+          return
+        }
+        // Store value in our collection
+        cache.push(value)
+      }
+      return value
+    }, 2)
+    return JSON.parse(json)
   }
 
   private build () {

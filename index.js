@@ -509,12 +509,27 @@ class Parser {
         this.template = '';
         this.tokens = [];
     }
-    parse(template, filename = null) {
+    parse(template) {
         this.template = template;
-        this.filename = filename;
         this.AST = new Program(0, template.length);
         this.build();
-        return this.AST;
+        return this.deepClone(this.AST);
+    }
+    deepClone(text) {
+        const cache = [];
+        const json = JSON.stringify(text, (key, value) => {
+            if (key.startsWith('$')) {
+                return;
+            }
+            if (typeof value === 'object' && value !== null) {
+                if (cache.indexOf(value) !== -1) {
+                    return;
+                }
+                cache.push(value);
+            }
+            return value;
+        }, 2);
+        return JSON.parse(json);
     }
     build() {
         const stack = [];
