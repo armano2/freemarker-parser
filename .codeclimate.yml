@@ -1,7 +1,0 @@
-engines:
-  tslint:
-    enabled: true
-    channel: beta
-exclude_paths:
-- _src/**/*
-- _test/**/*
