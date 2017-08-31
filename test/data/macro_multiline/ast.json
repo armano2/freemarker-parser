@@ -2,17 +2,11 @@
   "type": "Program",
   "start": 0,
   "end": 70,
-  "cfg": {
-    "isSelfClosing": false
-  },
   "children": [
     {
-      "type": "Directive",
+      "type": "UnknownDirective",
       "start": 0,
       "end": 18,
-      "cfg": {
-        "isSelfClosing": false
-      },
       "name": "macro",
       "params": [
         "foo",
@@ -23,18 +17,12 @@
           "type": "Text",
           "start": 19,
           "end": 20,
-          "cfg": {
-            "isSelfClosing": true
-          },
           "text": " "
         },
         {
           "type": "Interpolation",
           "start": 21,
           "end": 29,
-          "cfg": {
-            "isSelfClosing": true
-          },
           "params": [
             "param"
           ]
@@ -45,9 +33,6 @@
       "type": "Macro",
       "start": 41,
       "end": 54,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "name": "foo",
       "params": [
         "\"test\""
@@ -57,18 +42,12 @@
       "type": "Text",
       "start": 55,
       "end": 61,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "text": "  test"
     },
     {
       "type": "Macro",
       "start": 62,
       "end": 69,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "name": "foo",
       "params": []
     }

@@ -6,29 +6,29 @@ import Directive from '../Directive'
 export default class IfCondtion extends Directive {
   public consequent : BaseNode[]
   public alternate : BaseNode[]
-  private inElse : boolean
-  private isElseIf : boolean
+  protected $inElse : boolean
+  protected $isElseIf : boolean
 
   constructor (name : EType, params : string[], start : number, end : number, isElseIf : boolean) {
     super(name, params, start, end)
     this.consequent = []
     this.alternate = []
-    this.inElse = false
-    this.isElseIf = isElseIf
+    this.$inElse = false
+    this.$isElseIf = isElseIf
   }
 
   public addChild (node : BaseNode) : BaseNode {
     if (node instanceof Directive) {
-      if ((node.name === EType.else || node.name === EType.elseif) && this.inElse) {
+      if ((node.name === EType.else || node.name === EType.elseif) && this.$inElse) {
         throw new ParserError('Unexpected token <#else>')
       }
 
       if (node.name === EType.else) {
-        this.inElse = true
+        this.$inElse = true
         return this
       }
       if (node.name === EType.elseif) {
-        this.inElse = true
+        this.$inElse = true
         this.pushChild(node)
         return node
       }
@@ -38,7 +38,7 @@ export default class IfCondtion extends Directive {
   }
 
   private pushChild (node : BaseNode) {
-    if (this.inElse) {
+    if (this.$inElse) {
       this.alternate.push(node)
     } else {
       this.consequent.push(node)

@@ -2,28 +2,19 @@
   "type": "Program",
   "start": 0,
   "end": 178,
-  "cfg": {
-    "isSelfClosing": false
-  },
   "children": [
     {
       "type": "Interpolation",
       "start": 0,
       "end": 6,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "params": [
         "foo"
       ]
     },
     {
-      "type": "Directive",
+      "type": "UnknownDirective",
       "start": 8,
       "end": 47,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "name": "include",
       "params": [
         "\"./include/test_include.ftl\""
@@ -31,12 +22,9 @@
       "children": []
     },
     {
-      "type": "Directive",
+      "type": "IfCondtion",
       "start": 49,
       "end": 64,
-      "cfg": {
-        "isSelfClosing": false
-      },
       "name": "if",
       "params": [
         "(foo > 1)"
@@ -46,18 +34,12 @@
           "type": "Text",
           "start": 65,
           "end": 66,
-          "cfg": {
-            "isSelfClosing": true
-          },
           "text": " "
         },
         {
-          "type": "Directive",
+          "type": "IfCondtion",
           "start": 67,
           "end": 81,
-          "cfg": {
-            "isSelfClosing": false
-          },
           "name": "if",
           "params": [
             "foo",
@@ -69,18 +51,12 @@
               "type": "Text",
               "start": 82,
               "end": 85,
-              "cfg": {
-                "isSelfClosing": true
-              },
               "text": "   "
             },
             {
               "type": "Interpolation",
               "start": 86,
               "end": 96,
-              "cfg": {
-                "isSelfClosing": true
-              },
               "params": [
                 "foo.bar"
               ]
@@ -89,48 +65,32 @@
               "type": "Text",
               "start": 97,
               "end": 98,
-              "cfg": {
-                "isSelfClosing": true
-              },
               "text": " "
             }
           ],
-          "alternate": [],
-          "inElse": false,
-          "isElseIf": false
+          "alternate": []
         },
         {
           "type": "Text",
           "start": 106,
           "end": 107,
-          "cfg": {
-            "isSelfClosing": true
-          },
           "text": " "
         },
         {
           "type": "Interpolation",
           "start": 108,
           "end": 127,
-          "cfg": {
-            "isSelfClosing": true
-          },
           "params": [
             "foo.bar?toString"
           ]
         }
       ],
-      "alternate": [],
-      "inElse": false,
-      "isElseIf": false
+      "alternate": []
     },
     {
       "type": "Macro",
       "start": 136,
       "end": 177,
-      "cfg": {
-        "isSelfClosing": true
-      },
       "name": "macro",
       "params": [
         "foo",

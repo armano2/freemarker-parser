@@ -16,7 +16,7 @@ class ParserError extends Error {
 
 class NodeError extends ParserError {
     constructor(m, node, parser) {
-        m = `${m}: ${node.type} (${node.start}-${node.end})`;
+        m = `${m}: ${node.$nodeType} (${node.start}-${node.end})`;
         if (parser && parser.filename) {
             const loc = lineColumn(parser.template).fromIndex(node.start);
             m += `\n - ${parser.filename}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`;
@@ -185,16 +185,17 @@ const NodeConfig = {
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
-        this.type = nodeType;
+        this.type = this.constructor.name;
+        this.$nodeType = nodeType;
         this.start = start;
         this.end = end;
-        this.cfg = NodeConfig[eType];
-        if (!this.cfg) {
+        this.$config = NodeConfig[eType];
+        if (!this.$config) {
             throw new NodeError(`Invalid Token`, this, null);
         }
     }
     addChild(node) {
-        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.type})`, this, null);
+        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this, null);
     }
 }
 //# sourceMappingURL=BaseNode.js.map
@@ -213,20 +214,20 @@ class IfCondtion extends Directive {
         super(name, params, start, end);
         this.consequent = [];
         this.alternate = [];
-        this.inElse = false;
-        this.isElseIf = isElseIf;
+        this.$inElse = false;
+        this.$isElseIf = isElseIf;
     }
     addChild(node) {
         if (node instanceof Directive) {
-            if ((node.name === EType.else || node.name === EType.elseif) && this.inElse) {
+            if ((node.name === EType.else || node.name === EType.elseif) && this.$inElse) {
                 throw new ParserError('Unexpected token <#else>');
             }
             if (node.name === EType.else) {
-                this.inElse = true;
+                this.$inElse = true;
                 return this;
             }
             if (node.name === EType.elseif) {
-                this.inElse = true;
+                this.$inElse = true;
                 this.pushChild(node);
                 return node;
             }
@@ -235,7 +236,7 @@ class IfCondtion extends Directive {
         return this;
     }
     pushChild(node) {
-        if (this.inElse) {
+        if (this.$inElse) {
             this.alternate.push(node);
         }
         else {
@@ -245,7 +246,7 @@ class IfCondtion extends Directive {
 }
 //# sourceMappingURL=IfCondtion.js.map
 
-class Unknown extends Directive {
+class UnknownDirective extends Directive {
     constructor(name, params, start, end) {
         super(name, params, start, end);
         this.children = [];
@@ -255,7 +256,6 @@ class Unknown extends Directive {
         return this;
     }
 }
-//# sourceMappingURL=Unknown.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end, params) {
@@ -263,6 +263,7 @@ class Interpolation extends BaseNode {
         this.params = params;
     }
 }
+//# sourceMappingURL=Interpolation.js.map
 
 class Macro extends BaseNode {
     constructor(name, params, start, end) {
@@ -288,7 +289,7 @@ function createDirective(token) {
         case EType.elseif:
             return new IfCondtion(token.type, token.params, token.startPos, token.endPos, token.type !== EType.if);
     }
-    return new Unknown(token.type, token.params, token.startPos, token.endPos);
+    return new UnknownDirective(token.type, token.params, token.startPos, token.endPos);
 }
 function createNode(token) {
     switch (token.nodeType) {
@@ -368,7 +369,7 @@ class Parser {
         let parent = this.AST;
         for (const token of this.tokens) {
             const node = createNode(token);
-            if (node.cfg.isSelfClosing) {
+            if (node.$config.isSelfClosing) {
                 if (token.isClose) {
                     throw new NodeError(`Self closing tag can't have close tag`, node, this);
                 }
@@ -377,11 +378,11 @@ class Parser {
             else if (token.isClose) {
                 let parentNode = parent;
                 while (parentNode) {
-                    if (parentNode.type === token.nodeType) {
+                    if (parentNode.$nodeType === token.nodeType) {
                         parentNode = stack.pop();
                         break;
                     }
-                    if (!parentNode.cfg.isSelfClosing) {
+                    if (!parentNode.$config.isSelfClosing) {
                         throw new NodeError(`Missing close tag`, parentNode, this);
                     }
                     parentNode = stack.pop();

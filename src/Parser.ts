@@ -40,7 +40,7 @@ export class Parser {
     for (const token of this.tokens) {
       const node = createNode(token)
 
-      if (node.cfg.isSelfClosing) {
+      if (node.$config.isSelfClosing) {
         if (token.isClose) {
           throw new NodeError(`Self closing tag can't have close tag`, node, this)
         }
@@ -48,11 +48,11 @@ export class Parser {
       } else if (token.isClose) {
         let parentNode : BaseNode | undefined = parent
         while (parentNode) {
-          if (parentNode.type === token.nodeType) {
+          if (parentNode.$nodeType === token.nodeType) {
             parentNode = stack.pop()
             break
           }
-          if (!parentNode.cfg.isSelfClosing) {
+          if (!parentNode.$config.isSelfClosing) {
             throw new NodeError(`Missing close tag`, parentNode, this)
           }
           parentNode = stack.pop()
