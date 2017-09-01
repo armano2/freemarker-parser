@@ -64,7 +64,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-watch": "^4.3.1",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.1",
+    "typescript": "^2.5.2",
     "wait-on": "^2.0.2",
     "warun": "^1.0.0"
   },
