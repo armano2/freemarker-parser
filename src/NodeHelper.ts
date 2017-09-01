@@ -9,8 +9,8 @@ import Macro from './nodes/Macro'
 import Text from './nodes/Text'
 import { ENodeType, EType, IParams } from './Types'
 
-import jsep from 'jsep'
 import { BaseNode } from './nodes/BaseNode'
+import { ParamsParser } from './params/ParamsParser'
 import { Token } from './tokens/Token'
 
 function newDirective (token : Token) : Directive {
@@ -29,12 +29,11 @@ function newDirective (token : Token) : Directive {
 }
 
 function parseParams (token : Token) : IParams {
+  const parser = new ParamsParser()
   const params : IParams = []
-  jsep.addUnaryOp('=')
-  jsep.addUnaryOp('?')
   for (const param of token.params) {
     console.log(`parseParams: \`${param}\``)
-    params.push(jsep(param))
+    params.push(parser.parse(param))
   }
   return params
 }

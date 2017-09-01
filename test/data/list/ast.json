@@ -15,9 +15,18 @@
       "end": 48,
       "name": "list",
       "params": [
-        "planet_data",
-        "as",
-        "data"
+        {
+          "type": "Identifier",
+          "name": "planet_data"
+        },
+        {
+          "type": "Identifier",
+          "name": "as"
+        },
+        {
+          "type": "Identifier",
+          "name": "data"
+        }
       ],
       "body": [
         {
@@ -31,7 +40,32 @@
           "start": 59,
           "end": 82,
           "params": [
-            "data.name?lower_case"
+            {
+              "type": "Compound",
+              "body": [
+                {
+                  "type": "MemberExpression",
+                  "computed": false,
+                  "object": {
+                    "type": "Identifier",
+                    "name": "data"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "name"
+                  }
+                },
+                {
+                  "type": "UnaryExpression",
+                  "operator": "?",
+                  "argument": {
+                    "type": "Identifier",
+                    "name": "lower_case"
+                  },
+                  "prefix": true
+                }
+              ]
+            }
           ]
         },
         {
@@ -45,7 +79,18 @@
           "start": 93,
           "end": 107,
           "params": [
-            "data.radius"
+            {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": "data"
+              },
+              "property": {
+                "type": "Identifier",
+                "name": "radius"
+              }
+            }
           ]
         },
         {
@@ -59,7 +104,18 @@
           "start": 118,
           "end": 130,
           "params": [
-            "data.mass"
+            {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": "data"
+              },
+              "property": {
+                "type": "Identifier",
+                "name": "mass"
+              }
+            }
           ]
         },
         {
@@ -73,7 +129,18 @@
           "start": 141,
           "end": 155,
           "params": [
-            "data.volume"
+            {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": "data"
+              },
+              "property": {
+                "type": "Identifier",
+                "name": "volume"
+              }
+            }
           ]
         }
       ],

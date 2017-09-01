@@ -8,14 +8,16 @@ class ParserError extends Error {
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
+//# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
     constructor(m, node) {
-        m = `${m}\n\t${node.$nodeType}(${node.start}-${node.end})`;
+        m = `${node.$nodeType}(${node.start}-${node.end}) - ${m}`;
         super(m);
         this.node = node;
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -63,6 +65,7 @@ var EType;
     EType["t"] = "t";
     EType["visit"] = "visit";
 })(EType || (EType = {}));
+//# sourceMappingURL=Types.js.map
 
 const NodeConfig = {
     [EType.Program]: {
@@ -176,6 +179,7 @@ const NodeConfig = {
         isSelfClosing: true,
     },
 };
+//# sourceMappingURL=NodeConfig.js.map
 
 class BaseNode {
     constructor(nodeType, start, end, eType) {
@@ -196,6 +200,7 @@ class BaseNode {
         throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
     }
 }
+//# sourceMappingURL=BaseNode.js.map
 
 class Directive extends BaseNode {
     constructor(name, params, start, end) {
@@ -204,6 +209,7 @@ class Directive extends BaseNode {
         this.params = params;
     }
 }
+//# sourceMappingURL=Directive.js.map
 
 class IfCondtion extends Directive {
     constructor(name, params, start, end) {
@@ -239,6 +245,7 @@ class IfCondtion extends Directive {
         }
     }
 }
+//# sourceMappingURL=IfCondtion.js.map
 
 class Include extends Directive {
     constructor(name, params, start, end) {
@@ -248,6 +255,7 @@ class Include extends Directive {
         throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
     }
 }
+//# sourceMappingURL=Include.js.map
 
 class List extends Directive {
     constructor(name, params, start, end) {
@@ -278,6 +286,7 @@ class List extends Directive {
         }
     }
 }
+//# sourceMappingURL=List.js.map
 
 class UnknownDirective extends Directive {
     constructor(name, params, start, end) {
@@ -289,6 +298,7 @@ class UnknownDirective extends Directive {
         return this;
     }
 }
+//# sourceMappingURL=UnknownDirective.js.map
 
 class Interpolation extends BaseNode {
     constructor(start, end, params) {
@@ -296,6 +306,7 @@ class Interpolation extends BaseNode {
         this.params = params;
     }
 }
+//# sourceMappingURL=Interpolation.js.map
 
 class Macro extends BaseNode {
     constructor(name, params, start, end) {
@@ -304,6 +315,7 @@ class Macro extends BaseNode {
         this.params = params;
     }
 }
+//# sourceMappingURL=Macro.js.map
 
 class Text extends BaseNode {
     constructor(text = '', start, end) {
@@ -312,27 +324,517 @@ class Text extends BaseNode {
         this.text = text;
     }
 }
+//# sourceMappingURL=Text.js.map
+
+class ParamError extends ParserError {
+    constructor(message, index) {
+        super(`${message} at character ${index}`);
+        this.description = message;
+        this.index = index;
+    }
+}
+//# sourceMappingURL=ParamError.js.map
+
+const COMPOUND = 'Compound';
+const IDENTIFIER = 'Identifier';
+const MEMBER_EXP = 'MemberExpression';
+const LITERAL = 'Literal';
+const CALL_EXP = 'CallExpression';
+const UNARY_EXP = 'UnaryExpression';
+const BINARY_EXP = 'BinaryExpression';
+const LOGICAL_EXP = 'LogicalExpression';
+const ARRAY_EXP = 'ArrayExpression';
+const PERIOD_CODE = 46;
+const COMMA_CODE = 44;
+const SQUOTE_CODE = 39;
+const DQUOTE_CODE = 34;
+const OPAREN_CODE = 40;
+const CPAREN_CODE = 41;
+const OBRACK_CODE = 91;
+const CBRACK_CODE = 93;
+const SEMCOL_CODE = 59;
+const unaryOps = { '-': true, '!': true, '~': true, '+': true, '?': true, '=': true };
+const binaryOps = {
+    '||': 1,
+    '&&': 2,
+    '^': 4,
+    '&': 5,
+    '==': 6, '!=': 6, '===': 6, '!==': 6,
+    '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
+    '+': 9, '-': 9,
+    '*': 10, '/': 10, '%': 10,
+};
+function getMaxKeyLen(obj) {
+    let maxLen = 0;
+    let len;
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            len = key.length;
+            if (len > maxLen) {
+                maxLen = len;
+            }
+        }
+    }
+    return maxLen;
+}
+const maxUnopLen = getMaxKeyLen(unaryOps);
+const maxBinopLen = getMaxKeyLen(binaryOps);
+const literals = {
+    true: true,
+    false: false,
+    null: null,
+};
+function isIBiopInfo(object) {
+    return object && 'prec' in object;
+}
+function isIExpression(object) {
+    return object && 'type' in object;
+}
+const binaryPrecedence = (opVal) => binaryOps[opVal] || 0;
+function createBinaryExpression(operator, left, right) {
+    const type = (operator === '||' || operator === '&&') ? LOGICAL_EXP : BINARY_EXP;
+    return {
+        type,
+        operator,
+        left,
+        right,
+    };
+}
+function isDecimalDigit(ch) {
+    return ch >= 48 && ch <= 57;
+}
+function isIdentifierStart(ch) {
+    return ((ch === 36) || (ch === 95) ||
+        (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122) || ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
+function isIdentifierPart(ch) {
+    return ((ch === 36) || (ch === 95) ||
+        (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122) ||
+        (ch >= 48 && ch <= 57) ||
+        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
+class ParamsParser {
+    constructor() {
+        this.expr = '';
+        this.index = 0;
+        this.length = 0;
+    }
+    parse(expr) {
+        this.expr = expr;
+        this.index = 0;
+        this.length = expr.length;
+        const nodes = [];
+        let chI;
+        let node;
+        while (this.index < this.length) {
+            chI = this.exprICode(this.index);
+            if (chI === SEMCOL_CODE || chI === COMMA_CODE) {
+                this.index++;
+            }
+            else {
+                node = this.parseExpression();
+                if (node) {
+                    nodes.push(node);
+                }
+                else if (this.index < this.length) {
+                    throw new ParamError(`Unexpected "${this.exprI(this.index)}"`, this.index);
+                }
+            }
+        }
+        if (nodes.length === 1) {
+            return nodes[0];
+        }
+        else {
+            return {
+                type: COMPOUND,
+                body: nodes,
+            };
+        }
+    }
+    exprI(i) {
+        return this.expr.charAt.call(this.expr, i);
+    }
+    exprICode(i) {
+        return this.expr.charCodeAt.call(this.expr, i);
+    }
+    parseSpaces() {
+        let ch = this.exprICode(this.index);
+        while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
+            ch = this.exprICode(++this.index);
+        }
+    }
+    parseExpression() {
+        const test = this.parseBinaryExpression();
+        this.parseSpaces();
+        return test;
+    }
+    parseBinaryOp() {
+        this.parseSpaces();
+        let toCheck = this.expr.substr(this.index, maxBinopLen);
+        let tcLen = toCheck.length;
+        while (tcLen > 0) {
+            if (binaryOps.hasOwnProperty(toCheck)) {
+                this.index += tcLen;
+                return toCheck;
+            }
+            toCheck = toCheck.substr(0, --tcLen);
+        }
+        return null;
+    }
+    parseBinaryExpression() {
+        let node;
+        let biop;
+        let prec;
+        let stack;
+        let biopInfo;
+        let fbiop;
+        let left;
+        let right;
+        let i;
+        left = this.parseToken();
+        biop = this.parseBinaryOp();
+        if (!biop) {
+            return left;
+        }
+        biopInfo = {
+            value: biop,
+            prec: binaryPrecedence(biop),
+        };
+        right = this.parseToken();
+        if (!right || !left) {
+            throw new ParamError(`Expected expression after ${biop}`, this.index);
+        }
+        stack = [left, biopInfo, right];
+        while (true) {
+            biop = this.parseBinaryOp();
+            if (!biop) {
+                break;
+            }
+            prec = binaryPrecedence(biop);
+            if (prec === 0) {
+                break;
+            }
+            biopInfo = { value: biop, prec };
+            while (stack.length > 2) {
+                fbiop = stack[stack.length - 2];
+                if (!isIBiopInfo(fbiop) || prec > fbiop.prec) {
+                    break;
+                }
+                right = stack.pop();
+                stack.pop();
+                left = stack.pop();
+                if (!isIExpression(right) || !isIExpression(left)) {
+                    break;
+                }
+                node = createBinaryExpression(fbiop.value, left, right);
+                stack.push(node);
+            }
+            node = this.parseToken();
+            if (!node) {
+                throw new ParamError(`Expected expression after ${biop}`, this.index);
+            }
+            stack.push(biopInfo, node);
+        }
+        i = stack.length - 1;
+        node = stack[i];
+        while (i > 1) {
+            fbiop = stack[i - 1];
+            left = stack[i - 2];
+            if (!isIBiopInfo(fbiop) || !isIExpression(left) || !isIExpression(node)) {
+                throw new ParamError(`Expected expression`, this.index);
+            }
+            node = createBinaryExpression(fbiop.value, left, node);
+            i -= 2;
+        }
+        if (!isIExpression(node)) {
+            throw new ParamError(`Expected expression`, this.index);
+        }
+        return node;
+    }
+    parseToken() {
+        let ch;
+        let toCheck;
+        let tcLen;
+        this.parseSpaces();
+        ch = this.exprICode(this.index);
+        if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
+            return this.parseNumericLiteral();
+        }
+        else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
+            return this.parseStringLiteral();
+        }
+        else if (isIdentifierStart(ch) || ch === OPAREN_CODE) {
+            return this.parseVariable();
+        }
+        else if (ch === OBRACK_CODE) {
+            return this.parseArray();
+        }
+        else {
+            toCheck = this.expr.substr(this.index, maxUnopLen);
+            tcLen = toCheck.length;
+            while (tcLen > 0) {
+                if (unaryOps.hasOwnProperty(toCheck)) {
+                    this.index += tcLen;
+                    return {
+                        type: UNARY_EXP,
+                        operator: toCheck,
+                        argument: this.parseToken(),
+                        prefix: true,
+                    };
+                }
+                toCheck = toCheck.substr(0, --tcLen);
+            }
+            return null;
+        }
+    }
+    parseNumericLiteral() {
+        let rawName = '';
+        let ch;
+        let chCode;
+        while (isDecimalDigit(this.exprICode(this.index))) {
+            rawName += this.exprI(this.index++);
+        }
+        if (this.exprICode(this.index) === PERIOD_CODE) {
+            rawName += this.exprI(this.index++);
+            while (isDecimalDigit(this.exprICode(this.index))) {
+                rawName += this.exprI(this.index++);
+            }
+        }
+        ch = this.exprI(this.index);
+        if (ch === 'e' || ch === 'E') {
+            rawName += this.exprI(this.index++);
+            ch = this.exprI(this.index);
+            if (ch === '+' || ch === '-') {
+                rawName += this.exprI(this.index++);
+            }
+            while (isDecimalDigit(this.exprICode(this.index))) {
+                rawName += this.exprI(this.index++);
+            }
+            if (!isDecimalDigit(this.exprICode(this.index - 1))) {
+                throw new ParamError(`Expected exponent (${rawName}${this.exprI(this.index)})`, this.index);
+            }
+        }
+        chCode = this.exprICode(this.index);
+        if (isIdentifierStart(chCode)) {
+            throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index);
+        }
+        else if (chCode === PERIOD_CODE) {
+            throw new ParamError('Unexpected period', this.index);
+        }
+        return {
+            type: LITERAL,
+            value: parseFloat(rawName),
+            raw: rawName,
+        };
+    }
+    parseStringLiteral() {
+        let str = '';
+        const quote = this.exprI(this.index++);
+        let closed = false;
+        let ch;
+        while (this.index < this.length) {
+            ch = this.exprI(this.index++);
+            if (ch === quote) {
+                closed = true;
+                break;
+            }
+            else if (ch === '\\') {
+                ch = this.exprI(this.index++);
+                switch (ch) {
+                    case 'n':
+                        str += '\n';
+                        break;
+                    case 'r':
+                        str += '\r';
+                        break;
+                    case 't':
+                        str += '\t';
+                        break;
+                    case 'b':
+                        str += '\b';
+                        break;
+                    case 'f':
+                        str += '\f';
+                        break;
+                    case 'v':
+                        str += '\x0B';
+                        break;
+                    default: str += `\\${ch}`;
+                }
+            }
+            else {
+                str += ch;
+            }
+        }
+        if (!closed) {
+            throw new ParamError(`Unclosed quote after "${str}"`, this.index);
+        }
+        return {
+            type: LITERAL,
+            value: str,
+            raw: quote + str + quote,
+        };
+    }
+    parseIdentifier() {
+        let ch = this.exprICode(this.index);
+        const start = this.index;
+        let identifier;
+        if (isIdentifierStart(ch)) {
+            this.index++;
+        }
+        else {
+            throw new ParamError(`Unexpected ${this.exprI(this.index)}`, this.index);
+        }
+        while (this.index < this.length) {
+            ch = this.exprICode(this.index);
+            if (isIdentifierPart(ch)) {
+                this.index++;
+            }
+            else {
+                break;
+            }
+        }
+        identifier = this.expr.slice(start, this.index);
+        if (literals.hasOwnProperty(identifier)) {
+            return {
+                type: LITERAL,
+                value: literals[identifier],
+                raw: identifier,
+            };
+        }
+        else {
+            return {
+                type: IDENTIFIER,
+                name: identifier,
+            };
+        }
+    }
+    parseArguments(termination) {
+        let chI;
+        const args = [];
+        let node;
+        let closed = false;
+        while (this.index < this.length) {
+            this.parseSpaces();
+            chI = this.exprICode(this.index);
+            if (chI === termination) {
+                closed = true;
+                this.index++;
+                break;
+            }
+            else if (chI === COMMA_CODE) {
+                this.index++;
+            }
+            else {
+                node = this.parseExpression();
+                if (!node || node.type === COMPOUND) {
+                    throw new ParamError('Expected comma', this.index);
+                }
+                args.push(node);
+            }
+        }
+        if (!closed) {
+            throw new ParamError(`Expected ${String.fromCharCode(termination)}`, this.index);
+        }
+        return args;
+    }
+    parseVariable() {
+        let chI;
+        chI = this.exprICode(this.index);
+        let node = chI === OPAREN_CODE
+            ? this.parseGroup()
+            : this.parseIdentifier();
+        this.parseSpaces();
+        chI = this.exprICode(this.index);
+        while (chI === PERIOD_CODE || chI === OBRACK_CODE || chI === OPAREN_CODE) {
+            this.index++;
+            if (chI === PERIOD_CODE) {
+                this.parseSpaces();
+                node = {
+                    type: MEMBER_EXP,
+                    computed: false,
+                    object: node,
+                    property: this.parseIdentifier(),
+                };
+            }
+            else if (chI === OBRACK_CODE) {
+                node = {
+                    type: MEMBER_EXP,
+                    computed: true,
+                    object: node,
+                    property: this.parseExpression(),
+                };
+                this.parseSpaces();
+                chI = this.exprICode(this.index);
+                if (chI !== CBRACK_CODE) {
+                    throw new ParamError('Unclosed [', this.index);
+                }
+                this.index++;
+            }
+            else if (chI === OPAREN_CODE) {
+                node = {
+                    type: CALL_EXP,
+                    arguments: this.parseArguments(CPAREN_CODE),
+                    callee: node,
+                };
+            }
+            this.parseSpaces();
+            chI = this.exprICode(this.index);
+        }
+        return node;
+    }
+    parseGroup() {
+        this.index++;
+        const node = this.parseExpression();
+        this.parseSpaces();
+        if (this.exprICode(this.index) === CPAREN_CODE) {
+            this.index++;
+            return node;
+        }
+        else {
+            throw new ParamError('Unclosed (', this.index);
+        }
+    }
+    parseArray() {
+        this.index++;
+        return {
+            type: ARRAY_EXP,
+            elements: this.parseArguments(CBRACK_CODE),
+        };
+    }
+}
 
 function newDirective(token) {
     switch (token.type) {
         case EType.if:
         case EType.elseif:
-            return new IfCondtion(token.type, token.params, token.startPos, token.endPos);
+            return new IfCondtion(token.type, parseParams(token), token.startPos, token.endPos);
         case EType.list:
-            return new List(token.type, token.params, token.startPos, token.endPos);
+            return new List(token.type, parseParams(token), token.startPos, token.endPos);
         case EType.include:
-            return new Include(token.type, token.params, token.startPos, token.endPos);
+            return new Include(token.type, parseParams(token), token.startPos, token.endPos);
     }
-    return new UnknownDirective(token.type, token.params, token.startPos, token.endPos);
+    return new UnknownDirective(token.type, parseParams(token), token.startPos, token.endPos);
+}
+function parseParams(token) {
+    const parser = new ParamsParser();
+    const params = [];
+    for (const param of token.params) {
+        console.log(`parseParams: \`${param}\``);
+        params.push(parser.parse(param));
+    }
+    return params;
 }
 function newNode(token) {
     switch (token.nodeType) {
         case ENodeType.Directive:
             return newDirective(token);
         case ENodeType.Macro:
-            return new Macro(token.tag, token.params, token.startPos, token.endPos);
+            return new Macro(token.tag, parseParams(token), token.startPos, token.endPos);
         case ENodeType.Interpolation:
-            return new Interpolation(token.startPos, token.endPos, token.params);
+            return new Interpolation(token.startPos, token.endPos, parseParams(token));
         case ENodeType.Text:
             return new Text(token.text, token.startPos, token.endPos);
     }
@@ -345,6 +847,7 @@ function createNode(token) {
     }
     return node;
 }
+//# sourceMappingURL=NodeHelper.js.map
 
 class Program extends BaseNode {
     constructor(start, end) {
@@ -356,6 +859,7 @@ class Program extends BaseNode {
         return this;
     }
 }
+//# sourceMappingURL=Program.js.map
 
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
@@ -370,6 +874,7 @@ const whitespaces = [
     '\n',
     '\r',
 ];
+//# sourceMappingURL=Symbols.js.map
 
 class Token {
     constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
@@ -383,6 +888,7 @@ class Token {
         this.text = text;
     }
 }
+//# sourceMappingURL=Token.js.map
 
 class Tokenizer {
     constructor() {
@@ -539,6 +1045,7 @@ class Tokenizer {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 class Parser {
     constructor() {
@@ -625,6 +1132,9 @@ class Parser {
         return `\`${data}\``;
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

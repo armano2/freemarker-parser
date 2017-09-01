@@ -50,3 +50,15 @@ export interface ICallExpression extends IExpression {
   arguments : IExpression
   callee : IExpression
 }
+
+// ------------------
+
+export interface IUnaryOperators {
+  [n : string] : boolean
+}
+export interface IBinaryOperators {
+  [n : string] : number
+}
+export interface ILiteralOperators {
+  [n : string] : true | false | null
+}

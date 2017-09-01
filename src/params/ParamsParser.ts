@@ -2,19 +2,21 @@ import ParamError from '../errors/ParamError'
 import {
   IArrayExpression,
   IBinaryExpression,
+  IBinaryOperators,
   ICallExpression,
   IExpression,
   IIdentifier,
   ILiteral,
+  ILiteralOperators,
   ILogicalExpression,
   IMemberExpression,
   IUnaryExpression,
+  IUnaryOperators,
 } from './Types'
 
 // This is the full set of types that any JSEP node can be.
 // Store them here to save space when minified
 const COMPOUND = 'Compound'
-
 const IDENTIFIER = 'Identifier'
 const MEMBER_EXP = 'MemberExpression'
 const LITERAL = 'Literal'
@@ -34,31 +36,50 @@ const OBRACK_CODE = 91 // [
 const CBRACK_CODE = 93 // ]
 const SEMCOL_CODE = 59 // ;
 
-interface IUnaryOperators {
-  [n : string] : boolean
-}
-interface IBinaryOperators {
-  [n : string] : number
-}
-interface ILiteralOperators {
-  [n : string] : true | false | null
-}
-
 // Operations
 // ----------
-const t = true // Set `t` to `true` to save space (when minified, not gzipped)
+
+// Specify values directly
+// - Strings: "Foo" or 'Foo' or "It's \"quoted\"" or 'It\'s "quoted"' or r"C:\raw\string"
+// - Numbers: 123.45
+// - Booleans: true, false
+// - Sequences: ["foo", "bar", 123.45];Ranges: 0..9, 0..<10 (or 0..!10), 0..
+// - Hashes: {"name":"green mouse", "price":150}
+// Retrieving variables
+// - Top-level variables: user
+// - Retrieving data from a hash: user.name, user["name"]
+// - Retrieving data from a sequence: products[5]
+// - Special variable: .main
+// String operations
+// - Interpolation and concatenation: "Hello ${user}!" (or "Hello " + user + "!")
+// - Getting a character: name[0]
+// - String slice: Inclusive end: name[0..4], Exclusive end: name[0..<5], Length-based (lenient): name[0..*5], Remove starting: name[5..]
+// Sequence operations
+// - Concatenation: users + ["guest"]
+// - Sequence slice: Inclusive end: products[20..29], Exclusive end: products[20..<30], Length-based (lenient): products[20..*10], Remove starting: products[20..]
+// Hash operations
+// - Concatenation: passwords + { "joe": "secret42" }
+// - Arithmetical calculations: (x * 1.5 + 10) / 2 - y % 100
+// - Comparison: x == y, x != y, x < y, x > y, x >= y, x <= y, x lt y, x lte y, x gt y, x gte y, ...etc.
+// - Logical operations: !registered && (firstVisit || fromEurope)
+// - Built-ins: name?upper_case, path?ensure_starts_with('/')
+// - Method call: repeat("What", 3)
+// Missing value handler operators:
+// - Default value: name!"unknown" or (user.name)!"unknown" or name! or (user.name)!
+// - Missing value test: name?? or (user.name)??
+// - Assignment operators: =, +=, -=, *=, /=, %=, ++, --
 
 // Use a quickly-accessible map to store all of the unary operators
-const unaryOps : IUnaryOperators = {'-': t, '!': t, '~': t, '+': t} // Values are set to `true` (it really doesn't matter)
+const unaryOps : IUnaryOperators = {'-': true, '!': true, '~': true, '+': true, '?': true, '=': true}
 
-// Also use a map for the binary operations but set their values to their
-// binary precedence for quick reference:
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
 const binaryOps : IBinaryOperators = {
-  '||': 1, '&&': 2, '|': 3,  '^': 4,  '&': 5,
+  '||': 1,
+  '&&': 2,
+  '^': 4,
+  '&': 5,
   '==': 6, '!=': 6, '===': 6, '!==': 6,
-  '<': 7,  '>': 7,  '<=': 7,  '>=': 7,
-  '<<': 8,  '>>': 8, '>>>': 8,
+  '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
   '+': 9, '-': 9,
   '*': 10, '/': 10, '%': 10,
 }
@@ -83,11 +104,25 @@ const maxBinopLen = getMaxKeyLen(binaryOps)
 
 // Literals
 // ----------
+
 // Store the values to return for the various literals we may encounter
 const literals : ILiteralOperators = {
   true: true,
   false: false,
   null: null,
+}
+
+interface IBiopInfo {
+  value : string
+  prec : number
+}
+
+function isIBiopInfo (object : any) : object is IBiopInfo {
+  return object && 'prec' in object
+}
+
+function isIExpression (object : any) : object is IExpression {
+  return object && 'type' in object
 }
 
 // Returns the precedence of a binary operator or `0` if it isn't a binary operator
@@ -122,51 +157,86 @@ function isIdentifierStart (ch : number) {
 // any non-ASCII that is not an operator
 function isIdentifierPart (ch : number) {
   return (
-    (ch === 36) || (ch === 95) || // 0...9
-    (ch >= 65 && ch <= 90) || // `$` and `_`
+    (ch === 36) || (ch === 95) || // `$` and `_`
+    (ch >= 65 && ch <= 90) || // 0...9
     (ch >= 97 && ch <= 122) || // A...Z
     (ch >= 48 && ch <= 57) || // a...z
     ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }
 
-export class ParamParser {
+export class ParamsParser {
   private expr : string
   private index : number
+  private length : number
 
-  constructor (expr : string) {
+  constructor () {
+    this.expr = ''
+    this.index = 0
+    this.length = 0
+  }
+
+  public parse (expr : string) {
     this.expr = expr
     this.index = 0
+    this.length = expr.length
+
+    const nodes = []
+    let chI : number
+    let node
+
+    while (this.index < this.length) {
+      chI = this.exprICode(this.index)
+
+      // Expressions can be separated by semicolons, commas, or just inferred without any
+      // separators
+      if (chI === SEMCOL_CODE || chI === COMMA_CODE) {
+        this.index++ // ignore separators
+      } else {
+        // Try to gobble each expression individually
+        node = this.parseExpression()
+        if (node) {
+          // If we weren't able to find a binary expression and are out of room, then
+          // the expression passed in probably has too much
+          nodes.push(node)
+        } else if (this.index < this.length) {
+          throw new ParamError(`Unexpected "${this.exprI(this.index)}"`, this.index)
+        }
+      }
+    }
+
+    // If there's only one expression just try returning the expression
+    if (nodes.length === 1) {
+      return nodes[0]
+    } else {
+      return {
+        type: COMPOUND,
+        body: nodes,
+      }
+    }
   }
-}
 
-// Parsing
-// -------
-// `expr` is a string with the passed in expression
-export function fooFunc (expr : string) {
-  // `index` stores the character number we are currently at while `length` is a constant
-  // All of the gobbles below will modify `index` as we move along
-  let index : number = 0
+  private exprI (i : number) {
+    return this.expr.charAt.call(this.expr, i)
+  }
 
-  const charAtFunc = expr.charAt
-  const charCodeAtFunc = expr.charCodeAt
-  const exprI = (i : number) => charAtFunc.call(expr, i)
-  const exprICode = (i : number) => charCodeAtFunc.call(expr, i)
-  const length = expr.length
+  private exprICode (i : number) {
+    return this.expr.charCodeAt.call(this.expr, i)
+  }
 
   // Push `index` up to the next non-space character
-  function gobbleSpaces () {
-    let ch = exprICode(index)
+  private parseSpaces () {
+    let ch = this.exprICode(this.index)
     // space or tab
     while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
-      ch = exprICode(++index)
+      ch = this.exprICode(++this.index)
     }
   }
 
   // The main parsing function. Much of this code is dedicated to ternary expressions
-  function gobbleExpression () : IExpression | null {
-    const test = gobbleBinaryExpression()
-    gobbleSpaces()
+  private parseExpression () : IExpression | null {
+    const test = this.parseBinaryExpression()
+    this.parseSpaces()
     return test
   }
 
@@ -174,13 +244,13 @@ export function fooFunc (expr : string) {
   // Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
   // and move down from 3 to 2 to 1 character until a matching binary operation is found
   // then, return that binary operation
-  function gobbleBinaryOp () : string | null {
-    gobbleSpaces()
-    let toCheck = expr.substr(index, maxBinopLen)
+  private parseBinaryOp () : string | null {
+    this.parseSpaces()
+    let toCheck = this.expr.substr(this.index, maxBinopLen)
     let tcLen = toCheck.length
     while (tcLen > 0) {
       if (binaryOps.hasOwnProperty(toCheck)) {
-        index += tcLen
+        this.index += tcLen
         return toCheck
       }
       toCheck = toCheck.substr(0, --tcLen)
@@ -188,22 +258,9 @@ export function fooFunc (expr : string) {
     return null
   }
 
-  interface IBiopInfo {
-    value : string
-    prec : number
-  }
-
-  function isIBiopInfo (object : any) : object is IBiopInfo {
-    return object && 'prec' in object
-  }
-
-  function isIExpression (object : any) : object is IExpression {
-    return object && 'type' in object
-  }
-
   // This function is responsible for gobbling an individual expression,
   // e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
-  function gobbleBinaryExpression () : IExpression | null {
+  private parseBinaryExpression () : IExpression | null {
     let node
     let biop : string | null
     let prec
@@ -216,8 +273,8 @@ export function fooFunc (expr : string) {
 
     // First, try to get the leftmost thing
     // Then, check to see if there's a binary operator operating on that leftmost thing
-    left = gobbleToken()
-    biop = gobbleBinaryOp()
+    left = this.parseToken()
+    biop = this.parseBinaryOp()
 
     // If there wasn't a binary operator, just return the leftmost node
     if (!biop) {
@@ -231,15 +288,15 @@ export function fooFunc (expr : string) {
       prec: binaryPrecedence(biop),
     }
 
-    right = gobbleToken()
+    right = this.parseToken()
     if (!right || !left) {
-      throw new ParamError(`Expected expression after ${biop}`, index)
+      throw new ParamError(`Expected expression after ${biop}`, this.index)
     }
     stack = [left, biopInfo, right]
 
     // Properly deal with precedence using [recursive descent](http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm)
     while (true) {
-      biop = gobbleBinaryOp()
+      biop = this.parseBinaryOp()
       if (!biop) {
         break
       }
@@ -267,9 +324,9 @@ export function fooFunc (expr : string) {
         stack.push(node)
       }
 
-      node = gobbleToken()
+      node = this.parseToken()
       if (!node) {
-        throw new ParamError(`Expected expression after ${biop}`, index)
+        throw new ParamError(`Expected expression after ${biop}`, this.index)
       }
       stack.push(biopInfo, node)
     }
@@ -280,48 +337,48 @@ export function fooFunc (expr : string) {
       fbiop = stack[i - 1]
       left = stack[i - 2]
       if (!isIBiopInfo(fbiop) || !isIExpression(left) || !isIExpression(node)) {
-        throw new ParamError(`Expected expression`, index)
+        throw new ParamError(`Expected expression`, this.index)
       }
       node = createBinaryExpression(fbiop.value, left, node)
       i -= 2
     }
     if (!isIExpression(node)) {
-      throw new ParamError(`Expected expression`, index)
+      throw new ParamError(`Expected expression`, this.index)
     }
     return node
   }
 
   // An individual part of a binary expression:
   // e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
-  function gobbleToken () : IUnaryExpression | IExpression | null {
+  private parseToken () : IUnaryExpression | IExpression | null {
     let ch
     let toCheck
     let tcLen
 
-    gobbleSpaces()
-    ch = exprICode(index)
+    this.parseSpaces()
+    ch = this.exprICode(this.index)
 
     if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
       // Char code 46 is a dot `.` which can start off a numeric literal
-      return gobbleNumericLiteral()
+      return this.parseNumericLiteral()
     } else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
       // Single or double quotes
-      return gobbleStringLiteral()
+      return this.parseStringLiteral()
     } else if (isIdentifierStart(ch) || ch === OPAREN_CODE) { // open parenthesis
       // `foo`, `bar.baz`
-      return gobbleVariable()
+      return this.parseVariable()
     } else if (ch === OBRACK_CODE) {
-      return gobbleArray()
+      return this.parseArray()
     } else {
-      toCheck = expr.substr(index, maxUnopLen)
+      toCheck = this.expr.substr(this.index, maxUnopLen)
       tcLen = toCheck.length
       while (tcLen > 0) {
         if (unaryOps.hasOwnProperty(toCheck)) {
-          index += tcLen
+          this.index += tcLen
           return {
             type: UNARY_EXP,
             operator: toCheck,
-            argument: gobbleToken(),
+            argument: this.parseToken(),
             prefix: true,
           }
         }
@@ -334,43 +391,43 @@ export function fooFunc (expr : string) {
 
   // Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
   // keep track of everything in the numeric literal and then calling `parseFloat` on that string
-  function gobbleNumericLiteral () : ILiteral {
+  private parseNumericLiteral () : ILiteral {
     let rawName = ''
     let ch
     let chCode
-    while (isDecimalDigit(exprICode(index))) {
-      rawName += exprI(index++)
+    while (isDecimalDigit(this.exprICode(this.index))) {
+      rawName += this.exprI(this.index++)
     }
 
-    if (exprICode(index) === PERIOD_CODE) { // can start with a decimal marker
-      rawName += exprI(index++)
+    if (this.exprICode(this.index) === PERIOD_CODE) { // can start with a decimal marker
+      rawName += this.exprI(this.index++)
 
-      while (isDecimalDigit(exprICode(index))) {
-        rawName += exprI(index++)
+      while (isDecimalDigit(this.exprICode(this.index))) {
+        rawName += this.exprI(this.index++)
       }
     }
 
-    ch = exprI(index)
+    ch = this.exprI(this.index)
     if (ch === 'e' || ch === 'E') { // exponent marker
-      rawName += exprI(index++)
-      ch = exprI(index)
+      rawName += this.exprI(this.index++)
+      ch = this.exprI(this.index)
       if (ch === '+' || ch === '-') { // exponent sign
-        rawName += exprI(index++)
+        rawName += this.exprI(this.index++)
       }
-      while (isDecimalDigit(exprICode(index))) { // exponent itself
-        rawName += exprI(index++)
+      while (isDecimalDigit(this.exprICode(this.index))) { // exponent itself
+        rawName += this.exprI(this.index++)
       }
-      if (!isDecimalDigit(exprICode(index - 1))) {
-        throw new ParamError(`Expected exponent (${rawName}${exprI(index)})`, index)
+      if (!isDecimalDigit(this.exprICode(this.index - 1))) {
+        throw new ParamError(`Expected exponent (${rawName}${this.exprI(this.index)})`, this.index)
       }
     }
 
-    chCode = exprICode(index)
+    chCode = this.exprICode(this.index)
     // Check to make sure this isn't a variable name that start with a number (123abc)
     if (isIdentifierStart(chCode)) {
-      throw new ParamError(`Variable names cannot start with a number (${rawName}${exprI(index)})`, index)
+      throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index)
     } else if (chCode === PERIOD_CODE) {
-      throw new ParamError('Unexpected period', index)
+      throw new ParamError('Unexpected period', this.index)
     }
 
     return {
@@ -382,20 +439,20 @@ export function fooFunc (expr : string) {
 
   // Parses a string literal, staring with single or double quotes with basic support for escape codes
   // e.g. `"hello world"`, `'this is\nJSEP'`
-  function gobbleStringLiteral () : ILiteral {
+  private parseStringLiteral () : ILiteral {
     let str = ''
-    const quote = exprI(index++)
+    const quote = this.exprI(this.index++)
     let closed = false
     let ch
 
-    while (index < length) {
-      ch = exprI(index++)
+    while (this.index < this.length) {
+      ch = this.exprI(this.index++)
       if (ch === quote) {
         closed = true
         break
       } else if (ch === '\\') {
         // Check for all of the common escape codes
-        ch = exprI(index++)
+        ch = this.exprI(this.index++)
         switch (ch) {
           case 'n': str += '\n'; break
           case 'r': str += '\r'; break
@@ -411,7 +468,7 @@ export function fooFunc (expr : string) {
     }
 
     if (!closed) {
-      throw new ParamError(`Unclosed quote after "${str}"`, index)
+      throw new ParamError(`Unclosed quote after "${str}"`, this.index)
     }
 
     return {
@@ -425,26 +482,26 @@ export function fooFunc (expr : string) {
   // e.g.: `foo`, `_value`, `$x1`
   // Also, this function checks if that identifier is a literal:
   // (e.g. `true`, `false`, `null`) or `this`
-  function gobbleIdentifier () : IIdentifier | ILiteral {
-    let ch = exprICode(index)
-    const start = index
+  private parseIdentifier () : IIdentifier | ILiteral {
+    let ch = this.exprICode(this.index)
+    const start = this.index
     let identifier : string
 
     if (isIdentifierStart(ch)) {
-      index++
+      this.index++
     } else {
-      throw new ParamError(`Unexpected ${exprI(index)}`, index)
+      throw new ParamError(`Unexpected ${this.exprI(this.index)}`, this.index)
     }
 
-    while (index < length) {
-      ch = exprICode(index)
+    while (this.index < this.length) {
+      ch = this.exprICode(this.index)
       if (isIdentifierPart(ch)) {
-        index++
+        this.index++
       } else {
         break
       }
     }
-    identifier = expr.slice(start, index)
+    identifier = this.expr.slice(start, this.index)
 
     if (literals.hasOwnProperty(identifier)) {
       return {
@@ -465,30 +522,30 @@ export function fooFunc (expr : string) {
   // `(` or `[` has already been gobbled, and gobbles expressions and commas
   // until the terminator character `)` or `]` is encountered.
   // e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
-  function gobbleArguments (termination : number) : IExpression[] {
+  private parseArguments (termination : number) : IExpression[] {
     let chI : number
     const args : IExpression[] = []
     let node
     let closed = false
-    while (index < length) {
-      gobbleSpaces()
-      chI = exprICode(index)
+    while (this.index < this.length) {
+      this.parseSpaces()
+      chI = this.exprICode(this.index)
       if (chI === termination) { // done parsing
         closed = true
-        index++
+        this.index++
         break
       } else if (chI === COMMA_CODE) { // between expressions
-        index++
+        this.index++
       } else {
-        node = gobbleExpression()
+        node = this.parseExpression()
         if (!node || node.type === COMPOUND) {
-          throw new ParamError('Expected comma', index)
+          throw new ParamError('Expected comma', this.index)
         }
         args.push(node)
       }
     }
     if (!closed) {
-      throw new ParamError(`Expected ${String.fromCharCode(termination)}`, index)
+      throw new ParamError(`Expected ${String.fromCharCode(termination)}`, this.index)
     }
     return args
   }
@@ -497,48 +554,48 @@ export function fooFunc (expr : string) {
   // e.g. `foo`, `bar.baz`, `foo['bar'].baz`
   // It also gobbles function calls:
   // e.g. `Math.acos(obj.angle)`
-  function gobbleVariable () : IMemberExpression | IIdentifier | ILiteral | ICallExpression | IExpression | null {
+  private parseVariable () : IMemberExpression | IIdentifier | ILiteral | ICallExpression | IExpression | null {
     let chI : number
-    chI = exprICode(index)
+    chI = this.exprICode(this.index)
     let node : IExpression | IIdentifier | ILiteral | IMemberExpression | ICallExpression | null = chI === OPAREN_CODE
-      ? gobbleGroup()
-      : gobbleIdentifier()
+      ? this.parseGroup()
+      : this.parseIdentifier()
 
-    gobbleSpaces()
-    chI = exprICode(index)
+    this.parseSpaces()
+    chI = this.exprICode(this.index)
     while (chI === PERIOD_CODE || chI === OBRACK_CODE || chI === OPAREN_CODE) {
-      index++
+      this.index++
       if (chI === PERIOD_CODE) {
-        gobbleSpaces()
+        this.parseSpaces()
         node = {
           type: MEMBER_EXP,
           computed: false,
           object: node,
-          property: gobbleIdentifier(),
+          property: this.parseIdentifier(),
         }
       } else if (chI === OBRACK_CODE) {
         node = {
           type: MEMBER_EXP,
           computed: true,
           object: node,
-          property: gobbleExpression(),
+          property: this.parseExpression(),
         }
-        gobbleSpaces()
-        chI = exprICode(index)
+        this.parseSpaces()
+        chI = this.exprICode(this.index)
         if (chI !== CBRACK_CODE) {
-          throw new ParamError('Unclosed [', index)
+          throw new ParamError('Unclosed [', this.index)
         }
-        index++
+        this.index++
       } else if (chI === OPAREN_CODE) {
         // A function call is being made; gobble all the arguments
         node = {
           type: CALL_EXP,
-          arguments: gobbleArguments(CPAREN_CODE),
+          arguments: this.parseArguments(CPAREN_CODE),
           callee: node,
         }
       }
-      gobbleSpaces()
-      chI = exprICode(index)
+      this.parseSpaces()
+      chI = this.exprICode(this.index)
     }
     return node
   }
@@ -548,64 +605,26 @@ export function fooFunc (expr : string) {
   // and then tries to gobble everything within that parenthesis, assuming
   // that the next thing it should see is the close parenthesis. If not,
   // then the expression probably doesn't have a `)`
-  function gobbleGroup () : IExpression | null {
-    index++
-    const node = gobbleExpression()
-    gobbleSpaces()
-    if (exprICode(index) === CPAREN_CODE) {
-      index++
+  private parseGroup () : IExpression | null {
+    this.index++
+    const node = this.parseExpression()
+    this.parseSpaces()
+    if (this.exprICode(this.index) === CPAREN_CODE) {
+      this.index++
       return node
     } else {
-      throw new ParamError('Unclosed (', index)
+      throw new ParamError('Unclosed (', this.index)
     }
   }
 
   // Responsible for parsing Array literals `[1, 2, 3]`
   // This function assumes that it needs to gobble the opening bracket
   // and then tries to gobble the expressions as arguments.
-  function gobbleArray () : IArrayExpression {
-    index++
+  private parseArray () : IArrayExpression {
+    this.index++
     return {
       type: ARRAY_EXP,
-      elements: gobbleArguments(CBRACK_CODE),
+      elements: this.parseArguments(CBRACK_CODE),
     }
   }
-
-  function parse () {
-    const nodes = []
-    let chI : number
-    let node
-
-    while (index < length) {
-      chI = exprICode(index)
-
-      // Expressions can be separated by semicolons, commas, or just inferred without any
-      // separators
-      if (chI === SEMCOL_CODE || chI === COMMA_CODE) {
-        index++ // ignore separators
-      } else {
-        // Try to gobble each expression individually
-        node = gobbleExpression()
-        if (node) {
-          // If we weren't able to find a binary expression and are out of room, then
-          // the expression passed in probably has too much
-          nodes.push(node)
-        } else if (index < length) {
-          throw new ParamError(`Unexpected "${exprI(index)}"`, index)
-        }
-      }
-    }
-
-    // If there's only one expression just try returning the expression
-    if (nodes.length === 1) {
-      return nodes[0]
-    } else {
-      return {
-        type: COMPOUND,
-        body: nodes,
-      }
-    }
-  }
-
-  return parse()
 }

@@ -9,8 +9,14 @@
       "end": 18,
       "name": "macro",
       "params": [
-        "foo",
-        "param"
+        {
+          "type": "Identifier",
+          "name": "foo"
+        },
+        {
+          "type": "Identifier",
+          "name": "param"
+        }
       ],
       "children": [
         {
@@ -24,7 +30,10 @@
           "start": 21,
           "end": 29,
           "params": [
-            "param"
+            {
+              "type": "Identifier",
+              "name": "param"
+            }
           ]
         }
       ]
@@ -35,7 +44,11 @@
       "end": 54,
       "name": "foo",
       "params": [
-        "\"test\""
+        {
+          "type": "Literal",
+          "value": "test",
+          "raw": "\"test\""
+        }
       ]
     }
   ]

@@ -8,7 +8,10 @@
       "start": 0,
       "end": 6,
       "params": [
-        "foo"
+        {
+          "type": "Identifier",
+          "name": "foo"
+        }
       ]
     },
     {
@@ -17,7 +20,11 @@
       "end": 47,
       "name": "include",
       "params": [
-        "\"./include/test_include.ftl\""
+        {
+          "type": "Literal",
+          "value": "./include/test_include.ftl",
+          "raw": "\"./include/test_include.ftl\""
+        }
       ]
     },
     {
@@ -26,7 +33,19 @@
       "end": 64,
       "name": "if",
       "params": [
-        "(foo > 1)"
+        {
+          "type": "BinaryExpression",
+          "operator": ">",
+          "left": {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
       ],
       "consequent": [
         {
@@ -41,9 +60,18 @@
           "end": 81,
           "name": "if",
           "params": [
-            "foo",
-            "gt",
-            "a"
+            {
+              "type": "Identifier",
+              "name": "foo"
+            },
+            {
+              "type": "Identifier",
+              "name": "gt"
+            },
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
           ],
           "consequent": [
             {
@@ -57,7 +85,18 @@
               "start": 86,
               "end": 96,
               "params": [
-                "foo.bar"
+                {
+                  "type": "MemberExpression",
+                  "computed": false,
+                  "object": {
+                    "type": "Identifier",
+                    "name": "foo"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "bar"
+                  }
+                }
               ]
             },
             {
@@ -80,7 +119,32 @@
           "start": 108,
           "end": 127,
           "params": [
-            "foo.bar?toString"
+            {
+              "type": "Compound",
+              "body": [
+                {
+                  "type": "MemberExpression",
+                  "computed": false,
+                  "object": {
+                    "type": "Identifier",
+                    "name": "foo"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "bar"
+                  }
+                },
+                {
+                  "type": "UnaryExpression",
+                  "operator": "?",
+                  "argument": {
+                    "type": "Identifier",
+                    "name": "toString"
+                  },
+                  "prefix": true
+                }
+              ]
+            }
           ]
         }
       ],
@@ -92,8 +156,15 @@
       "end": 177,
       "name": "macro",
       "params": [
-        "foo",
-        "\"./include/test_include.ftl\""
+        {
+          "type": "Identifier",
+          "name": "foo"
+        },
+        {
+          "type": "Literal",
+          "value": "./include/test_include.ftl",
+          "raw": "\"./include/test_include.ftl\""
+        }
       ]
     }
   ]

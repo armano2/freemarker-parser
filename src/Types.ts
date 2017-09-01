@@ -1,3 +1,5 @@
+import { IExpression } from './params/Types'
+
 // TODO: create specific classes/objects for each of this types with additional fields required for them
 export enum ENodeType {
   Program = 'Program',
@@ -49,4 +51,8 @@ export enum EType {
     break = 'break',
   t = 't',
   visit = 'visit',
+}
+
+export interface IParams extends Array<IExpression> {
+  [i : number] : IExpression
 }
