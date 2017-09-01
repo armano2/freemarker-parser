@@ -6,101 +6,104 @@ declare module 'freemarkerjs' {
 }
 
 declare module 'freemarkerjs/Parser' {
-    import Program from 'freemarkerjs/nodes/Program';
+    import { IProgram } from 'freemarkerjs/nodes/Types';
     export class Parser {
-        template: string;
-        constructor();
-        parse(template: string): Program;
+        parse(template: string): IProgram;
     }
 }
 
-declare module 'freemarkerjs/nodes/Program' {
-    import { BaseNode } from 'freemarkerjs/nodes/BaseNode';
-    export default class Program extends BaseNode {
-        children: BaseNode[];
-        constructor(start: number, end: number);
-        addChild(node: BaseNode): BaseNode;
-    }
-}
-
-declare module 'freemarkerjs/nodes/BaseNode' {
-    import { INodeConfig } from 'freemarkerjs/NodeConfig';
-    import { ENodeType, EType } from 'freemarkerjs/Types';
-    export class BaseNode {
-        type: string;
-        $nodeType: ENodeType;
-        $eType: string;
-        start: number;
-        end: number;
-        $config: INodeConfig;
-        constructor(nodeType: string, start: number, end: number, eType: EType);
-        canAddTo(node: BaseNode): boolean;
-        addChild(node: BaseNode): BaseNode;
-    }
-}
-
-declare module 'freemarkerjs/NodeConfig' {
-    import { EType } from 'freemarkerjs/Types';
-    export interface INodeConfig {
-        isSelfClosing: boolean;
-        onlyIn?: EType[];
-        disallowParams?: boolean;
-    }
-    export interface INodeConfigObj {
-        [c: string]: INodeConfig;
-    }
-    export const NodeConfig: INodeConfigObj;
-}
-
-declare module 'freemarkerjs/Types' {
+declare module 'freemarkerjs/nodes/Types' {
     import { IExpression } from 'freemarkerjs/params/Types';
-    export enum ENodeType {
+    export enum NodeNames {
         Program = "Program",
-        Directive = "Directive",
-        Macro = "Macro",
+        Else = "Else",
+        Condition = "Condition",
+        Include = "Include",
+        List = "List",
         Text = "Text",
+        Assign = "Assign",
+        Global = "Global",
+        Local = "Local",
+        Macro = "Macro",
+        MacroCall = "MacroCall",
         Interpolation = "Interpolation",
-    }
-    export enum EType {
-        Program = "@program",
-        Text = "@text",
-        MacroCall = "@macro",
-        Interpolation = "@interpolation",
-        if = "if",
-        else = "else",
-        elseif = "elseif",
-        list = "list",
-        include = "include",
-        assign = "assign",
-        attempt = "attempt",
-        compress = "compress",
-        escape = "escape",
-        noescape = "noescape",
-        fallback = "fallback",
-        function = "function",
-        flush = "flush",
-        global = "global",
-        import = "import",
-        local = "local",
-        lt = "lt",
-        macro = "macro",
-        nested = "nested",
-        nt = "nt",
-        recover = "recover",
-        recurse = "recurse",
-        return = "return",
-        rt = "rt",
-        setting = "setting",
-        stop = "stop",
-        switch = "switch",
-        case = "case",
-        break = "break",
-        t = "t",
-        visit = "visit",
+        Attempt = "Attempt",
+        Recover = "Recover",
+        ConditionElse = "ConditionElse",
     }
     export interface IParams extends Array<IExpression> {
         [i: number]: IExpression;
     }
+    export interface INode {
+        type: NodeNames;
+        start: number;
+        end: number;
+    }
+    export interface IProgram extends INode {
+        type: NodeNames.Program;
+        body: INode[];
+    }
+    export interface ICondition extends INode {
+        type: NodeNames.Condition;
+        params: IParams;
+        consequent: INode[];
+        alternate?: IElse | ICondition;
+    }
+    export interface IElse extends INode {
+        type: NodeNames.Else;
+        body: INode[];
+    }
+    export interface IInclude extends INode {
+        type: NodeNames.Include;
+        params: IParams;
+    }
+    export interface IList extends INode {
+        type: NodeNames.List;
+        params: IParams;
+        body: INode[];
+        fallback?: IElse;
+    }
+    export interface IText extends INode {
+        type: NodeNames.Text;
+        text: string;
+    }
+    export interface IMacro extends INode {
+        type: NodeNames.Macro;
+        params: IParams;
+        body: INode[];
+    }
+    export interface IMacroCall extends INode {
+        type: NodeNames.MacroCall;
+        params: IParams;
+        name: string;
+        body?: INode[];
+    }
+    export interface IAssign extends INode {
+        type: NodeNames.Assign;
+        params: IParams;
+    }
+    export interface IGlobal extends INode {
+        type: NodeNames.Global;
+        params: IParams;
+    }
+    export interface ILocal extends INode {
+        type: NodeNames.Local;
+        params: IParams;
+    }
+    export interface IInterpolation extends INode {
+        type: NodeNames.Interpolation;
+        params: IParams;
+    }
+    export interface IAttempt extends INode {
+        type: NodeNames.Attempt;
+        body: INode[];
+        fallback?: IRecover;
+    }
+    export interface IRecover extends INode {
+        type: NodeNames.Recover;
+        body: INode[];
+    }
+    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICondition | IElse | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | IRecover;
 }
 
 declare module 'freemarkerjs/params/Types' {
@@ -113,6 +116,7 @@ declare module 'freemarkerjs/params/Types' {
         raw: string;
     }
     export interface IArrayExpression extends IExpression {
+        type: 'ArrayExpression';
         elements: IExpression[];
     }
     export interface IIdentifier extends IExpression {
@@ -147,6 +151,15 @@ declare module 'freemarkerjs/params/Types' {
         type: 'ConditionalExpression';
         arguments: IExpression;
         callee: IExpression;
+    }
+    export interface IUnaryOperators {
+        [n: string]: boolean;
+    }
+    export interface IBinaryOperators {
+        [n: string]: number;
+    }
+    export interface ILiteralOperators {
+        [n: string]: true | false | null;
     }
 }
 

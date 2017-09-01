@@ -14,8 +14,8 @@
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
     "watch:rollup": "wait-on .temp/index.js && rollup -c --watch",
-    "watch:ast": "npm run watch-ast -- npm run update-ast",
-    "watch:test": "npm run watch-ast -- npm run _mocha"
+    "watch2:ast": "npm run watch-ast -- npm run update-ast",
+    "watch2:test": "npm run watch-ast -- npm run _mocha"
   },
   "repository": {
     "type": "git",

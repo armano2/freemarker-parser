@@ -34,13 +34,13 @@ for (const name of tests) {
         assert.fail(message)
       }
     })
-    it('should have correct tokens', function () {
-      const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
-      assert.equal(stringify(parser.tokens), code, 'tokens do match')
-    })
-    it('should have correct ast', function () {
-      const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
-      assert.equal(stringify(ast), code, 'tokens do match')
-    })
+    // it('should have correct tokens', function () {
+    //   const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
+    //   assert.equal(stringify(parser.tokens), code, 'tokens do match')
+    // })
+    // it('should have correct ast', function () {
+    //   const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
+    //   assert.equal(stringify(ast), code, 'tokens do match')
+    // })
   })
 }

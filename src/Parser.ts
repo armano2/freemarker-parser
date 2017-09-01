@@ -5,7 +5,7 @@ import Tokenizer from './Tokenizer'
 
 import { AllNodeTypes, IProgram } from './nodes/Types'
 import { cProgram } from './utils/Node'
-import { addNodeChild, isSelfClosing } from './utils/Token'
+import { addNodeChild, isSelfClosing, tokenToNodeType } from './utils/Token'
 
 export class Parser {
   public parse (template : string) : IProgram {
@@ -17,15 +17,22 @@ export class Parser {
     const tokens = tokenizer.parse(template)
 
     for (const token of tokens) {
-      if (token.isClose) {
+      const tokenType = tokenToNodeType(token)
+
+      if (isSelfClosing(tokenType)) {
+        if (token.isClose) {
+          throw new NodeError(`Unexpected close tag`, token)
+        }
+        addNodeChild(parent, token)
+      } else if (token.isClose) {
         let parentNode : AllNodeTypes | undefined = parent
         while (parentNode) {
-          if (parentNode.type === token.nodeType) {
+          if (parentNode.type === tokenType) {
             parentNode = stack.pop()
             break
           }
-          if (!isSelfClosing(parentNode)) {
-            throw new NodeError(`Missing close tag`, parentNode)
+          if (!isSelfClosing(parentNode.type)) {
+            throw new NodeError(`Missing close tag ${tokenType}`, parentNode)
           }
           parentNode = stack.pop()
         }
@@ -36,6 +43,9 @@ export class Parser {
         parent = parentNode
 
       } else {
+        // parent = parent.addChild(node)
+        // stack.push(parent)
+        // parent = node
         stack.push(parent)
         parent = addNodeChild(parent, token)
       }

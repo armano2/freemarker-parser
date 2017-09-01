@@ -1,4 +1,10 @@
-import { ENodeType } from './Types'
+export enum ENodeType {
+  Program,
+  Directive,
+  Macro,
+  Text,
+  Interpolation,
+}
 
 export interface ISymbol {
   startToken : string
@@ -22,3 +28,12 @@ export const whitespaces : string[] = [
   '\n',
   '\r',
 ]
+
+export function isWhitespace (char : string) : boolean {
+  for (const space of whitespaces) {
+    if (char === space) {
+      return true
+    }
+  }
+  return false
+}

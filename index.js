@@ -11,320 +11,64 @@ class ParserError extends Error {
 //# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
-    constructor(m, node) {
-        m = `${node.$nodeType}(${node.start}-${node.end}) - ${m}`;
+    constructor(m, el) {
+        m = `${el.type}(${el.start}-${el.end}) - ${m}`;
         super(m);
-        this.node = node;
+        this.el = el;
     }
 }
 //# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
-    ENodeType["Program"] = "Program";
-    ENodeType["Directive"] = "Directive";
-    ENodeType["Macro"] = "Macro";
-    ENodeType["Text"] = "Text";
-    ENodeType["Interpolation"] = "Interpolation";
+    ENodeType[ENodeType["Program"] = 0] = "Program";
+    ENodeType[ENodeType["Directive"] = 1] = "Directive";
+    ENodeType[ENodeType["Macro"] = 2] = "Macro";
+    ENodeType[ENodeType["Text"] = 3] = "Text";
+    ENodeType[ENodeType["Interpolation"] = 4] = "Interpolation";
 })(ENodeType || (ENodeType = {}));
-var EType;
-(function (EType) {
-    EType["Program"] = "@program";
-    EType["Text"] = "@text";
-    EType["MacroCall"] = "@macro";
-    EType["Interpolation"] = "@interpolation";
-    EType["if"] = "if";
-    EType["else"] = "else";
-    EType["elseif"] = "elseif";
-    EType["list"] = "list";
-    EType["include"] = "include";
-    EType["assign"] = "assign";
-    EType["attempt"] = "attempt";
-    EType["compress"] = "compress";
-    EType["escape"] = "escape";
-    EType["noescape"] = "noescape";
-    EType["fallback"] = "fallback";
-    EType["function"] = "function";
-    EType["flush"] = "flush";
-    EType["global"] = "global";
-    EType["import"] = "import";
-    EType["local"] = "local";
-    EType["lt"] = "lt";
-    EType["macro"] = "macro";
-    EType["nested"] = "nested";
-    EType["nt"] = "nt";
-    EType["recover"] = "recover";
-    EType["recurse"] = "recurse";
-    EType["return"] = "return";
-    EType["rt"] = "rt";
-    EType["setting"] = "setting";
-    EType["stop"] = "stop";
-    EType["switch"] = "switch";
-    EType["case"] = "case";
-    EType["break"] = "break";
-    EType["t"] = "t";
-    EType["visit"] = "visit";
-})(EType || (EType = {}));
+const symbols = [
+    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
+    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
+    { startToken: '</@', endToken: '>', type: ENodeType.Macro, end: true },
+    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
+    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
+];
+const whitespaces = [
+    ' ',
+    '\t',
+    '\n',
+    '\r',
+];
+function isWhitespace(char) {
+    for (const space of whitespaces) {
+        if (char === space) {
+            return true;
+        }
+    }
+    return false;
+}
+//# sourceMappingURL=Symbols.js.map
+
+var NodeNames;
+(function (NodeNames) {
+    NodeNames["Program"] = "Program";
+    NodeNames["Else"] = "Else";
+    NodeNames["Condition"] = "Condition";
+    NodeNames["Include"] = "Include";
+    NodeNames["List"] = "List";
+    NodeNames["Text"] = "Text";
+    NodeNames["Assign"] = "Assign";
+    NodeNames["Global"] = "Global";
+    NodeNames["Local"] = "Local";
+    NodeNames["Macro"] = "Macro";
+    NodeNames["MacroCall"] = "MacroCall";
+    NodeNames["Interpolation"] = "Interpolation";
+    NodeNames["Attempt"] = "Attempt";
+    NodeNames["Recover"] = "Recover";
+    NodeNames["ConditionElse"] = "ConditionElse";
+})(NodeNames || (NodeNames = {}));
 //# sourceMappingURL=Types.js.map
-
-const NodeConfig = {
-    [EType.Program]: {
-        isSelfClosing: false,
-        disallowParams: true,
-    },
-    [EType.Text]: {
-        isSelfClosing: true,
-        disallowParams: true,
-    },
-    [EType.MacroCall]: {
-        isSelfClosing: true,
-    },
-    [EType.Interpolation]: {
-        isSelfClosing: true,
-    },
-    [EType.include]: {
-        isSelfClosing: true,
-    },
-    [EType.assign]: {
-        isSelfClosing: true,
-    },
-    [EType.if]: {
-        isSelfClosing: false,
-    },
-    [EType.else]: {
-        isSelfClosing: true,
-        onlyIn: [EType.if, EType.elseif, EType.list],
-        disallowParams: true,
-    },
-    [EType.elseif]: {
-        isSelfClosing: true,
-        onlyIn: [EType.if],
-    },
-    [EType.list]: {
-        isSelfClosing: false,
-    },
-    [EType.attempt]: {
-        isSelfClosing: false,
-    },
-    [EType.recurse]: {
-        isSelfClosing: true,
-    },
-    [EType.compress]: {
-        isSelfClosing: false,
-    },
-    [EType.escape]: {
-        isSelfClosing: false,
-    },
-    [EType.noescape]: {
-        isSelfClosing: false,
-    },
-    [EType.fallback]: {
-        isSelfClosing: true,
-    },
-    [EType.function]: {
-        isSelfClosing: false,
-    },
-    [EType.flush]: {
-        isSelfClosing: true,
-    },
-    [EType.global]: {
-        isSelfClosing: true,
-    },
-    [EType.import]: {
-        isSelfClosing: true,
-    },
-    [EType.local]: {
-        isSelfClosing: true,
-    },
-    [EType.lt]: {
-        isSelfClosing: true,
-    },
-    [EType.macro]: {
-        isSelfClosing: false,
-    },
-    [EType.nested]: {
-        isSelfClosing: true,
-    },
-    [EType.nt]: {
-        isSelfClosing: true,
-    },
-    [EType.recover]: {
-        isSelfClosing: true,
-    },
-    [EType.return]: {
-        isSelfClosing: true,
-    },
-    [EType.rt]: {
-        isSelfClosing: true,
-    },
-    [EType.setting]: {
-        isSelfClosing: true,
-    },
-    [EType.stop]: {
-        isSelfClosing: true,
-    },
-    [EType.switch]: {
-        isSelfClosing: true,
-    },
-    [EType.case]: {
-        isSelfClosing: true,
-    },
-    [EType.break]: {
-        isSelfClosing: true,
-    },
-    [EType.t]: {
-        isSelfClosing: true,
-    },
-    [EType.visit]: {
-        isSelfClosing: true,
-    },
-};
-//# sourceMappingURL=NodeConfig.js.map
-
-class BaseNode {
-    constructor(nodeType, start, end, eType) {
-        this.type = this.constructor.name;
-        this.$nodeType = nodeType;
-        this.$eType = eType;
-        this.start = start;
-        this.end = end;
-        this.$config = NodeConfig[eType];
-        if (!this.$config) {
-            throw new NodeError(`Invalid Token`, this);
-        }
-    }
-    canAddTo(node) {
-        return !this.$config.onlyIn || Boolean(this.$config.onlyIn.find((item) => item === node.$eType));
-    }
-    addChild(node) {
-        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
-    }
-}
-//# sourceMappingURL=BaseNode.js.map
-
-class Directive extends BaseNode {
-    constructor(name, params, start, end) {
-        super(ENodeType.Directive, start, end, name);
-        this.name = name;
-        this.params = params;
-    }
-}
-//# sourceMappingURL=Directive.js.map
-
-class IfCondtion extends Directive {
-    constructor(name, params, start, end) {
-        super(name, params, start, end);
-        this.consequent = [];
-        this.alternate = [];
-        this.$inElse = false;
-    }
-    addChild(node) {
-        if (node instanceof Directive) {
-            if ((node.name === EType.else || node.name === EType.elseif) && this.$inElse) {
-                throw new ParserError(`Unexpected token <#${node.name}>`);
-            }
-            if (node.name === EType.else) {
-                this.$inElse = true;
-                return this;
-            }
-            if (node.name === EType.elseif) {
-                this.$inElse = true;
-                this.pushChild(node);
-                return node;
-            }
-        }
-        this.pushChild(node);
-        return this;
-    }
-    pushChild(node) {
-        if (this.$inElse) {
-            this.alternate.push(node);
-        }
-        else {
-            this.consequent.push(node);
-        }
-    }
-}
-//# sourceMappingURL=IfCondtion.js.map
-
-class Include extends Directive {
-    constructor(name, params, start, end) {
-        super(name, params, start, end);
-    }
-    addChild(node) {
-        throw new NodeError(`Unsupported ${this.constructor.name}:addChild(${node.$nodeType})`, this);
-    }
-}
-//# sourceMappingURL=Include.js.map
-
-class List extends Directive {
-    constructor(name, params, start, end) {
-        super(name, params, start, end);
-        this.body = [];
-        this.fallback = [];
-        this.$inElse = false;
-    }
-    addChild(node) {
-        if (node instanceof Directive) {
-            if (node.name === EType.else) {
-                if (this.$inElse) {
-                    throw new ParserError(`Unexpected token <#${EType.else}>`);
-                }
-                this.$inElse = true;
-                return this;
-            }
-        }
-        this.pushChild(node);
-        return this;
-    }
-    pushChild(node) {
-        if (this.$inElse) {
-            this.fallback.push(node);
-        }
-        else {
-            this.body.push(node);
-        }
-    }
-}
-//# sourceMappingURL=List.js.map
-
-class UnknownDirective extends Directive {
-    constructor(name, params, start, end) {
-        super(name, params, start, end);
-        this.children = [];
-    }
-    addChild(node) {
-        this.children.push(node);
-        return this;
-    }
-}
-//# sourceMappingURL=UnknownDirective.js.map
-
-class Interpolation extends BaseNode {
-    constructor(start, end, params) {
-        super(ENodeType.Interpolation, start, end, EType.Interpolation);
-        this.params = params;
-    }
-}
-//# sourceMappingURL=Interpolation.js.map
-
-class Macro extends BaseNode {
-    constructor(name, params, start, end) {
-        super(ENodeType.Macro, start, end, EType.MacroCall);
-        this.name = name;
-        this.params = params;
-    }
-}
-//# sourceMappingURL=Macro.js.map
-
-class Text extends BaseNode {
-    constructor(text = '', start, end) {
-        super(ENodeType.Text, start, end, EType.Text);
-        this.text = '';
-        this.text = text;
-    }
-}
-//# sourceMappingURL=Text.js.map
 
 class ParamError extends ParserError {
     constructor(message, index) {
@@ -805,90 +549,42 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
-function newDirective(token) {
-    switch (token.type) {
-        case EType.if:
-        case EType.elseif:
-            return new IfCondtion(token.type, parseParams(token), token.startPos, token.endPos);
-        case EType.list:
-            return new List(token.type, parseParams(token), token.startPos, token.endPos);
-        case EType.include:
-            return new Include(token.type, parseParams(token), token.startPos, token.endPos);
-    }
-    return new UnknownDirective(token.type, parseParams(token), token.startPos, token.endPos);
-}
-function parseParams(token) {
+function parseParams(tokenParams) {
     const parser = new ParamsParser();
     const params = [];
-    for (const param of token.params) {
-        console.log(`parseParams: \`${param}\``);
+    for (const param of tokenParams) {
         params.push(parser.parse(param));
     }
     return params;
 }
-function newNode(token) {
-    switch (token.nodeType) {
-        case ENodeType.Directive:
-            return newDirective(token);
-        case ENodeType.Macro:
-            return new Macro(token.tag, parseParams(token), token.startPos, token.endPos);
-        case ENodeType.Interpolation:
-            return new Interpolation(token.startPos, token.endPos, parseParams(token));
-        case ENodeType.Text:
-            return new Text(token.text, token.startPos, token.endPos);
-    }
-    throw new ParserError('Unknown symbol');
-}
-function createNode(token) {
-    const node = newNode(token);
-    if (node.$config.disallowParams && token.params.length > 0) {
-        throw new ParserError(`Params are not allowed in \`${node.$eType}\``);
-    }
-    return node;
-}
-//# sourceMappingURL=NodeHelper.js.map
+//# sourceMappingURL=Params.js.map
 
-class Program extends BaseNode {
-    constructor(start, end) {
-        super(ENodeType.Program, start, end, EType.Program);
-        this.children = [];
-    }
-    addChild(node) {
-        this.children.push(node);
-        return this;
-    }
+const directives = {
+    if: NodeNames.Condition,
+    else: NodeNames.Else,
+    elseif: NodeNames.ConditionElse,
+    list: NodeNames.List,
+    include: NodeNames.Include,
+    assign: NodeNames.Assign,
+    attempt: NodeNames.Attempt,
+    global: NodeNames.Global,
+    local: NodeNames.Local,
+    macro: NodeNames.Macro,
+    recover: NodeNames.Recover,
+};
+function cToken(type, start, end, text, params = [], isClose = false) {
+    return {
+        type,
+        start,
+        end,
+        params: parseParams(params),
+        text,
+        isClose,
+    };
 }
-//# sourceMappingURL=Program.js.map
-
-const symbols = [
-    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
-    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
-    { startToken: '</@', endToken: '>', type: ENodeType.Macro, end: true },
-    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
-    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
-];
-const whitespaces = [
-    ' ',
-    '\t',
-    '\n',
-    '\r',
-];
-//# sourceMappingURL=Symbols.js.map
-
-class Token {
-    constructor(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false, text = '') {
-        this.nodeType = symbol;
-        this.startPos = startPos;
-        this.endPos = endPos;
-        this.type = type;
-        this.params = params;
-        this.tag = tag;
-        this.isClose = isClose;
-        this.text = text;
-    }
-}
-//# sourceMappingURL=Token.js.map
+//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -901,14 +597,11 @@ class Tokenizer {
         while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
             const token = this.parseToken();
             if (!token) {
-                this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, this.template.length));
+                this.tokens.push(this.parseText(this.cursorPos, this.template.length));
                 break;
             }
         }
         return this.tokens;
-    }
-    makeToken(symbol, startPos, endPos, type = EType.Text, params = [], tag = '', isClose = false) {
-        return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos));
     }
     getNextPos(items) {
         let pos = -1;
@@ -944,7 +637,7 @@ class Tokenizer {
             return false;
         }
         if (startPos - 1 > this.cursorPos) {
-            this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, startPos - 1));
+            this.tokens.push(this.parseText(this.cursorPos, startPos - 1));
         }
         this.cursorPos = startPos;
         this.cursorPos += symbol.startToken.length;
@@ -968,30 +661,24 @@ class Tokenizer {
         ++this.cursorPos;
         return true;
     }
-    parseInterpolation(symbol, startPos) {
-        const params = this.parseParams(symbol.endToken);
-        const node = this.makeToken(ENodeType.Interpolation, startPos, this.cursorPos, EType.Interpolation, params);
-        return node;
+    parseText(start, end) {
+        return cToken(ENodeType.Text, start, end, this.template.substring(start, end));
     }
-    parseMacro(symbol, startPos, isClose = false) {
+    parseInterpolation(symbol, start) {
+        const params = this.parseParams(symbol.endToken);
+        return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
+    }
+    parseMacro(symbol, start, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
         const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
-        const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString, isClose);
-        return node;
+        return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
     }
     parseDirective(symbol, startPos, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
-        if (!(typeString in EType)) {
-            throw new ParserError(`Unsupported directive ${typeString}`);
-        }
         this.cursorPos += typeString.length;
         const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
-        const node = this.makeToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, '', isClose);
-        return node;
-    }
-    isWhitespace(char) {
-        return char === ' ' || char === '\t' || char === '\r' || char === '\n';
+        return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose);
     }
     parseParams(engTag) {
         const text = this.template.substring(this.cursorPos);
@@ -1024,7 +711,7 @@ class Tokenizer {
                     this.cursorPos = paramPos + engTag.length;
                     return params;
                 }
-                else if (this.isWhitespace(char)) {
+                else if (isWhitespace(char)) {
                     if (paramText !== '') {
                         params.push(paramText);
                         paramText = '';
@@ -1047,92 +734,211 @@ class Tokenizer {
 }
 //# sourceMappingURL=Tokenizer.js.map
 
+function cAssign(params, start, end) {
+    return { type: NodeNames.Assign, params, start, end };
+}
+function cGlobal(params, start, end) {
+    return { type: NodeNames.Global, params, start, end };
+}
+function cCondition(params, start, end) {
+    return { type: NodeNames.Condition, params, consequent: [], start, end };
+}
+function cElse(start, end) {
+    return { type: NodeNames.Else, body: [], start, end };
+}
+function cList(params, start, end) {
+    return { type: NodeNames.List, params, body: [], start, end };
+}
+function cMacro(params, start, end) {
+    return { type: NodeNames.Macro, params, body: [], start, end };
+}
+function cProgram(start, end) {
+    return { type: NodeNames.Program, body: [], start, end };
+}
+function cMacroCall(params, name, start, end) {
+    return { type: NodeNames.MacroCall, name, params, body: [], start, end };
+}
+function cText(text, start, end) {
+    return { type: NodeNames.Text, text, start, end };
+}
+function cInclude(params, start, end) {
+    return { type: NodeNames.Include, params, start, end };
+}
+function cInterpolation(params, start, end) {
+    return { type: NodeNames.Interpolation, params, start, end };
+}
+function cLocal(params, start, end) {
+    return { type: NodeNames.Local, params, start, end };
+}
+function cRecover(start, end) {
+    return { type: NodeNames.Recover, body: [], start, end };
+}
+function cAttempt(start, end) {
+    return { type: NodeNames.Attempt, body: [], start, end };
+}
+//# sourceMappingURL=Node.js.map
+
+function addToNode(parent, child) {
+    switch (parent.type) {
+        case NodeNames.Condition:
+            parent.consequent.push(child);
+            break;
+        case NodeNames.List:
+        case NodeNames.Else:
+        case NodeNames.Macro:
+        case NodeNames.Program:
+        case NodeNames.Attempt:
+        case NodeNames.Recover:
+            parent.body.push(child);
+            break;
+        case NodeNames.MacroCall:
+        case NodeNames.Assign:
+        case NodeNames.Global:
+        case NodeNames.Local:
+            throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`);
+        case NodeNames.Interpolation:
+        case NodeNames.Include:
+        case NodeNames.Text:
+        default:
+            throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`);
+    }
+    return child;
+}
+function tokenToNodeType(token) {
+    switch (token.type) {
+        case ENodeType.Directive:
+            if (token.text in directives) {
+                return directives[token.text];
+            }
+            throw new ParserError(`Directive \`${token.text}\` is not supported`);
+        case ENodeType.Interpolation:
+            return NodeNames.Interpolation;
+        case ENodeType.Text:
+            return NodeNames.Text;
+        case ENodeType.Macro:
+            return NodeNames.Macro;
+        case ENodeType.Program:
+            return NodeNames.Program;
+    }
+    throw new ParserError(`Unknow token \`${token.type}\` - \`${token.text}\``);
+}
+function addNodeChild(parent, token) {
+    const tokenType = tokenToNodeType(token);
+    console.log(`addNodeChild(${parent.type}, ${tokenType})`);
+    switch (tokenType) {
+        case NodeNames.Else:
+            if (parent.type === NodeNames.Condition) {
+                return parent.alternate = cElse(token.start, token.end);
+            }
+            else if (parent.type === NodeNames.List) {
+                return parent.fallback = cElse(token.start, token.end);
+            }
+            break;
+        case NodeNames.ConditionElse:
+            if (parent.type === NodeNames.Condition) {
+                return parent.alternate = cCondition(token.params, token.start, token.end);
+            }
+            break;
+        case NodeNames.Recover:
+            if (parent.type === NodeNames.Attempt) {
+                return parent.fallback = cRecover(token.start, token.end);
+            }
+            break;
+        case NodeNames.Attempt:
+            return addToNode(parent, cAttempt(token.start, token.end));
+        case NodeNames.Condition:
+            return addToNode(parent, cCondition(token.params, token.start, token.end));
+        case NodeNames.List:
+            return addToNode(parent, cList(token.params, token.start, token.end));
+        case NodeNames.Global:
+            return addToNode(parent, cGlobal(token.params, token.start, token.end));
+        case NodeNames.Macro:
+            return addToNode(parent, cMacro(token.params, token.start, token.end));
+        case NodeNames.Assign:
+            return addToNode(parent, cAssign(token.params, token.start, token.end));
+        case NodeNames.Include:
+            return addToNode(parent, cInclude(token.params, token.start, token.end));
+        case NodeNames.Local:
+            return addToNode(parent, cLocal(token.params, token.start, token.end));
+        case NodeNames.Interpolation:
+            return addToNode(parent, cInterpolation(token.params, token.start, token.end));
+        case NodeNames.Text:
+            return addToNode(parent, cText(token.text, token.start, token.end));
+        case NodeNames.Macro:
+            return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
+        case NodeNames.Program:
+    }
+    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+}
+function isSelfClosing(type) {
+    switch (type) {
+        case NodeNames.Program:
+        case NodeNames.Condition:
+        case NodeNames.List:
+        case NodeNames.Attempt:
+        case NodeNames.Macro:
+            return false;
+        case NodeNames.MacroCall:
+            return true;
+        case NodeNames.Assign:
+        case NodeNames.Global:
+        case NodeNames.Local:
+            return true;
+        case NodeNames.Else:
+        case NodeNames.ConditionElse:
+        case NodeNames.Include:
+        case NodeNames.Text:
+        case NodeNames.Interpolation:
+        case NodeNames.Recover:
+            return true;
+    }
+    throw new ParserError(`isSelfClosing(${type}) failed`);
+}
+//# sourceMappingURL=Token.js.map
+
 class Parser {
-    constructor() {
-        this.template = '';
-        this.template = '';
-        this.tokens = [];
-    }
     parse(template) {
-        this.template = template;
-        this.AST = new Program(0, template.length);
-        this.build();
-        return this.deepClone(this.AST);
-    }
-    deepClone(text) {
-        const cache = [];
-        const json = JSON.stringify(text, (key, value) => {
-            if (key.startsWith('$')) {
-                return;
-            }
-            if (typeof value === 'object' && value !== null) {
-                if (cache.indexOf(value) !== -1) {
-                    return;
-                }
-                cache.push(value);
-            }
-            return value;
-        }, 2);
-        return JSON.parse(json);
-    }
-    build() {
+        const astRoot = cProgram(0, template.length);
         const stack = [];
-        let parent = this.AST;
-        let node = null;
+        let parent = astRoot;
         const tokenizer = new Tokenizer();
-        this.tokens = tokenizer.parse(this.template);
-        for (const token of this.tokens) {
-            node = createNode(token);
-            this.canContain(node, parent);
-            if (node.$config.isSelfClosing) {
+        const tokens = tokenizer.parse(template);
+        for (const token of tokens) {
+            const tokenType = tokenToNodeType(token);
+            if (isSelfClosing(tokenType)) {
                 if (token.isClose) {
-                    throw new NodeError(`Unexpected close tag`, node);
+                    throw new NodeError(`Unexpected close tag`, token);
                 }
-                parent = parent.addChild(node);
+                addNodeChild(parent, token);
             }
             else if (token.isClose) {
                 let parentNode = parent;
                 while (parentNode) {
-                    if (parentNode.$nodeType === token.nodeType) {
+                    if (parentNode.type === tokenType) {
                         parentNode = stack.pop();
                         break;
                     }
-                    if (!parentNode.$config.isSelfClosing) {
-                        throw new NodeError(`Missing close tag`, parentNode);
+                    if (!isSelfClosing(parentNode.type)) {
+                        throw new NodeError(`Missing close tag ${tokenType}`, parentNode);
                     }
                     parentNode = stack.pop();
                 }
                 if (!parentNode) {
-                    throw new NodeError(`Closing tag is not alowed`, node);
+                    throw new NodeError(`Unexpected close tag`, token);
                 }
                 parent = parentNode;
             }
             else {
-                parent = parent.addChild(node);
                 stack.push(parent);
-                parent = node;
+                parent = addNodeChild(parent, token);
             }
         }
         if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, parent);
+            throw new ParserError(`Unclosed tag`);
         }
-    }
-    canContain(node, parent) {
-        if (!node.canAddTo(parent)) {
-            throw new NodeError(`${this.debugNode(node.$eType)} require one of parents ${this.debugNode(node.$config.onlyIn)} but found in ${this.debugNode(parent.$eType)}`, node);
-        }
-    }
-    debugNode(data) {
-        if (!data) {
-            return '[?]';
-        }
-        if (data instanceof Array) {
-            return `[\`${data.map((it) => `${it}`).join(', ')}\`]`;
-        }
-        return `\`${data}\``;
+        return astRoot;
     }
 }
-//# sourceMappingURL=Parser.js.map
 
 //# sourceMappingURL=index.js.map
 

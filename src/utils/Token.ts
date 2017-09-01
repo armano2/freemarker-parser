@@ -1,7 +1,7 @@
 import ParserError from '../errors/ParserError'
 import { AllNodeTypes, NodeNames } from '../nodes/Types'
-import { Token } from '../tokens/Token'
-import { EType, IParams } from '../Types'
+import { ENodeType } from '../Symbols'
+import { directives, IToken } from '../tokens/Types'
 
 import {
   cAssign,
@@ -19,7 +19,7 @@ import {
   cText,
 } from './Node'
 
-function addToChild (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes {
+function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes {
   switch (parent.type) {
     case NodeNames.Condition:
       parent.consequent.push(child)
@@ -44,57 +44,79 @@ function addToChild (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes
     default:
       throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`)
   }
-  return parent
+  return child
 }
 
-export function addNodeChild (parent : AllNodeTypes, token : Token) : AllNodeTypes {
+export function tokenToNodeType (token : IToken) : NodeNames {
   switch (token.type) {
-    case EType.else:
+    case ENodeType.Directive:
+      if (token.text in directives) {
+        return directives[token.text]
+      }
+      throw new ParserError(`Directive \`${token.text}\` is not supported`)
+    case ENodeType.Interpolation:
+      return NodeNames.Interpolation
+    case ENodeType.Text:
+      return NodeNames.Text
+    case ENodeType.Macro:
+      return NodeNames.Macro
+    case ENodeType.Program:
+      return NodeNames.Program
+  }
+  throw new ParserError(`Unknow token \`${token.type}\` - \`${token.text}\``)
+}
+
+export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTypes {
+  const tokenType = tokenToNodeType(token)
+  console.log(`addNodeChild(${parent.type}, ${tokenType})`)
+  switch (tokenType) {
+    case NodeNames.Else:
       if (parent.type === NodeNames.Condition) {
         return parent.alternate = cElse(token.start, token.end)
       } else if (parent.type === NodeNames.List) {
         return parent.fallback = cElse(token.start, token.end)
       }
       break
-    case EType.elseif:
+    case NodeNames.ConditionElse:
       if (parent.type === NodeNames.Condition) {
         return parent.alternate = cCondition(token.params, token.start, token.end)
       }
       break
-    case EType.recover:
+    case NodeNames.Recover:
       if (parent.type === NodeNames.Attempt) {
         return parent.fallback = cRecover(token.start, token.end)
       }
       break
-    case EType.attempt:
-      return addToChild(parent, cAttempt(token.start, token.end))
-    case EType.if:
-      return addToChild(parent, cCondition(token.params, token.start, token.end))
-    case EType.list:
-      return addToChild(parent, cList(token.params, token.start, token.end))
-    case EType.global:
-      return addToChild(parent, cGlobal(token.params, token.start, token.end))
-    case EType.macro:
-      return addToChild(parent, cMacro(token.params, token.start, token.end))
-    case EType.assign:
-      return addToChild(parent, cAssign(token.params, token.start, token.end))
-    case EType.MacroCall:
-      return addToChild(parent, cMacroCall(token.params, token.tag, token.start, token.end))
-    case EType.Text:
-      return addToChild(parent, cText(token.text, token.start, token.end))
-    case EType.include:
-      return addToChild(parent, cInclude(token.params, token.start, token.end))
-    case EType.Interpolation:
-      return addToChild(parent, cInterpolation(token.params, token.start, token.end))
-    case EType.local:
-      return addToChild(parent, cLocal(token.params, token.start, token.end))
+    case NodeNames.Attempt:
+      return addToNode(parent, cAttempt(token.start, token.end))
+    case NodeNames.Condition:
+      return addToNode(parent, cCondition(token.params, token.start, token.end))
+    case NodeNames.List:
+      return addToNode(parent, cList(token.params, token.start, token.end))
+    case NodeNames.Global:
+      return addToNode(parent, cGlobal(token.params, token.start, token.end))
+    case NodeNames.Macro:
+      return addToNode(parent, cMacro(token.params, token.start, token.end))
+    case NodeNames.Assign:
+      return addToNode(parent, cAssign(token.params, token.start, token.end))
+    case NodeNames.Include:
+      return addToNode(parent, cInclude(token.params, token.start, token.end))
+    case NodeNames.Local:
+      return addToNode(parent, cLocal(token.params, token.start, token.end))
+    case NodeNames.Interpolation:
+      return addToNode(parent, cInterpolation(token.params, token.start, token.end))
+    case NodeNames.Text:
+      return addToNode(parent, cText(token.text, token.start, token.end))
+    case NodeNames.Macro:
+      return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end))
+    case NodeNames.Program:
+      // this should nevet happen
   }
-
-  throw new ParserError(`Invalid usage of ${token.type}`)
+  throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`)
 }
 
-export function isSelfClosing (node : AllNodeTypes) : boolean {
-  switch (node.type) {
+export function isSelfClosing (type : NodeNames) : boolean {
+  switch (type) {
     case NodeNames.Program:
     case NodeNames.Condition:
     case NodeNames.List:
@@ -108,6 +130,7 @@ export function isSelfClosing (node : AllNodeTypes) : boolean {
     case NodeNames.Local:
       return true // TODO: conditional based on params
     case NodeNames.Else:
+    case NodeNames.ConditionElse:
     case NodeNames.Include:
     case NodeNames.Text:
     case NodeNames.Interpolation:
@@ -115,5 +138,5 @@ export function isSelfClosing (node : AllNodeTypes) : boolean {
       return true
   }
 
-  throw new ParserError(`isSelfClosing(${name}) failed`)
+  throw new ParserError(`isSelfClosing(${type}) failed`)
 }

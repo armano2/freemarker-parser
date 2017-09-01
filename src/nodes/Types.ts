@@ -2,7 +2,7 @@ import { IExpression } from '../params/Types'
 
 export enum NodeNames {
   Program = 'Program',
-  Else = 'Body',
+  Else = 'Else',
   Condition = 'Condition',
   Include = 'Include',
   List = 'List',
@@ -15,6 +15,8 @@ export enum NodeNames {
   Interpolation = 'Interpolation',
   Attempt = 'Attempt',
   Recover = 'Recover',
+
+  ConditionElse = 'ConditionElse',
 
   // Unsupported for now
   // Function = 'Function',
@@ -41,7 +43,7 @@ export interface IParams extends Array<IExpression> {
 }
 
 export interface INode {
-  type : string
+  type : NodeNames
   start : number
   end : number
 }

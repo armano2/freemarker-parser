@@ -1,28 +1,22 @@
 import ParserError from './errors/ParserError'
-import { ISymbol, symbols, whitespaces } from './Symbols'
-import { Token } from './tokens/Token'
-import { ENodeType, EType } from './Types'
+import { ENodeType, isWhitespace, ISymbol, symbols, whitespaces } from './Symbols'
+import { cToken, IToken } from './tokens/Types'
 
 export default class Tokenizer {
   private template : string = ''
-  private tokens : Token[] = []
+  private tokens : IToken[] = []
   private cursorPos : number = 0
 
-  public parse (template : string) : Token[] {
+  public parse (template : string) : IToken[] {
     this.template = template
     while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
       const token = this.parseToken()
       if (!token) {
-        this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, this.template.length))
+        this.tokens.push(this.parseText(this.cursorPos, this.template.length))
         break
       }
     }
     return this.tokens
-  }
-
-  private makeToken (symbol : ENodeType, startPos : number, endPos : number, type : EType = EType.Text, params : string[] = [], tag : string = '', isClose : boolean = false) : Token {
-    // Get text => this.template.substring(startPos, endPos),
-    return new Token(symbol, startPos, endPos, type, params, tag, isClose, type !== EType.Text ? '' : this.template.substring(startPos, endPos))
   }
 
   private getNextPos (items : string[]) : number {
@@ -63,13 +57,13 @@ export default class Tokenizer {
     }
 
     if (startPos - 1 > this.cursorPos) {
-      this.tokens.push(this.makeToken(ENodeType.Text, this.cursorPos, startPos - 1))
+      this.tokens.push(this.parseText(this.cursorPos, startPos - 1))
     }
     this.cursorPos = startPos
 
     this.cursorPos += symbol.startToken.length
 
-    let node : Token | null = null
+    let node : IToken | null = null
 
     switch (symbol.type) {
       case ENodeType.Directive: // <#foo>/</#foo>
@@ -93,40 +87,31 @@ export default class Tokenizer {
     return true
   }
 
-  private parseInterpolation (symbol : ISymbol, startPos : number) : Token {
+  private parseText (start : number, end : number) : IToken {
+    return cToken(ENodeType.Text, start, end, this.template.substring(start, end))
+  }
+
+  private parseInterpolation (symbol : ISymbol, start : number) : IToken {
     const params : string[] = this.parseParams(symbol.endToken)
-    const node = this.makeToken(ENodeType.Interpolation, startPos, this.cursorPos, EType.Interpolation, params)
-    return node
+    return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params)
   }
 
-  private parseMacro (symbol : ISymbol, startPos : number, isClose : boolean = false) : Token {
+  private parseMacro (symbol : ISymbol, start : number, isClose : boolean = false) : IToken {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
     const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeToken(ENodeType.Macro, startPos, this.cursorPos, EType.MacroCall, params, typeString, isClose)
-
-    return node
+    return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
   }
 
-  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : Token {
+  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : IToken {
     const typeString = this.parseTag(symbol.endToken)
-    if (!(typeString in EType)) {
-      throw new ParserError(`Unsupported directive ${typeString}`) // TODO: add more info like location
-    }
     this.cursorPos += typeString.length
 
     const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
-    const node = this.makeToken(ENodeType.Directive, startPos, this.cursorPos, typeString as EType, params, '', isClose)
-    // TODO; read params
-
-    return node
-  }
-
-  private isWhitespace (char : string) : boolean {
-    return char === ' ' || char === '\t' || char === '\r' || char === '\n'
+    return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose)
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
@@ -166,7 +151,7 @@ export default class Tokenizer {
           }
           this.cursorPos = paramPos + engTag.length
           return params
-        } else if (this.isWhitespace(char)) {
+        } else if (isWhitespace(char)) {
           if (paramText !== '') {
             params.push(paramText)
             paramText = ''
