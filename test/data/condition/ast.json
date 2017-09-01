@@ -9,8 +9,44 @@
       "end": 21,
       "name": "assign",
       "params": [
-        "foo=2",
-        "bar=3"
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "foo"
+            },
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 2,
+                "raw": "2"
+              },
+              "prefix": true
+            }
+          ]
+        },
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "bar"
+            },
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 3,
+                "raw": "3"
+              },
+              "prefix": true
+            }
+          ]
+        }
       ],
       "children": []
     },
@@ -20,9 +56,18 @@
       "end": 39,
       "name": "if",
       "params": [
-        "foo",
-        "gt",
-        "bar"
+        {
+          "type": "Identifier",
+          "name": "foo"
+        },
+        {
+          "type": "Identifier",
+          "name": "gt"
+        },
+        {
+          "type": "Identifier",
+          "name": "bar"
+        }
       ],
       "consequent": [
         {
@@ -36,7 +81,10 @@
           "start": 46,
           "end": 52,
           "params": [
-            "foo"
+            {
+              "type": "Identifier",
+              "name": "foo"
+            }
           ]
         },
         {
@@ -50,7 +98,10 @@
           "start": 71,
           "end": 77,
           "params": [
-            "bar"
+            {
+              "type": "Identifier",
+              "name": "bar"
+            }
           ]
         }
       ],
@@ -61,9 +112,18 @@
           "end": 97,
           "name": "elseif",
           "params": [
-            "foo",
-            "lt",
-            "a"
+            {
+              "type": "Identifier",
+              "name": "foo"
+            },
+            {
+              "type": "Identifier",
+              "name": "lt"
+            },
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
           ],
           "consequent": [
             {
@@ -77,7 +137,10 @@
               "start": 104,
               "end": 110,
               "params": [
-                "foo"
+                {
+                  "type": "Identifier",
+                  "name": "foo"
+                }
               ]
             },
             {
@@ -91,7 +154,10 @@
               "start": 129,
               "end": 135,
               "params": [
-                "bar"
+                {
+                  "type": "Identifier",
+                  "name": "bar"
+                }
               ]
             }
           ],
@@ -107,7 +173,10 @@
               "start": 151,
               "end": 157,
               "params": [
-                "foo"
+                {
+                  "type": "Identifier",
+                  "name": "foo"
+                }
               ]
             },
             {
@@ -121,7 +190,10 @@
               "start": 172,
               "end": 178,
               "params": [
-                "bar"
+                {
+                  "type": "Identifier",
+                  "name": "bar"
+                }
               ]
             }
           ]

@@ -5,7 +5,7 @@ export default class NodeError extends ParserError {
   public node : BaseNode
 
   constructor (m : string, node : BaseNode) {
-    m = `${m}\n\t${node.$nodeType}(${node.start}-${node.end})`
+    m = `${node.$nodeType}(${node.start}-${node.end}) - ${m}`
     super(m)
     this.node = node
   }

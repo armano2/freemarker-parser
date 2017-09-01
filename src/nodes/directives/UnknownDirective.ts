@@ -1,11 +1,11 @@
-import { EType } from '../../Types'
+import { EType, IParams } from '../../Types'
 import { BaseNode } from '../BaseNode'
 import Directive from '../Directive'
 
 export default class UnknownDirective extends Directive {
   public children : BaseNode[]
 
-  constructor (name : EType, params : string[], start : number, end : number) {
+  constructor (name : EType, params : IParams, start : number, end : number) {
     super(name, params, start, end)
     this.children = []
   }

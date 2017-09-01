@@ -1,5 +1,5 @@
 import ParserError from '../../errors/ParserError'
-import { EType } from '../../Types'
+import { EType, IParams } from '../../Types'
 import { BaseNode } from '../BaseNode'
 import Directive from '../Directive'
 
@@ -8,7 +8,7 @@ export default class IfCondtion extends Directive {
   public alternate : BaseNode[]
   protected $inElse : boolean
 
-  constructor (name : EType, params : string[], start : number, end : number) {
+  constructor (name : EType, params : IParams, start : number, end : number) {
     super(name, params, start, end)
     this.consequent = []
     this.alternate = []

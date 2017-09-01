@@ -7,8 +7,9 @@ import UnknownDirective from './nodes/directives/UnknownDirective'
 import Interpolation from './nodes/Interpolation'
 import Macro from './nodes/Macro'
 import Text from './nodes/Text'
-import { ENodeType, EType } from './Types'
+import { ENodeType, EType, IParams } from './Types'
 
+import jsep from 'jsep'
 import { BaseNode } from './nodes/BaseNode'
 import { Token } from './tokens/Token'
 
@@ -16,15 +17,26 @@ function newDirective (token : Token) : Directive {
   switch (token.type) {
     case EType.if:
     case EType.elseif:
-      return new IfCondtionDirective(token.type, token.params, token.startPos, token.endPos)
+      return new IfCondtionDirective(token.type, parseParams(token), token.startPos, token.endPos)
     case EType.list:
-      return new List(token.type, token.params, token.startPos, token.endPos)
+      return new List(token.type, parseParams(token), token.startPos, token.endPos)
     case EType.include:
-      return new Include(token.type, token.params, token.startPos, token.endPos)
+      return new Include(token.type, parseParams(token), token.startPos, token.endPos)
     // TODO: add more types
   }
 
-  return new UnknownDirective(token.type, token.params, token.startPos, token.endPos)
+  return new UnknownDirective(token.type, parseParams(token), token.startPos, token.endPos)
+}
+
+function parseParams (token : Token) : IParams {
+  const params : IParams = []
+  jsep.addUnaryOp('=')
+  jsep.addUnaryOp('?')
+  for (const param of token.params) {
+    console.log(`parseParams: \`${param}\``)
+    params.push(jsep(param))
+  }
+  return params
 }
 
 function newNode (token : Token) : BaseNode {
@@ -32,9 +44,9 @@ function newNode (token : Token) : BaseNode {
     case ENodeType.Directive:
       return newDirective(token)
     case ENodeType.Macro:
-      return new Macro(token.tag, token.params, token.startPos, token.endPos)
+      return new Macro(token.tag, parseParams(token), token.startPos, token.endPos)
     case ENodeType.Interpolation:
-      return new Interpolation(token.startPos, token.endPos, token.params)
+      return new Interpolation(token.startPos, token.endPos, parseParams(token))
     case ENodeType.Text:
       return new Text(token.text, token.startPos, token.endPos)
   }
