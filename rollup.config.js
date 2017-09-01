@@ -6,12 +6,14 @@ const pkg = require('./package.json')
 const external = Object.keys(pkg.dependencies)
 
 module.exports = {
-  entry: '.temp/index.js',
+  input: '.temp/index.js',
   external,
-  dest: 'index.js',
-  format: 'cjs',
-  sourceMap: true,
-  sourceMapFile: 'index.js.map',
+  output: {
+    file: 'index.js',
+    format: 'cjs',
+    sourcemap: true
+  },
+  sourcemapFile: 'index.js.map',
   plugins: [
     sourcemaps(),
     resolve({external})

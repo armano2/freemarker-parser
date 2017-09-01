@@ -2,11 +2,10 @@
 
 [![Build Status](https://travis-ci.org/armano2/freemarkerjs.svg?branch=master)](https://travis-ci.org/armano2/freemarkerjs)
 [![Coverage Status](https://codecov.io/gh/armano2/freemarkerjs/branch/master/graph/badge.svg)](https://codecov.io/gh/armano2/freemarkerjs)
-[![Dependency Status](https://david-dm.org/armano2/freemarkerjs.svg)](https://david-dm.org/armano2/freemarkerjs)
 
 FreemarkerJs is a javascript implementation of the Freemarker (http://freemarker.sourceforge.com).
 
-## Currently supports:
+## TODO:
   - basic interpolations
   - directives:
     - `#if`
@@ -23,13 +22,6 @@ FreemarkerJs is a javascript implementation of the Freemarker (http://freemarker
     - `capitalize`
     - `length`
 
-## Usage:
-```js
-const parser = require('freemarkerjs').parser
-parser.render("Hello ${name}", {name:'Bob'});
-```
-
-## TODO:
   - support default values, i.e. `${user!"Anonymous"}`
   - null resistance in above expressions if in parenthesis
   - support methods, i.e. `${avg(3, 5)}`
@@ -65,6 +57,3 @@ parser.render("Hello ${name}", {name:'Bob'});
 
   - string builtin for booleans, i.e. `boolean?string("yes", "no")`
   - Remove deprecated `escape` / `unescape`
-
-## Based On:
-Copyright 2009 amplafi.com, Andreas Andreou - https://github.com/andyhot/freemarkerjs
