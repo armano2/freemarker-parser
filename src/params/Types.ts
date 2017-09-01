@@ -9,6 +9,7 @@ export interface ILiteral extends IExpression {
 }
 
 export interface IArrayExpression extends IExpression {
+  type : 'ArrayExpression'
   elements : IExpression[]
 }
 

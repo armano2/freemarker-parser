@@ -8,7 +8,6 @@ export class BaseNode {
   public $eType : string
   public start : number
   public end : number
-  public $config : INodeConfig
 
   constructor (nodeType : string, start : number, end : number, eType : EType) {
     this.type = this.constructor.name
@@ -16,10 +15,14 @@ export class BaseNode {
     this.$eType = eType
     this.start = start
     this.end = end
-    this.$config = NodeConfig[eType]
-    if (!this.$config) {
+  }
+
+  public get $config () : INodeConfig {
+    const $config = NodeConfig[this.$eType]
+    if (!$config) {
       throw new NodeError(`Invalid Token`, this) // TODO: add more info like location
     }
+    return $config
   }
 
   public canAddTo (node : BaseNode) : boolean {
