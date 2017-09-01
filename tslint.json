@@ -9,6 +9,7 @@
       "property-declaration": "onespace",
       "variable-declaration": "onespace"
     }],
+    "no-object-literal-type-assertion": false,
     "space-before-function-paren": true,
     "quotemark": [true, "single"],
     "no-bitwise": false,
