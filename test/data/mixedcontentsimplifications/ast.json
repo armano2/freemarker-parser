@@ -1,0 +1,99 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 108,
+  "body": [
+    {
+      "type": "Condition",
+      "start": 0,
+      "end": 10,
+      "params": [
+        {
+          "type": "Literal",
+          "value": true,
+          "raw": "true"
+        }
+      ],
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 11,
+          "end": 14,
+          "text": "   "
+        },
+        {
+          "type": "Condition",
+          "start": 15,
+          "end": 25,
+          "params": [
+            {
+              "type": "Literal",
+              "value": true,
+              "raw": "true"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 26,
+              "end": 29,
+              "text": "   "
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 37,
+          "end": 40,
+          "text": "   "
+        },
+        {
+          "type": "Condition",
+          "start": 41,
+          "end": 51,
+          "params": [
+            {
+              "type": "Literal",
+              "value": true,
+              "raw": "true"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 52,
+              "end": 68,
+              "text": "        text\n   "
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 76,
+          "end": 79,
+          "text": "   "
+        },
+        {
+          "type": "Condition",
+          "start": 80,
+          "end": 90,
+          "params": [
+            {
+              "type": "Literal",
+              "value": true,
+              "raw": "true"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 91,
+              "end": 93,
+              "text": "{x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

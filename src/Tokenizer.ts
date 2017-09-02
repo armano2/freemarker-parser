@@ -1,6 +1,11 @@
 import { ENodeType, isWhitespace, ISymbol, symbols, whitespaces } from './Symbols'
 import { cToken, IToken } from './tokens/Types'
 
+interface INextPos {
+  pos : number
+  text : string
+}
+
 export default class Tokenizer {
   private template : string = ''
   private tokens : IToken[] = []
@@ -19,26 +24,28 @@ export default class Tokenizer {
     return this.tokens
   }
 
-  private getNextPos (items : string[]) : number {
+  private getNextPos (items : string[], template : string = this.template, cursorPos : number = this.cursorPos) : INextPos {
     let pos = -1
+    let text = ''
     for (const item of items) {
-      const n = this.template.indexOf(item, this.cursorPos)
+      const n = template.indexOf(item, cursorPos)
       if (n >= 0 && (pos === -1 || n < pos)) {
         pos = n
+        text = item
       }
     }
-    return pos
+    return { pos, text }
   }
 
-  private parseTag (endTag : string) : string {
+  private parseTag (endTag : string[]) : string {
     const pos = this.getNextPos([
       ...whitespaces,
-      endTag,
+      ...endTag,
     ])
-    if (pos < 0) {
+    if (pos.pos < 0) {
       throw new SyntaxError('Missing closing tag') // TODO: add more info like location
     }
-    return this.template.substring(this.cursorPos, pos)
+    return this.template.substring(this.cursorPos, pos.pos)
   }
 
   private parseToken () : boolean {
@@ -88,13 +95,22 @@ export default class Tokenizer {
     return true
   }
 
+  private endsWith (text : string,  tokens : string []) : boolean {
+    for (const token of tokens) {
+      if (text.endsWith(token)) {
+        return true
+      }
+    }
+    return false
+  }
+
   private parseComment (symbol : ISymbol, start : number) : IToken {
-    const end = this.template.indexOf(symbol.endToken, this.cursorPos)
-    if (end === -1) {
+    const end = this.getNextPos(symbol.endToken)
+    if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`)
     }
-    const text = this.template.substring(this.cursorPos, end)
-    this.cursorPos = end + symbol.endToken.length
+    const text = this.template.substring(this.cursorPos, end.pos)
+    this.cursorPos = end.pos + end.text.length
     return cToken(ENodeType.Comment, start, this.cursorPos, text, [])
   }
 
@@ -111,7 +127,7 @@ export default class Tokenizer {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
-    const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
+    const params : string[] = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
     return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
   }
@@ -120,7 +136,7 @@ export default class Tokenizer {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
-    const params : string[] = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken)
+    const params : string[] = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken)
 
     return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose)
   }
@@ -129,15 +145,19 @@ export default class Tokenizer {
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  private parseParams (engTag : string) : string[] {
+  private parseParams (endTags : string[]) : string[] {
     const text = this.template.substring(this.cursorPos)
     const params : string[] = []
     let paramText : string = ''
     let paramPos : number = this.cursorPos
     let bracketLevel = 0
     let inString = false
+    let endTag : string = ''
 
-    for (const char of text) {
+    let i = -1
+    while (i < text.length) {
+      ++i
+      const char = text[i]
       if (char === '"') {
         inString = !inString
       }
@@ -155,12 +175,14 @@ export default class Tokenizer {
       }
 
       if (bracketLevel === 0 && !inString) {
-        if (char === engTag) {
+        const nextPos = this.getNextPos(endTags, text, i)
+        if (i === nextPos.pos) {
           if (paramText !== '') {
+            endTag = nextPos.text
             params.push(paramText)
             paramText = ''
           }
-          this.cursorPos = paramPos + engTag.length
+          this.cursorPos = paramPos + nextPos.text.length
           return params
         } else if (isWhitespace(char)) {
           if (paramText !== '') {
