@@ -68,7 +68,7 @@ export function tokenToNodeType (token : IToken) : NodeNames {
 
 export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTypes {
   const tokenType = tokenToNodeType(token)
-  console.log(`addNodeChild(${parent.type}, ${tokenType})`)
+  // console.log(`addNodeChild(${parent.type}, ${tokenType})`)
   switch (tokenType) {
     case NodeNames.Else:
       if (parent.type === NodeNames.Condition) {

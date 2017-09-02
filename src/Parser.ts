@@ -2,16 +2,22 @@ import NodeError from './errors/NodeError'
 import ParserError from './errors/ParserError'
 
 import Tokenizer from './Tokenizer'
+import { IToken } from './tokens/Types'
 
 import { AllNodeTypes, IProgram } from './nodes/Types'
 import { cProgram } from './utils/Node'
 import { addNodeChild, isSelfClosing, tokenToNodeType } from './utils/Token'
 
+export interface IParserReturn {
+  ast : IProgram
+  tokens : IToken[]
+}
+
 export class Parser {
-  public parse (template : string) : IProgram {
-    const astRoot = cProgram(0, template.length)
+  public parse (template : string) : IParserReturn {
+    const ast = cProgram(0, template.length)
     const stack : AllNodeTypes[] = []
-    let parent : AllNodeTypes = astRoot
+    let parent : AllNodeTypes = ast
 
     const tokenizer = new Tokenizer()
     const tokens = tokenizer.parse(template)
@@ -54,6 +60,6 @@ export class Parser {
     if (stack.length > 0) {
       throw new ParserError(`Unclosed tag`)
     }
-    return astRoot
+    return { ast, tokens }
   }
 }

@@ -8,6 +8,7 @@ class ParserError extends Error {
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
+//# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
     constructor(m, el) {
@@ -16,6 +17,7 @@ class NodeError extends ParserError {
         this.el = el;
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -39,12 +41,7 @@ const whitespaces = [
     '\r',
 ];
 function isWhitespace(char) {
-    for (const space of whitespaces) {
-        if (char === space) {
-            return true;
-        }
-    }
-    return false;
+    return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
 
 var NodeNames;
@@ -65,6 +62,7 @@ var NodeNames;
     NodeNames["Recover"] = "Recover";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Types.js.map
 
 class ParamError extends ParserError {
     constructor(message, index) {
@@ -73,6 +71,7 @@ class ParamError extends ParserError {
         this.index = index;
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -544,6 +543,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -553,6 +553,7 @@ function parseParams(tokenParams) {
     }
     return params;
 }
+//# sourceMappingURL=Params.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -577,6 +578,7 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
+//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -724,49 +726,51 @@ class Tokenizer {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(params, start, end) {
-    return { type: NodeNames.Assign, params, start, end };
+    return { type: NodeNames.Assign, start, end, params };
 }
 function cGlobal(params, start, end) {
-    return { type: NodeNames.Global, params, start, end };
+    return { type: NodeNames.Global, start, end, params };
 }
 function cCondition(params, start, end) {
-    return { type: NodeNames.Condition, params, consequent: [], start, end };
+    return { type: NodeNames.Condition, start, end, params, consequent: [] };
 }
 function cElse(start, end) {
-    return { type: NodeNames.Else, body: [], start, end };
+    return { type: NodeNames.Else, start, end, body: [] };
 }
 function cList(params, start, end) {
-    return { type: NodeNames.List, params, body: [], start, end };
+    return { type: NodeNames.List, start, end, params, body: [] };
 }
 function cMacro(params, start, end) {
-    return { type: NodeNames.Macro, params, body: [], start, end };
+    return { type: NodeNames.Macro, start, end, params, body: [] };
 }
 function cProgram(start, end) {
-    return { type: NodeNames.Program, body: [], start, end };
+    return { type: NodeNames.Program, start, end, body: [] };
 }
 function cMacroCall(params, name, start, end) {
-    return { type: NodeNames.MacroCall, name, params, body: [], start, end };
+    return { type: NodeNames.MacroCall, start, end, name, params, body: [] };
 }
 function cText(text, start, end) {
-    return { type: NodeNames.Text, text, start, end };
+    return { type: NodeNames.Text, start, end, text };
 }
 function cInclude(params, start, end) {
-    return { type: NodeNames.Include, params, start, end };
+    return { type: NodeNames.Include, start, end, params };
 }
 function cInterpolation(params, start, end) {
-    return { type: NodeNames.Interpolation, params, start, end };
+    return { type: NodeNames.Interpolation, start, end, params };
 }
 function cLocal(params, start, end) {
-    return { type: NodeNames.Local, params, start, end };
+    return { type: NodeNames.Local, start, end, params };
 }
 function cRecover(start, end) {
-    return { type: NodeNames.Recover, body: [], start, end };
+    return { type: NodeNames.Recover, start, end, body: [] };
 }
 function cAttempt(start, end) {
-    return { type: NodeNames.Attempt, body: [], start, end };
+    return { type: NodeNames.Attempt, start, end, body: [] };
 }
+//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -814,7 +818,6 @@ function tokenToNodeType(token) {
 }
 function addNodeChild(parent, token) {
     const tokenType = tokenToNodeType(token);
-    console.log(`addNodeChild(${parent.type}, ${tokenType})`);
     switch (tokenType) {
         case NodeNames.Else:
             if (parent.type === NodeNames.Condition) {
@@ -884,12 +887,13 @@ function isSelfClosing(type) {
     }
     throw new ParserError(`isSelfClosing(${type}) failed`);
 }
+//# sourceMappingURL=Token.js.map
 
 class Parser {
     parse(template) {
-        const astRoot = cProgram(0, template.length);
+        const ast = cProgram(0, template.length);
         const stack = [];
-        let parent = astRoot;
+        let parent = ast;
         const tokenizer = new Tokenizer();
         const tokens = tokenizer.parse(template);
         for (const token of tokens) {
@@ -925,9 +929,12 @@ class Parser {
         if (stack.length > 0) {
             throw new ParserError(`Unclosed tag`);
         }
-        return astRoot;
+        return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

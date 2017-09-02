@@ -30,10 +30,5 @@ export const whitespaces : string[] = [
 ]
 
 export function isWhitespace (char : string) : boolean {
-  for (const space of whitespaces) {
-    if (char === space) {
-      return true
-    }
-  }
-  return false
+  return char === ' ' || char === '\t' || char === '\r' || char === '\n'
 }
