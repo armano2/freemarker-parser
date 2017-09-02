@@ -4,6 +4,7 @@ export enum ENodeType {
   Macro = 'Macro',
   Text = 'Text',
   Interpolation = 'Interpolation',
+  Comment = 'Comment',
 }
 
 export interface ISymbol {
@@ -14,6 +15,7 @@ export interface ISymbol {
 }
 
 export const symbols : ISymbol[] = [
+  { startToken: '<#--', endToken: '-->', type: ENodeType.Comment, end: false },
   { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
   { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
   { startToken: '</@', endToken: '>', type: ENodeType.Macro, end: true },

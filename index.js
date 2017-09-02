@@ -16,13 +16,6 @@ class NodeError extends Error {
     }
 }
 
-class ParserError extends Error {
-    constructor(m) {
-        super(m);
-        Object.setPrototypeOf(this, ParserError.prototype);
-    }
-}
-
 var ENodeType;
 (function (ENodeType) {
     ENodeType["Program"] = "Program";
@@ -30,8 +23,10 @@ var ENodeType;
     ENodeType["Macro"] = "Macro";
     ENodeType["Text"] = "Text";
     ENodeType["Interpolation"] = "Interpolation";
+    ENodeType["Comment"] = "Comment";
 })(ENodeType || (ENodeType = {}));
 const symbols = [
+    { startToken: '<#--', endToken: '-->', type: ENodeType.Comment, end: false },
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
     { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
     { startToken: '</@', endToken: '>', type: ENodeType.Macro, end: true },
@@ -64,14 +59,16 @@ var NodeNames;
     NodeNames["Interpolation"] = "Interpolation";
     NodeNames["Attempt"] = "Attempt";
     NodeNames["Recover"] = "Recover";
+    NodeNames["Comment"] = "Comment";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
 
-class ParamError extends ParserError {
+class ParamError extends SyntaxError {
     constructor(message, index) {
         super(`${message} at character ${index}`);
         this.description = message;
         this.index = index;
+        Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
 
@@ -612,7 +609,7 @@ class Tokenizer {
             endTag,
         ]);
         if (pos < 0) {
-            throw new ParserError('Missing closing tag');
+            throw new SyntaxError('Missing closing tag');
         }
         return this.template.substring(this.cursorPos, pos);
     }
@@ -632,10 +629,12 @@ class Tokenizer {
         if (startPos - 1 > this.cursorPos) {
             this.tokens.push(this.parseText(this.cursorPos, startPos - 1));
         }
-        this.cursorPos = startPos;
-        this.cursorPos += symbol.startToken.length;
+        this.cursorPos = startPos + symbol.startToken.length;
         let node = null;
         switch (symbol.type) {
+            case ENodeType.Comment:
+                node = this.parseComment(symbol, startPos);
+                break;
             case ENodeType.Directive:
                 node = this.parseDirective(symbol, startPos, symbol.end);
                 break;
@@ -646,13 +645,22 @@ class Tokenizer {
                 node = this.parseInterpolation(symbol, startPos);
                 break;
             default:
-                break;
+                throw new ReferenceError(`Unknown node type ${symbol.type}`);
         }
         if (node) {
             this.tokens.push(node);
         }
         ++this.cursorPos;
         return true;
+    }
+    parseComment(symbol, start) {
+        const end = this.template.indexOf(symbol.endToken, this.cursorPos);
+        if (end === -1) {
+            throw new ReferenceError(`Unclosed comment`);
+        }
+        const text = this.template.substring(this.cursorPos, end);
+        this.cursorPos = end + symbol.endToken.length;
+        return cToken(ENodeType.Comment, start, this.cursorPos, text, []);
     }
     parseText(start, end) {
         return cToken(ENodeType.Text, start, end, this.template.substring(start, end));
@@ -693,7 +701,7 @@ class Tokenizer {
                 }
             }
             if (bracketLevel < 0) {
-                throw new ParserError(`bracketLevel < 0`);
+                throw new SyntaxError(`bracketLevel < 0`);
             }
             if (bracketLevel === 0 && !inString) {
                 if (char === engTag) {
@@ -722,7 +730,7 @@ class Tokenizer {
                 ++paramPos;
             }
         }
-        throw new ParserError(`Unclosed directive or macro`);
+        throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
 
@@ -762,6 +770,9 @@ function cLocal(params, start, end) {
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, start, end, body: [] };
 }
+function cComment(text, start, end) {
+    return { type: NodeNames.Comment, start, end, text };
+}
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -782,12 +793,13 @@ function addToNode(parent, child) {
         case NodeNames.Assign:
         case NodeNames.Global:
         case NodeNames.Local:
-            throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`);
+            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
         case NodeNames.Interpolation:
         case NodeNames.Include:
         case NodeNames.Text:
+        case NodeNames.Comment:
         default:
-            throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`);
+            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
     }
     return child;
 }
@@ -797,7 +809,7 @@ function tokenToNodeType(token) {
             if (token.text in directives) {
                 return directives[token.text];
             }
-            throw new ParserError(`Directive \`${token.text}\` is not supported`);
+            throw new NodeError(`Directive \`${token.text}\` is not supported`, token);
         case ENodeType.Interpolation:
             return NodeNames.Interpolation;
         case ENodeType.Text:
@@ -806,8 +818,10 @@ function tokenToNodeType(token) {
             return NodeNames.MacroCall;
         case ENodeType.Program:
             return NodeNames.Program;
+        case ENodeType.Comment:
+            return NodeNames.Comment;
     }
-    throw new ParserError(`Unknow token \`${token.type}\` - \`${token.text}\``);
+    throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token);
 }
 function addNodeChild(parent, token) {
     const tokenType = tokenToNodeType(token);
@@ -815,14 +829,14 @@ function addNodeChild(parent, token) {
         case NodeNames.Else:
             if (parent.type === NodeNames.Condition) {
                 if (parent.alternate) {
-                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
                 }
                 parent.alternate = [];
                 return parent;
             }
             else if (parent.type === NodeNames.List) {
                 if (parent.fallback) {
-                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
                 }
                 parent.fallback = [];
                 return parent;
@@ -832,7 +846,7 @@ function addNodeChild(parent, token) {
             if (parent.type === NodeNames.Condition) {
                 const node = cCondition(token.params, token.start, token.end);
                 if (parent.alternate) {
-                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
                 }
                 parent.alternate = [];
                 parent.alternate.push(node);
@@ -842,7 +856,7 @@ function addNodeChild(parent, token) {
         case NodeNames.Recover:
             if (parent.type === NodeNames.Attempt) {
                 if (parent.fallback) {
-                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
                 }
                 parent.fallback = [];
                 return parent;
@@ -870,9 +884,11 @@ function addNodeChild(parent, token) {
             return addToNode(parent, cText(token.text, token.start, token.end));
         case NodeNames.MacroCall:
             return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
+        case NodeNames.Comment:
+            return addToNode(parent, cComment(token.text, token.start, token.end));
         case NodeNames.Program:
     }
-    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
 }
 var EClosingType;
 (function (EClosingType) {
@@ -904,9 +920,10 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Include:
         case NodeNames.Text:
         case NodeNames.Interpolation:
+        case NodeNames.Comment:
             return EClosingType.Ignore;
     }
-    throw new ParserError(`isSelfClosing(${type}) failed`);
+    throw new ReferenceError(`isSelfClosing(${type}) failed`);
 }
 
 const errorMessages = {

@@ -1,11 +1,11 @@
-import ParserError from '../errors/ParserError'
+import NodeError from '../errors/NodeError'
 import { AllNodeTypes, NodeNames } from '../nodes/Types'
 import { ENodeType } from '../Symbols'
 import { directives, IToken } from '../tokens/Types'
-
 import {
   cAssign,
   cAttempt,
+  cComment,
   cCondition,
   cGlobal,
   cInclude,
@@ -37,12 +37,13 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
     case NodeNames.Global:
     case NodeNames.Local:
       // TODO: only when multiline
-      throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`)
+      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
     case NodeNames.Interpolation:
     case NodeNames.Include:
     case NodeNames.Text:
+    case NodeNames.Comment:
     default:
-      throw new ParserError(`addToChild(${parent.type}, ${child.type}) failed`)
+      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
   }
   return child
 }
@@ -53,7 +54,7 @@ export function tokenToNodeType (token : IToken) : NodeNames {
       if (token.text in directives) {
         return directives[token.text]
       }
-      throw new ParserError(`Directive \`${token.text}\` is not supported`)
+      throw new NodeError(`Directive \`${token.text}\` is not supported`, token)
     case ENodeType.Interpolation:
       return NodeNames.Interpolation
     case ENodeType.Text:
@@ -62,8 +63,10 @@ export function tokenToNodeType (token : IToken) : NodeNames {
       return NodeNames.MacroCall
     case ENodeType.Program:
       return NodeNames.Program
+    case ENodeType.Comment:
+      return NodeNames.Comment
   }
-  throw new ParserError(`Unknow token \`${token.type}\` - \`${token.text}\``)
+  throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token)
 }
 
 export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTypes {
@@ -73,13 +76,13 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
     case NodeNames.Else:
       if (parent.type === NodeNames.Condition) {
         if (parent.alternate) {
-          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
         }
         parent.alternate = []
         return parent
       } else if (parent.type === NodeNames.List) {
         if (parent.fallback) {
-          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
         }
         parent.fallback = []
         return parent
@@ -89,7 +92,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       if (parent.type === NodeNames.Condition) {
         const node = cCondition(token.params, token.start, token.end)
         if (parent.alternate) {
-          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
         }
         parent.alternate = []
         parent.alternate.push(node)
@@ -99,7 +102,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
     case NodeNames.Recover:
       if (parent.type === NodeNames.Attempt) {
         if (parent.fallback) {
-          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
         }
         parent.fallback = []
         return parent
@@ -127,10 +130,12 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       return addToNode(parent, cText(token.text, token.start, token.end))
     case NodeNames.MacroCall:
       return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end))
+    case NodeNames.Comment:
+      return addToNode(parent, cComment(token.text, token.start, token.end))
     case NodeNames.Program:
       // this should nevet happen
   }
-  throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`)
+  throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token)
 }
 
 export enum EClosingType {
@@ -163,8 +168,9 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Include:
     case NodeNames.Text:
     case NodeNames.Interpolation:
+    case NodeNames.Comment:
       return EClosingType.Ignore
   }
 
-  throw new ParserError(`isSelfClosing(${type}) failed`)
+  throw new ReferenceError(`isSelfClosing(${type}) failed`)
 }

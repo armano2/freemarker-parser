@@ -1,6 +1,7 @@
 import {
   IAssign,
   IAttempt,
+  IComment,
   ICondition,
   IGlobal,
   IInclude,
@@ -13,7 +14,6 @@ import {
   IText,
   NodeNames,
 } from '../nodes/Types'
-
 import { IParams } from '../Types' // TODO remove this
 
 export function cAssign (params : IParams, start : number, end : number) : IAssign {
@@ -62,4 +62,8 @@ export function cLocal (params : IParams, start : number, end : number) : ILocal
 
 export function cAttempt (start : number, end : number) : IAttempt {
   return { type : NodeNames.Attempt, start, end, body : [] }
+}
+
+export function cComment (text : string, start : number, end : number) : IComment {
+  return { type : NodeNames.Comment, start, end, text }
 }

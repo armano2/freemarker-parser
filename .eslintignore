@@ -2,8 +2,5 @@
 /.temp
 /coverage
 /node_modules
-/src/html/util
-/test/fixtures
-/test/temp
 /index.d.ts
 /index.js

@@ -15,6 +15,7 @@ export enum NodeNames {
   Interpolation = 'Interpolation',
   Attempt = 'Attempt',
   Recover = 'Recover',
+  Comment = 'Comment',
 
   ConditionElse = 'ConditionElse',
 
@@ -116,7 +117,12 @@ export interface IAttempt extends INode {
   fallback? : INode[]
 }
 
-export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText |
+export interface IComment extends INode {
+  type : NodeNames.Comment
+  text : string
+}
+
+export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
   ICondition | IList |
   IGlobal | ILocal | IAssign |
   IInclude |

@@ -1,4 +1,3 @@
-import ParserError from './errors/ParserError'
 import { ENodeType, isWhitespace, ISymbol, symbols, whitespaces } from './Symbols'
 import { cToken, IToken } from './tokens/Types'
 
@@ -36,7 +35,7 @@ export default class Tokenizer {
       endTag,
     ])
     if (pos < 0) {
-      throw new ParserError('Missing closing tag') // TODO: add more info like location
+      throw new SyntaxError('Missing closing tag') // TODO: add more info like location
     }
     return this.template.substring(this.cursorPos, pos)
   }
@@ -59,13 +58,14 @@ export default class Tokenizer {
     if (startPos - 1 > this.cursorPos) {
       this.tokens.push(this.parseText(this.cursorPos, startPos - 1))
     }
-    this.cursorPos = startPos
-
-    this.cursorPos += symbol.startToken.length
+    this.cursorPos = startPos + symbol.startToken.length
 
     let node : IToken | null = null
 
     switch (symbol.type) {
+      case ENodeType.Comment: // <#-- foo -->
+        node = this.parseComment(symbol, startPos)
+        break
       case ENodeType.Directive: // <#foo>/</#foo>
         node = this.parseDirective(symbol, startPos, symbol.end)
         break
@@ -76,7 +76,7 @@ export default class Tokenizer {
         node = this.parseInterpolation(symbol, startPos)
         break
       default:
-        break
+        throw new ReferenceError(`Unknown node type ${symbol.type}`)
     }
 
     if (node) {
@@ -85,6 +85,16 @@ export default class Tokenizer {
 
     ++this.cursorPos
     return true
+  }
+
+  private parseComment (symbol : ISymbol, start : number) : IToken {
+    const end = this.template.indexOf(symbol.endToken, this.cursorPos)
+    if (end === -1) {
+      throw new ReferenceError(`Unclosed comment`)
+    }
+    const text = this.template.substring(this.cursorPos, end)
+    this.cursorPos = end + symbol.endToken.length
+    return cToken(ENodeType.Comment, start, this.cursorPos, text, [])
   }
 
   private parseText (start : number, end : number) : IToken {
@@ -140,7 +150,7 @@ export default class Tokenizer {
       }
 
       if (bracketLevel < 0) {
-        throw new ParserError(`bracketLevel < 0`) // TODO: add more info like location
+        throw new SyntaxError(`bracketLevel < 0`) // TODO: add more info like location
       }
 
       if (bracketLevel === 0 && !inString) {
@@ -167,6 +177,6 @@ export default class Tokenizer {
         ++paramPos
       }
     }
-    throw new ParserError(`Unclosed directive or macro`) // TODO: add more info like location
+    throw new SyntaxError(`Unclosed directive or macro`) // TODO: add more info like location
   }
 }

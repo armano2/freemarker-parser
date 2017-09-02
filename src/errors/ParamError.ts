@@ -1,6 +1,4 @@
-import ParserError from './ParserError'
-
-export default class ParamError extends ParserError {
+export default class ParamError extends SyntaxError {
   public index : number
   public description : string
 
@@ -8,5 +6,8 @@ export default class ParamError extends ParserError {
     super(`${message} at character ${index}`)
     this.description = message
     this.index = index
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, ParamError.prototype)
   }
 }

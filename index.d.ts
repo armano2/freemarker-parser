@@ -53,6 +53,7 @@ declare module 'freemarkerjs/nodes/Types' {
         Interpolation = "Interpolation",
         Attempt = "Attempt",
         Recover = "Recover",
+        Comment = "Comment",
         ConditionElse = "ConditionElse",
     }
     export interface IParams extends Array<IExpression> {
@@ -119,7 +120,11 @@ declare module 'freemarkerjs/nodes/Types' {
         body: INode[];
         fallback?: INode[];
     }
-    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt;
+    export interface IComment extends INode {
+        type: NodeNames.Comment;
+        text: string;
+    }
+    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt;
 }
 
 declare module 'freemarkerjs/Symbols' {
@@ -129,6 +134,7 @@ declare module 'freemarkerjs/Symbols' {
         Macro = "Macro",
         Text = "Text",
         Interpolation = "Interpolation",
+        Comment = "Comment",
     }
     export interface ISymbol {
         startToken: string;
