@@ -8,7 +8,6 @@ class ParserError extends Error {
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
-//# sourceMappingURL=ParserError.js.map
 
 class NodeError extends ParserError {
     constructor(m, el) {
@@ -17,7 +16,6 @@ class NodeError extends ParserError {
         this.el = el;
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -48,7 +46,6 @@ function isWhitespace(char) {
     }
     return false;
 }
-//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -68,7 +65,6 @@ var NodeNames;
     NodeNames["Recover"] = "Recover";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
-//# sourceMappingURL=Types.js.map
 
 class ParamError extends ParserError {
     constructor(message, index) {
@@ -77,7 +73,6 @@ class ParamError extends ParserError {
         this.index = index;
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -549,7 +544,6 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -559,7 +553,6 @@ function parseParams(tokenParams) {
     }
     return params;
 }
-//# sourceMappingURL=Params.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -584,7 +577,6 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
-//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -732,7 +724,6 @@ class Tokenizer {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, params, start, end };
@@ -776,7 +767,6 @@ function cRecover(start, end) {
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, body: [], start, end };
 }
-//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -894,7 +884,6 @@ function isSelfClosing(type) {
     }
     throw new ParserError(`isSelfClosing(${type}) failed`);
 }
-//# sourceMappingURL=Token.js.map
 
 class Parser {
     parse(template) {
@@ -939,8 +928,6 @@ class Parser {
         return astRoot;
     }
 }
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map
