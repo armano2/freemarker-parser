@@ -735,9 +735,6 @@ function cGlobal(params, start, end) {
 function cCondition(params, start, end) {
     return { type: NodeNames.Condition, start, end, params, consequent: [] };
 }
-function cElse(start, end) {
-    return { type: NodeNames.Else, start, end, body: [] };
-}
 function cList(params, start, end) {
     return { type: NodeNames.List, start, end, params, body: [] };
 }
@@ -762,9 +759,6 @@ function cInterpolation(params, start, end) {
 function cLocal(params, start, end) {
     return { type: NodeNames.Local, start, end, params };
 }
-function cRecover(start, end) {
-    return { type: NodeNames.Recover, start, end, body: [] };
-}
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, start, end, body: [] };
 }
@@ -772,15 +766,17 @@ function cAttempt(start, end) {
 function addToNode(parent, child) {
     switch (parent.type) {
         case NodeNames.Condition:
-            parent.consequent.push(child);
+            parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child);
             break;
         case NodeNames.List:
-        case NodeNames.Else:
+            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
+            break;
         case NodeNames.Macro:
         case NodeNames.Program:
-        case NodeNames.Attempt:
-        case NodeNames.Recover:
             parent.body.push(child);
+            break;
+        case NodeNames.Attempt:
+            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
             break;
         case NodeNames.MacroCall:
         case NodeNames.Assign:
@@ -818,20 +814,38 @@ function addNodeChild(parent, token) {
     switch (tokenType) {
         case NodeNames.Else:
             if (parent.type === NodeNames.Condition) {
-                return parent.alternate = cElse(token.start, token.end);
+                if (parent.alternate) {
+                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                }
+                parent.alternate = [];
+                return parent;
             }
             else if (parent.type === NodeNames.List) {
-                return parent.fallback = cElse(token.start, token.end);
+                if (parent.fallback) {
+                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                }
+                parent.fallback = [];
+                return parent;
             }
             break;
         case NodeNames.ConditionElse:
             if (parent.type === NodeNames.Condition) {
-                return parent.alternate = cCondition(token.params, token.start, token.end);
+                const node = cCondition(token.params, token.start, token.end);
+                if (parent.alternate) {
+                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                }
+                parent.alternate = [];
+                parent.alternate.push(node);
+                return node;
             }
             break;
         case NodeNames.Recover:
             if (parent.type === NodeNames.Attempt) {
-                return parent.fallback = cRecover(token.start, token.end);
+                if (parent.fallback) {
+                    throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
+                }
+                parent.fallback = [];
+                return parent;
             }
             break;
         case NodeNames.Attempt:
@@ -870,12 +884,11 @@ var EClosingType;
 function isClosing(type, parentType, isClose) {
     switch (type) {
         case NodeNames.Program:
-        case NodeNames.List:
         case NodeNames.Attempt:
         case NodeNames.Macro:
-            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
         case NodeNames.Condition:
-            return ((type === parentType || NodeNames.Else === parentType) && isClose) ? EClosingType.Yes : EClosingType.No;
+        case NodeNames.List:
+            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
         case NodeNames.ConditionElse:
             return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
         case NodeNames.Else:

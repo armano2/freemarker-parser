@@ -102,65 +102,62 @@
           ]
         }
       ],
-      "alternate": {
-        "type": "Condition",
-        "start": 79,
-        "end": 97,
-        "params": [
-          {
-            "type": "Identifier",
-            "name": "foo"
-          },
-          {
-            "type": "Identifier",
-            "name": "lt"
-          },
-          {
-            "type": "Identifier",
-            "name": "a"
-          }
-        ],
-        "consequent": [
-          {
-            "type": "Text",
-            "start": 98,
-            "end": 103,
-            "text": "  foo"
-          },
-          {
-            "type": "Interpolation",
-            "start": 104,
-            "end": 110,
-            "params": [
-              {
-                "type": "Identifier",
-                "name": "foo"
-              }
-            ]
-          },
-          {
-            "type": "Text",
-            "start": 111,
-            "end": 128,
-            "text": " is less than bar"
-          },
-          {
-            "type": "Interpolation",
-            "start": 129,
-            "end": 135,
-            "params": [
-              {
-                "type": "Identifier",
-                "name": "bar"
-              }
-            ]
-          }
-        ],
-        "alternate": {
-          "type": "Else",
-          "start": 137,
-          "end": 144,
-          "body": [
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 79,
+          "end": 97,
+          "params": [
+            {
+              "type": "Identifier",
+              "name": "foo"
+            },
+            {
+              "type": "Identifier",
+              "name": "lt"
+            },
+            {
+              "type": "Identifier",
+              "name": "a"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 98,
+              "end": 103,
+              "text": "  foo"
+            },
+            {
+              "type": "Interpolation",
+              "start": 104,
+              "end": 110,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "name": "foo"
+                }
+              ]
+            },
+            {
+              "type": "Text",
+              "start": 111,
+              "end": 128,
+              "text": " is less than bar"
+            },
+            {
+              "type": "Interpolation",
+              "start": 129,
+              "end": 135,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "name": "bar"
+                }
+              ]
+            }
+          ],
+          "alternate": [
             {
               "type": "Text",
               "start": 145,
@@ -197,7 +194,7 @@
             }
           ]
         }
-      }
+      ]
     }
   ]
 }

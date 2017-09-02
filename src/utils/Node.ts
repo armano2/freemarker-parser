@@ -2,7 +2,6 @@ import {
   IAssign,
   IAttempt,
   ICondition,
-  IElse,
   IGlobal,
   IInclude,
   IInterpolation,
@@ -11,7 +10,6 @@ import {
   IMacro,
   IMacroCall,
   IProgram,
-  IRecover,
   IText,
   NodeNames,
 } from '../nodes/Types'
@@ -28,10 +26,6 @@ export function cGlobal (params : IParams, start : number, end : number) : IGlob
 
 export function cCondition (params : IParams, start : number, end : number) : ICondition {
   return { type : NodeNames.Condition, start, end, params, consequent: [] }
-}
-
-export function cElse (start : number, end : number) : IElse {
-  return { type : NodeNames.Else, start, end, body : [] }
 }
 
 export function cList (params : IParams, start : number, end : number) : IList {
@@ -64,10 +58,6 @@ export function cInterpolation (params : IParams, start : number, end : number) 
 
 export function cLocal (params : IParams, start : number, end : number) : ILocal {
   return { type : NodeNames.Local, start, end, params }
-}
-
-export function cRecover (start : number, end : number) : IRecover {
-  return { type : NodeNames.Recover, start, end, body : [] }
 }
 
 export function cAttempt (start : number, end : number) : IAttempt {

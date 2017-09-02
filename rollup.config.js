@@ -3,7 +3,9 @@ const sourcemaps = require('rollup-plugin-sourcemaps')
 
 const pkg = require('./package.json')
 
-const external = Object.keys(pkg.dependencies)
+const external = [
+  'util'
+].concat(Object.keys(pkg.dependencies))
 
 module.exports = {
   input: '.temp/index.js',

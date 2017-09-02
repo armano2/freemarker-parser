@@ -7,7 +7,6 @@ import {
   cAssign,
   cAttempt,
   cCondition,
-  cElse,
   cGlobal,
   cInclude,
   cInterpolation,
@@ -15,22 +14,23 @@ import {
   cLocal,
   cMacro,
   cMacroCall,
-  cRecover,
   cText,
 } from './Node'
 
 function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes {
   switch (parent.type) {
     case NodeNames.Condition:
-      parent.consequent.push(child)
+      parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child)
       break
     case NodeNames.List:
-    case NodeNames.Else:
+      parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
+      break
     case NodeNames.Macro:
     case NodeNames.Program:
-    case NodeNames.Attempt:
-    case NodeNames.Recover:
       parent.body.push(child)
+      break
+    case NodeNames.Attempt:
+      parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
       break
     case NodeNames.MacroCall:
     case NodeNames.Assign:
@@ -72,19 +72,37 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
   switch (tokenType) {
     case NodeNames.Else:
       if (parent.type === NodeNames.Condition) {
-        return parent.alternate = cElse(token.start, token.end)
+        if (parent.alternate) {
+          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+        }
+        parent.alternate = []
+        return parent
       } else if (parent.type === NodeNames.List) {
-        return parent.fallback = cElse(token.start, token.end)
+        if (parent.fallback) {
+          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+        }
+        parent.fallback = []
+        return parent
       }
       break
     case NodeNames.ConditionElse:
       if (parent.type === NodeNames.Condition) {
-        return parent.alternate = cCondition(token.params, token.start, token.end)
+        const node = cCondition(token.params, token.start, token.end)
+        if (parent.alternate) {
+          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+        }
+        parent.alternate = []
+        parent.alternate.push(node)
+        return node
       }
       break
     case NodeNames.Recover:
       if (parent.type === NodeNames.Attempt) {
-        return parent.fallback = cRecover(token.start, token.end)
+        if (parent.fallback) {
+          throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`) // TODO: improve this message
+        }
+        parent.fallback = []
+        return parent
       }
       break
     case NodeNames.Attempt:
@@ -125,12 +143,11 @@ export enum EClosingType {
 export function isClosing (type : NodeNames, parentType : NodeNames, isClose : boolean) : EClosingType {
   switch (type) {
     case NodeNames.Program:
-    case NodeNames.List:
     case NodeNames.Attempt:
     case NodeNames.Macro:
-      return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
     case NodeNames.Condition:
-      return ((type === parentType || NodeNames.Else === parentType) && isClose) ? EClosingType.Yes : EClosingType.No
+    case NodeNames.List:
+      return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
     case NodeNames.ConditionElse:
       return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No
     case NodeNames.Else:

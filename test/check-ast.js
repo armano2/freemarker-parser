@@ -18,13 +18,13 @@ function stringify (text) {
 for (const name of tests) {
   describe(name, function () {
     const dir = path.join(testsPath, name)
-    let ast = {}
+    let data = {}
     const file = path.join(dir, 'template.ftl')
 
     it('should have no errors', function () {
       try {
         const code = fs.readFileSync(file, 'utf8')
-        ast = parser.parse(code)
+        data = parser.parse(code)
       } catch (e) {
         let message = e.message
         if (e.nodeType) {
@@ -34,13 +34,13 @@ for (const name of tests) {
         assert.fail(message)
       }
     })
-    // it('should have correct tokens', function () {
-    //   const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
-    //   assert.equal(stringify(parser.tokens), code, 'tokens do match')
-    // })
-    // it('should have correct ast', function () {
-    //   const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
-    //   assert.equal(stringify(ast), code, 'tokens do match')
-    // })
+    it('should have correct tokens', function () {
+      const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
+      assert.equal(stringify(data.tokens), code, 'tokens do match')
+    })
+    it('should have correct ast', function () {
+      const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
+      assert.equal(stringify(data.ast), code, 'tokens do match')
+    })
   })
 }

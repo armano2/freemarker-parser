@@ -143,19 +143,14 @@
           ]
         }
       ],
-      "fallback": {
-        "type": "Else",
-        "start": 156,
-        "end": 163,
-        "body": [
-          {
-            "type": "Text",
-            "start": 164,
-            "end": 175,
-            "text": "  Not found"
-          }
-        ]
-      }
+      "fallback": [
+        {
+          "type": "Text",
+          "start": 164,
+          "end": 175,
+          "text": "  Not found"
+        }
+      ]
     }
   ]
 }

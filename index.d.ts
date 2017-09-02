@@ -6,10 +6,34 @@ declare module 'freemarkerjs' {
 }
 
 declare module 'freemarkerjs/Parser' {
+    import { IToken } from 'freemarkerjs/tokens/Types';
     import { IProgram } from 'freemarkerjs/nodes/Types';
-    export class Parser {
-        parse(template: string): IProgram;
+    export interface IParserReturn {
+        ast: IProgram;
+        tokens: IToken[];
     }
+    export class Parser {
+        parse(template: string): IParserReturn;
+    }
+}
+
+declare module 'freemarkerjs/tokens/Types' {
+    import { NodeNames } from 'freemarkerjs/nodes/Types';
+    import { ENodeType } from 'freemarkerjs/Symbols';
+    import { IParams } from 'freemarkerjs/Types';
+    export interface IDirectivesTypes {
+        [n: string]: NodeNames;
+    }
+    export const directives: IDirectivesTypes;
+    export interface IToken {
+        type: ENodeType;
+        start: number;
+        end: number;
+        params: IParams;
+        text: string;
+        isClose: boolean;
+    }
+    export function cToken(type: ENodeType, start: number, end: number, text: string, params?: string[], isClose?: boolean): IToken;
 }
 
 declare module 'freemarkerjs/nodes/Types' {
@@ -47,11 +71,7 @@ declare module 'freemarkerjs/nodes/Types' {
         type: NodeNames.Condition;
         params: IParams;
         consequent: INode[];
-        alternate?: IElse | ICondition;
-    }
-    export interface IElse extends INode {
-        type: NodeNames.Else;
-        body: INode[];
+        alternate?: INode[];
     }
     export interface IInclude extends INode {
         type: NodeNames.Include;
@@ -61,7 +81,7 @@ declare module 'freemarkerjs/nodes/Types' {
         type: NodeNames.List;
         params: IParams;
         body: INode[];
-        fallback?: IElse;
+        fallback?: INode[];
     }
     export interface IText extends INode {
         type: NodeNames.Text;
@@ -97,13 +117,35 @@ declare module 'freemarkerjs/nodes/Types' {
     export interface IAttempt extends INode {
         type: NodeNames.Attempt;
         body: INode[];
-        fallback?: IRecover;
+        fallback?: INode[];
     }
-    export interface IRecover extends INode {
-        type: NodeNames.Recover;
-        body: INode[];
+    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt;
+}
+
+declare module 'freemarkerjs/Symbols' {
+    export enum ENodeType {
+        Program = "Program",
+        Directive = "Directive",
+        Macro = "Macro",
+        Text = "Text",
+        Interpolation = "Interpolation",
     }
-    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICondition | IElse | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | IRecover;
+    export interface ISymbol {
+        startToken: string;
+        endToken: string;
+        type: ENodeType;
+        end: boolean;
+    }
+    export const symbols: ISymbol[];
+    export const whitespaces: string[];
+    export function isWhitespace(char: string): boolean;
+}
+
+declare module 'freemarkerjs/Types' {
+    import { IExpression } from 'freemarkerjs/params/Types';
+    export interface IParams extends Array<IExpression> {
+        [i: number]: IExpression;
+    }
 }
 
 declare module 'freemarkerjs/params/Types' {

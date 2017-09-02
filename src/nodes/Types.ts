@@ -57,12 +57,7 @@ export interface ICondition extends INode {
   type : NodeNames.Condition
   params : IParams
   consequent : INode[]
-  alternate? : IElse | ICondition
-}
-
-export interface IElse extends INode {
-  type : NodeNames.Else
-  body : INode[]
+  alternate? : INode[]
 }
 
 export interface IInclude extends INode {
@@ -74,7 +69,7 @@ export interface IList extends INode {
   type : NodeNames.List
   params : IParams
   body : INode[]
-  fallback? : IElse
+  fallback? : INode[]
 }
 
 export interface IText extends INode {
@@ -118,17 +113,12 @@ export interface IInterpolation extends INode {
 export interface IAttempt extends INode {
   type : NodeNames.Attempt
   body : INode[]
-  fallback? : IRecover
-}
-
-export interface IRecover extends INode {
-  type : NodeNames.Recover
-  body : INode[]
+  fallback? : INode[]
 }
 
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText |
-  ICondition | IElse | IList |
+  ICondition | IList |
   IGlobal | ILocal | IAssign |
   IInclude |
   IMacro |
-  IAttempt | IRecover
+  IAttempt
