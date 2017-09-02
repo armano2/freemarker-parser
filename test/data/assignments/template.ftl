@@ -1,11 +1,17 @@
-1 <#assign x = 1>
-2 <#assign x = 1, y = 2>
-3 <#assign x = 1 in ns>
-4 <#assign x = 1, y = 2 in ns>
-5 <#global x = 1>
-6 <#global x = 1, y = 2>
+<#--  <#ftl stripWhitespace=false>  -->
+<#assign x = 1>
+<#assign x = 1, y = 2>
+<#assign x = 1 in ns>
+<#assign x = 1, y = 2 in ns>
+<#assign a += b + c>
+<#assign a += 1, b -= 2, c *= 3, d /= 4, e %= 5, f++, g-->
+<#global x = 1>
+<#global x = 1, y = 2>
+<#global x++>
 <#macro m>
-  7 <#local x = 1>
-  8 <#local x = 1, y = 2>
+  <#local x = 1>
+  <#local x = 1, y = 2>
 </#macro>
-9 <#assign a += 1, b -= 2, c *= 3, d /= 4, e %= 5, f++, g-->
+<#--  <#assign x>
+  foo ${bar}
+</#assign>  -->
