@@ -15,7 +15,6 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -27,12 +26,12 @@ var ENodeType;
     ENodeType["Comment"] = "Comment";
 })(ENodeType || (ENodeType = {}));
 const symbols = [
-    { startToken: '<#--', endToken: '-->', type: ENodeType.Comment, end: false },
-    { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
-    { startToken: '<#', endToken: '>', type: ENodeType.Directive, end: false },
-    { startToken: '</@', endToken: '>', type: ENodeType.Macro, end: true },
-    { startToken: '<@', endToken: '>', type: ENodeType.Macro, end: false },
-    { startToken: '${', endToken: '}', type: ENodeType.Interpolation, end: false },
+    { startToken: '<#--', endToken: ['-->'], type: ENodeType.Comment, end: false },
+    { startToken: '</#', endToken: ['>', '/>'], type: ENodeType.Directive, end: true },
+    { startToken: '<#', endToken: ['>', '/>'], type: ENodeType.Directive, end: false },
+    { startToken: '</@', endToken: ['>', '/>'], type: ENodeType.Macro, end: true },
+    { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
+    { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
 const whitespaces = [
     ' ',
@@ -43,7 +42,6 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
-//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -64,7 +62,6 @@ var NodeNames;
     NodeNames["Comment"] = "Comment";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
-//# sourceMappingURL=Types.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -74,7 +71,6 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -569,7 +565,6 @@ function parseParams(tokenParams) {
     }
     return params;
 }
-//# sourceMappingURL=Params.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -594,7 +589,6 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
-//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -613,25 +607,27 @@ class Tokenizer {
         }
         return this.tokens;
     }
-    getNextPos(items) {
+    getNextPos(items, template = this.template, cursorPos = this.cursorPos) {
         let pos = -1;
+        let text = '';
         for (const item of items) {
-            const n = this.template.indexOf(item, this.cursorPos);
+            const n = template.indexOf(item, cursorPos);
             if (n >= 0 && (pos === -1 || n < pos)) {
                 pos = n;
+                text = item;
             }
         }
-        return pos;
+        return { pos, text };
     }
     parseTag(endTag) {
         const pos = this.getNextPos([
             ...whitespaces,
-            endTag,
+            ...endTag,
         ]);
-        if (pos < 0) {
+        if (pos.pos < 0) {
             throw new SyntaxError('Missing closing tag');
         }
-        return this.template.substring(this.cursorPos, pos);
+        return this.template.substring(this.cursorPos, pos.pos);
     }
     parseToken() {
         let symbol = null;
@@ -673,13 +669,21 @@ class Tokenizer {
         ++this.cursorPos;
         return true;
     }
+    endsWith(text, tokens) {
+        for (const token of tokens) {
+            if (text.endsWith(token)) {
+                return true;
+            }
+        }
+        return false;
+    }
     parseComment(symbol, start) {
-        const end = this.template.indexOf(symbol.endToken, this.cursorPos);
-        if (end === -1) {
+        const end = this.getNextPos(symbol.endToken);
+        if (end.pos === -1) {
             throw new ReferenceError(`Unclosed comment`);
         }
-        const text = this.template.substring(this.cursorPos, end);
-        this.cursorPos = end + symbol.endToken.length;
+        const text = this.template.substring(this.cursorPos, end.pos);
+        this.cursorPos = end.pos + end.text.length;
         return cToken(ENodeType.Comment, start, this.cursorPos, text, []);
     }
     parseText(start, end) {
@@ -692,23 +696,26 @@ class Tokenizer {
     parseMacro(symbol, start, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
-        const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
+        const params = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken);
         return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
     }
     parseDirective(symbol, startPos, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
-        const params = typeString.endsWith(symbol.endToken) ? [] : this.parseParams(symbol.endToken);
+        const params = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken);
         return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose);
     }
-    parseParams(engTag) {
+    parseParams(endTags) {
         const text = this.template.substring(this.cursorPos);
         const params = [];
         let paramText = '';
         let paramPos = this.cursorPos;
         let bracketLevel = 0;
         let inString = false;
-        for (const char of text) {
+        let i = -1;
+        while (i < text.length) {
+            ++i;
+            const char = text[i];
             if (char === '"') {
                 inString = !inString;
             }
@@ -724,12 +731,13 @@ class Tokenizer {
                 throw new SyntaxError(`bracketLevel < 0`);
             }
             if (bracketLevel === 0 && !inString) {
-                if (char === engTag) {
+                const nextPos = this.getNextPos(endTags, text, i);
+                if (i === nextPos.pos) {
                     if (paramText !== '') {
                         params.push(paramText);
                         paramText = '';
                     }
-                    this.cursorPos = paramPos + engTag.length;
+                    this.cursorPos = paramPos + nextPos.text.length;
                     return params;
                 }
                 else if (isWhitespace(char)) {
@@ -753,7 +761,6 @@ class Tokenizer {
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -794,7 +801,6 @@ function cAttempt(start, end) {
 function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
-//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -947,7 +953,6 @@ function isClosing(type, parentType, isClose) {
     }
     throw new ReferenceError(`isSelfClosing(${type}) failed`);
 }
-//# sourceMappingURL=Token.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -994,9 +999,6 @@ class Parser {
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map
