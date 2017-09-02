@@ -16,6 +16,10 @@ export enum NodeNames {
   Attempt = 'Attempt',
   Recover = 'Recover',
   Comment = 'Comment',
+  Switch = 'Switch',
+  SwitchCase = 'SwitchCase',
+  SwitchDefault = 'SwitchDefault',
+  Break = 'Break',
 
   ConditionElse = 'ConditionElse',
 
@@ -122,9 +126,33 @@ export interface IComment extends INode {
   text : string
 }
 
+export interface ISwitch extends INode {
+  type : NodeNames.Switch
+  params : IParams
+  cases : INode[]
+}
+
+export interface ISwitchCase extends INode {
+  type : NodeNames.SwitchCase
+  params : IParams
+  consequent : INode[]
+}
+
+export interface ISwitchDefault extends INode {
+  type : NodeNames.SwitchDefault
+  params : IParams
+  consequent : INode[]
+}
+
+export interface IBreak extends INode {
+  type : NodeNames.Break
+}
+
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
   ICondition | IList |
   IGlobal | ILocal | IAssign |
   IInclude |
   IMacro |
-  IAttempt
+  IAttempt |
+  ISwitch | ISwitchCase | ISwitchDefault |
+  IBreak

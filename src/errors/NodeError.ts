@@ -1,5 +1,5 @@
-import { AllNodeTypes } from '../nodes/Types'
-import { IToken } from '../tokens/Types'
+import { AllNodeTypes } from '../types/Node'
+import { IToken } from '../types/Tokens'
 
 export default class NodeError extends Error {
   public nodeType : string

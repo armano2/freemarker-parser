@@ -1,5 +1,5 @@
 import { ParamsParser } from '../params/ParamsParser'
-import { IParams } from '../Types'
+import { IParams } from '../types/Node'
 
 export function parseParams (tokenParams : string[]) : IParams {
   const parser = new ParamsParser()

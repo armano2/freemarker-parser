@@ -1,7 +1,5 @@
-import { NodeNames } from '../nodes/Types'
 import { ENodeType } from '../Symbols'
-import { IParams } from '../Types'
-import { parseParams } from '../utils/Params'
+import { IParams, NodeNames } from './Node'
 
 export interface IDirectivesTypes {
   [n : string] : NodeNames
@@ -34,9 +32,10 @@ export const directives : IDirectivesTypes = {
   // rt: 'rt',
   // setting: 'setting',
   // stop: 'stop',
-  // switch: 'switch',
-  // case: 'case',
-  // break: 'break',
+  switch: NodeNames.Switch,
+  case: NodeNames.SwitchCase,
+  default: NodeNames.SwitchDefault,
+  break: NodeNames.Break,
   // t: 't',
   // visit: 'visit',
 }
@@ -48,15 +47,4 @@ export interface IToken {
   params : IParams
   text : string
   isClose : boolean
-}
-
-export function cToken (type : ENodeType, start : number, end : number, text : string, params : string[] = [], isClose : boolean = false) : IToken {
-  return {
-    type,
-    start,
-    end,
-    text,
-    params: parseParams(params),
-    isClose,
-  }
 }

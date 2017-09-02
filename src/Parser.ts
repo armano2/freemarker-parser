@@ -2,9 +2,9 @@ import { format } from 'util'
 import NodeError from './errors/NodeError'
 
 import Tokenizer from './Tokenizer'
-import { IToken } from './tokens/Types'
+import { IToken } from './types/Tokens'
 
-import { AllNodeTypes, IProgram } from './nodes/Types'
+import { AllNodeTypes, IProgram } from './types/Node'
 import { cProgram } from './utils/Node'
 import { addNodeChild, EClosingType, isClosing, tokenToNodeType } from './utils/Token'
 

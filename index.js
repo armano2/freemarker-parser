@@ -60,8 +60,70 @@ var NodeNames;
     NodeNames["Attempt"] = "Attempt";
     NodeNames["Recover"] = "Recover";
     NodeNames["Comment"] = "Comment";
+    NodeNames["Switch"] = "Switch";
+    NodeNames["SwitchCase"] = "SwitchCase";
+    NodeNames["SwitchDefault"] = "SwitchDefault";
+    NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+
+const directives = {
+    if: NodeNames.Condition,
+    else: NodeNames.Else,
+    elseif: NodeNames.ConditionElse,
+    list: NodeNames.List,
+    include: NodeNames.Include,
+    assign: NodeNames.Assign,
+    attempt: NodeNames.Attempt,
+    global: NodeNames.Global,
+    local: NodeNames.Local,
+    macro: NodeNames.Macro,
+    recover: NodeNames.Recover,
+    switch: NodeNames.Switch,
+    case: NodeNames.SwitchCase,
+    default: NodeNames.SwitchDefault,
+    break: NodeNames.Break,
+};
+
+function cAssign(params, start, end) {
+    return { type: NodeNames.Assign, start, end, params };
+}
+function cGlobal(params, start, end) {
+    return { type: NodeNames.Global, start, end, params };
+}
+function cCondition(params, start, end) {
+    return { type: NodeNames.Condition, start, end, params, consequent: [] };
+}
+function cList(params, start, end) {
+    return { type: NodeNames.List, start, end, params, body: [] };
+}
+function cMacro(params, start, end) {
+    return { type: NodeNames.Macro, start, end, params, body: [] };
+}
+function cProgram(start, end) {
+    return { type: NodeNames.Program, start, end, body: [] };
+}
+function cMacroCall(params, name, start, end) {
+    return { type: NodeNames.MacroCall, start, end, name, params, body: [] };
+}
+function cText(text, start, end) {
+    return { type: NodeNames.Text, start, end, text };
+}
+function cInclude(params, start, end) {
+    return { type: NodeNames.Include, start, end, params };
+}
+function cInterpolation(params, start, end) {
+    return { type: NodeNames.Interpolation, start, end, params };
+}
+function cLocal(params, start, end) {
+    return { type: NodeNames.Local, start, end, params };
+}
+function cAttempt(start, end) {
+    return { type: NodeNames.Attempt, start, end, body: [] };
+}
+function cComment(text, start, end) {
+    return { type: NodeNames.Comment, start, end, text };
+}
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -566,19 +628,157 @@ function parseParams(tokenParams) {
     return params;
 }
 
-const directives = {
-    if: NodeNames.Condition,
-    else: NodeNames.Else,
-    elseif: NodeNames.ConditionElse,
-    list: NodeNames.List,
-    include: NodeNames.Include,
-    assign: NodeNames.Assign,
-    attempt: NodeNames.Attempt,
-    global: NodeNames.Global,
-    local: NodeNames.Local,
-    macro: NodeNames.Macro,
-    recover: NodeNames.Recover,
-};
+function addToNode(parent, child) {
+    switch (parent.type) {
+        case NodeNames.Condition:
+            parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child);
+            break;
+        case NodeNames.List:
+            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
+            break;
+        case NodeNames.Macro:
+        case NodeNames.Program:
+            parent.body.push(child);
+            break;
+        case NodeNames.Attempt:
+            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
+            break;
+        case NodeNames.MacroCall:
+        case NodeNames.Assign:
+        case NodeNames.Global:
+        case NodeNames.Local:
+            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+        case NodeNames.Interpolation:
+        case NodeNames.Include:
+        case NodeNames.Text:
+        case NodeNames.Comment:
+        default:
+            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+    }
+    return child;
+}
+function tokenToNodeType(token) {
+    switch (token.type) {
+        case ENodeType.Directive:
+            if (token.text in directives) {
+                return directives[token.text];
+            }
+            throw new NodeError(`Directive \`${token.text}\` is not supported`, token);
+        case ENodeType.Interpolation:
+            return NodeNames.Interpolation;
+        case ENodeType.Text:
+            return NodeNames.Text;
+        case ENodeType.Macro:
+            return NodeNames.MacroCall;
+        case ENodeType.Program:
+            return NodeNames.Program;
+        case ENodeType.Comment:
+            return NodeNames.Comment;
+    }
+    throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token);
+}
+function addNodeChild(parent, token) {
+    const tokenType = tokenToNodeType(token);
+    switch (tokenType) {
+        case NodeNames.Else:
+            if (parent.type === NodeNames.Condition) {
+                if (parent.alternate) {
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+                }
+                parent.alternate = [];
+                return parent;
+            }
+            else if (parent.type === NodeNames.List) {
+                if (parent.fallback) {
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+                }
+                parent.fallback = [];
+                return parent;
+            }
+            break;
+        case NodeNames.ConditionElse:
+            if (parent.type === NodeNames.Condition) {
+                const node = cCondition(token.params, token.start, token.end);
+                if (parent.alternate) {
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+                }
+                parent.alternate = [];
+                parent.alternate.push(node);
+                return node;
+            }
+            break;
+        case NodeNames.Recover:
+            if (parent.type === NodeNames.Attempt) {
+                if (parent.fallback) {
+                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+                }
+                parent.fallback = [];
+                return parent;
+            }
+            break;
+        case NodeNames.Attempt:
+            return addToNode(parent, cAttempt(token.start, token.end));
+        case NodeNames.Condition:
+            return addToNode(parent, cCondition(token.params, token.start, token.end));
+        case NodeNames.List:
+            return addToNode(parent, cList(token.params, token.start, token.end));
+        case NodeNames.Global:
+            return addToNode(parent, cGlobal(token.params, token.start, token.end));
+        case NodeNames.Macro:
+            return addToNode(parent, cMacro(token.params, token.start, token.end));
+        case NodeNames.Assign:
+            return addToNode(parent, cAssign(token.params, token.start, token.end));
+        case NodeNames.Include:
+            return addToNode(parent, cInclude(token.params, token.start, token.end));
+        case NodeNames.Local:
+            return addToNode(parent, cLocal(token.params, token.start, token.end));
+        case NodeNames.Interpolation:
+            return addToNode(parent, cInterpolation(token.params, token.start, token.end));
+        case NodeNames.Text:
+            return addToNode(parent, cText(token.text, token.start, token.end));
+        case NodeNames.MacroCall:
+            return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
+        case NodeNames.Comment:
+            return addToNode(parent, cComment(token.text, token.start, token.end));
+        case NodeNames.Program:
+    }
+    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+}
+var EClosingType;
+(function (EClosingType) {
+    EClosingType[EClosingType["No"] = 0] = "No";
+    EClosingType[EClosingType["Yes"] = 1] = "Yes";
+    EClosingType[EClosingType["Partial"] = 2] = "Partial";
+    EClosingType[EClosingType["Ignore"] = 3] = "Ignore";
+})(EClosingType || (EClosingType = {}));
+function isClosing(type, parentType, isClose) {
+    switch (type) {
+        case NodeNames.Program:
+        case NodeNames.Attempt:
+        case NodeNames.Macro:
+        case NodeNames.Condition:
+        case NodeNames.List:
+            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
+        case NodeNames.ConditionElse:
+            return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
+        case NodeNames.Else:
+            return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No;
+        case NodeNames.Recover:
+            return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No;
+        case NodeNames.MacroCall:
+            return EClosingType.Ignore;
+        case NodeNames.Assign:
+        case NodeNames.Global:
+        case NodeNames.Local:
+            return EClosingType.Ignore;
+        case NodeNames.Include:
+        case NodeNames.Text:
+        case NodeNames.Interpolation:
+        case NodeNames.Comment:
+            return EClosingType.Ignore;
+    }
+    throw new ReferenceError(`isSelfClosing(${type}) failed`);
+}
 function cToken(type, start, end, text, params = [], isClose = false) {
     return {
         type,
@@ -760,198 +960,6 @@ class Tokenizer {
         }
         throw new SyntaxError(`Unclosed directive or macro`);
     }
-}
-
-function cAssign(params, start, end) {
-    return { type: NodeNames.Assign, start, end, params };
-}
-function cGlobal(params, start, end) {
-    return { type: NodeNames.Global, start, end, params };
-}
-function cCondition(params, start, end) {
-    return { type: NodeNames.Condition, start, end, params, consequent: [] };
-}
-function cList(params, start, end) {
-    return { type: NodeNames.List, start, end, params, body: [] };
-}
-function cMacro(params, start, end) {
-    return { type: NodeNames.Macro, start, end, params, body: [] };
-}
-function cProgram(start, end) {
-    return { type: NodeNames.Program, start, end, body: [] };
-}
-function cMacroCall(params, name, start, end) {
-    return { type: NodeNames.MacroCall, start, end, name, params, body: [] };
-}
-function cText(text, start, end) {
-    return { type: NodeNames.Text, start, end, text };
-}
-function cInclude(params, start, end) {
-    return { type: NodeNames.Include, start, end, params };
-}
-function cInterpolation(params, start, end) {
-    return { type: NodeNames.Interpolation, start, end, params };
-}
-function cLocal(params, start, end) {
-    return { type: NodeNames.Local, start, end, params };
-}
-function cAttempt(start, end) {
-    return { type: NodeNames.Attempt, start, end, body: [] };
-}
-function cComment(text, start, end) {
-    return { type: NodeNames.Comment, start, end, text };
-}
-
-function addToNode(parent, child) {
-    switch (parent.type) {
-        case NodeNames.Condition:
-            parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child);
-            break;
-        case NodeNames.List:
-            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
-            break;
-        case NodeNames.Macro:
-        case NodeNames.Program:
-            parent.body.push(child);
-            break;
-        case NodeNames.Attempt:
-            parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
-            break;
-        case NodeNames.MacroCall:
-        case NodeNames.Assign:
-        case NodeNames.Global:
-        case NodeNames.Local:
-            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
-        case NodeNames.Interpolation:
-        case NodeNames.Include:
-        case NodeNames.Text:
-        case NodeNames.Comment:
-        default:
-            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
-    }
-    return child;
-}
-function tokenToNodeType(token) {
-    switch (token.type) {
-        case ENodeType.Directive:
-            if (token.text in directives) {
-                return directives[token.text];
-            }
-            throw new NodeError(`Directive \`${token.text}\` is not supported`, token);
-        case ENodeType.Interpolation:
-            return NodeNames.Interpolation;
-        case ENodeType.Text:
-            return NodeNames.Text;
-        case ENodeType.Macro:
-            return NodeNames.MacroCall;
-        case ENodeType.Program:
-            return NodeNames.Program;
-        case ENodeType.Comment:
-            return NodeNames.Comment;
-    }
-    throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token);
-}
-function addNodeChild(parent, token) {
-    const tokenType = tokenToNodeType(token);
-    switch (tokenType) {
-        case NodeNames.Else:
-            if (parent.type === NodeNames.Condition) {
-                if (parent.alternate) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
-                parent.alternate = [];
-                return parent;
-            }
-            else if (parent.type === NodeNames.List) {
-                if (parent.fallback) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
-                parent.fallback = [];
-                return parent;
-            }
-            break;
-        case NodeNames.ConditionElse:
-            if (parent.type === NodeNames.Condition) {
-                const node = cCondition(token.params, token.start, token.end);
-                if (parent.alternate) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
-                parent.alternate = [];
-                parent.alternate.push(node);
-                return node;
-            }
-            break;
-        case NodeNames.Recover:
-            if (parent.type === NodeNames.Attempt) {
-                if (parent.fallback) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
-                parent.fallback = [];
-                return parent;
-            }
-            break;
-        case NodeNames.Attempt:
-            return addToNode(parent, cAttempt(token.start, token.end));
-        case NodeNames.Condition:
-            return addToNode(parent, cCondition(token.params, token.start, token.end));
-        case NodeNames.List:
-            return addToNode(parent, cList(token.params, token.start, token.end));
-        case NodeNames.Global:
-            return addToNode(parent, cGlobal(token.params, token.start, token.end));
-        case NodeNames.Macro:
-            return addToNode(parent, cMacro(token.params, token.start, token.end));
-        case NodeNames.Assign:
-            return addToNode(parent, cAssign(token.params, token.start, token.end));
-        case NodeNames.Include:
-            return addToNode(parent, cInclude(token.params, token.start, token.end));
-        case NodeNames.Local:
-            return addToNode(parent, cLocal(token.params, token.start, token.end));
-        case NodeNames.Interpolation:
-            return addToNode(parent, cInterpolation(token.params, token.start, token.end));
-        case NodeNames.Text:
-            return addToNode(parent, cText(token.text, token.start, token.end));
-        case NodeNames.MacroCall:
-            return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
-        case NodeNames.Comment:
-            return addToNode(parent, cComment(token.text, token.start, token.end));
-        case NodeNames.Program:
-    }
-    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-}
-var EClosingType;
-(function (EClosingType) {
-    EClosingType[EClosingType["No"] = 0] = "No";
-    EClosingType[EClosingType["Yes"] = 1] = "Yes";
-    EClosingType[EClosingType["Partial"] = 2] = "Partial";
-    EClosingType[EClosingType["Ignore"] = 3] = "Ignore";
-})(EClosingType || (EClosingType = {}));
-function isClosing(type, parentType, isClose) {
-    switch (type) {
-        case NodeNames.Program:
-        case NodeNames.Attempt:
-        case NodeNames.Macro:
-        case NodeNames.Condition:
-        case NodeNames.List:
-            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
-        case NodeNames.ConditionElse:
-            return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.Else:
-            return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.Recover:
-            return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.MacroCall:
-            return EClosingType.Ignore;
-        case NodeNames.Assign:
-        case NodeNames.Global:
-        case NodeNames.Local:
-            return EClosingType.Ignore;
-        case NodeNames.Include:
-        case NodeNames.Text:
-        case NodeNames.Interpolation:
-        case NodeNames.Comment:
-            return EClosingType.Ignore;
-    }
-    throw new ReferenceError(`isSelfClosing(${type}) failed`);
 }
 
 const errorMessages = {

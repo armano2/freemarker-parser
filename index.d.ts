@@ -6,8 +6,8 @@ declare module 'freemarker-parser' {
 }
 
 declare module 'freemarker-parser/Parser' {
-    import { IToken } from 'freemarker-parser/tokens/Types';
-    import { IProgram } from 'freemarker-parser/nodes/Types';
+    import { IToken } from 'freemarker-parser/types/Tokens';
+    import { IProgram } from 'freemarker-parser/types/Node';
     export interface IParserReturn {
         ast: IProgram;
         tokens: IToken[];
@@ -17,10 +17,9 @@ declare module 'freemarker-parser/Parser' {
     }
 }
 
-declare module 'freemarker-parser/tokens/Types' {
-    import { NodeNames } from 'freemarker-parser/nodes/Types';
+declare module 'freemarker-parser/types/Tokens' {
     import { ENodeType } from 'freemarker-parser/Symbols';
-    import { IParams } from 'freemarker-parser/Types';
+    import { IParams, NodeNames } from 'freemarker-parser/types/Node';
     export interface IDirectivesTypes {
         [n: string]: NodeNames;
     }
@@ -33,10 +32,9 @@ declare module 'freemarker-parser/tokens/Types' {
         text: string;
         isClose: boolean;
     }
-    export function cToken(type: ENodeType, start: number, end: number, text: string, params?: string[], isClose?: boolean): IToken;
 }
 
-declare module 'freemarker-parser/nodes/Types' {
+declare module 'freemarker-parser/types/Node' {
     import { IExpression } from 'freemarker-parser/params/Types';
     export enum NodeNames {
         Program = "Program",
@@ -54,6 +52,10 @@ declare module 'freemarker-parser/nodes/Types' {
         Attempt = "Attempt",
         Recover = "Recover",
         Comment = "Comment",
+        Switch = "Switch",
+        SwitchCase = "SwitchCase",
+        SwitchDefault = "SwitchDefault",
+        Break = "Break",
         ConditionElse = "ConditionElse",
     }
     export interface IParams extends Array<IExpression> {
@@ -124,7 +126,25 @@ declare module 'freemarker-parser/nodes/Types' {
         type: NodeNames.Comment;
         text: string;
     }
-    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt;
+    export interface ISwitch extends INode {
+        type: NodeNames.Switch;
+        params: IParams;
+        cases: INode[];
+    }
+    export interface ISwitchCase extends INode {
+        type: NodeNames.SwitchCase;
+        params: IParams;
+        consequent: INode[];
+    }
+    export interface ISwitchDefault extends INode {
+        type: NodeNames.SwitchDefault;
+        params: IParams;
+        consequent: INode[];
+    }
+    export interface IBreak extends INode {
+        type: NodeNames.Break;
+    }
+    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | ISwitch | ISwitchCase | ISwitchDefault | IBreak;
 }
 
 declare module 'freemarker-parser/Symbols' {
@@ -145,13 +165,6 @@ declare module 'freemarker-parser/Symbols' {
     export const symbols: ISymbol[];
     export const whitespaces: string[];
     export function isWhitespace(char: string): boolean;
-}
-
-declare module 'freemarker-parser/Types' {
-    import { IExpression } from 'freemarker-parser/params/Types';
-    export interface IParams extends Array<IExpression> {
-        [i: number]: IExpression;
-    }
 }
 
 declare module 'freemarker-parser/params/Types' {

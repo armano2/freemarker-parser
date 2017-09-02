@@ -1,20 +1,20 @@
 import {
-  IAssign,
-  IAttempt,
-  IComment,
-  ICondition,
-  IGlobal,
-  IInclude,
-  IInterpolation,
-  IList,
-  ILocal,
-  IMacro,
-  IMacroCall,
-  IProgram,
-  IText,
-  NodeNames,
-} from '../nodes/Types'
-import { IParams } from '../Types' // TODO remove this
+    IAssign,
+    IAttempt,
+    IComment,
+    ICondition,
+    IGlobal,
+    IInclude,
+    IInterpolation,
+    IList,
+    ILocal,
+    IMacro,
+    IMacroCall,
+    IParams,
+    IProgram,
+    IText,
+    NodeNames,
+} from '../types/Node'
 
 export function cAssign (params : IParams, start : number, end : number) : IAssign {
   return { type : NodeNames.Assign, start, end, params }

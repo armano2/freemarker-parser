@@ -1,5 +1,6 @@
 import { ENodeType, isWhitespace, ISymbol, symbols, whitespaces } from './Symbols'
-import { cToken, IToken } from './tokens/Types'
+import { IToken } from './types/Tokens'
+import { cToken } from './utils/Token'
 
 interface INextPos {
   pos : number

@@ -8,7 +8,7 @@
     "test": "nyc npm run _mocha",
     "lint": "eslint ./test && tslint './src/**/*.ts'",
     "pretest": "npm run build",
-    "posttest": "nyc report --reporter=json && codecov -f coverage/*.json",
+    "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
     "update-ast": "node ./scripts/update-ast.js",
     "watch-ast": "wait-on index.js && warun index.js \"test/data/*/*.ftl\" -- ",
     "watch": "run-p watch:*",
