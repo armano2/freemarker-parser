@@ -2,30 +2,34 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var util = require('util');
+
+class NodeError extends Error {
+    constructor(m, el) {
+        super(m);
+        if (el) {
+            this.nodeType = el.type;
+            this.start = el.start;
+            this.end = el.end;
+        }
+        Object.setPrototypeOf(this, NodeError.prototype);
+    }
+}
+
 class ParserError extends Error {
     constructor(m) {
         super(m);
         Object.setPrototypeOf(this, ParserError.prototype);
     }
 }
-//# sourceMappingURL=ParserError.js.map
-
-class NodeError extends ParserError {
-    constructor(m, el) {
-        m = `${el.type}(${el.start}-${el.end}) - ${m}`;
-        super(m);
-        this.el = el;
-    }
-}
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
-    ENodeType[ENodeType["Program"] = 0] = "Program";
-    ENodeType[ENodeType["Directive"] = 1] = "Directive";
-    ENodeType[ENodeType["Macro"] = 2] = "Macro";
-    ENodeType[ENodeType["Text"] = 3] = "Text";
-    ENodeType[ENodeType["Interpolation"] = 4] = "Interpolation";
+    ENodeType["Program"] = "Program";
+    ENodeType["Directive"] = "Directive";
+    ENodeType["Macro"] = "Macro";
+    ENodeType["Text"] = "Text";
+    ENodeType["Interpolation"] = "Interpolation";
 })(ENodeType || (ENodeType = {}));
 const symbols = [
     { startToken: '</#', endToken: '>', type: ENodeType.Directive, end: true },
@@ -62,7 +66,6 @@ var NodeNames;
     NodeNames["Recover"] = "Recover";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
-//# sourceMappingURL=Types.js.map
 
 class ParamError extends ParserError {
     constructor(message, index) {
@@ -71,7 +74,6 @@ class ParamError extends ParserError {
         this.index = index;
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -543,7 +545,6 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -553,7 +554,6 @@ function parseParams(tokenParams) {
     }
     return params;
 }
-//# sourceMappingURL=Params.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -573,12 +573,11 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         type,
         start,
         end,
-        params: parseParams(params),
         text,
+        params: parseParams(params),
         isClose,
     };
 }
-//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -726,7 +725,6 @@ class Tokenizer {
         throw new ParserError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -770,7 +768,6 @@ function cRecover(start, end) {
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, start, end, body: [] };
 }
-//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -810,7 +807,7 @@ function tokenToNodeType(token) {
         case ENodeType.Text:
             return NodeNames.Text;
         case ENodeType.Macro:
-            return NodeNames.Macro;
+            return NodeNames.MacroCall;
         case ENodeType.Program:
             return NodeNames.Program;
     }
@@ -857,38 +854,53 @@ function addNodeChild(parent, token) {
             return addToNode(parent, cInterpolation(token.params, token.start, token.end));
         case NodeNames.Text:
             return addToNode(parent, cText(token.text, token.start, token.end));
-        case NodeNames.Macro:
+        case NodeNames.MacroCall:
             return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
         case NodeNames.Program:
     }
     throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`);
 }
-function isSelfClosing(type) {
+var EClosingType;
+(function (EClosingType) {
+    EClosingType[EClosingType["No"] = 0] = "No";
+    EClosingType[EClosingType["Yes"] = 1] = "Yes";
+    EClosingType[EClosingType["Partial"] = 2] = "Partial";
+    EClosingType[EClosingType["Ignore"] = 3] = "Ignore";
+})(EClosingType || (EClosingType = {}));
+function isClosing(type, parentType, isClose) {
     switch (type) {
         case NodeNames.Program:
-        case NodeNames.Condition:
         case NodeNames.List:
         case NodeNames.Attempt:
         case NodeNames.Macro:
-            return false;
+            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
+        case NodeNames.Condition:
+            return ((type === parentType || NodeNames.Else === parentType) && isClose) ? EClosingType.Yes : EClosingType.No;
+        case NodeNames.ConditionElse:
+            return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
+        case NodeNames.Else:
+            return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No;
+        case NodeNames.Recover:
+            return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No;
         case NodeNames.MacroCall:
-            return true;
+            return EClosingType.Ignore;
         case NodeNames.Assign:
         case NodeNames.Global:
         case NodeNames.Local:
-            return true;
-        case NodeNames.Else:
-        case NodeNames.ConditionElse:
+            return EClosingType.Ignore;
         case NodeNames.Include:
         case NodeNames.Text:
         case NodeNames.Interpolation:
-        case NodeNames.Recover:
-            return true;
+            return EClosingType.Ignore;
     }
     throw new ParserError(`isSelfClosing(${type}) failed`);
 }
-//# sourceMappingURL=Token.js.map
 
+const errorMessages = {
+    [EClosingType.No]: 'Unexpected close tag \`%s\`',
+    [EClosingType.Ignore]: '\`%s\` can\'t self close',
+    [EClosingType.Partial]: '\`%s\` can\'t self close',
+};
 class Parser {
     parse(template) {
         const ast = cProgram(0, template.length);
@@ -896,45 +908,39 @@ class Parser {
         let parent = ast;
         const tokenizer = new Tokenizer();
         const tokens = tokenizer.parse(template);
-        for (const token of tokens) {
+        if (tokens.length === 0) {
+            return { ast, tokens };
+        }
+        let token = null;
+        for (token of tokens) {
             const tokenType = tokenToNodeType(token);
-            if (isSelfClosing(tokenType)) {
-                if (token.isClose) {
-                    throw new NodeError(`Unexpected close tag`, token);
+            const closing = isClosing(tokenType, parent.type, token.isClose);
+            if (token.isClose) {
+                if (closing !== EClosingType.Yes) {
+                    throw new NodeError(util.format(errorMessages[closing], token.type), token);
                 }
-                addNodeChild(parent, token);
-            }
-            else if (token.isClose) {
-                let parentNode = parent;
-                while (parentNode) {
-                    if (parentNode.type === tokenType) {
-                        parentNode = stack.pop();
-                        break;
-                    }
-                    if (!isSelfClosing(parentNode.type)) {
-                        throw new NodeError(`Missing close tag ${tokenType}`, parentNode);
-                    }
-                    parentNode = stack.pop();
-                }
+                const parentNode = stack.pop();
                 if (!parentNode) {
-                    throw new NodeError(`Unexpected close tag`, token);
+                    throw new NodeError(`Stack is empty`, token);
                 }
                 parent = parentNode;
             }
             else {
-                stack.push(parent);
-                parent = addNodeChild(parent, token);
+                const node = addNodeChild(parent, token);
+                if (closing !== EClosingType.Ignore) {
+                    if (closing !== EClosingType.Partial) {
+                        stack.push(parent);
+                    }
+                    parent = node;
+                }
             }
         }
         if (stack.length > 0) {
-            throw new ParserError(`Unclosed tag`);
+            throw new NodeError(`Unclosed tag`, token ? token : stack.pop());
         }
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

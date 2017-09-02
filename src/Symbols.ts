@@ -1,9 +1,9 @@
 export enum ENodeType {
-  Program,
-  Directive,
-  Macro,
-  Text,
-  Interpolation,
+  Program = 'Program',
+  Directive = 'Directive',
+  Macro = 'Macro',
+  Text = 'Text',
+  Interpolation = 'Interpolation',
 }
 
 export interface ISymbol {

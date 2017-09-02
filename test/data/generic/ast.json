@@ -2,7 +2,7 @@
   "type": "Program",
   "start": 0,
   "end": 178,
-  "children": [
+  "body": [
     {
       "type": "Interpolation",
       "start": 0,
@@ -18,7 +18,6 @@
       "type": "Include",
       "start": 8,
       "end": 47,
-      "name": "include",
       "params": [
         {
           "type": "Literal",
@@ -28,10 +27,9 @@
       ]
     },
     {
-      "type": "IfCondtion",
+      "type": "Condition",
       "start": 49,
       "end": 64,
-      "name": "if",
       "params": [
         {
           "type": "BinaryExpression",
@@ -55,10 +53,9 @@
           "text": " "
         },
         {
-          "type": "IfCondtion",
+          "type": "Condition",
           "start": 67,
           "end": 81,
-          "name": "if",
           "params": [
             {
               "type": "Identifier",
@@ -105,8 +102,7 @@
               "end": 98,
               "text": " "
             }
-          ],
-          "alternate": []
+          ]
         },
         {
           "type": "Text",
@@ -147,11 +143,10 @@
             }
           ]
         }
-      ],
-      "alternate": []
+      ]
     },
     {
-      "type": "Macro",
+      "type": "MacroCall",
       "start": 136,
       "end": 177,
       "name": "macro",
@@ -165,7 +160,8 @@
           "value": "./include/test_include.ftl",
           "raw": "\"./include/test_include.ftl\""
         }
-      ]
+      ],
+      "body": []
     }
   ]
 }

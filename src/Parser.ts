@@ -1,16 +1,22 @@
+import { format } from 'util'
 import NodeError from './errors/NodeError'
-import ParserError from './errors/ParserError'
 
 import Tokenizer from './Tokenizer'
 import { IToken } from './tokens/Types'
 
 import { AllNodeTypes, IProgram } from './nodes/Types'
 import { cProgram } from './utils/Node'
-import { addNodeChild, isSelfClosing, tokenToNodeType } from './utils/Token'
+import { addNodeChild, EClosingType, isClosing, tokenToNodeType } from './utils/Token'
 
 export interface IParserReturn {
   ast : IProgram
   tokens : IToken[]
+}
+
+const errorMessages = {
+  [EClosingType.No]: 'Unexpected close tag \`%s\`',
+  [EClosingType.Ignore]: '\`%s\` can\'t self close',
+  [EClosingType.Partial]: '\`%s\` can\'t self close',
 }
 
 export class Parser {
@@ -21,44 +27,42 @@ export class Parser {
 
     const tokenizer = new Tokenizer()
     const tokens = tokenizer.parse(template)
+    if (tokens.length === 0) {
+      return { ast, tokens }
+    }
 
-    for (const token of tokens) {
+    let token : IToken | null = null
+    for (token of tokens) {
       const tokenType = tokenToNodeType(token)
 
-      if (isSelfClosing(tokenType)) {
-        if (token.isClose) {
-          throw new NodeError(`Unexpected close tag`, token)
-        }
-        addNodeChild(parent, token)
-      } else if (token.isClose) {
-        let parentNode : AllNodeTypes | undefined = parent
-        while (parentNode) {
-          if (parentNode.type === tokenType) {
-            parentNode = stack.pop()
-            break
-          }
-          if (!isSelfClosing(parentNode.type)) {
-            throw new NodeError(`Missing close tag ${tokenType}`, parentNode)
-          }
-          parentNode = stack.pop()
+      const closing = isClosing(tokenType, parent.type, token.isClose)
+
+      // console.log(`isClosing(${tokenType}, ${parent.type}, ${token.isClose}) = ${closing}`)
+
+      if (token.isClose) {
+        if (closing !== EClosingType.Yes) {
+          throw new NodeError(format(errorMessages[closing], token.type), token)
         }
 
+        const parentNode = stack.pop()
         if (!parentNode) {
-          throw new NodeError(`Unexpected close tag`, token)
+          throw new NodeError(`Stack is empty`, token)
         }
         parent = parentNode
 
       } else {
-        // parent = parent.addChild(node)
-        // stack.push(parent)
-        // parent = node
-        stack.push(parent)
-        parent = addNodeChild(parent, token)
+        const node = addNodeChild(parent, token)
+        if (closing !== EClosingType.Ignore) {
+          if (closing !== EClosingType.Partial) {
+            stack.push(parent)
+          }
+          parent = node
+        }
       }
     }
 
     if (stack.length > 0) {
-      throw new ParserError(`Unclosed tag`)
+      throw new NodeError(`Unclosed tag`, token ? token : stack.pop())
     }
     return { ast, tokens }
   }

@@ -55,8 +55,8 @@ export function cToken (type : ENodeType, start : number, end : number, text : s
     type,
     start,
     end,
-    params: parseParams(params),
     text,
+    params: parseParams(params),
     isClose,
   }
 }

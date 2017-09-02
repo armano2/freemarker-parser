@@ -59,7 +59,7 @@ export function tokenToNodeType (token : IToken) : NodeNames {
     case ENodeType.Text:
       return NodeNames.Text
     case ENodeType.Macro:
-      return NodeNames.Macro
+      return NodeNames.MacroCall
     case ENodeType.Program:
       return NodeNames.Program
   }
@@ -107,7 +107,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       return addToNode(parent, cInterpolation(token.params, token.start, token.end))
     case NodeNames.Text:
       return addToNode(parent, cText(token.text, token.start, token.end))
-    case NodeNames.Macro:
+    case NodeNames.MacroCall:
       return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end))
     case NodeNames.Program:
       // this should nevet happen
@@ -115,27 +115,38 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
   throw new ParserError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`)
 }
 
-export function isSelfClosing (type : NodeNames) : boolean {
+export enum EClosingType {
+  No,
+  Yes,
+  Partial,
+  Ignore,
+}
+
+export function isClosing (type : NodeNames, parentType : NodeNames, isClose : boolean) : EClosingType {
   switch (type) {
     case NodeNames.Program:
-    case NodeNames.Condition:
     case NodeNames.List:
     case NodeNames.Attempt:
     case NodeNames.Macro:
-      return false
+      return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
+    case NodeNames.Condition:
+      return ((type === parentType || NodeNames.Else === parentType) && isClose) ? EClosingType.Yes : EClosingType.No
+    case NodeNames.ConditionElse:
+      return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No
+    case NodeNames.Else:
+      return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No
+    case NodeNames.Recover:
+      return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No
     case NodeNames.MacroCall:
-      return true // TODO: conditional
+      return EClosingType.Ignore // TODO: conditional
     case NodeNames.Assign:
     case NodeNames.Global:
     case NodeNames.Local:
-      return true // TODO: conditional based on params
-    case NodeNames.Else:
-    case NodeNames.ConditionElse:
+      return EClosingType.Ignore // TODO: conditional based on params
     case NodeNames.Include:
     case NodeNames.Text:
     case NodeNames.Interpolation:
-    case NodeNames.Recover:
-      return true
+      return EClosingType.Ignore
   }
 
   throw new ParserError(`isSelfClosing(${type}) failed`)

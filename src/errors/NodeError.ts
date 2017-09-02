@@ -1,13 +1,19 @@
 import { AllNodeTypes } from '../nodes/Types'
 import { IToken } from '../tokens/Types'
-import ParserError from './ParserError'
 
-export default class NodeError extends ParserError {
-  public el : AllNodeTypes | IToken
+export default class NodeError extends Error {
+  public nodeType : string
+  public start : number
+  public end : number
 
-  constructor (m : string, el : AllNodeTypes | IToken) {
-    m = `${el.type}(${el.start}-${el.end}) - ${m}`
+  constructor (m : string, el : AllNodeTypes | IToken | undefined) {
     super(m)
-    this.el = el
+    if (el) {
+      this.nodeType = el.type
+      this.start = el.start
+      this.end = el.end
+    }
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, NodeError.prototype)
   }
 }

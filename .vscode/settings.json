@@ -5,5 +5,16 @@
     "tslint.enable": true,
     "files.exclude": {
       ".temp/": true
-    }
+    },
+    "typescriptHero.resolver.ignorePatterns": [
+      "build",
+      "out",
+      "dist",
+      "freemarkerjs",
+      "/src"
+    ],
+    "tsimporter.filesToScan": [
+      "./src/**/*.ts",
+      "./src/**/*.tsx"
+    ]
   }

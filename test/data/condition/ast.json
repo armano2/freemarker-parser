@@ -2,12 +2,11 @@
   "type": "Program",
   "start": 0,
   "end": 187,
-  "children": [
+  "body": [
     {
-      "type": "UnknownDirective",
+      "type": "Assign",
       "start": 0,
       "end": 21,
-      "name": "assign",
       "params": [
         {
           "type": "Compound",
@@ -47,14 +46,12 @@
             }
           ]
         }
-      ],
-      "children": []
+      ]
     },
     {
-      "type": "IfCondtion",
+      "type": "Condition",
       "start": 23,
       "end": 39,
-      "name": "if",
       "params": [
         {
           "type": "Identifier",
@@ -105,63 +102,65 @@
           ]
         }
       ],
-      "alternate": [
-        {
-          "type": "IfCondtion",
-          "start": 79,
-          "end": 97,
-          "name": "elseif",
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "foo"
-            },
-            {
-              "type": "Identifier",
-              "name": "lt"
-            },
-            {
-              "type": "Identifier",
-              "name": "a"
-            }
-          ],
-          "consequent": [
-            {
-              "type": "Text",
-              "start": 98,
-              "end": 103,
-              "text": "  foo"
-            },
-            {
-              "type": "Interpolation",
-              "start": 104,
-              "end": 110,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "foo"
-                }
-              ]
-            },
-            {
-              "type": "Text",
-              "start": 111,
-              "end": 128,
-              "text": " is less than bar"
-            },
-            {
-              "type": "Interpolation",
-              "start": 129,
-              "end": 135,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "bar"
-                }
-              ]
-            }
-          ],
-          "alternate": [
+      "alternate": {
+        "type": "Condition",
+        "start": 79,
+        "end": 97,
+        "params": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "Identifier",
+            "name": "lt"
+          },
+          {
+            "type": "Identifier",
+            "name": "a"
+          }
+        ],
+        "consequent": [
+          {
+            "type": "Text",
+            "start": 98,
+            "end": 103,
+            "text": "  foo"
+          },
+          {
+            "type": "Interpolation",
+            "start": 104,
+            "end": 110,
+            "params": [
+              {
+                "type": "Identifier",
+                "name": "foo"
+              }
+            ]
+          },
+          {
+            "type": "Text",
+            "start": 111,
+            "end": 128,
+            "text": " is less than bar"
+          },
+          {
+            "type": "Interpolation",
+            "start": 129,
+            "end": 135,
+            "params": [
+              {
+                "type": "Identifier",
+                "name": "bar"
+              }
+            ]
+          }
+        ],
+        "alternate": {
+          "type": "Else",
+          "start": 137,
+          "end": 144,
+          "body": [
             {
               "type": "Text",
               "start": 145,
@@ -198,7 +197,7 @@
             }
           ]
         }
-      ]
+      }
     }
   ]
 }

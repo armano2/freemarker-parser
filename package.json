@@ -45,6 +45,7 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.0.26",
     "assert": "^1.4.1",
+    "chalk": "^2.1.0",
     "codecov": "^2.3.0",
     "dts-bundle": "^0.7.3",
     "eslint": "^4.5.0",

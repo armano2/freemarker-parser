@@ -27,8 +27,8 @@ for (const name of tests) {
         ast = parser.parse(code)
       } catch (e) {
         let message = e.message
-        if (e.node) {
-          const loc = lineColumn(parser.template).fromIndex(e.node.start)
+        if (e.nodeType) {
+          const loc = lineColumn(parser.template).fromIndex(e.start)
           message += `\n\tfile:.\\${path.relative(baseDir, file)}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`
         }
         assert.fail(message)
