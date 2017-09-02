@@ -1,6 +1,7 @@
 import {
     IAssign,
     IAttempt,
+    IBreak,
     IComment,
     ICondition,
     IGlobal,
@@ -12,6 +13,9 @@ import {
     IMacroCall,
     IParams,
     IProgram,
+    ISwitch,
+    ISwitchCase,
+    ISwitchDefault,
     IText,
     NodeNames,
 } from '../types/Node'
@@ -66,4 +70,20 @@ export function cAttempt (start : number, end : number) : IAttempt {
 
 export function cComment (text : string, start : number, end : number) : IComment {
   return { type : NodeNames.Comment, start, end, text }
+}
+
+export function cSwitch (params : IParams, start : number, end : number) : ISwitch {
+  return { type : NodeNames.Switch, start, end, params, cases: [] }
+}
+
+export function cSwitchCase (params : IParams, start : number, end : number) : ISwitchCase {
+  return { type : NodeNames.SwitchCase, start, end, params, consequent: [] }
+}
+
+export function cSwitchDefault (start : number, end : number) : ISwitchDefault {
+  return { type : NodeNames.SwitchDefault, start, end, consequent: [] }
+}
+
+export function cBreak (start : number, end : number) : IBreak {
+  return { type : NodeNames.Break, start, end }
 }

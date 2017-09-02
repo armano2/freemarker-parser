@@ -15,6 +15,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -42,6 +43,7 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
+//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -66,6 +68,7 @@ var NodeNames;
     NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Node.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -84,6 +87,7 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
+//# sourceMappingURL=Tokens.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -124,6 +128,19 @@ function cAttempt(start, end) {
 function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
+function cSwitch(params, start, end) {
+    return { type: NodeNames.Switch, start, end, params, cases: [] };
+}
+function cSwitchCase(params, start, end) {
+    return { type: NodeNames.SwitchCase, start, end, params, consequent: [] };
+}
+function cSwitchDefault(start, end) {
+    return { type: NodeNames.SwitchDefault, start, end, consequent: [] };
+}
+function cBreak(start, end) {
+    return { type: NodeNames.Break, start, end };
+}
+//# sourceMappingURL=Node.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -133,6 +150,7 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -618,6 +636,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -627,6 +646,7 @@ function parseParams(tokenParams) {
     }
     return params;
 }
+//# sourceMappingURL=Params.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -635,6 +655,21 @@ function addToNode(parent, child) {
             break;
         case NodeNames.List:
             parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
+            break;
+        case NodeNames.Switch:
+            if (child.type === NodeNames.SwitchCase || child.type === NodeNames.SwitchDefault) {
+                parent.cases.push(child);
+            }
+            else if (parent.cases.length === 0) {
+                if (child.type !== NodeNames.Text) {
+                    throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+                }
+            }
+            else {
+                parent.cases[parent.cases.length - 1].consequent.push(child);
+            }
+            break;
+        case NodeNames.SwitchDefault:
             break;
         case NodeNames.Macro:
         case NodeNames.Program:
@@ -652,6 +687,9 @@ function addToNode(parent, child) {
         case NodeNames.Include:
         case NodeNames.Text:
         case NodeNames.Comment:
+        case NodeNames.SwitchDefault:
+        case NodeNames.SwitchCase:
+        case NodeNames.Break:
         default:
             throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
     }
@@ -716,6 +754,18 @@ function addNodeChild(parent, token) {
                 return parent;
             }
             break;
+        case NodeNames.SwitchCase:
+            if (parent.type === NodeNames.Switch) {
+                parent.cases.push(cSwitchCase(token.params, token.start, token.end));
+                return parent;
+            }
+            break;
+        case NodeNames.SwitchDefault:
+            if (parent.type === NodeNames.Switch) {
+                parent.cases.push(cSwitchDefault(token.start, token.end));
+                return parent;
+            }
+            break;
         case NodeNames.Attempt:
             return addToNode(parent, cAttempt(token.start, token.end));
         case NodeNames.Condition:
@@ -740,6 +790,10 @@ function addNodeChild(parent, token) {
             return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
         case NodeNames.Comment:
             return addToNode(parent, cComment(token.text, token.start, token.end));
+        case NodeNames.Switch:
+            return addToNode(parent, cSwitch(token.params, token.start, token.end));
+        case NodeNames.Break:
+            return addToNode(parent, cBreak(token.start, token.end));
         case NodeNames.Program:
     }
     throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
@@ -758,6 +812,7 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Macro:
         case NodeNames.Condition:
         case NodeNames.List:
+        case NodeNames.Switch:
             return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
         case NodeNames.ConditionElse:
             return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
@@ -771,13 +826,16 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Global:
         case NodeNames.Local:
             return EClosingType.Ignore;
+        case NodeNames.SwitchCase:
+        case NodeNames.SwitchDefault:
+            return EClosingType.Ignore;
         case NodeNames.Include:
         case NodeNames.Text:
         case NodeNames.Interpolation:
         case NodeNames.Comment:
             return EClosingType.Ignore;
     }
-    throw new ReferenceError(`isSelfClosing(${type}) failed`);
+    throw new ReferenceError(`isClosing(${type}) failed`);
 }
 function cToken(type, start, end, text, params = [], isClose = false) {
     return {
@@ -961,6 +1019,7 @@ class Tokenizer {
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -1007,6 +1066,9 @@ class Parser {
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

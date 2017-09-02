@@ -1,0 +1,204 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 371,
+  "body": [
+    {
+      "type": "Assign",
+      "start": 0,
+      "end": 17,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "UnaryExpression",
+          "operator": "=",
+          "argument": null,
+          "prefix": true
+        },
+        {
+          "type": "Literal",
+          "value": 123,
+          "raw": "123"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 18,
+      "end": 39,
+      "text": "#assign x = 123 in ns"
+    },
+    {
+      "type": "Global",
+      "start": 40,
+      "end": 57,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "UnaryExpression",
+          "operator": "=",
+          "argument": null,
+          "prefix": true
+        },
+        {
+          "type": "Literal",
+          "value": 123,
+          "raw": "123"
+        }
+      ]
+    },
+    {
+      "type": "Condition",
+      "start": 58,
+      "end": 74,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        },
+        {
+          "type": "UnaryExpression",
+          "operator": "+",
+          "argument": null,
+          "prefix": true
+        },
+        {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        {
+          "type": "UnaryExpression",
+          "operator": "=",
+          "argument": {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": null,
+            "prefix": true
+          },
+          "prefix": true
+        },
+        {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      ],
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 75,
+          "end": 76,
+          "text": "o"
+        },
+        {
+          "type": "Interpolation",
+          "start": 77,
+          "end": 81,
+          "params": [
+            {
+              "type": "Identifier",
+              "name": "y"
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 82,
+          "end": 83,
+          "text": "a"
+        }
+      ],
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 92,
+          "end": 101,
+          "text": "{\"static\""
+        }
+      ]
+    },
+    {
+      "type": "Switch",
+      "start": 109,
+      "end": 120,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "cases": [
+        {
+          "type": "SwitchCase",
+          "start": 132,
+          "end": 141,
+          "params": [
+            {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 142,
+              "end": 143,
+              "text": "w"
+            }
+          ]
+        },
+        {
+          "type": "SwitchDefault",
+          "start": 144,
+          "end": 154,
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 155,
+              "end": 157,
+              "text": "or"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Comment",
+      "start": 169,
+      "end": 238,
+      "text": "  <#function foo x y><#local x = 123><#return 1></#function>  "
+    },
+    {
+      "type": "Comment",
+      "start": 239,
+      "end": 273,
+      "text": "  <#list xs as x></#list>  "
+    },
+    {
+      "type": "Comment",
+      "start": 274,
+      "end": 350,
+      "text": "  <#list xs>[<#items as x>${x}<#sep>, </#items>]<#else>None</#list>  "
+    },
+    {
+      "type": "Comment",
+      "start": 351,
+      "end": 369,
+      "text": " A comment "
+    },
+    {
+      "type": "Text",
+      "start": 370,
+      "end": 371,
+      "text": "\n"
+    }
+  ]
+}

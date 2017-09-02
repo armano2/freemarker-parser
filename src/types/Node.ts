@@ -129,7 +129,7 @@ export interface IComment extends INode {
 export interface ISwitch extends INode {
   type : NodeNames.Switch
   params : IParams
-  cases : INode[]
+  cases : NodeSwitchGroup[]
 }
 
 export interface ISwitchCase extends INode {
@@ -140,13 +140,14 @@ export interface ISwitchCase extends INode {
 
 export interface ISwitchDefault extends INode {
   type : NodeNames.SwitchDefault
-  params : IParams
   consequent : INode[]
 }
 
 export interface IBreak extends INode {
   type : NodeNames.Break
 }
+
+export type NodeSwitchGroup = ISwitchCase | ISwitchDefault
 
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
   ICondition | IList |

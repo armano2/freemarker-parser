@@ -3,18 +3,22 @@ import { ENodeType } from '../Symbols'
 import { AllNodeTypes, NodeNames } from '../types/Node'
 import { directives, IToken } from '../types/Tokens'
 import {
-  cAssign,
-  cAttempt,
-  cComment,
-  cCondition,
-  cGlobal,
-  cInclude,
-  cInterpolation,
-  cList,
-  cLocal,
-  cMacro,
-  cMacroCall,
-  cText,
+    cAssign,
+    cAttempt,
+    cBreak,
+    cComment,
+    cCondition,
+    cGlobal,
+    cInclude,
+    cInterpolation,
+    cList,
+    cLocal,
+    cMacro,
+    cMacroCall,
+    cSwitch,
+    cSwitchCase,
+    cSwitchDefault,
+    cText,
 } from './Node'
 import { parseParams } from './Params'
 
@@ -25,6 +29,19 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
       break
     case NodeNames.List:
       parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
+      break
+    case NodeNames.Switch:
+      if (child.type === NodeNames.SwitchCase || child.type === NodeNames.SwitchDefault) {
+        parent.cases.push(child)
+      } else if (parent.cases.length === 0) {
+        if (child.type !== NodeNames.Text) {
+          throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
+        }
+      } else {
+        parent.cases[parent.cases.length - 1].consequent.push(child)
+      }
+      break
+    case NodeNames.SwitchDefault:
       break
     case NodeNames.Macro:
     case NodeNames.Program:
@@ -43,6 +60,9 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
     case NodeNames.Include:
     case NodeNames.Text:
     case NodeNames.Comment:
+    case NodeNames.SwitchDefault:
+    case NodeNames.SwitchCase:
+    case NodeNames.Break:
     default:
       throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
   }
@@ -109,6 +129,18 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
         return parent
       }
       break
+    case NodeNames.SwitchCase:
+      if (parent.type === NodeNames.Switch) {
+        parent.cases.push(cSwitchCase(token.params, token.start, token.end))
+        return parent
+      }
+      break
+    case NodeNames.SwitchDefault:
+      if (parent.type === NodeNames.Switch) {
+        parent.cases.push(cSwitchDefault(token.start, token.end))
+        return parent
+      }
+      break
     case NodeNames.Attempt:
       return addToNode(parent, cAttempt(token.start, token.end))
     case NodeNames.Condition:
@@ -133,6 +165,10 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end))
     case NodeNames.Comment:
       return addToNode(parent, cComment(token.text, token.start, token.end))
+    case NodeNames.Switch:
+      return addToNode(parent, cSwitch(token.params, token.start, token.end))
+    case NodeNames.Break:
+      return addToNode(parent, cBreak(token.start, token.end))
     case NodeNames.Program:
       // this should nevet happen
   }
@@ -153,6 +189,7 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Macro:
     case NodeNames.Condition:
     case NodeNames.List:
+    case NodeNames.Switch:
       return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
     case NodeNames.ConditionElse:
       return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No
@@ -166,6 +203,9 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Global:
     case NodeNames.Local:
       return EClosingType.Ignore // TODO: conditional based on params
+    case NodeNames.SwitchCase:
+    case NodeNames.SwitchDefault:
+      return EClosingType.Ignore
     case NodeNames.Include:
     case NodeNames.Text:
     case NodeNames.Interpolation:
@@ -173,7 +213,7 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
       return EClosingType.Ignore
   }
 
-  throw new ReferenceError(`isSelfClosing(${type}) failed`)
+  throw new ReferenceError(`isClosing(${type}) failed`)
 }
 
 export function cToken (type : ENodeType, start : number, end : number, text : string, params : string[] = [], isClose : boolean = false) : IToken {

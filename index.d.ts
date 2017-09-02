@@ -138,7 +138,6 @@ declare module 'freemarker-parser/types/Node' {
     }
     export interface ISwitchDefault extends INode {
         type: NodeNames.SwitchDefault;
-        params: IParams;
         consequent: INode[];
     }
     export interface IBreak extends INode {
