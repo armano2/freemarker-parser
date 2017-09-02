@@ -10,11 +10,13 @@
       "build",
       "out",
       "dist",
-      "freemarkerjs",
-      "/src"
+      "freemarkerjs"
     ],
-    "tsimporter.filesToScan": [
-      "./src/**/*.ts",
-      "./src/**/*.tsx"
+    "typescriptHero.resolver.insertSemicolons": false,
+    "typescriptHero.resolver.importGroups": [
+      {
+        "identifier": "Remaining",
+        "order": "desc"
+      }
     ]
   }

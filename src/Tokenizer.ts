@@ -15,6 +15,7 @@ export default class Tokenizer {
         break
       }
     }
+
     return this.tokens
   }
 

@@ -15,6 +15,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -42,6 +43,7 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
+//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -62,6 +64,7 @@ var NodeNames;
     NodeNames["Comment"] = "Comment";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Types.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -71,6 +74,7 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -90,7 +94,21 @@ const CPAREN_CODE = 41;
 const OBRACK_CODE = 91;
 const CBRACK_CODE = 93;
 const SEMCOL_CODE = 59;
-const unaryOps = { '-': true, '!': true, '~': true, '+': true, '?': true, '=': true };
+const unaryOps = {
+    '-': true,
+    '!': true,
+    '~': true,
+    '+': true,
+    '?': true,
+    '=': true,
+    '+=': true,
+    '-=': true,
+    '*=': true,
+    '/=': true,
+    '%=': true,
+    '--': true,
+    '++': true,
+};
 const binaryOps = {
     '||': 1,
     '&&': 2,
@@ -551,6 +569,7 @@ function parseParams(tokenParams) {
     }
     return params;
 }
+//# sourceMappingURL=Params.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -575,6 +594,7 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
+//# sourceMappingURL=Types.js.map
 
 class Tokenizer {
     constructor() {
@@ -733,6 +753,7 @@ class Tokenizer {
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -773,6 +794,7 @@ function cAttempt(start, end) {
 function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
+//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -925,6 +947,7 @@ function isClosing(type, parentType, isClose) {
     }
     throw new ReferenceError(`isSelfClosing(${type}) failed`);
 }
+//# sourceMappingURL=Token.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -971,6 +994,9 @@ class Parser {
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

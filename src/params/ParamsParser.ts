@@ -70,7 +70,21 @@ const SEMCOL_CODE = 59 // ;
 // - Assignment operators: =, +=, -=, *=, /=, %=, ++, --
 
 // Use a quickly-accessible map to store all of the unary operators
-const unaryOps : IUnaryOperators = {'-': true, '!': true, '~': true, '+': true, '?': true, '=': true}
+const unaryOps : IUnaryOperators = {
+  '-': true,
+  '!': true,
+  '~': true,
+  '+': true,
+  '?': true,
+  '=': true,
+  '+=': true,
+  '-=': true,
+  '*=': true,
+  '/=': true,
+  '%=': true,
+  '--': true,
+  '++': true,
+}
 
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
 const binaryOps : IBinaryOperators = {
