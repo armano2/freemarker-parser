@@ -1,8 +1,8 @@
 {
-  "parserOptions": {
-      "ecmaVersion": 2017,
-      "sourceType": "module"
-  },
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
     "env": {
         "node": true,
         "mocha": true
@@ -20,6 +20,7 @@
         "no-process-exit": "off",
         "no-process-env": "off",
         "global-require": "error",
+        "no-console": "off",
         "indent": ["error", 2, {
             "SwitchCase": 1,
             "VariableDeclarator": 1,
@@ -36,7 +37,6 @@
                 "parameters": 1,
                 "body": 1
             }
-        }],
-        "node/exports-style": ["error", "module.exports"]
+        }]
     }
 }

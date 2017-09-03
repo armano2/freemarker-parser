@@ -3,22 +3,22 @@ import { ENodeType } from '../Symbols'
 import { AllNodeTypes, NodeNames } from '../types/Node'
 import { directives, IToken } from '../types/Tokens'
 import {
-    cAssign,
-    cAttempt,
-    cBreak,
-    cComment,
-    cCondition,
-    cGlobal,
-    cInclude,
-    cInterpolation,
-    cList,
-    cLocal,
-    cMacro,
-    cMacroCall,
-    cSwitch,
-    cSwitchCase,
-    cSwitchDefault,
-    cText,
+  cAssign,
+  cAttempt,
+  cBreak,
+  cComment,
+  cCondition,
+  cGlobal,
+  cInclude,
+  cInterpolation,
+  cList,
+  cLocal,
+  cMacro,
+  cMacroCall,
+  cSwitch,
+  cSwitchCase,
+  cSwitchDefault,
+  cText,
 } from './Node'
 import { parseParams } from './Params'
 
