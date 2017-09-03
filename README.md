@@ -24,14 +24,19 @@ This project contains experimental version of parser ftl to ast tree
       - `#else`
     - `#include`
     - `#macro`
+    - `#switch`
+      - `#case`
+      - `#default`
+    - `#break`
   - comments `<#-- -->`
 
 ## TODO:
   - built-ins:
-    - `toUpperCase`
-    - `toLowerCase`
-    - `capitalize`
-    - `length`
+    - `?toUpperCase`
+    - `?toLowerCase`
+    - `?capitalize`
+    - `?length`
+    - `?string("yes", "no")`
   - size builtin for arrays
   - support default values, i.e. `${user!"Anonymous"}`
   - null resistance in above expressions if in parenthesis
@@ -43,10 +48,8 @@ This project contains experimental version of parser ftl to ast tree
     - `#fallback`
     - `#function`
     - `#flush`
-    - `#global`
     - `#import`
     - `#lt`
-    - `#macro`
     - `#nested`
     - `#nt`
     - `#recurse`
@@ -54,11 +57,5 @@ This project contains experimental version of parser ftl to ast tree
     - `#rt`
     - `#setting`
     - `#stop`
-    - `#switch`
-      - `#case`
-      - `#break`
-      - `#default`
     - `#t`
     - `#visit`
-
-  - string builtin for booleans, i.e. `boolean?string("yes", "no")`
