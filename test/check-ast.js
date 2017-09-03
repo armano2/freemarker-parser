@@ -7,7 +7,7 @@ const lineColumn = require('line-column')
 const parser = new freemarker.Parser()
 
 const baseDir = path.join(__dirname, '..')
-const testsPath = path.join(__dirname, '/data/')
+const testsPath = path.join(__dirname, '/resource/valid/')
 const tests = fs.readdirSync(testsPath)
   .filter(f => fs.statSync(path.join(testsPath, f)).isDirectory())
 
