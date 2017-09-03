@@ -6,7 +6,7 @@ const chalk = require('chalk')
 
 const parser = new freemarker.Parser()
 
-const testsPath = path.join(__dirname, '../test/data/')
+const testsPath = path.join(__dirname, '../test/resource/valid/')
 const baseDir = path.join(__dirname, '..')
 
 const tests = fs.readdirSync(testsPath)
