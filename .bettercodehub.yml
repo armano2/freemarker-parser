@@ -1,0 +1,8 @@
+exclude:
+- /_test/test.js
+- /index.js
+- /rollup.config.js
+component_depth: 1
+languages:
+- javascript
+- typescript
