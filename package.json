@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "Freemarker Parser is a javascript implementation of the Freemarker",
   "scripts": {
-    "_mocha": "mocha \"test/*.js\" --reporter dot --timeout 5000",
     "build": "npm run lint && tsc && rollup -c && dts-bundle --name freemarker-parser --main .temp/index.d.ts --out ../index.d.ts",
-    "test": "nyc npm run _mocha",
+    "mocha": "mocha \"test/*.js\" --reporter=dot --timeout 5000",
+    "lcov": "nyc report --reporter=lcovonly",
     "lint": "eslint ./test && tslint './src/**/*.ts'",
     "pretest": "npm run build",
-    "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
+    "test": "nyc npm run mocha",
+    "posttest": "npm run lcov && codecov -f coverage/*.info",
     "update-ast": "node ./scripts/update-ast.js",
     "watch": "run-p watch:*",
     "watch:tsc": "tsc --watch",
     "watch:rollup": "wait-on .temp/index.js && rollup -c --watch",
-    "watch:test": "wait-on index.js && warun index.js \"test/data/*/*.ftl\" -- npm run _mocha"
+    "watch-test": "wait-on index.js && warun index.js \"test/*.js\" \"test/**/*.ftl\" -- npm run mocha",
+    "coverage": "nyc npm run mocha && nyc report --reporter lcov"
   },
   "repository": {
     "type": "git",

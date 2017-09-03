@@ -46,7 +46,7 @@ export class Tokenizer {
       ...endTag,
     ])
     if (pos.pos < 0) {
-      throw new SyntaxError('Missing closing tag') // TODO: add more info like location
+      throw new SyntaxError('Missing name') // TODO: add more info like location
     }
     return this.template.substring(this.cursorPos, pos.pos)
   }
@@ -54,7 +54,6 @@ export class Tokenizer {
   private parseToken () : boolean {
     let symbol : ISymbol | null = null
     let startPos : number = 0
-    // console.log('cursorPos', this.cursorPos)
     for (const item of symbols) {
       const n = this.template.indexOf(item.startToken, this.cursorPos)
       if (n >= 0 && (!symbol || n < startPos)) {
@@ -73,40 +72,22 @@ export class Tokenizer {
     }
     this.cursorPos += symbol.startToken.length
 
-    let node : IToken | null = null
-
     switch (symbol.type) {
       case ENodeType.Comment: // <#-- foo -->
-        node = this.parseComment(symbol, startPos)
+        this.tokens.push(this.parseComment(symbol, startPos))
         break
       case ENodeType.Directive: // <#foo>/</#foo>
-        node = this.parseDirective(symbol, startPos, symbol.end)
+        this.tokens.push(this.parseDirective(symbol, startPos, symbol.end))
         break
       case ENodeType.Macro: // <@foo>
-        node = this.parseMacro(symbol, startPos, symbol.end)
+        this.tokens.push(this.parseMacro(symbol, startPos, symbol.end))
         break
       case ENodeType.Interpolation: // ${ foo?string }
-        node = this.parseInterpolation(symbol, startPos)
+        this.tokens.push(this.parseInterpolation(symbol, startPos))
         break
-      default:
-        throw new ReferenceError(`Unknown node type ${symbol.type}`)
-    }
-
-    if (node) {
-      this.tokens.push(node)
     }
 
     return true
-  }
-
-  // TODO: fix logic
-  private endsWith (text : string,  tokens : string []) : boolean {
-    for (const token of tokens) {
-      if (text.endsWith(token)) {
-        return true
-      }
-    }
-    return false
   }
 
   private parseComment (symbol : ISymbol, start : number) : IToken {
@@ -132,7 +113,7 @@ export class Tokenizer {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
-    const params : string[] = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken)
+    const params : string[] = this.parseParams(symbol.endToken)
 
     return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
   }
@@ -141,7 +122,7 @@ export class Tokenizer {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
-    const params : string[] = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken)
+    const params : string[] = this.parseParams(symbol.endToken)
 
     return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose)
   }
@@ -183,7 +164,7 @@ export class Tokenizer {
             params.push(paramText)
             paramText = ''
           }
-          // console.log(textPos, nextPos)
+
           this.cursorPos += nextPos.text.length
           return params
         } else if (isWhitespace(char)) {

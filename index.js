@@ -879,7 +879,7 @@ class Tokenizer {
             ...endTag,
         ]);
         if (pos.pos < 0) {
-            throw new SyntaxError('Missing closing tag');
+            throw new SyntaxError('Missing name');
         }
         return this.template.substring(this.cursorPos, pos.pos);
     }
@@ -901,35 +901,21 @@ class Tokenizer {
             this.cursorPos = startPos;
         }
         this.cursorPos += symbol.startToken.length;
-        let node = null;
         switch (symbol.type) {
             case ENodeType.Comment:
-                node = this.parseComment(symbol, startPos);
+                this.tokens.push(this.parseComment(symbol, startPos));
                 break;
             case ENodeType.Directive:
-                node = this.parseDirective(symbol, startPos, symbol.end);
+                this.tokens.push(this.parseDirective(symbol, startPos, symbol.end));
                 break;
             case ENodeType.Macro:
-                node = this.parseMacro(symbol, startPos, symbol.end);
+                this.tokens.push(this.parseMacro(symbol, startPos, symbol.end));
                 break;
             case ENodeType.Interpolation:
-                node = this.parseInterpolation(symbol, startPos);
+                this.tokens.push(this.parseInterpolation(symbol, startPos));
                 break;
-            default:
-                throw new ReferenceError(`Unknown node type ${symbol.type}`);
-        }
-        if (node) {
-            this.tokens.push(node);
         }
         return true;
-    }
-    endsWith(text, tokens) {
-        for (const token of tokens) {
-            if (text.endsWith(token)) {
-                return true;
-            }
-        }
-        return false;
     }
     parseComment(symbol, start) {
         const end = this.getNextPos(symbol.endToken);
@@ -950,13 +936,13 @@ class Tokenizer {
     parseMacro(symbol, start, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
-        const params = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken);
+        const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
     }
     parseDirective(symbol, startPos, isClose = false) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
-        const params = this.endsWith(typeString, symbol.endToken) ? [] : this.parseParams(symbol.endToken);
+        const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose);
     }
     parseParams(endTags) {
