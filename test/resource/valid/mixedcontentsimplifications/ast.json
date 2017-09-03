@@ -17,9 +17,9 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 11,
-          "end": 14,
-          "text": "   "
+          "start": 10,
+          "end": 15,
+          "text": "\n    "
         },
         {
           "type": "Condition",
@@ -35,17 +35,17 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 26,
-              "end": 29,
-              "text": "   "
+              "start": 25,
+              "end": 30,
+              "text": "\n    "
             }
           ]
         },
         {
           "type": "Text",
-          "start": 37,
-          "end": 40,
-          "text": "   "
+          "start": 36,
+          "end": 41,
+          "text": "\n    "
         },
         {
           "type": "Condition",
@@ -61,17 +61,17 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 52,
-              "end": 68,
-              "text": "        text\n   "
+              "start": 51,
+              "end": 69,
+              "text": "\n        text\n    "
             }
           ]
         },
         {
           "type": "Text",
-          "start": 76,
-          "end": 79,
-          "text": "   "
+          "start": 75,
+          "end": 80,
+          "text": "\n    "
         },
         {
           "type": "Condition",
@@ -86,14 +86,31 @@
           ],
           "consequent": [
             {
-              "type": "Text",
-              "start": 91,
-              "end": 93,
-              "text": "{x"
+              "type": "Interpolation",
+              "start": 90,
+              "end": 94,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              ]
             }
           ]
+        },
+        {
+          "type": "Text",
+          "start": 100,
+          "end": 101,
+          "text": "\n"
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 107,
+      "end": 108,
+      "text": "\n"
     }
   ]
 }

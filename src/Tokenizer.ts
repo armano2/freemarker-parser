@@ -7,13 +7,15 @@ interface INextPos {
   text : string
 }
 
-export default class Tokenizer {
+export class Tokenizer {
   private template : string = ''
   private tokens : IToken[] = []
   private cursorPos : number = 0
 
   public parse (template : string) : IToken[] {
     this.template = template
+    this.tokens = []
+    this.cursorPos = 0
     while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
       const token = this.parseToken()
       if (!token) {
@@ -52,6 +54,7 @@ export default class Tokenizer {
   private parseToken () : boolean {
     let symbol : ISymbol | null = null
     let startPos : number = 0
+    // console.log('cursorPos', this.cursorPos)
     for (const item of symbols) {
       const n = this.template.indexOf(item.startToken, this.cursorPos)
       if (n >= 0 && (!symbol || n < startPos)) {
@@ -64,10 +67,11 @@ export default class Tokenizer {
       return false
     }
 
-    if (startPos - 1 > this.cursorPos) {
-      this.tokens.push(this.parseText(this.cursorPos, startPos - 1))
+    if (startPos > this.cursorPos) {
+      this.tokens.push(this.parseText(this.cursorPos, startPos))
+      this.cursorPos = startPos
     }
-    this.cursorPos = startPos + symbol.startToken.length
+    this.cursorPos += symbol.startToken.length
 
     let node : IToken | null = null
 
@@ -92,10 +96,10 @@ export default class Tokenizer {
       this.tokens.push(node)
     }
 
-    ++this.cursorPos
     return true
   }
 
+  // TODO: fix logic
   private endsWith (text : string,  tokens : string []) : boolean {
     for (const token of tokens) {
       if (text.endsWith(token)) {
@@ -147,18 +151,14 @@ export default class Tokenizer {
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
   private parseParams (endTags : string[]) : string[] {
-    const text = this.template.substring(this.cursorPos)
     const params : string[] = []
     let paramText : string = ''
-    let paramPos : number = this.cursorPos
     let bracketLevel = 0
     let inString = false
     let endTag : string = ''
 
-    let i = -1
-    while (i < text.length) {
-      ++i
-      const char = text[i]
+    while (this.cursorPos <= this.template.length) {
+      const char = this.template[this.cursorPos]
       if (char === '"') {
         inString = !inString
       }
@@ -176,29 +176,29 @@ export default class Tokenizer {
       }
 
       if (bracketLevel === 0 && !inString) {
-        const nextPos = this.getNextPos(endTags, text, i)
-        if (i === nextPos.pos) {
+        const nextPos = this.getNextPos(endTags, this.template, this.cursorPos)
+        if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
           if (paramText !== '') {
             endTag = nextPos.text
             params.push(paramText)
             paramText = ''
           }
-          this.cursorPos = paramPos + nextPos.text.length
+          // console.log(textPos, nextPos)
+          this.cursorPos += nextPos.text.length
           return params
         } else if (isWhitespace(char)) {
           if (paramText !== '') {
             params.push(paramText)
             paramText = ''
           }
-          ++paramPos
-          this.cursorPos = paramPos
+          ++this.cursorPos
         } else {
           paramText += char
-          ++paramPos
+          ++this.cursorPos
         }
       } else {
         paramText += char
-        ++paramPos
+        ++this.cursorPos
       }
     }
     throw new SyntaxError(`Unclosed directive or macro`) // TODO: add more info like location

@@ -29,6 +29,12 @@
       ]
     },
     {
+      "type": "Text",
+      "start": 9,
+      "end": 10,
+      "text": "\n"
+    },
+    {
       "type": "Interpolation",
       "start": 10,
       "end": 26,
@@ -62,6 +68,12 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 26,
+      "end": 27,
+      "text": "\n"
     },
     {
       "type": "Interpolation",
@@ -104,6 +116,12 @@
       ]
     },
     {
+      "type": "Text",
+      "start": 48,
+      "end": 49,
+      "text": "\n"
+    },
+    {
       "type": "Interpolation",
       "start": 49,
       "end": 68,
@@ -142,6 +160,12 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 68,
+      "end": 69,
+      "text": "\n"
     },
     {
       "type": "Interpolation",
@@ -197,6 +221,12 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 98,
+      "end": 99,
+      "text": "\n"
     }
   ]
 }

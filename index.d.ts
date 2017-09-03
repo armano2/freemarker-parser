@@ -2,7 +2,8 @@
 
 declare module 'freemarker-parser' {
     import { Parser } from 'freemarker-parser/Parser';
-    export { Parser };
+    import { Tokenizer } from 'freemarker-parser/Tokenizer';
+    export { Parser, Tokenizer };
 }
 
 declare module 'freemarker-parser/Parser' {
@@ -14,6 +15,13 @@ declare module 'freemarker-parser/Parser' {
     }
     export class Parser {
         parse(template: string): IParserReturn;
+    }
+}
+
+declare module 'freemarker-parser/Tokenizer' {
+    import { IToken } from 'freemarker-parser/types/Tokens';
+    export class Tokenizer {
+        parse(template: string): IToken[];
     }
 }
 

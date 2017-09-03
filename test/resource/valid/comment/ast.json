@@ -11,9 +11,9 @@
     },
     {
       "type": "Text",
-      "start": 21,
-      "end": 24,
-      "text": "o0o"
+      "start": 20,
+      "end": 25,
+      "text": "fo0o\n"
     },
     {
       "type": "Comment",
@@ -22,10 +22,22 @@
       "text": "Foo comment"
     },
     {
+      "type": "Text",
+      "start": 43,
+      "end": 44,
+      "text": "\n"
+    },
+    {
       "type": "Comment",
       "start": 44,
       "end": 77,
       "text": "\n${foo} c\n<#list>\n<@/foo>\n"
+    },
+    {
+      "type": "Text",
+      "start": 77,
+      "end": 78,
+      "text": "\n"
     },
     {
       "type": "Assign",
@@ -51,6 +63,12 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 97,
+      "end": 98,
+      "text": "\n"
     }
   ]
 }

@@ -6,8 +6,8 @@
     {
       "type": "Text",
       "start": 0,
-      "end": 15,
-      "text": "Primary content"
+      "end": 16,
+      "text": "Primary content\n"
     },
     {
       "type": "Attempt",
@@ -16,9 +16,9 @@
       "body": [
         {
           "type": "Text",
-          "start": 27,
-          "end": 46,
-          "text": "  Optional content:"
+          "start": 26,
+          "end": 47,
+          "text": "\n  Optional content: "
         },
         {
           "type": "Interpolation",
@@ -30,22 +30,28 @@
               "name": "thisMayFails"
             }
           ]
+        },
+        {
+          "type": "Text",
+          "start": 62,
+          "end": 63,
+          "text": "\n"
         }
       ],
       "fallback": [
         {
           "type": "Text",
-          "start": 74,
-          "end": 119,
-          "text": "  Ops! The optional content is not available."
+          "start": 73,
+          "end": 120,
+          "text": "\n  Ops! The optional content is not available.\n"
         }
       ]
     },
     {
       "type": "Text",
-      "start": 132,
+      "start": 131,
       "end": 158,
-      "text": "Primary content continued\n"
+      "text": "\nPrimary content continued\n"
     }
   ]
 }

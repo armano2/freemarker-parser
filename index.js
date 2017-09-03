@@ -640,6 +640,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -859,6 +860,8 @@ class Tokenizer {
     }
     parse(template) {
         this.template = template;
+        this.tokens = [];
+        this.cursorPos = 0;
         while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
             const token = this.parseToken();
             if (!token) {
@@ -903,10 +906,11 @@ class Tokenizer {
         if (!symbol) {
             return false;
         }
-        if (startPos - 1 > this.cursorPos) {
-            this.tokens.push(this.parseText(this.cursorPos, startPos - 1));
+        if (startPos > this.cursorPos) {
+            this.tokens.push(this.parseText(this.cursorPos, startPos));
+            this.cursorPos = startPos;
         }
-        this.cursorPos = startPos + symbol.startToken.length;
+        this.cursorPos += symbol.startToken.length;
         let node = null;
         switch (symbol.type) {
             case ENodeType.Comment:
@@ -927,7 +931,6 @@ class Tokenizer {
         if (node) {
             this.tokens.push(node);
         }
-        ++this.cursorPos;
         return true;
     }
     endsWith(text, tokens) {
@@ -967,16 +970,12 @@ class Tokenizer {
         return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose);
     }
     parseParams(endTags) {
-        const text = this.template.substring(this.cursorPos);
         const params = [];
         let paramText = '';
-        let paramPos = this.cursorPos;
         let bracketLevel = 0;
         let inString = false;
-        let i = -1;
-        while (i < text.length) {
-            ++i;
-            const char = text[i];
+        while (this.cursorPos <= this.template.length) {
+            const char = this.template[this.cursorPos];
             if (char === '"') {
                 inString = !inString;
             }
@@ -992,13 +991,13 @@ class Tokenizer {
                 throw new SyntaxError(`bracketLevel < 0`);
             }
             if (bracketLevel === 0 && !inString) {
-                const nextPos = this.getNextPos(endTags, text, i);
-                if (i === nextPos.pos) {
+                const nextPos = this.getNextPos(endTags, this.template, this.cursorPos);
+                if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
                     if (paramText !== '') {
                         params.push(paramText);
                         paramText = '';
                     }
-                    this.cursorPos = paramPos + nextPos.text.length;
+                    this.cursorPos += nextPos.text.length;
                     return params;
                 }
                 else if (isWhitespace(char)) {
@@ -1006,23 +1005,21 @@ class Tokenizer {
                         params.push(paramText);
                         paramText = '';
                     }
-                    ++paramPos;
-                    this.cursorPos = paramPos;
+                    ++this.cursorPos;
                 }
                 else {
                     paramText += char;
-                    ++paramPos;
+                    ++this.cursorPos;
                 }
             }
             else {
                 paramText += char;
-                ++paramPos;
+                ++this.cursorPos;
             }
         }
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -1074,4 +1071,5 @@ class Parser {
 //# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
+exports.Tokenizer = Tokenizer;
 //# sourceMappingURL=index.js.map

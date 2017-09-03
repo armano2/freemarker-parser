@@ -6,8 +6,8 @@
     {
       "type": "Text",
       "start": 0,
-      "end": 20,
-      "text": "Inner plannets data:"
+      "end": 21,
+      "text": "Inner plannets data:\n"
     },
     {
       "type": "List",
@@ -30,9 +30,9 @@
       "body": [
         {
           "type": "Text",
-          "start": 49,
-          "end": 58,
-          "text": "  Name:  "
+          "start": 48,
+          "end": 59,
+          "text": "\n  Name:   "
         },
         {
           "type": "Interpolation",
@@ -69,9 +69,9 @@
         },
         {
           "type": "Text",
-          "start": 83,
-          "end": 92,
-          "text": "  Radius:"
+          "start": 82,
+          "end": 93,
+          "text": "\n  Radius: "
         },
         {
           "type": "Interpolation",
@@ -94,9 +94,9 @@
         },
         {
           "type": "Text",
-          "start": 108,
-          "end": 117,
-          "text": "  Mass:  "
+          "start": 107,
+          "end": 118,
+          "text": "\n  Mass:   "
         },
         {
           "type": "Interpolation",
@@ -119,9 +119,9 @@
         },
         {
           "type": "Text",
-          "start": 131,
-          "end": 140,
-          "text": "  Volume:"
+          "start": 130,
+          "end": 141,
+          "text": "\n  Volume: "
         },
         {
           "type": "Interpolation",
@@ -141,16 +141,28 @@
               }
             }
           ]
+        },
+        {
+          "type": "Text",
+          "start": 155,
+          "end": 156,
+          "text": "\n"
         }
       ],
       "fallback": [
         {
           "type": "Text",
-          "start": 164,
-          "end": 175,
-          "text": "  Not found"
+          "start": 163,
+          "end": 176,
+          "text": "\n  Not found\n"
         }
       ]
+    },
+    {
+      "type": "Text",
+      "start": 184,
+      "end": 185,
+      "text": "\n"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import { format } from 'util'
 import NodeError from './errors/NodeError'
 
-import Tokenizer from './Tokenizer'
+import { Tokenizer } from './Tokenizer'
 import { IToken } from './types/Tokens'
 
 import { AllNodeTypes, IProgram } from './types/Node'
