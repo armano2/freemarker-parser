@@ -15,6 +15,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -42,6 +43,7 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
+//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -66,6 +68,7 @@ var NodeNames;
     NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Node.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -84,6 +87,7 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
+//# sourceMappingURL=Tokens.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -136,6 +140,7 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
+//# sourceMappingURL=Node.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -145,6 +150,7 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 var ParamNames;
 (function (ParamNames) {
@@ -158,6 +164,7 @@ var ParamNames;
     ParamNames["LogicalExpression"] = "LogicalExpression";
     ParamNames["ArrayExpression"] = "ArrayExpression";
 })(ParamNames || (ParamNames = {}));
+//# sourceMappingURL=Params.js.map
 
 const PERIOD_CODE = 46;
 const COMMA_CODE = 44;
@@ -633,6 +640,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -642,6 +650,7 @@ function parseParams(tokenParams) {
     }
     return params;
 }
+//# sourceMappingURL=Params.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -841,6 +850,7 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
+//# sourceMappingURL=Token.js.map
 
 class Tokenizer {
     constructor() {
@@ -933,13 +943,13 @@ class Tokenizer {
         const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
     }
-    parseMacro(symbol, start, isClose = false) {
+    parseMacro(symbol, start, isClose) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
         const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
     }
-    parseDirective(symbol, startPos, isClose = false) {
+    parseDirective(symbol, startPos, isClose) {
         const typeString = this.parseTag(symbol.endToken);
         this.cursorPos += typeString.length;
         const params = this.parseParams(symbol.endToken);
@@ -1042,6 +1052,9 @@ class Parser {
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

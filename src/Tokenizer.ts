@@ -109,7 +109,7 @@ export class Tokenizer {
     return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params)
   }
 
-  private parseMacro (symbol : ISymbol, start : number, isClose : boolean = false) : IToken {
+  private parseMacro (symbol : ISymbol, start : number, isClose : boolean) : IToken {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
@@ -118,7 +118,7 @@ export class Tokenizer {
     return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
   }
 
-  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean = false) : IToken {
+  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean) : IToken {
     const typeString = this.parseTag(symbol.endToken)
     this.cursorPos += typeString.length
 
