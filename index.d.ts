@@ -35,7 +35,7 @@ declare module 'freemarker-parser/types/Tokens' {
 }
 
 declare module 'freemarker-parser/types/Node' {
-    import { IExpression } from 'freemarker-parser/params/Types';
+    import { IExpression } from 'freemarker-parser/types/Params';
     export enum NodeNames {
         Program = "Program",
         Else = "Else",
@@ -167,60 +167,67 @@ declare module 'freemarker-parser/Symbols' {
     export function isWhitespace(char: string): boolean;
 }
 
-declare module 'freemarker-parser/params/Types' {
+declare module 'freemarker-parser/types/Params' {
+    export enum ParamNames {
+        Compound = "Compound",
+        Identifier = "Identifier",
+        MemberExpression = "MemberExpression",
+        Literal = "Literal",
+        CallExpression = "CallExpression",
+        UnaryExpression = "UnaryExpression",
+        BinaryExpression = "BinaryExpression",
+        LogicalExpression = "LogicalExpression",
+        ArrayExpression = "ArrayExpression",
+    }
     export interface IExpression {
-        type: string;
+        type: ParamNames;
+    }
+    export interface ICompound extends IExpression {
+        type: ParamNames.Compound;
+        body: AllParamTypes[];
     }
     export interface ILiteral extends IExpression {
-        type: 'Literal';
+        type: ParamNames.Literal;
         value: any;
         raw: string;
     }
     export interface IArrayExpression extends IExpression {
-        type: 'ArrayExpression';
-        elements: IExpression[];
+        type: ParamNames.ArrayExpression;
+        elements: AllParamTypes[];
     }
     export interface IIdentifier extends IExpression {
-        type: 'Identifier';
+        type: ParamNames.Identifier;
         name: string;
     }
     export interface IBinaryExpression extends IExpression {
-        type: 'BinaryExpression';
+        type: ParamNames.BinaryExpression;
         operator: string;
-        left: IExpression;
-        right: IExpression;
+        left: AllParamTypes;
+        right: AllParamTypes;
     }
     export interface ILogicalExpression extends IExpression {
-        type: 'LogicalExpression';
+        type: ParamNames.LogicalExpression;
         operator: string;
-        left: IExpression;
-        right: IExpression;
+        left: AllParamTypes;
+        right: AllParamTypes;
     }
     export interface IUnaryExpression extends IExpression {
-        type: 'UnaryExpression';
+        type: ParamNames.UnaryExpression;
         operator: string;
-        argument: IExpression;
+        argument: AllParamTypes;
         prefix: boolean;
     }
     export interface IMemberExpression extends IExpression {
-        type: 'MemberExpression';
+        type: ParamNames.MemberExpression;
         computed: boolean;
-        object: IExpression;
-        property: IExpression | null;
+        object: AllParamTypes;
+        property: AllParamTypes | null;
     }
     export interface ICallExpression extends IExpression {
-        type: 'ConditionalExpression';
-        arguments: IExpression;
-        callee: IExpression;
+        type: ParamNames.CallExpression;
+        arguments: AllParamTypes[];
+        callee: AllParamTypes;
     }
-    export interface IUnaryOperators {
-        [n: string]: boolean;
-    }
-    export interface IBinaryOperators {
-        [n: string]: number;
-    }
-    export interface ILiteralOperators {
-        [n: string]: true | false | null;
-    }
+    export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier | IBinaryExpression | ILogicalExpression | IUnaryExpression | IMemberExpression | ICallExpression | ICompound;
 }
 

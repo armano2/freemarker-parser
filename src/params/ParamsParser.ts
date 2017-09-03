@@ -1,30 +1,26 @@
 import ParamError from '../errors/ParamError'
 import {
-  IArrayExpression,
-  IBinaryExpression,
-  IBinaryOperators,
-  ICallExpression,
-  IExpression,
-  IIdentifier,
-  ILiteral,
-  ILiteralOperators,
-  ILogicalExpression,
-  IMemberExpression,
-  IUnaryExpression,
-  IUnaryOperators,
-} from './Types'
+    AllParamTypes,
+    IArrayExpression,
+    IBinaryExpression,
+    ICallExpression,
+    IIdentifier,
+    ILiteral,
+    ILogicalExpression,
+    IMemberExpression,
+    IUnaryExpression,
+    ParamNames,
+} from '../types/Params'
 
-// This is the full set of types that any JSEP node can be.
-// Store them here to save space when minified
-const COMPOUND = 'Compound'
-const IDENTIFIER = 'Identifier'
-const MEMBER_EXP = 'MemberExpression'
-const LITERAL = 'Literal'
-const CALL_EXP = 'CallExpression'
-const UNARY_EXP = 'UnaryExpression'
-const BINARY_EXP = 'BinaryExpression'
-const LOGICAL_EXP = 'LogicalExpression'
-const ARRAY_EXP = 'ArrayExpression'
+export interface IUnaryOperators {
+  [n : string] : boolean
+}
+export interface IBinaryOperators {
+  [n : string] : number
+}
+export interface ILiteralOperators {
+  [n : string] : true | false | null
+}
 
 const PERIOD_CODE = 46 // '.'
 const COMMA_CODE  = 44 // ','
@@ -135,7 +131,7 @@ function isIBiopInfo (object : any) : object is IBiopInfo {
   return object && 'prec' in object
 }
 
-function isIExpression (object : any) : object is IExpression {
+function isAllParamTypes (object : any) : object is AllParamTypes {
   return object && 'type' in object
 }
 
@@ -144,13 +140,11 @@ const binaryPrecedence = (opVal : string) : number => binaryOps[opVal] || 0
 
 // Utility function (gets called from multiple places)
 // Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
-function createBinaryExpression (operator : string, left : IExpression, right : IExpression) : IBinaryExpression | ILogicalExpression | IExpression {
-  const type = (operator === '||' || operator === '&&') ? LOGICAL_EXP : BINARY_EXP
-  return {
-    type,
-    operator,
-    left,
-    right,
+function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression {
+  if (operator === '||' || operator === '&&') {
+    return { type: ParamNames.LogicalExpression, operator, left, right }
+  } else {
+    return { type: ParamNames.BinaryExpression, operator, left, right }
   }
 }
 
@@ -162,8 +156,8 @@ function isDecimalDigit (ch : number) {
 // any non-ASCII that is not an operator
 function isIdentifierStart (ch : number) {
   return (
-    (ch === 36) || (ch === 95) || // a...z
-    (ch >= 65 && ch <= 90) || // `$` and `_`
+    (ch === 36) || (ch === 95) || // `$` and `_`
+    (ch >= 65 && ch <= 90) || // a...z
     (ch >= 97 && ch <= 122) || ch >= 128 // A...Z
   ) && !binaryOps[String.fromCharCode(ch)]
 }
@@ -190,7 +184,7 @@ export class ParamsParser {
     this.length = 0
   }
 
-  public parse (expr : string) {
+  public parse (expr : string) : AllParamTypes {
     this.expr = expr
     this.index = 0
     this.length = expr.length
@@ -224,7 +218,7 @@ export class ParamsParser {
       return nodes[0]
     } else {
       return {
-        type: COMPOUND,
+        type: ParamNames.Compound,
         body: nodes,
       }
     }
@@ -248,7 +242,7 @@ export class ParamsParser {
   }
 
   // The main parsing function. Much of this code is dedicated to ternary expressions
-  private parseExpression () : IExpression | null {
+  private parseExpression () : AllParamTypes | null {
     const test = this.parseBinaryExpression()
     this.parseSpaces()
     return test
@@ -274,11 +268,11 @@ export class ParamsParser {
 
   // This function is responsible for gobbling an individual expression,
   // e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
-  private parseBinaryExpression () : IExpression | null {
+  private parseBinaryExpression () : AllParamTypes | null {
     let node
     let biop : string | null
     let prec
-    let stack : Array<IExpression | IBiopInfo>
+    let stack : Array<AllParamTypes | IBiopInfo>
     let biopInfo
     let fbiop
     let left
@@ -331,7 +325,7 @@ export class ParamsParser {
         right = stack.pop()
         stack.pop()
         left = stack.pop()
-        if (!isIExpression(right) || !isIExpression(left)) {
+        if (!isAllParamTypes(right) || !isAllParamTypes(left)) {
           break
         }
         node = createBinaryExpression(fbiop.value, left, right)
@@ -350,13 +344,13 @@ export class ParamsParser {
     while (i > 1) {
       fbiop = stack[i - 1]
       left = stack[i - 2]
-      if (!isIBiopInfo(fbiop) || !isIExpression(left) || !isIExpression(node)) {
+      if (!isIBiopInfo(fbiop) || !isAllParamTypes(left) || !isAllParamTypes(node)) {
         throw new ParamError(`Expected expression`, this.index)
       }
       node = createBinaryExpression(fbiop.value, left, node)
       i -= 2
     }
-    if (!isIExpression(node)) {
+    if (!isAllParamTypes(node)) {
       throw new ParamError(`Expected expression`, this.index)
     }
     return node
@@ -364,7 +358,7 @@ export class ParamsParser {
 
   // An individual part of a binary expression:
   // e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
-  private parseToken () : IUnaryExpression | IExpression | null {
+  private parseToken () : AllParamTypes | null {
     let ch
     let toCheck
     let tcLen
@@ -390,17 +384,16 @@ export class ParamsParser {
         if (unaryOps.hasOwnProperty(toCheck)) {
           this.index += tcLen
           return {
-            type: UNARY_EXP,
+            type: ParamNames.UnaryExpression,
             operator: toCheck,
             argument: this.parseToken(),
             prefix: true,
-          }
+          } as IUnaryExpression
         }
         toCheck = toCheck.substr(0, --tcLen)
       }
-
-      return null
     }
+    return null
   }
 
   // Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
@@ -445,7 +438,7 @@ export class ParamsParser {
     }
 
     return {
-      type: LITERAL,
+      type: ParamNames.Literal,
       value: parseFloat(rawName),
       raw: rawName,
     }
@@ -486,7 +479,7 @@ export class ParamsParser {
     }
 
     return {
-      type: LITERAL,
+      type: ParamNames.Literal,
       value: str,
       raw: quote + str + quote,
     }
@@ -519,13 +512,13 @@ export class ParamsParser {
 
     if (literals.hasOwnProperty(identifier)) {
       return {
-        type: LITERAL,
+        type: ParamNames.Literal,
         value: literals[identifier],
         raw: identifier,
       }
     } else {
       return {
-        type: IDENTIFIER,
+        type: ParamNames.Identifier,
         name: identifier,
       }
     }
@@ -536,9 +529,9 @@ export class ParamsParser {
   // `(` or `[` has already been gobbled, and gobbles expressions and commas
   // until the terminator character `)` or `]` is encountered.
   // e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
-  private parseArguments (termination : number) : IExpression[] {
+  private parseArguments (termination : number) : AllParamTypes[] {
     let chI : number
-    const args : IExpression[] = []
+    const args : AllParamTypes[] = []
     let node
     let closed = false
     while (this.index < this.length) {
@@ -552,7 +545,7 @@ export class ParamsParser {
         this.index++
       } else {
         node = this.parseExpression()
-        if (!node || node.type === COMPOUND) {
+        if (!node || node.type === ParamNames.Compound) {
           throw new ParamError('Expected comma', this.index)
         }
         args.push(node)
@@ -568,10 +561,10 @@ export class ParamsParser {
   // e.g. `foo`, `bar.baz`, `foo['bar'].baz`
   // It also gobbles function calls:
   // e.g. `Math.acos(obj.angle)`
-  private parseVariable () : IMemberExpression | IIdentifier | ILiteral | ICallExpression | IExpression | null {
+  private parseVariable () : AllParamTypes | null {
     let chI : number
     chI = this.exprICode(this.index)
-    let node : IExpression | IIdentifier | ILiteral | IMemberExpression | ICallExpression | null = chI === OPAREN_CODE
+    let node : AllParamTypes | null = chI === OPAREN_CODE
       ? this.parseGroup()
       : this.parseIdentifier()
 
@@ -582,18 +575,18 @@ export class ParamsParser {
       if (chI === PERIOD_CODE) {
         this.parseSpaces()
         node = {
-          type: MEMBER_EXP,
+          type: ParamNames.MemberExpression,
           computed: false,
           object: node,
           property: this.parseIdentifier(),
-        }
+        } as IMemberExpression
       } else if (chI === OBRACK_CODE) {
         node = {
-          type: MEMBER_EXP,
+          type: ParamNames.MemberExpression,
           computed: true,
           object: node,
           property: this.parseExpression(),
-        }
+        } as IMemberExpression
         this.parseSpaces()
         chI = this.exprICode(this.index)
         if (chI !== CBRACK_CODE) {
@@ -603,10 +596,10 @@ export class ParamsParser {
       } else if (chI === OPAREN_CODE) {
         // A function call is being made; gobble all the arguments
         node = {
-          type: CALL_EXP,
+          type: ParamNames.CallExpression,
           arguments: this.parseArguments(CPAREN_CODE),
           callee: node,
-        }
+        } as ICallExpression
       }
       this.parseSpaces()
       chI = this.exprICode(this.index)
@@ -619,7 +612,7 @@ export class ParamsParser {
   // and then tries to gobble everything within that parenthesis, assuming
   // that the next thing it should see is the close parenthesis. If not,
   // then the expression probably doesn't have a `)`
-  private parseGroup () : IExpression | null {
+  private parseGroup () : AllParamTypes | null {
     this.index++
     const node = this.parseExpression()
     this.parseSpaces()
@@ -637,7 +630,7 @@ export class ParamsParser {
   private parseArray () : IArrayExpression {
     this.index++
     return {
-      type: ARRAY_EXP,
+      type: ParamNames.ArrayExpression,
       elements: this.parseArguments(CBRACK_CODE),
     }
   }

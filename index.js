@@ -15,6 +15,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -42,6 +43,7 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
+//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -66,6 +68,7 @@ var NodeNames;
     NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Node.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -84,6 +87,7 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
+//# sourceMappingURL=Tokens.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -136,6 +140,7 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
+//# sourceMappingURL=Node.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -145,16 +150,22 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
-const COMPOUND = 'Compound';
-const IDENTIFIER = 'Identifier';
-const MEMBER_EXP = 'MemberExpression';
-const LITERAL = 'Literal';
-const CALL_EXP = 'CallExpression';
-const UNARY_EXP = 'UnaryExpression';
-const BINARY_EXP = 'BinaryExpression';
-const LOGICAL_EXP = 'LogicalExpression';
-const ARRAY_EXP = 'ArrayExpression';
+var ParamNames;
+(function (ParamNames) {
+    ParamNames["Compound"] = "Compound";
+    ParamNames["Identifier"] = "Identifier";
+    ParamNames["MemberExpression"] = "MemberExpression";
+    ParamNames["Literal"] = "Literal";
+    ParamNames["CallExpression"] = "CallExpression";
+    ParamNames["UnaryExpression"] = "UnaryExpression";
+    ParamNames["BinaryExpression"] = "BinaryExpression";
+    ParamNames["LogicalExpression"] = "LogicalExpression";
+    ParamNames["ArrayExpression"] = "ArrayExpression";
+})(ParamNames || (ParamNames = {}));
+//# sourceMappingURL=Params.js.map
+
 const PERIOD_CODE = 46;
 const COMMA_CODE = 44;
 const SQUOTE_CODE = 39;
@@ -212,18 +223,17 @@ const literals = {
 function isIBiopInfo(object) {
     return object && 'prec' in object;
 }
-function isIExpression(object) {
+function isAllParamTypes(object) {
     return object && 'type' in object;
 }
 const binaryPrecedence = (opVal) => binaryOps[opVal] || 0;
 function createBinaryExpression(operator, left, right) {
-    const type = (operator === '||' || operator === '&&') ? LOGICAL_EXP : BINARY_EXP;
-    return {
-        type,
-        operator,
-        left,
-        right,
-    };
+    if (operator === '||' || operator === '&&') {
+        return { type: ParamNames.LogicalExpression, operator, left, right };
+    }
+    else {
+        return { type: ParamNames.BinaryExpression, operator, left, right };
+    }
 }
 function isDecimalDigit(ch) {
     return ch >= 48 && ch <= 57;
@@ -273,7 +283,7 @@ class ParamsParser {
         }
         else {
             return {
-                type: COMPOUND,
+                type: ParamNames.Compound,
                 body: nodes,
             };
         }
@@ -350,7 +360,7 @@ class ParamsParser {
                 right = stack.pop();
                 stack.pop();
                 left = stack.pop();
-                if (!isIExpression(right) || !isIExpression(left)) {
+                if (!isAllParamTypes(right) || !isAllParamTypes(left)) {
                     break;
                 }
                 node = createBinaryExpression(fbiop.value, left, right);
@@ -367,13 +377,13 @@ class ParamsParser {
         while (i > 1) {
             fbiop = stack[i - 1];
             left = stack[i - 2];
-            if (!isIBiopInfo(fbiop) || !isIExpression(left) || !isIExpression(node)) {
+            if (!isIBiopInfo(fbiop) || !isAllParamTypes(left) || !isAllParamTypes(node)) {
                 throw new ParamError(`Expected expression`, this.index);
             }
             node = createBinaryExpression(fbiop.value, left, node);
             i -= 2;
         }
-        if (!isIExpression(node)) {
+        if (!isAllParamTypes(node)) {
             throw new ParamError(`Expected expression`, this.index);
         }
         return node;
@@ -403,7 +413,7 @@ class ParamsParser {
                 if (unaryOps.hasOwnProperty(toCheck)) {
                     this.index += tcLen;
                     return {
-                        type: UNARY_EXP,
+                        type: ParamNames.UnaryExpression,
                         operator: toCheck,
                         argument: this.parseToken(),
                         prefix: true,
@@ -411,8 +421,8 @@ class ParamsParser {
                 }
                 toCheck = toCheck.substr(0, --tcLen);
             }
-            return null;
         }
+        return null;
     }
     parseNumericLiteral() {
         let rawName = '';
@@ -449,7 +459,7 @@ class ParamsParser {
             throw new ParamError('Unexpected period', this.index);
         }
         return {
-            type: LITERAL,
+            type: ParamNames.Literal,
             value: parseFloat(rawName),
             raw: rawName,
         };
@@ -497,7 +507,7 @@ class ParamsParser {
             throw new ParamError(`Unclosed quote after "${str}"`, this.index);
         }
         return {
-            type: LITERAL,
+            type: ParamNames.Literal,
             value: str,
             raw: quote + str + quote,
         };
@@ -524,14 +534,14 @@ class ParamsParser {
         identifier = this.expr.slice(start, this.index);
         if (literals.hasOwnProperty(identifier)) {
             return {
-                type: LITERAL,
+                type: ParamNames.Literal,
                 value: literals[identifier],
                 raw: identifier,
             };
         }
         else {
             return {
-                type: IDENTIFIER,
+                type: ParamNames.Identifier,
                 name: identifier,
             };
         }
@@ -554,7 +564,7 @@ class ParamsParser {
             }
             else {
                 node = this.parseExpression();
-                if (!node || node.type === COMPOUND) {
+                if (!node || node.type === ParamNames.Compound) {
                     throw new ParamError('Expected comma', this.index);
                 }
                 args.push(node);
@@ -578,7 +588,7 @@ class ParamsParser {
             if (chI === PERIOD_CODE) {
                 this.parseSpaces();
                 node = {
-                    type: MEMBER_EXP,
+                    type: ParamNames.MemberExpression,
                     computed: false,
                     object: node,
                     property: this.parseIdentifier(),
@@ -586,7 +596,7 @@ class ParamsParser {
             }
             else if (chI === OBRACK_CODE) {
                 node = {
-                    type: MEMBER_EXP,
+                    type: ParamNames.MemberExpression,
                     computed: true,
                     object: node,
                     property: this.parseExpression(),
@@ -600,7 +610,7 @@ class ParamsParser {
             }
             else if (chI === OPAREN_CODE) {
                 node = {
-                    type: CALL_EXP,
+                    type: ParamNames.CallExpression,
                     arguments: this.parseArguments(CPAREN_CODE),
                     callee: node,
                 };
@@ -625,7 +635,7 @@ class ParamsParser {
     parseArray() {
         this.index++;
         return {
-            type: ARRAY_EXP,
+            type: ParamNames.ArrayExpression,
             elements: this.parseArguments(CBRACK_CODE),
         };
     }
@@ -639,6 +649,7 @@ function parseParams(tokenParams) {
     }
     return params;
 }
+//# sourceMappingURL=Params.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -823,6 +834,7 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Text:
         case NodeNames.Interpolation:
         case NodeNames.Comment:
+        case NodeNames.Break:
             return EClosingType.Ignore;
     }
     throw new ReferenceError(`isClosing(${type}) failed`);
@@ -837,6 +849,7 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
+//# sourceMappingURL=Token.js.map
 
 class Tokenizer {
     constructor() {
@@ -1009,6 +1022,7 @@ class Tokenizer {
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -1055,6 +1069,9 @@ class Parser {
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map

@@ -208,6 +208,7 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Text:
     case NodeNames.Interpolation:
     case NodeNames.Comment:
+    case NodeNames.Break:
       return EClosingType.Ignore
   }
 

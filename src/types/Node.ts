@@ -1,4 +1,4 @@
-import { IExpression } from '../params/Types'
+import { IExpression } from './Params'
 
 export enum NodeNames {
   Program = 'Program',
