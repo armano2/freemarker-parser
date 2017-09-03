@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 187,
+  "end": 204,
   "body": [
     {
       "type": "Assign",
@@ -106,32 +106,48 @@
         {
           "type": "Condition",
           "start": 79,
-          "end": 97,
+          "end": 114,
           "params": [
             {
-              "type": "Identifier",
-              "name": "foo"
-            },
-            {
-              "type": "Identifier",
-              "name": "lt"
-            },
-            {
-              "type": "Identifier",
-              "name": "a"
+              "type": "LogicalExpression",
+              "operator": "||",
+              "left": {
+                "type": "BinaryExpression",
+                "operator": "lt",
+                "left": {
+                  "type": "Identifier",
+                  "name": "foo"
+                },
+                "right": {
+                  "type": "Identifier",
+                  "name": "a"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "operator": ">",
+                "left": {
+                  "type": "Identifier",
+                  "name": "foo"
+                },
+                "right": {
+                  "type": "Identifier",
+                  "name": "b"
+                }
+              }
             }
           ],
           "consequent": [
             {
               "type": "Text",
-              "start": 98,
-              "end": 103,
+              "start": 115,
+              "end": 120,
               "text": "  foo"
             },
             {
               "type": "Interpolation",
-              "start": 104,
-              "end": 110,
+              "start": 121,
+              "end": 127,
               "params": [
                 {
                   "type": "Identifier",
@@ -141,14 +157,14 @@
             },
             {
               "type": "Text",
-              "start": 111,
-              "end": 128,
+              "start": 128,
+              "end": 145,
               "text": " is less than bar"
             },
             {
               "type": "Interpolation",
-              "start": 129,
-              "end": 135,
+              "start": 146,
+              "end": 152,
               "params": [
                 {
                   "type": "Identifier",
@@ -160,14 +176,14 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 145,
-              "end": 150,
+              "start": 162,
+              "end": 167,
               "text": "  foo"
             },
             {
               "type": "Interpolation",
-              "start": 151,
-              "end": 157,
+              "start": 168,
+              "end": 174,
               "params": [
                 {
                   "type": "Identifier",
@@ -177,14 +193,14 @@
             },
             {
               "type": "Text",
-              "start": 158,
-              "end": 171,
+              "start": 175,
+              "end": 188,
               "text": " is equal bar"
             },
             {
               "type": "Interpolation",
-              "start": 172,
-              "end": 178,
+              "start": 189,
+              "end": 195,
               "params": [
                 {
                   "type": "Identifier",
