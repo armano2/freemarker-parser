@@ -41,8 +41,6 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
         parent.cases[parent.cases.length - 1].consequent.push(child)
       }
       break
-    case NodeNames.SwitchDefault:
-      break
     case NodeNames.Macro:
     case NodeNames.Program:
       parent.body.push(child)

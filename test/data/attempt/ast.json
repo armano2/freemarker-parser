@@ -1,0 +1,51 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 158,
+  "body": [
+    {
+      "type": "Text",
+      "start": 0,
+      "end": 15,
+      "text": "Primary content"
+    },
+    {
+      "type": "Attempt",
+      "start": 16,
+      "end": 26,
+      "body": [
+        {
+          "type": "Text",
+          "start": 27,
+          "end": 46,
+          "text": "  Optional content:"
+        },
+        {
+          "type": "Interpolation",
+          "start": 47,
+          "end": 62,
+          "params": [
+            {
+              "type": "Identifier",
+              "name": "thisMayFails"
+            }
+          ]
+        }
+      ],
+      "fallback": [
+        {
+          "type": "Text",
+          "start": 74,
+          "end": 119,
+          "text": "  Ops! The optional content is not available."
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 132,
+      "end": 158,
+      "text": "Primary content continued\n"
+    }
+  ]
+}

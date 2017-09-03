@@ -15,7 +15,6 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -43,7 +42,6 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
-//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -68,7 +66,6 @@ var NodeNames;
     NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
-//# sourceMappingURL=Node.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -87,7 +84,6 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
-//# sourceMappingURL=Tokens.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -140,7 +136,6 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
-//# sourceMappingURL=Node.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -150,7 +145,6 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 const COMPOUND = 'Compound';
 const IDENTIFIER = 'Identifier';
@@ -636,7 +630,6 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -646,7 +639,6 @@ function parseParams(tokenParams) {
     }
     return params;
 }
-//# sourceMappingURL=Params.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -1019,7 +1011,6 @@ class Tokenizer {
         throw new SyntaxError(`Unclosed directive or macro`);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -1066,9 +1057,6 @@ class Parser {
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 //# sourceMappingURL=index.js.map
