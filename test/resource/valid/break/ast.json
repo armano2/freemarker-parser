@@ -1,0 +1,98 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 69,
+  "body": [
+    {
+      "type": "List",
+      "start": 0,
+      "end": 15,
+      "params": [
+        {
+          "type": "Literal",
+          "value": 10,
+          "raw": "10"
+        },
+        {
+          "type": "Identifier",
+          "name": "as"
+        },
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "body": [
+        {
+          "type": "Text",
+          "start": 16,
+          "end": 17,
+          "text": " "
+        },
+        {
+          "type": "Interpolation",
+          "start": 18,
+          "end": 22,
+          "params": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 23,
+          "end": 24,
+          "text": " "
+        },
+        {
+          "type": "Condition",
+          "start": 25,
+          "end": 37,
+          "params": [
+            {
+              "type": "Identifier",
+              "name": "x"
+            },
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "UnaryExpression",
+                "operator": "=",
+                "argument": null,
+                "prefix": true
+              },
+              "prefix": true
+            },
+            {
+              "type": "Literal",
+              "value": 3,
+              "raw": "3"
+            }
+          ],
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 38,
+              "end": 41,
+              "text": "   "
+            },
+            {
+              "type": "Break",
+              "start": 42,
+              "end": 50
+            },
+            {
+              "type": "Text",
+              "start": 51,
+              "end": 52,
+              "text": " "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
