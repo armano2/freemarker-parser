@@ -13,21 +13,13 @@ import {
 } from './types/Params'
 import {
   binaryOps,
-  CBRACK_CODE,
-  COMMA_CODE,
-  CPAREN_CODE,
-  DQUOTE_CODE,
+  ECharCodes,
   isDecimalDigit,
   isIdentifierPart,
   isIdentifierStart,
   literals,
   maxBinopLen,
   maxUnopLen,
-  OBRACK_CODE,
-  OPAREN_CODE,
-  PERIOD_CODE,
-  SEMCOL_CODE,
-  SQUOTE_CODE,
   unaryOps,
 } from './utils/Chars'
 
@@ -112,7 +104,7 @@ export class ParamsParser {
 
       // Expressions can be separated by semicolons, commas, or just inferred without any
       // separators
-      if (chI === SEMCOL_CODE || chI === COMMA_CODE) {
+      if (chI === ECharCodes.SEMCOL_CODE || chI === ECharCodes.COMMA_CODE) {
         this.index++ // ignore separators
       } else {
         // Try to gobble each expression individually
@@ -138,12 +130,12 @@ export class ParamsParser {
     }
   }
 
-  private exprI (i : number) {
-    return this.expr.charAt.call(this.expr, i)
+  private exprI (i : number) : string {
+    return this.expr.charAt(i)
   }
 
-  private exprICode (i : number) {
-    return this.expr.charCodeAt.call(this.expr, i)
+  private exprICode (i : number) : number {
+    return this.expr.charCodeAt(i)
   }
 
   // Push `index` up to the next non-space character
@@ -280,16 +272,16 @@ export class ParamsParser {
     this.parseSpaces()
     ch = this.exprICode(this.index)
 
-    if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
+    if (isDecimalDigit(ch) || ch === ECharCodes.PERIOD_CODE) {
       // Char code 46 is a dot `.` which can start off a numeric literal
       return this.parseNumericLiteral()
-    } else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
+    } else if (ch === ECharCodes.SQUOTE_CODE || ch === ECharCodes.DQUOTE_CODE) {
       // Single or double quotes
       return this.parseStringLiteral()
-    } else if (isIdentifierStart(ch) || ch === OPAREN_CODE) { // open parenthesis
+    } else if (isIdentifierStart(ch) || ch === ECharCodes.OPAREN_CODE) { // open parenthesis
       // `foo`, `bar.baz`
       return this.parseVariable()
-    } else if (ch === OBRACK_CODE) {
+    } else if (ch === ECharCodes.OBRACK_CODE) {
       return this.parseArray()
     } else {
       toCheck = this.expr.substr(this.index, maxUnopLen)
@@ -320,7 +312,7 @@ export class ParamsParser {
       rawName += this.exprI(this.index++)
     }
 
-    if (this.exprICode(this.index) === PERIOD_CODE) { // can start with a decimal marker
+    if (this.exprICode(this.index) === ECharCodes.PERIOD_CODE) { // can start with a decimal marker
       rawName += this.exprI(this.index++)
 
       while (isDecimalDigit(this.exprICode(this.index))) {
@@ -347,7 +339,7 @@ export class ParamsParser {
     // Check to make sure this isn't a variable name that start with a number (123abc)
     if (isIdentifierStart(chCode)) {
       throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index)
-    } else if (chCode === PERIOD_CODE) {
+    } else if (chCode === ECharCodes.PERIOD_CODE) {
       throw new ParamError('Unexpected period', this.index)
     }
 
@@ -455,7 +447,7 @@ export class ParamsParser {
         closed = true
         this.index++
         break
-      } else if (chI === COMMA_CODE) { // between expressions
+      } else if (chI === ECharCodes.COMMA_CODE) { // between expressions
         this.index++
       } else {
         node = this.parseExpression()
@@ -478,15 +470,15 @@ export class ParamsParser {
   private parseVariable () : AllParamTypes | null {
     let chI : number
     chI = this.exprICode(this.index)
-    let node : AllParamTypes | null = chI === OPAREN_CODE
+    let node : AllParamTypes | null = chI === ECharCodes.OPAREN_CODE
       ? this.parseGroup()
       : this.parseIdentifier()
 
     this.parseSpaces()
     chI = this.exprICode(this.index)
-    while (chI === PERIOD_CODE || chI === OBRACK_CODE || chI === OPAREN_CODE) {
+    while (chI === ECharCodes.PERIOD_CODE || chI === ECharCodes.OBRACK_CODE || chI === ECharCodes.OPAREN_CODE) {
       this.index++
-      if (chI === PERIOD_CODE) {
+      if (chI === ECharCodes.PERIOD_CODE) {
         this.parseSpaces()
         node = {
           type: ParamNames.MemberExpression,
@@ -494,7 +486,7 @@ export class ParamsParser {
           object: node,
           property: this.parseIdentifier(),
         } as IMemberExpression
-      } else if (chI === OBRACK_CODE) {
+      } else if (chI === ECharCodes.OBRACK_CODE) {
         node = {
           type: ParamNames.MemberExpression,
           computed: true,
@@ -503,15 +495,15 @@ export class ParamsParser {
         } as IMemberExpression
         this.parseSpaces()
         chI = this.exprICode(this.index)
-        if (chI !== CBRACK_CODE) {
+        if (chI !== ECharCodes.CBRACK_CODE) {
           throw new ParamError('Unclosed [', this.index)
         }
         this.index++
-      } else if (chI === OPAREN_CODE) {
+      } else if (chI === ECharCodes.OPAREN_CODE) {
         // A function call is being made; gobble all the arguments
         node = {
           type: ParamNames.CallExpression,
-          arguments: this.parseArguments(CPAREN_CODE),
+          arguments: this.parseArguments(ECharCodes.CPAREN_CODE),
           callee: node,
         } as ICallExpression
       }
@@ -530,7 +522,7 @@ export class ParamsParser {
     this.index++
     const node = this.parseExpression()
     this.parseSpaces()
-    if (this.exprICode(this.index) === CPAREN_CODE) {
+    if (this.exprICode(this.index) === ECharCodes.CPAREN_CODE) {
       this.index++
       return node
     } else {
@@ -545,7 +537,7 @@ export class ParamsParser {
     this.index++
     return {
       type: ParamNames.ArrayExpression,
-      elements: this.parseArguments(CBRACK_CODE),
+      elements: this.parseArguments(ECharCodes.CBRACK_CODE),
     }
   }
 }

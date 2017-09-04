@@ -159,15 +159,18 @@ var ParamNames;
     ParamNames["ArrayExpression"] = "ArrayExpression";
 })(ParamNames || (ParamNames = {}));
 
-const PERIOD_CODE = 46;
-const COMMA_CODE = 44;
-const SQUOTE_CODE = 39;
-const DQUOTE_CODE = 34;
-const OPAREN_CODE = 40;
-const CPAREN_CODE = 41;
-const OBRACK_CODE = 91;
-const CBRACK_CODE = 93;
-const SEMCOL_CODE = 59;
+var ECharCodes;
+(function (ECharCodes) {
+    ECharCodes[ECharCodes["PERIOD_CODE"] = 46] = "PERIOD_CODE";
+    ECharCodes[ECharCodes["COMMA_CODE"] = 44] = "COMMA_CODE";
+    ECharCodes[ECharCodes["SQUOTE_CODE"] = 39] = "SQUOTE_CODE";
+    ECharCodes[ECharCodes["DQUOTE_CODE"] = 34] = "DQUOTE_CODE";
+    ECharCodes[ECharCodes["OPAREN_CODE"] = 40] = "OPAREN_CODE";
+    ECharCodes[ECharCodes["CPAREN_CODE"] = 41] = "CPAREN_CODE";
+    ECharCodes[ECharCodes["OBRACK_CODE"] = 91] = "OBRACK_CODE";
+    ECharCodes[ECharCodes["CBRACK_CODE"] = 93] = "CBRACK_CODE";
+    ECharCodes[ECharCodes["SEMCOL_CODE"] = 59] = "SEMCOL_CODE";
+})(ECharCodes || (ECharCodes = {}));
 const binaryOps = {
     '||': 1,
     '&&': 2,
@@ -181,16 +184,22 @@ const binaryOps = {
 function isDecimalDigit(ch) {
     return ch >= 48 && ch <= 57;
 }
+function isLetter(ch) {
+    return (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122);
+}
+function isNumeric(ch) {
+    return (ch >= 65 && ch <= 90);
+}
 function isIdentifierStart(ch) {
-    return ((ch === 36) || (ch === 95) ||
-        (ch >= 65 && ch <= 90) ||
-        (ch >= 97 && ch <= 122) || ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+    return (isLetter(ch) ||
+        (ch === 36) || (ch === 95) ||
+        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
 }
 function isIdentifierPart(ch) {
-    return ((ch === 36) || (ch === 95) ||
-        (ch >= 65 && ch <= 90) ||
-        (ch >= 97 && ch <= 122) ||
-        (ch >= 48 && ch <= 57) ||
+    return (isLetter(ch) ||
+        (ch === 36) || (ch === 95) ||
+        isNumeric(ch) ||
         ch >= 128) && !binaryOps[String.fromCharCode(ch)];
 }
 const unaryOps = {
@@ -259,7 +268,7 @@ class ParamsParser {
         let node;
         while (this.index < this.length) {
             chI = this.exprICode(this.index);
-            if (chI === SEMCOL_CODE || chI === COMMA_CODE) {
+            if (chI === ECharCodes.SEMCOL_CODE || chI === ECharCodes.COMMA_CODE) {
                 this.index++;
             }
             else {
@@ -283,10 +292,10 @@ class ParamsParser {
         }
     }
     exprI(i) {
-        return this.expr.charAt.call(this.expr, i);
+        return this.expr.charAt(i);
     }
     exprICode(i) {
-        return this.expr.charCodeAt.call(this.expr, i);
+        return this.expr.charCodeAt(i);
     }
     parseSpaces() {
         let ch = this.exprICode(this.index);
@@ -388,16 +397,16 @@ class ParamsParser {
         let tcLen;
         this.parseSpaces();
         ch = this.exprICode(this.index);
-        if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
+        if (isDecimalDigit(ch) || ch === ECharCodes.PERIOD_CODE) {
             return this.parseNumericLiteral();
         }
-        else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
+        else if (ch === ECharCodes.SQUOTE_CODE || ch === ECharCodes.DQUOTE_CODE) {
             return this.parseStringLiteral();
         }
-        else if (isIdentifierStart(ch) || ch === OPAREN_CODE) {
+        else if (isIdentifierStart(ch) || ch === ECharCodes.OPAREN_CODE) {
             return this.parseVariable();
         }
-        else if (ch === OBRACK_CODE) {
+        else if (ch === ECharCodes.OBRACK_CODE) {
             return this.parseArray();
         }
         else {
@@ -425,7 +434,7 @@ class ParamsParser {
         while (isDecimalDigit(this.exprICode(this.index))) {
             rawName += this.exprI(this.index++);
         }
-        if (this.exprICode(this.index) === PERIOD_CODE) {
+        if (this.exprICode(this.index) === ECharCodes.PERIOD_CODE) {
             rawName += this.exprI(this.index++);
             while (isDecimalDigit(this.exprICode(this.index))) {
                 rawName += this.exprI(this.index++);
@@ -449,7 +458,7 @@ class ParamsParser {
         if (isIdentifierStart(chCode)) {
             throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index);
         }
-        else if (chCode === PERIOD_CODE) {
+        else if (chCode === ECharCodes.PERIOD_CODE) {
             throw new ParamError('Unexpected period', this.index);
         }
         return {
@@ -553,7 +562,7 @@ class ParamsParser {
                 this.index++;
                 break;
             }
-            else if (chI === COMMA_CODE) {
+            else if (chI === ECharCodes.COMMA_CODE) {
                 this.index++;
             }
             else {
@@ -572,14 +581,14 @@ class ParamsParser {
     parseVariable() {
         let chI;
         chI = this.exprICode(this.index);
-        let node = chI === OPAREN_CODE
+        let node = chI === ECharCodes.OPAREN_CODE
             ? this.parseGroup()
             : this.parseIdentifier();
         this.parseSpaces();
         chI = this.exprICode(this.index);
-        while (chI === PERIOD_CODE || chI === OBRACK_CODE || chI === OPAREN_CODE) {
+        while (chI === ECharCodes.PERIOD_CODE || chI === ECharCodes.OBRACK_CODE || chI === ECharCodes.OPAREN_CODE) {
             this.index++;
-            if (chI === PERIOD_CODE) {
+            if (chI === ECharCodes.PERIOD_CODE) {
                 this.parseSpaces();
                 node = {
                     type: ParamNames.MemberExpression,
@@ -588,7 +597,7 @@ class ParamsParser {
                     property: this.parseIdentifier(),
                 };
             }
-            else if (chI === OBRACK_CODE) {
+            else if (chI === ECharCodes.OBRACK_CODE) {
                 node = {
                     type: ParamNames.MemberExpression,
                     computed: true,
@@ -597,15 +606,15 @@ class ParamsParser {
                 };
                 this.parseSpaces();
                 chI = this.exprICode(this.index);
-                if (chI !== CBRACK_CODE) {
+                if (chI !== ECharCodes.CBRACK_CODE) {
                     throw new ParamError('Unclosed [', this.index);
                 }
                 this.index++;
             }
-            else if (chI === OPAREN_CODE) {
+            else if (chI === ECharCodes.OPAREN_CODE) {
                 node = {
                     type: ParamNames.CallExpression,
-                    arguments: this.parseArguments(CPAREN_CODE),
+                    arguments: this.parseArguments(ECharCodes.CPAREN_CODE),
                     callee: node,
                 };
             }
@@ -618,7 +627,7 @@ class ParamsParser {
         this.index++;
         const node = this.parseExpression();
         this.parseSpaces();
-        if (this.exprICode(this.index) === CPAREN_CODE) {
+        if (this.exprICode(this.index) === ECharCodes.CPAREN_CODE) {
             this.index++;
             return node;
         }
@@ -630,7 +639,7 @@ class ParamsParser {
         this.index++;
         return {
             type: ParamNames.ArrayExpression,
-            elements: this.parseArguments(CBRACK_CODE),
+            elements: this.parseArguments(ECharCodes.CBRACK_CODE),
         };
     }
 }

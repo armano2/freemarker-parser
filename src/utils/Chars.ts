@@ -10,15 +10,17 @@ export interface ILiteralOperators {
   [n : string] : true | false | null
 }
 
-export const PERIOD_CODE = 46 // '.'
-export const COMMA_CODE  = 44 // ','
-export const SQUOTE_CODE = 39 // single quote
-export const DQUOTE_CODE = 34 // double quotes
-export const OPAREN_CODE = 40 // (
-export const CPAREN_CODE = 41 // )
-export const OBRACK_CODE = 91 // [
-export const CBRACK_CODE = 93 // ]
-export const SEMCOL_CODE = 59 // ;
+export enum ECharCodes {
+  PERIOD_CODE = 46, // '.'
+  COMMA_CODE  = 44, // ','
+  SQUOTE_CODE = 39, // single quote
+  DQUOTE_CODE = 34, // double quotes
+  OPAREN_CODE = 40, // (
+  CPAREN_CODE = 41, // )
+  OBRACK_CODE = 91, // [
+  CBRACK_CODE = 93, // ]
+  SEMCOL_CODE = 59, // ;
+}
 
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
 export const binaryOps : IBinaryOperators = {
@@ -36,22 +38,30 @@ export function isDecimalDigit (ch : number) {
   return ch >= 48 && ch <= 57 // 0...9
 }
 
+export function isLetter (ch : number) {
+  return (ch >= 65 && ch <= 90) || // a...z
+  (ch >= 97 && ch <= 122) // A...Z
+}
+
+export function isNumeric (ch : number) {
+  return (ch >= 65 && ch <= 90) // 0...9
+}
+
 // any non-ASCII that is not an operator
 export function isIdentifierStart (ch : number) {
   return (
+    isLetter(ch) ||
     (ch === 36) || (ch === 95) || // `$` and `_`
-    (ch >= 65 && ch <= 90) || // a...z
-    (ch >= 97 && ch <= 122) || ch >= 128 // A...Z
+    ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }
 
 // any non-ASCII that is not an operator
 export function isIdentifierPart (ch : number) {
   return (
+    isLetter(ch) ||
     (ch === 36) || (ch === 95) || // `$` and `_`
-    (ch >= 65 && ch <= 90) || // 0...9
-    (ch >= 97 && ch <= 122) || // A...Z
-    (ch >= 48 && ch <= 57) || // a...z
+    isNumeric(ch) ||
     ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }
