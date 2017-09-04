@@ -1,4 +1,4 @@
-import ParamError from '../errors/ParamError'
+import ParamError from './errors/ParamError'
 import {
   AllParamTypes,
   IArrayExpression,
@@ -10,26 +10,26 @@ import {
   IMemberExpression,
   IUnaryExpression,
   ParamNames,
-} from '../types/Params'
+} from './types/Params'
 import {
-    binaryOps,
-    CBRACK_CODE,
-    COMMA_CODE,
-    CPAREN_CODE,
-    DQUOTE_CODE,
-    isDecimalDigit,
-    isIdentifierPart,
-    isIdentifierStart,
-    literals,
-    maxBinopLen,
-    maxUnopLen,
-    OBRACK_CODE,
-    OPAREN_CODE,
-    PERIOD_CODE,
-    SEMCOL_CODE,
-    SQUOTE_CODE,
-    unaryOps,
-} from '../utils/Chars'
+  binaryOps,
+  CBRACK_CODE,
+  COMMA_CODE,
+  CPAREN_CODE,
+  DQUOTE_CODE,
+  isDecimalDigit,
+  isIdentifierPart,
+  isIdentifierStart,
+  literals,
+  maxBinopLen,
+  maxUnopLen,
+  OBRACK_CODE,
+  OPAREN_CODE,
+  PERIOD_CODE,
+  SEMCOL_CODE,
+  SQUOTE_CODE,
+  unaryOps,
+} from './utils/Chars'
 
 // Specify values directly
 // - Strings: "Foo" or 'Foo' or "It's \"quoted\"" or 'It\'s "quoted"' or r"C:\raw\string"
