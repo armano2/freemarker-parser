@@ -15,7 +15,6 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -43,7 +42,6 @@ const whitespaces = [
 function isWhitespace(char) {
     return char === ' ' || char === '\t' || char === '\r' || char === '\n';
 }
-//# sourceMappingURL=Symbols.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -68,7 +66,6 @@ var NodeNames;
     NodeNames["Break"] = "Break";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
-//# sourceMappingURL=Node.js.map
 
 const directives = {
     if: NodeNames.Condition,
@@ -87,7 +84,6 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
-//# sourceMappingURL=Tokens.js.map
 
 function cAssign(params, start, end) {
     return { type: NodeNames.Assign, start, end, params };
@@ -140,7 +136,6 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
-//# sourceMappingURL=Node.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, index) {
@@ -150,7 +145,6 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 var ParamNames;
 (function (ParamNames) {
@@ -164,7 +158,6 @@ var ParamNames;
     ParamNames["LogicalExpression"] = "LogicalExpression";
     ParamNames["ArrayExpression"] = "ArrayExpression";
 })(ParamNames || (ParamNames = {}));
-//# sourceMappingURL=Params.js.map
 
 const PERIOD_CODE = 46;
 const COMMA_CODE = 44;
@@ -175,6 +168,31 @@ const CPAREN_CODE = 41;
 const OBRACK_CODE = 91;
 const CBRACK_CODE = 93;
 const SEMCOL_CODE = 59;
+const binaryOps = {
+    '||': 1,
+    '&&': 2,
+    '^': 4,
+    '&': 5,
+    '==': 6, '!=': 6, '===': 6, '!==': 6,
+    '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
+    '+': 9, '-': 9,
+    '*': 10, '/': 10, '%': 10,
+};
+function isDecimalDigit(ch) {
+    return ch >= 48 && ch <= 57;
+}
+function isIdentifierStart(ch) {
+    return ((ch === 36) || (ch === 95) ||
+        (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122) || ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
+function isIdentifierPart(ch) {
+    return ((ch === 36) || (ch === 95) ||
+        (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122) ||
+        (ch >= 48 && ch <= 57) ||
+        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
 const unaryOps = {
     '-': true,
     '!': true,
@@ -189,16 +207,6 @@ const unaryOps = {
     '%=': true,
     '--': true,
     '++': true,
-};
-const binaryOps = {
-    '||': 1,
-    '&&': 2,
-    '^': 4,
-    '&': 5,
-    '==': 6, '!=': 6, '===': 6, '!==': 6,
-    '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
-    '+': 9, '-': 9,
-    '*': 10, '/': 10, '%': 10,
 };
 function getMaxKeyLen(obj) {
     let maxLen = 0;
@@ -220,6 +228,7 @@ const literals = {
     false: false,
     null: null,
 };
+
 function isIBiopInfo(object) {
     return object && 'prec' in object;
 }
@@ -234,21 +243,6 @@ function createBinaryExpression(operator, left, right) {
     else {
         return { type: ParamNames.BinaryExpression, operator, left, right };
     }
-}
-function isDecimalDigit(ch) {
-    return ch >= 48 && ch <= 57;
-}
-function isIdentifierStart(ch) {
-    return ((ch === 36) || (ch === 95) ||
-        (ch >= 65 && ch <= 90) ||
-        (ch >= 97 && ch <= 122) || ch >= 128) && !binaryOps[String.fromCharCode(ch)];
-}
-function isIdentifierPart(ch) {
-    return ((ch === 36) || (ch === 95) ||
-        (ch >= 65 && ch <= 90) ||
-        (ch >= 97 && ch <= 122) ||
-        (ch >= 48 && ch <= 57) ||
-        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
 }
 class ParamsParser {
     constructor() {
@@ -640,7 +634,6 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
 function parseParams(tokenParams) {
     const parser = new ParamsParser();
@@ -650,7 +643,6 @@ function parseParams(tokenParams) {
     }
     return params;
 }
-//# sourceMappingURL=Params.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -850,7 +842,6 @@ function cToken(type, start, end, text, params = [], isClose = false) {
         isClose,
     };
 }
-//# sourceMappingURL=Token.js.map
 
 class Tokenizer {
     constructor() {
@@ -1052,9 +1043,6 @@ class Parser {
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

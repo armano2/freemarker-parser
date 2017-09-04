@@ -1,39 +1,35 @@
 import ParamError from '../errors/ParamError'
 import {
-    AllParamTypes,
-    IArrayExpression,
-    IBinaryExpression,
-    ICallExpression,
-    IIdentifier,
-    ILiteral,
-    ILogicalExpression,
-    IMemberExpression,
-    IUnaryExpression,
-    ParamNames,
+  AllParamTypes,
+  IArrayExpression,
+  IBinaryExpression,
+  ICallExpression,
+  IIdentifier,
+  ILiteral,
+  ILogicalExpression,
+  IMemberExpression,
+  IUnaryExpression,
+  ParamNames,
 } from '../types/Params'
-
-export interface IUnaryOperators {
-  [n : string] : boolean
-}
-export interface IBinaryOperators {
-  [n : string] : number
-}
-export interface ILiteralOperators {
-  [n : string] : true | false | null
-}
-
-const PERIOD_CODE = 46 // '.'
-const COMMA_CODE  = 44 // ','
-const SQUOTE_CODE = 39 // single quote
-const DQUOTE_CODE = 34 // double quotes
-const OPAREN_CODE = 40 // (
-const CPAREN_CODE = 41 // )
-const OBRACK_CODE = 91 // [
-const CBRACK_CODE = 93 // ]
-const SEMCOL_CODE = 59 // ;
-
-// Operations
-// ----------
+import {
+    binaryOps,
+    CBRACK_CODE,
+    COMMA_CODE,
+    CPAREN_CODE,
+    DQUOTE_CODE,
+    isDecimalDigit,
+    isIdentifierPart,
+    isIdentifierStart,
+    literals,
+    maxBinopLen,
+    maxUnopLen,
+    OBRACK_CODE,
+    OPAREN_CODE,
+    PERIOD_CODE,
+    SEMCOL_CODE,
+    SQUOTE_CODE,
+    unaryOps,
+} from '../utils/Chars'
 
 // Specify values directly
 // - Strings: "Foo" or 'Foo' or "It's \"quoted\"" or 'It\'s "quoted"' or r"C:\raw\string"
@@ -65,63 +61,6 @@ const SEMCOL_CODE = 59 // ;
 // - Missing value test: name?? or (user.name)??
 // - Assignment operators: =, +=, -=, *=, /=, %=, ++, --
 
-// Use a quickly-accessible map to store all of the unary operators
-const unaryOps : IUnaryOperators = {
-  '-': true,
-  '!': true,
-  '~': true,
-  '+': true,
-  '?': true,
-  '=': true,
-  '+=': true,
-  '-=': true,
-  '*=': true,
-  '/=': true,
-  '%=': true,
-  '--': true,
-  '++': true,
-}
-
-// see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
-const binaryOps : IBinaryOperators = {
-  '||': 1,
-  '&&': 2,
-  '^': 4,
-  '&': 5,
-  '==': 6, '!=': 6, '===': 6, '!==': 6,
-  '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
-  '+': 9, '-': 9,
-  '*': 10, '/': 10, '%': 10,
-}
-
-// Get return the longest key length of any object
-function getMaxKeyLen (obj : object) {
-  let maxLen = 0
-  let len
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      len = key.length
-      if (len > maxLen) {
-        maxLen = len
-      }
-    }
-  }
-  return maxLen
-}
-
-const maxUnopLen = getMaxKeyLen(unaryOps)
-const maxBinopLen = getMaxKeyLen(binaryOps)
-
-// Literals
-// ----------
-
-// Store the values to return for the various literals we may encounter
-const literals : ILiteralOperators = {
-  true: true,
-  false: false,
-  null: null,
-}
-
 interface IBiopInfo {
   value : string
   prec : number
@@ -146,31 +85,6 @@ function createBinaryExpression (operator : string, left : AllParamTypes, right 
   } else {
     return { type: ParamNames.BinaryExpression, operator, left, right }
   }
-}
-
-// `ch` is a character code in the next three functions
-function isDecimalDigit (ch : number) {
-  return ch >= 48 && ch <= 57 // 0...9
-}
-
-// any non-ASCII that is not an operator
-function isIdentifierStart (ch : number) {
-  return (
-    (ch === 36) || (ch === 95) || // `$` and `_`
-    (ch >= 65 && ch <= 90) || // a...z
-    (ch >= 97 && ch <= 122) || ch >= 128 // A...Z
-  ) && !binaryOps[String.fromCharCode(ch)]
-}
-
-// any non-ASCII that is not an operator
-function isIdentifierPart (ch : number) {
-  return (
-    (ch === 36) || (ch === 95) || // `$` and `_`
-    (ch >= 65 && ch <= 90) || // 0...9
-    (ch >= 97 && ch <= 122) || // A...Z
-    (ch >= 48 && ch <= 57) || // a...z
-    ch >= 128
-  ) && !binaryOps[String.fromCharCode(ch)]
 }
 
 export class ParamsParser {
