@@ -1,4 +1,5 @@
 export enum ParamNames {
+  Empty = 'Empty',
   Compound = 'Compound',
   Identifier = 'Identifier',
   MemberExpression = 'MemberExpression',
@@ -12,6 +13,10 @@ export enum ParamNames {
 
 export interface IExpression {
   type : ParamNames
+}
+
+export interface IEmpty extends IExpression {
+  type : ParamNames.Empty
 }
 
 export interface ICompound extends IExpression {

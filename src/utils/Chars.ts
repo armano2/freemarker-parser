@@ -11,8 +11,16 @@ export interface ILiteralOperators {
 }
 
 export enum ECharCodes {
+  TAB = 9, // (tab)
+  LINE_FEED = 10, // \n
+  CARRIAGE_RETURN = 13, // \r
+  SPACE = 32, // (space)
+  HASH = 35, // #
+  DOLAR = 36, // $
   PERIOD_CODE = 46, // '.'
-  COMMA_CODE  = 44, // ','
+  SLASH = 47, // /
+  COMMA_CODE = 44, // ','
+  HYPHEN = 45, // -
   SQUOTE_CODE = 39, // single quote
   DQUOTE_CODE = 34, // double quotes
   OPAREN_CODE = 40, // (
@@ -20,12 +28,11 @@ export enum ECharCodes {
   OBRACK_CODE = 91, // [
   CBRACK_CODE = 93, // ]
   SEMCOL_CODE = 59, // ;
-  SPACE = 32, // (space)
-  TAB = 9, // (tab)
-  LINE_FEED = 10, // \n
-  CARRIAGE_RETURN = 13, // \r
-  SLASH = 47, // /
+  LESS_THAN = 60, // <
   GREATER_THAN = 62, // >
+  AT_SYMBOL = 64, // @
+  OBRACE_CODE = 123, // {
+  CBRACE_CODE = 125, // }
 }
 
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)

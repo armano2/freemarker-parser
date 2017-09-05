@@ -7,75 +7,81 @@
       "type": "Assign",
       "start": 0,
       "end": 17,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 123,
-          "raw": "123"
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 123,
+              "raw": "123"
+            },
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Assign",
       "start": 17,
       "end": 40,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 123,
-          "raw": "123"
-        },
-        {
-          "type": "Identifier",
-          "name": "in"
-        },
-        {
-          "type": "Identifier",
-          "name": "ns"
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 123,
+              "raw": "123"
+            },
+            "prefix": true
+          },
+          {
+            "type": "Identifier",
+            "name": "in"
+          },
+          {
+            "type": "Identifier",
+            "name": "ns"
+          }
+        ]
+      }
     },
     {
       "type": "Global",
       "start": 40,
       "end": 57,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 123,
-          "raw": "123"
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 123,
+              "raw": "123"
+            },
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Text",
@@ -87,39 +93,28 @@
       "type": "Condition",
       "start": 58,
       "end": 74,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "UnaryExpression",
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "BinaryExpression",
           "operator": "+",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": null,
-            "prefix": true
+          "left": {
+            "type": "Identifier",
+            "name": "x"
           },
-          "prefix": true
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
         },
-        {
+        "right": {
           "type": "Literal",
           "value": 0,
           "raw": "0"
         }
-      ],
+      },
       "consequent": [
         {
           "type": "Text",
@@ -131,12 +126,10 @@
           "type": "Interpolation",
           "start": 77,
           "end": 81,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "y"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "y"
+          }
         },
         {
           "type": "Text",
@@ -150,13 +143,11 @@
           "type": "Interpolation",
           "start": 91,
           "end": 102,
-          "params": [
-            {
-              "type": "Literal",
-              "value": "static",
-              "raw": "\"static\""
-            }
-          ]
+          "params": {
+            "type": "Literal",
+            "value": "static",
+            "raw": "\"static\""
+          }
         }
       ]
     },
@@ -170,24 +161,20 @@
       "type": "Switch",
       "start": 109,
       "end": 120,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ],
+      "params": {
+        "type": "Identifier",
+        "name": "x"
+      },
       "cases": [
         {
           "type": "SwitchCase",
           "start": 120,
           "end": 129,
-          "params": [
-            {
-              "type": "Literal",
-              "value": 1,
-              "raw": "1"
-            }
-          ],
+          "params": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          },
           "consequent": [
             {
               "type": "Text",
@@ -201,13 +188,11 @@
           "type": "SwitchCase",
           "start": 132,
           "end": 141,
-          "params": [
-            {
-              "type": "Literal",
-              "value": 2,
-              "raw": "2"
-            }
-          ],
+          "params": {
+            "type": "Literal",
+            "value": 2,
+            "raw": "2"
+          },
           "consequent": [
             {
               "type": "Text",

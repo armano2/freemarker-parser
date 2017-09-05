@@ -20,7 +20,6 @@ import {
   cSwitchDefault,
   cText,
 } from './Node'
-import { parseParams } from './Params'
 
 function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes {
   switch (parent.type) {
@@ -213,15 +212,4 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
   }
 
   throw new ReferenceError(`isClosing(${type}) failed`)
-}
-
-export function cToken (type : ENodeType, start : number, end : number, text : string, params : string[] = [], isClose : boolean = false) : IToken {
-  return {
-    type,
-    start,
-    end,
-    text,
-    params: parseParams(params),
-    isClose,
-  }
 }

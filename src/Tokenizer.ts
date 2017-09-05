@@ -2,7 +2,7 @@ import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
 import { ECharCodes, isLetter, isWhitespace } from './utils/Chars'
-import { cToken } from './utils/Token'
+import { cToken } from './utils/Params'
 
 interface INextPos {
   pos : number
@@ -19,11 +19,7 @@ export class Tokenizer {
     this.tokens = []
     this.cursorPos = 0
     while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
-      const token = this.parseToken()
-      if (!token) {
-        this.tokens.push(this.parseText(this.cursorPos, this.template.length))
-        break
-      }
+      this.parseToken()
     }
 
     return this.tokens
@@ -63,96 +59,113 @@ export class Tokenizer {
     return text
   }
 
-  private parseToken () : boolean {
+  private getToken () : ISymbol | null {
     let symbol : ISymbol | null = null
     let startPos : number = 0
     for (const item of symbols) {
       const n = this.template.indexOf(item.startToken, this.cursorPos)
       if (n >= 0 && (!symbol || n < startPos)) {
-        symbol = item,
+        symbol = item
         startPos = n
       }
     }
-
-    if (!symbol) {
-      return false
-    }
-
-    if (startPos > this.cursorPos) {
-      this.tokens.push(this.parseText(this.cursorPos, startPos))
-      this.cursorPos = startPos
-    }
-    this.cursorPos += symbol.startToken.length
-
-    switch (symbol.type) {
-      case ENodeType.Comment: // <#-- foo -->
-        this.tokens.push(this.parseComment(symbol, startPos))
-        break
-      case ENodeType.Directive: // <#foo>/</#foo>
-        this.tokens.push(this.parseDirective(symbol, startPos, symbol.end))
-        break
-      case ENodeType.Macro: // <@foo>
-        this.tokens.push(this.parseMacro(symbol, startPos, symbol.end))
-        break
-      case ENodeType.Interpolation: // ${ foo?string }
-        this.tokens.push(this.parseInterpolation(symbol, startPos))
-        break
-    }
-
-    return true
+    return symbol || null
   }
 
-  private parseComment (symbol : ISymbol, start : number) : IToken {
-    const end = this.getNextPos(symbol.endToken)
+  private parseToken () {
+    let text : string = ''
+    const startPos = this.cursorPos
+    let ch : number
+    while (this.cursorPos < this.template.length) {
+      ch = this.charCodeAt(this.cursorPos)
+      if (ch === ECharCodes.LESS_THAN || ch === ECharCodes.DOLAR) { // <
+        const token = this.getToken()
+        if (token) {
+          if (text.length > 0) {
+            this.addToken(ENodeType.Text, startPos, this.cursorPos, text)
+            text = ''
+          }
+
+          const start = this.cursorPos
+          this.cursorPos += token.startToken.length
+
+          switch (token.type) {
+            case ENodeType.Comment: // <#-- foo -->
+              this.parseComment(start)
+              return
+            case ENodeType.Directive: // <#foo> | </#foo>
+              this.parseDirective(start, Boolean(token.end))
+              return
+            case ENodeType.Macro: // <@foo> | </@foo>
+              this.parseMacro(start, Boolean(token.end))
+              return
+            case ENodeType.Interpolation: // ${ foo?string }
+              this.parseInterpolation(start)
+              return
+          }
+          break
+        }
+      }
+      text += this.charAt(this.cursorPos)
+      ++this.cursorPos
+    }
+
+    if (text.length > 0) {
+      this.addToken(ENodeType.Text, startPos, this.cursorPos, text)
+    }
+
+    return
+  }
+
+  private addToken (type : ENodeType, start : number, end : number, text : string, params : string = '', isClose : boolean = false) {
+    this.tokens.push(cToken(type, start, end, text, params, isClose))
+  }
+
+  private parseComment (start : number) {
+    const end = this.getNextPos(['-->'])
     if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`)
     }
     const text = this.template.substring(this.cursorPos, end.pos)
     this.cursorPos = end.pos + end.text.length
-    return cToken(ENodeType.Comment, start, this.cursorPos, text, [])
+
+    this.addToken(ENodeType.Comment, start, this.cursorPos, text)
   }
 
-  private parseText (start : number, end : number) : IToken {
-    return cToken(ENodeType.Text, start, end, this.template.substring(start, end))
+  private parseInterpolation (start : number) {
+    const params = this.parseParams(['}'])
+    this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', params)
   }
 
-  private parseInterpolation (symbol : ISymbol, start : number) : IToken {
-    const params : string[] = this.parseParams(symbol.endToken)
-    return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params)
-  }
-
-  private parseMacro (symbol : ISymbol, start : number, isClose : boolean) : IToken {
+  private parseMacro (start : number, isClose : boolean) {
     const typeString = this.parseTag()
     if (typeString.length === 0) {
       throw new ParamError('Macro name cannot be empty', this.cursorPos)
     }
 
-    const params : string[] = this.parseParams(symbol.endToken)
-
-    return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
+    const params = this.parseParams(['>', '/>'])
+    this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
   }
 
-  private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean) : IToken {
+  private parseDirective (start : number, isClose : boolean) {
     const typeString = this.parseTag()
     if (typeString.length === 0) {
       throw new ParamError('Directive name cannot be empty', this.cursorPos)
     }
 
-    const params : string[] = this.parseParams(symbol.endToken)
+    const params = this.parseParams(['>', '/>'])
 
-    return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose)
+    this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, params, isClose)
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  private parseParams (endTags : string[]) : string[] {
-    const params : string[] = []
+  private parseParams (endTags : string[]) : string {
     let paramText : string = ''
     let bracketLevel = 0
     let inString = false
-    let endTag : string = ''
 
     while (this.cursorPos <= this.template.length) {
       const ch = this.charCodeAt(this.cursorPos)
@@ -162,9 +175,9 @@ export class Tokenizer {
       }
 
       if (!inString) {
-        if (char === '(') {
+        if (ch === ECharCodes.OPAREN_CODE) {
           ++bracketLevel
-        } else if (char === ')') {
+        } else if (ch === ECharCodes.CPAREN_CODE) {
           --bracketLevel
         }
       }
@@ -176,20 +189,8 @@ export class Tokenizer {
       if (bracketLevel === 0 && !inString) {
         const nextPos = this.getNextPos(endTags)
         if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
-          if (paramText !== '') {
-            endTag = nextPos.text
-            params.push(paramText)
-            paramText = ''
-          }
-
           this.cursorPos += nextPos.text.length
-          return params
-        } else if (isWhitespace(ch)) {
-          if (paramText !== '') {
-            params.push(paramText)
-            paramText = ''
-          }
-          ++this.cursorPos
+          return paramText
         } else {
           paramText += char
           ++this.cursorPos

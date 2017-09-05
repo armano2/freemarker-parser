@@ -7,13 +7,11 @@
       "type": "Condition",
       "start": 0,
       "end": 10,
-      "params": [
-        {
-          "type": "Literal",
-          "value": true,
-          "raw": "true"
-        }
-      ],
+      "params": {
+        "type": "Literal",
+        "value": true,
+        "raw": "true"
+      },
       "consequent": [
         {
           "type": "Text",
@@ -25,13 +23,11 @@
           "type": "Condition",
           "start": 15,
           "end": 25,
-          "params": [
-            {
-              "type": "Literal",
-              "value": true,
-              "raw": "true"
-            }
-          ],
+          "params": {
+            "type": "Literal",
+            "value": true,
+            "raw": "true"
+          },
           "consequent": [
             {
               "type": "Text",
@@ -51,13 +47,11 @@
           "type": "Condition",
           "start": 41,
           "end": 51,
-          "params": [
-            {
-              "type": "Literal",
-              "value": true,
-              "raw": "true"
-            }
-          ],
+          "params": {
+            "type": "Literal",
+            "value": true,
+            "raw": "true"
+          },
           "consequent": [
             {
               "type": "Text",
@@ -77,24 +71,20 @@
           "type": "Condition",
           "start": 80,
           "end": 90,
-          "params": [
-            {
-              "type": "Literal",
-              "value": true,
-              "raw": "true"
-            }
-          ],
+          "params": {
+            "type": "Literal",
+            "value": true,
+            "raw": "true"
+          },
           "consequent": [
             {
               "type": "Interpolation",
               "start": 90,
               "end": 94,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "x"
-                }
-              ]
+              "params": {
+                "type": "Identifier",
+                "name": "x"
+              }
             }
           ]
         },

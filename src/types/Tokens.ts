@@ -1,5 +1,6 @@
 import { ENodeType } from '../Symbols'
-import { IParams, NodeNames } from './Node'
+import { NodeNames } from './Node'
+import { IExpression } from './Params'
 
 export interface IDirectivesTypes {
   [n : string] : NodeNames
@@ -44,7 +45,7 @@ export interface IToken {
   type : ENodeType
   start : number
   end : number
-  params : IParams
+  params : IExpression
   text : string
   isClose : boolean
 }

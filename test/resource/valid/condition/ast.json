@@ -7,46 +7,39 @@
       "type": "Assign",
       "start": 0,
       "end": 21,
-      "params": [
-        {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "foo"
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
             },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 2,
-                "raw": "2"
-              },
-              "prefix": true
-            }
-          ]
-        },
-        {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "bar"
+            "prefix": true
+          },
+          {
+            "type": "Identifier",
+            "name": "bar"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 3,
+              "raw": "3"
             },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 3,
-                "raw": "3"
-              },
-              "prefix": true
-            }
-          ]
-        }
-      ]
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Text",
@@ -58,20 +51,18 @@
       "type": "Condition",
       "start": 23,
       "end": 39,
-      "params": [
-        {
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "gt",
+        "left": {
           "type": "Identifier",
           "name": "foo"
         },
-        {
-          "type": "Identifier",
-          "name": "gt"
-        },
-        {
+        "right": {
           "type": "Identifier",
           "name": "bar"
         }
-      ],
+      },
       "consequent": [
         {
           "type": "Text",
@@ -83,12 +74,10 @@
           "type": "Interpolation",
           "start": 46,
           "end": 52,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "foo"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "foo"
+          }
         },
         {
           "type": "Text",
@@ -100,12 +89,10 @@
           "type": "Interpolation",
           "start": 71,
           "end": 77,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "bar"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "bar"
+          }
         },
         {
           "type": "Text",
@@ -119,36 +106,34 @@
           "type": "Condition",
           "start": 79,
           "end": 114,
-          "params": [
-            {
-              "type": "LogicalExpression",
-              "operator": "||",
+          "params": {
+            "type": "LogicalExpression",
+            "operator": "||",
+            "left": {
+              "type": "BinaryExpression",
+              "operator": "lt",
               "left": {
-                "type": "BinaryExpression",
-                "operator": "lt",
-                "left": {
-                  "type": "Identifier",
-                  "name": "foo"
-                },
-                "right": {
-                  "type": "Identifier",
-                  "name": "a"
-                }
+                "type": "Identifier",
+                "name": "foo"
               },
               "right": {
-                "type": "BinaryExpression",
-                "operator": ">",
-                "left": {
-                  "type": "Identifier",
-                  "name": "foo"
-                },
-                "right": {
-                  "type": "Identifier",
-                  "name": "b"
-                }
+                "type": "Identifier",
+                "name": "a"
+              }
+            },
+            "right": {
+              "type": "BinaryExpression",
+              "operator": ">",
+              "left": {
+                "type": "Identifier",
+                "name": "foo"
+              },
+              "right": {
+                "type": "Identifier",
+                "name": "b"
               }
             }
-          ],
+          },
           "consequent": [
             {
               "type": "Text",
@@ -160,12 +145,10 @@
               "type": "Interpolation",
               "start": 121,
               "end": 127,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "foo"
-                }
-              ]
+              "params": {
+                "type": "Identifier",
+                "name": "foo"
+              }
             },
             {
               "type": "Text",
@@ -177,12 +160,10 @@
               "type": "Interpolation",
               "start": 146,
               "end": 152,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "bar"
-                }
-              ]
+              "params": {
+                "type": "Identifier",
+                "name": "bar"
+              }
             },
             {
               "type": "Text",
@@ -202,12 +183,10 @@
               "type": "Interpolation",
               "start": 168,
               "end": 174,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "foo"
-                }
-              ]
+              "params": {
+                "type": "Identifier",
+                "name": "foo"
+              }
             },
             {
               "type": "Text",
@@ -219,12 +198,10 @@
               "type": "Interpolation",
               "start": 189,
               "end": 195,
-              "params": [
-                {
-                  "type": "Identifier",
-                  "name": "bar"
-                }
-              ]
+              "params": {
+                "type": "Identifier",
+                "name": "bar"
+              }
             },
             {
               "type": "Text",

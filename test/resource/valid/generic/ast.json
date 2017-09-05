@@ -7,12 +7,10 @@
       "type": "Interpolation",
       "start": 0,
       "end": 6,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "foo"
-        }
-      ]
+      "params": {
+        "type": "Identifier",
+        "name": "foo"
+      }
     },
     {
       "type": "Text",
@@ -24,13 +22,11 @@
       "type": "Include",
       "start": 8,
       "end": 47,
-      "params": [
-        {
-          "type": "Literal",
-          "value": "./include/test_include.ftl",
-          "raw": "\"./include/test_include.ftl\""
-        }
-      ]
+      "params": {
+        "type": "Literal",
+        "value": "./include/test_include.ftl",
+        "raw": "\"./include/test_include.ftl\""
+      }
     },
     {
       "type": "Text",
@@ -42,21 +38,19 @@
       "type": "Condition",
       "start": 49,
       "end": 64,
-      "params": [
-        {
-          "type": "BinaryExpression",
-          "operator": ">",
-          "left": {
-            "type": "Identifier",
-            "name": "foo"
-          },
-          "right": {
-            "type": "Literal",
-            "value": 1,
-            "raw": "1"
-          }
+      "params": {
+        "type": "BinaryExpression",
+        "operator": ">",
+        "left": {
+          "type": "Identifier",
+          "name": "foo"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
         }
-      ],
+      },
       "consequent": [
         {
           "type": "Text",
@@ -68,20 +62,18 @@
           "type": "Condition",
           "start": 67,
           "end": 81,
-          "params": [
-            {
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "gt",
+            "left": {
               "type": "Identifier",
               "name": "foo"
             },
-            {
-              "type": "Identifier",
-              "name": "gt"
-            },
-            {
+            "right": {
               "type": "Identifier",
               "name": "a"
             }
-          ],
+          },
           "consequent": [
             {
               "type": "Text",
@@ -93,20 +85,18 @@
               "type": "Interpolation",
               "start": 86,
               "end": 96,
-              "params": [
-                {
-                  "type": "MemberExpression",
-                  "computed": false,
-                  "object": {
-                    "type": "Identifier",
-                    "name": "foo"
-                  },
-                  "property": {
-                    "type": "Identifier",
-                    "name": "bar"
-                  }
+              "params": {
+                "type": "MemberExpression",
+                "computed": false,
+                "object": {
+                  "type": "Identifier",
+                  "name": "foo"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "name": "bar"
                 }
-              ]
+              }
             },
             {
               "type": "Text",
@@ -126,34 +116,32 @@
           "type": "Interpolation",
           "start": 108,
           "end": 127,
-          "params": [
-            {
-              "type": "Compound",
-              "body": [
-                {
-                  "type": "MemberExpression",
-                  "computed": false,
-                  "object": {
-                    "type": "Identifier",
-                    "name": "foo"
-                  },
-                  "property": {
-                    "type": "Identifier",
-                    "name": "bar"
-                  }
+          "params": {
+            "type": "Compound",
+            "body": [
+              {
+                "type": "MemberExpression",
+                "computed": false,
+                "object": {
+                  "type": "Identifier",
+                  "name": "foo"
                 },
-                {
-                  "type": "UnaryExpression",
-                  "operator": "?",
-                  "argument": {
-                    "type": "Identifier",
-                    "name": "toString"
-                  },
-                  "prefix": true
+                "property": {
+                  "type": "Identifier",
+                  "name": "bar"
                 }
-              ]
-            }
-          ]
+              },
+              {
+                "type": "UnaryExpression",
+                "operator": "?",
+                "argument": {
+                  "type": "Identifier",
+                  "name": "toString"
+                },
+                "prefix": true
+              }
+            ]
+          }
         },
         {
           "type": "Text",
@@ -174,17 +162,20 @@
       "start": 136,
       "end": 177,
       "name": "macro",
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "foo"
-        },
-        {
-          "type": "Literal",
-          "value": "./include/test_include.ftl",
-          "raw": "\"./include/test_include.ftl\""
-        }
-      ],
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "Literal",
+            "value": "./include/test_include.ftl",
+            "raw": "\"./include/test_include.ftl\""
+          }
+        ]
+      },
       "body": []
     },
     {

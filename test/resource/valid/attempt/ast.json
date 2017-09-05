@@ -24,12 +24,10 @@
           "type": "Interpolation",
           "start": 47,
           "end": 62,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "thisMayFails"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "thisMayFails"
+          }
         },
         {
           "type": "Text",

@@ -1,11 +1,18 @@
 import { ParamsParser } from '../ParamsParser'
-import { IParams } from '../types/Node'
+import { ENodeType } from '../Symbols'
+import { ParamNames } from '../types/Params'
+import { IToken } from '../types/Tokens'
 
-export function parseParams (tokenParams : string[]) : IParams {
+export function cToken (type : ENodeType, start : number, end : number, text : string, params : string = '', isClose : boolean = false) : IToken {
   const parser = new ParamsParser()
-  const params : IParams = []
-  for (const param of tokenParams) {
-    params.push(parser.parse(param))
+  return {
+    type,
+    start,
+    end,
+    text,
+    params: params !== '' ? parser.parse(params) : {
+      type : ParamNames.Empty,
+    },
+    isClose,
   }
-  return params
 }

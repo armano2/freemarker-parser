@@ -37,8 +37,6 @@ export class Parser {
 
       const closing = isClosing(tokenType, parent.type, token.isClose)
 
-      // console.log(`isClosing(${tokenType}, ${parent.type}, ${token.isClose}) = ${closing}`)
-
       if (token.isClose) {
         if (closing !== EClosingType.Yes) {
           throw new NodeError(format(errorMessages[closing], token.type), token)

@@ -7,21 +7,24 @@
       "type": "List",
       "start": 0,
       "end": 15,
-      "params": [
-        {
-          "type": "Literal",
-          "value": 10,
-          "raw": "10"
-        },
-        {
-          "type": "Identifier",
-          "name": "as"
-        },
-        {
-          "type": "Identifier",
-          "name": "x"
-        }
-      ],
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Literal",
+            "value": 10,
+            "raw": "10"
+          },
+          {
+            "type": "Identifier",
+            "name": "as"
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ]
+      },
       "body": [
         {
           "type": "Text",
@@ -33,12 +36,10 @@
           "type": "Interpolation",
           "start": 18,
           "end": 22,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "x"
+          }
         },
         {
           "type": "Text",
@@ -50,28 +51,19 @@
           "type": "Condition",
           "start": 25,
           "end": 37,
-          "params": [
-            {
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
               "type": "Identifier",
               "name": "x"
             },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "UnaryExpression",
-                "operator": "=",
-                "argument": null,
-                "prefix": true
-              },
-              "prefix": true
-            },
-            {
+            "right": {
               "type": "Literal",
               "value": 3,
               "raw": "3"
             }
-          ],
+          },
           "consequent": [
             {
               "type": "Text",

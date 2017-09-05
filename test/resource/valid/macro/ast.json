@@ -7,16 +7,19 @@
       "type": "Macro",
       "start": 0,
       "end": 18,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "foo"
-        },
-        {
-          "type": "Identifier",
-          "name": "param"
-        }
-      ],
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "Identifier",
+            "name": "param"
+          }
+        ]
+      },
       "body": [
         {
           "type": "Text",
@@ -28,12 +31,10 @@
           "type": "Interpolation",
           "start": 21,
           "end": 29,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "param"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "param"
+          }
         },
         {
           "type": "Text",
@@ -54,13 +55,11 @@
       "start": 41,
       "end": 54,
       "name": "foo",
-      "params": [
-        {
-          "type": "Literal",
-          "value": "test",
-          "raw": "\"test\""
-        }
-      ],
+      "params": {
+        "type": "Literal",
+        "value": "test",
+        "raw": "\"test\""
+      },
       "body": []
     },
     {

@@ -13,22 +13,24 @@
       "type": "Assign",
       "start": 2,
       "end": 19,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "xs"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "ArrayExpression",
-          "elements": []
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "xs"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "ArrayExpression",
+              "elements": []
+            },
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Text",
@@ -40,20 +42,23 @@
       "type": "List",
       "start": 21,
       "end": 36,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "x"
-        },
-        {
-          "type": "Identifier",
-          "name": "as"
-        },
-        {
-          "type": "Identifier",
-          "name": "xs"
-        }
-      ],
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "as"
+          },
+          {
+            "type": "Identifier",
+            "name": "xs"
+          }
+        ]
+      },
       "body": [
         {
           "type": "Text",
@@ -65,12 +70,10 @@
           "type": "Interpolation",
           "start": 41,
           "end": 45,
-          "params": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            }
-          ]
+          "params": {
+            "type": "Identifier",
+            "name": "x"
+          }
         },
         {
           "type": "Text",
@@ -90,23 +93,25 @@
       "type": "Assign",
       "start": 56,
       "end": 71,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "a"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "a"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Text",
@@ -118,23 +123,25 @@
       "type": "Assign",
       "start": 72,
       "end": 87,
-      "params": [
-        {
-          "type": "Identifier",
-          "name": "b"
-        },
-        {
-          "type": "UnaryExpression",
-          "operator": "=",
-          "argument": null,
-          "prefix": true
-        },
-        {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        }
-      ]
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "b"
+          },
+          {
+            "type": "UnaryExpression",
+            "operator": "=",
+            "argument": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "prefix": true
+          }
+        ]
+      }
     },
     {
       "type": "Text",
@@ -159,7 +166,10 @@
       "start": 118,
       "end": 124,
       "name": "c",
-      "params": [],
+      "params": {
+        "type": "Compound",
+        "body": []
+      },
       "body": []
     },
     {

@@ -23,8 +23,8 @@
       "type": "node",
       "request": "launch",
       "name": "Update Data",
-      "program": "${workspaceRoot}\\scripts\\update",
-      "cwd": "${workspaceRoot}"
+      "program": "${workspaceRoot}/scripts/update-ast",
+      "internalConsoleOptions": "openOnSessionStart"
     }
   ]
 }
