@@ -1,4 +1,7 @@
 {
   "message": "Directive `foo` is not supported",
-  "file": " file: test\\resource\\invalid\\unknown_directive\\template.ftl:1:1"
+  "loc": {
+    "line": 1,
+    "col": 1
+  }
 }

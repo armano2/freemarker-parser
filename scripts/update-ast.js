@@ -53,8 +53,7 @@ function updateTokens (testsPath) {
         message: e.message
       }
       if (e.nodeType) {
-        const loc = lineColumn(template).fromIndex(e.start)
-        errors.file = ` file: ${path.relative(baseDir, file)}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`
+        errors.loc = lineColumn(template).fromIndex(e.start)
       }
       fs.writeFileSync(path.join(dir, 'error.json'), JSON.stringify(errors, null, 2))
     }
