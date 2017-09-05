@@ -117,7 +117,7 @@ export class Tokenizer {
     return
   }
 
-  private addToken (type : ENodeType, start : number, end : number, text : string, params : string = '', isClose : boolean = false) {
+  private addToken (type : ENodeType, start : number, end : number, text : string, params? : string, isClose : boolean = false) {
     this.tokens.push(cToken(type, start, end, text, params, isClose))
   }
 

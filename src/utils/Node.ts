@@ -20,23 +20,23 @@ import {
 } from '../types/Node'
 import { IExpression } from '../types/Params'
 
-export function cAssign (params : IExpression, start : number, end : number) : IAssign {
+export function cAssign (start : number, end : number, params? : IExpression) : IAssign {
   return { type : NodeNames.Assign, start, end, params }
 }
 
-export function cGlobal (params : IExpression, start : number, end : number) : IGlobal {
+export function cGlobal (start : number, end : number, params? : IExpression) : IGlobal {
   return { type : NodeNames.Global, start, end, params }
 }
 
-export function cCondition (params : IExpression, start : number, end : number) : ICondition {
+export function cCondition (start : number, end : number, params? : IExpression) : ICondition {
   return { type : NodeNames.Condition, start, end, params, consequent: [] }
 }
 
-export function cList (params : IExpression, start : number, end : number) : IList {
+export function cList (start : number, end : number, params? : IExpression) : IList {
   return { type : NodeNames.List, start, end, params, body : [] }
 }
 
-export function cMacro (params : IExpression, start : number, end : number) : IMacro {
+export function cMacro (start : number, end : number, params? : IExpression) : IMacro {
   return { type : NodeNames.Macro, start, end, params, body : [] }
 }
 
@@ -44,7 +44,7 @@ export function cProgram (start : number, end : number) : IProgram {
   return { type : NodeNames.Program, start, end, body : [] }
 }
 
-export function cMacroCall (params : IExpression, name : string, start : number, end : number) : IMacroCall {
+export function cMacroCall (name : string, start : number, end : number, params? : IExpression) : IMacroCall {
   return { type : NodeNames.MacroCall, start, end, name, params, body : [] }
 }
 
@@ -52,15 +52,15 @@ export function cText (text : string, start : number, end : number) : IText {
   return { type : NodeNames.Text, start, end, text }
 }
 
-export function cInclude (params : IExpression, start : number, end : number) : IInclude {
+export function cInclude (start : number, end : number, params? : IExpression) : IInclude {
   return { type : NodeNames.Include, start, end, params }
 }
 
-export function cInterpolation (params : IExpression, start : number, end : number) : IInterpolation {
+export function cInterpolation (start : number, end : number, params? : IExpression) : IInterpolation {
   return { type : NodeNames.Interpolation, start, end, params }
 }
 
-export function cLocal (params : IExpression, start : number, end : number) : ILocal {
+export function cLocal (start : number, end : number, params? : IExpression) : ILocal {
   return { type : NodeNames.Local, start, end, params }
 }
 
@@ -72,11 +72,11 @@ export function cComment (text : string, start : number, end : number) : ICommen
   return { type : NodeNames.Comment, start, end, text }
 }
 
-export function cSwitch (params : IExpression, start : number, end : number) : ISwitch {
+export function cSwitch (start : number, end : number, params? : IExpression) : ISwitch {
   return { type : NodeNames.Switch, start, end, params, cases: [] }
 }
 
-export function cSwitchCase (params : IExpression, start : number, end : number) : ISwitchCase {
+export function cSwitchCase (start : number, end : number, params? : IExpression) : ISwitchCase {
   return { type : NodeNames.SwitchCase, start, end, params, consequent: [] }
 }
 

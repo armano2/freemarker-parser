@@ -1,0 +1,4 @@
+{
+  "message": "Unclosed tag",
+  "file": " file: test\\resource\\invalid\\missing_close_tag\\template.ftl:2:12"
+}

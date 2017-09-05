@@ -37,7 +37,7 @@ declare module 'freemarker-parser/types/Tokens' {
         type: ENodeType;
         start: number;
         end: number;
-        params: IExpression;
+        params?: IExpression;
         text: string;
         isClose: boolean;
     }
@@ -78,17 +78,17 @@ declare module 'freemarker-parser/types/Node' {
     }
     export interface ICondition extends INode {
         type: NodeNames.Condition;
-        params: IExpression;
+        params?: IExpression;
         consequent: INode[];
         alternate?: INode[];
     }
     export interface IInclude extends INode {
         type: NodeNames.Include;
-        params: IExpression;
+        params?: IExpression;
     }
     export interface IList extends INode {
         type: NodeNames.List;
-        params: IExpression;
+        params?: IExpression;
         body: INode[];
         fallback?: INode[];
     }
@@ -98,30 +98,30 @@ declare module 'freemarker-parser/types/Node' {
     }
     export interface IMacro extends INode {
         type: NodeNames.Macro;
-        params: IExpression;
+        params?: IExpression;
         body: INode[];
     }
     export interface IMacroCall extends INode {
         type: NodeNames.MacroCall;
-        params: IExpression;
+        params?: IExpression;
         name: string;
         body?: INode[];
     }
     export interface IAssign extends INode {
         type: NodeNames.Assign;
-        params: IExpression;
+        params?: IExpression;
     }
     export interface IGlobal extends INode {
         type: NodeNames.Global;
-        params: IExpression;
+        params?: IExpression;
     }
     export interface ILocal extends INode {
         type: NodeNames.Local;
-        params: IExpression;
+        params?: IExpression;
     }
     export interface IInterpolation extends INode {
         type: NodeNames.Interpolation;
-        params: IExpression;
+        params?: IExpression;
     }
     export interface IAttempt extends INode {
         type: NodeNames.Attempt;
@@ -134,12 +134,12 @@ declare module 'freemarker-parser/types/Node' {
     }
     export interface ISwitch extends INode {
         type: NodeNames.Switch;
-        params: IExpression;
+        params?: IExpression;
         cases: NodeSwitchGroup[];
     }
     export interface ISwitchCase extends INode {
         type: NodeNames.SwitchCase;
-        params: IExpression;
+        params?: IExpression;
         consequent: INode[];
     }
     export interface ISwitchDefault extends INode {
@@ -173,7 +173,6 @@ declare module 'freemarker-parser/Symbols' {
 
 declare module 'freemarker-parser/types/Params' {
     export enum ParamNames {
-        Empty = "Empty",
         Compound = "Compound",
         Identifier = "Identifier",
         MemberExpression = "MemberExpression",
@@ -186,9 +185,6 @@ declare module 'freemarker-parser/types/Params' {
     }
     export interface IExpression {
         type: ParamNames;
-    }
-    export interface IEmpty extends IExpression {
-        type: ParamNames.Empty;
     }
     export interface ICompound extends IExpression {
         type: ParamNames.Compound;

@@ -1,0 +1,4 @@
+{
+  "message": "Unexpected close tag `Directive`",
+  "file": " file: test\\resource\\invalid\\not_closable\\template.ftl:2:3"
+}

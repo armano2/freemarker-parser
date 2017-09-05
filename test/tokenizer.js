@@ -10,21 +10,23 @@ function parse (text) {
 function isDirective (tokens, index, paramsType, isClose) {
   const token = tokens[index]
   assert.equal(token.type, 'Directive', `[${index}] Is not a directive`)
-  assert.equal(token.params.type, paramsType, `[${index}] Found ${token.params.type} but expected ${paramsType}`)
+  const paramType = token.params && token.params.type
+  assert.equal(paramType, paramsType, `[${index}] Found ${paramType && 'no params'} but expected ${paramsType}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
 function isMacro (tokens, index, paramsType, isClose) {
   const token = tokens[index]
   assert.equal(token.type, 'Macro', `[${index}] Is not a macro`)
-  assert.equal(token.params.type, paramsType, `[${index}] Found ${token.params.type} but expected ${paramsType}`)
+  const paramType = token.params && token.params.type
+  assert.equal(paramType, paramsType, `[${index}] Found ${paramType && 'no params'} but expected ${paramsType}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
 function isText (tokens, index, text) {
   const token = tokens[index]
   assert.equal(token.type, 'Text', `[${index}] Is not a text`)
-  assert.equal(token.params.type, 'Empty', `[${index}] Found ${token.params.type} but expected ${'Compound'}`)
+  assert.equal(token.params, undefined, `[${index}] Found not expected params`)
   assert.equal(token.isClose, false, `[${index}] text is not allowed to have close tag`)
   assert.equal(token.text, text, `[${index}] text do not match`)
 }
@@ -32,7 +34,7 @@ function isText (tokens, index, text) {
 function isComment (tokens, index, text) {
   const token = tokens[index]
   assert.equal(token.type, 'Comment', `[${index}] Is not a comment`)
-  assert.equal(token.params.type, 'Empty', `[${index}] Found ${token.params.type} but expected ${'Compound'}`)
+  assert.equal(token.params, undefined, `[${index}] Found not expected params`)
   assert.equal(token.isClose, false, `[${index}] comment is not allowed to have close tag`)
   assert.equal(token.text, text, `[${index}] comment do not match`)
 }
@@ -41,33 +43,33 @@ describe('parsing directives', function () {
   it('no arguments', function () {
     const tokens = parse('<#foo>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Empty', false)
+    isDirective(tokens, 0, undefined, false)
   })
   it('no arguments, self closing', function () {
     const tokens = parse('<#foo/>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Empty', false)
+    isDirective(tokens, 0, undefined, false)
   })
   it('many, no arguments', function () {
     const tokens = parse('<#foo><#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Empty', false)
-    isDirective(tokens, 1, 'Empty', false)
+    isDirective(tokens, 0, undefined, false)
+    isDirective(tokens, 1, undefined, false)
   })
   it('many, no arguments, with text', function () {
     const tokens = parse('foo<#foo>foo<#foo>foo')
     assert.equal(tokens.length, 5, 'Invalid amount of elements')
     isText(tokens, 0, 'foo')
-    isDirective(tokens, 1, 'Empty', false)
+    isDirective(tokens, 1, undefined, false)
     isText(tokens, 2, 'foo')
-    isDirective(tokens, 3, 'Empty', false)
+    isDirective(tokens, 3, undefined, false)
     isText(tokens, 4, 'foo')
   })
   it('no arguments, with close tag', function () {
     const tokens = parse('<#foo></#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Empty', false)
-    isDirective(tokens, 1, 'Empty', true)
+    isDirective(tokens, 0, undefined, false)
+    isDirective(tokens, 1, undefined, true)
   })
   it('with arguments', function () {
     const tokens = parse('<#foo bar>')
@@ -87,33 +89,33 @@ describe('parsing macros', function () {
   it('no arguments', function () {
     const tokens = parse('<@foo>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Empty', false)
+    isMacro(tokens, 0, undefined, false)
   })
   it('no arguments, self closing', function () {
     const tokens = parse('<@foo/>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Empty', false)
+    isMacro(tokens, 0, undefined, false)
   })
   it('many, no arguments', function () {
     const tokens = parse('<@foo><@foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Empty', false)
-    isMacro(tokens, 1, 'Empty', false)
+    isMacro(tokens, 0, undefined, false)
+    isMacro(tokens, 1, undefined, false)
   })
   it('many, no arguments, with text', function () {
     const tokens = parse('foo<@foo>foo<@foo>foo')
     assert.equal(tokens.length, 5, 'Invalid amount of elements')
     isText(tokens, 0, 'foo')
-    isMacro(tokens, 1, 'Empty', false)
+    isMacro(tokens, 1, undefined, false)
     isText(tokens, 2, 'foo')
-    isMacro(tokens, 3, 'Empty', false)
+    isMacro(tokens, 3, undefined, false)
     isText(tokens, 4, 'foo')
   })
   it('no arguments, with close tag', function () {
     const tokens = parse('<@foo></@foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Empty', false)
-    isMacro(tokens, 1, 'Empty', true)
+    isMacro(tokens, 0, undefined, false)
+    isMacro(tokens, 1, undefined, true)
   })
   it('with arguments', function () {
     const tokens = parse('<@foo bar>')
@@ -138,9 +140,9 @@ describe('parsing comments', function () {
   it('coment in directive', function () {
     const tokens = parse('<#foo><#--  foo  --></#foo>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Empty', false)
+    isDirective(tokens, 0, undefined, false)
     isComment(tokens, 1, '  foo  ')
-    isDirective(tokens, 2, 'Empty', true)
+    isDirective(tokens, 2, undefined, true)
   })
 })
 
@@ -200,5 +202,3 @@ describe('errors', function () {
     }
   })
 })
-
-console.log(tokenizer.getNextPos(['-->'], '<#--foo', 0))

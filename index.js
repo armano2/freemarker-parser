@@ -135,7 +135,6 @@ const literals = {
 
 var ParamNames;
 (function (ParamNames) {
-    ParamNames["Empty"] = "Empty";
     ParamNames["Compound"] = "Compound";
     ParamNames["Identifier"] = "Identifier";
     ParamNames["MemberExpression"] = "MemberExpression";
@@ -553,18 +552,27 @@ class ParamsParser {
     }
 }
 
-function cToken(type, start, end, text, params = '', isClose = false) {
-    const parser = new ParamsParser();
-    return {
-        type,
-        start,
-        end,
-        text,
-        params: params !== '' ? parser.parse(params) : {
-            type: ParamNames.Empty,
-        },
-        isClose,
-    };
+function cToken(type, start, end, text, params, isClose = false) {
+    if (params) {
+        const parser = new ParamsParser();
+        return {
+            type,
+            start,
+            end,
+            text,
+            params: parser.parse(params),
+            isClose,
+        };
+    }
+    else {
+        return {
+            type,
+            start,
+            end,
+            text,
+            isClose,
+        };
+    }
 }
 
 class Tokenizer {
@@ -665,7 +673,7 @@ class Tokenizer {
         }
         return;
     }
-    addToken(type, start, end, text, params = '', isClose = false) {
+    addToken(type, start, end, text, params, isClose = false) {
         this.tokens.push(cToken(type, start, end, text, params, isClose));
     }
     parseComment(start) {
@@ -768,37 +776,37 @@ var NodeNames;
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
 
-function cAssign(params, start, end) {
+function cAssign(start, end, params) {
     return { type: NodeNames.Assign, start, end, params };
 }
-function cGlobal(params, start, end) {
+function cGlobal(start, end, params) {
     return { type: NodeNames.Global, start, end, params };
 }
-function cCondition(params, start, end) {
+function cCondition(start, end, params) {
     return { type: NodeNames.Condition, start, end, params, consequent: [] };
 }
-function cList(params, start, end) {
+function cList(start, end, params) {
     return { type: NodeNames.List, start, end, params, body: [] };
 }
-function cMacro(params, start, end) {
+function cMacro(start, end, params) {
     return { type: NodeNames.Macro, start, end, params, body: [] };
 }
 function cProgram(start, end) {
     return { type: NodeNames.Program, start, end, body: [] };
 }
-function cMacroCall(params, name, start, end) {
+function cMacroCall(name, start, end, params) {
     return { type: NodeNames.MacroCall, start, end, name, params, body: [] };
 }
 function cText(text, start, end) {
     return { type: NodeNames.Text, start, end, text };
 }
-function cInclude(params, start, end) {
+function cInclude(start, end, params) {
     return { type: NodeNames.Include, start, end, params };
 }
-function cInterpolation(params, start, end) {
+function cInterpolation(start, end, params) {
     return { type: NodeNames.Interpolation, start, end, params };
 }
-function cLocal(params, start, end) {
+function cLocal(start, end, params) {
     return { type: NodeNames.Local, start, end, params };
 }
 function cAttempt(start, end) {
@@ -807,10 +815,10 @@ function cAttempt(start, end) {
 function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
-function cSwitch(params, start, end) {
+function cSwitch(start, end, params) {
     return { type: NodeNames.Switch, start, end, params, cases: [] };
 }
-function cSwitchCase(params, start, end) {
+function cSwitchCase(start, end, params) {
     return { type: NodeNames.SwitchCase, start, end, params, consequent: [] };
 }
 function cSwitchDefault(start, end) {
@@ -924,7 +932,7 @@ function addNodeChild(parent, token) {
             break;
         case NodeNames.ConditionElse:
             if (parent.type === NodeNames.Condition) {
-                const node = cCondition(token.params, token.start, token.end);
+                const node = cCondition(token.start, token.end, token.params);
                 if (parent.alternate) {
                     throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
                 }
@@ -944,7 +952,7 @@ function addNodeChild(parent, token) {
             break;
         case NodeNames.SwitchCase:
             if (parent.type === NodeNames.Switch) {
-                parent.cases.push(cSwitchCase(token.params, token.start, token.end));
+                parent.cases.push(cSwitchCase(token.start, token.end, token.params));
                 return parent;
             }
             break;
@@ -957,29 +965,29 @@ function addNodeChild(parent, token) {
         case NodeNames.Attempt:
             return addToNode(parent, cAttempt(token.start, token.end));
         case NodeNames.Condition:
-            return addToNode(parent, cCondition(token.params, token.start, token.end));
+            return addToNode(parent, cCondition(token.start, token.end, token.params));
         case NodeNames.List:
-            return addToNode(parent, cList(token.params, token.start, token.end));
+            return addToNode(parent, cList(token.start, token.end, token.params));
         case NodeNames.Global:
-            return addToNode(parent, cGlobal(token.params, token.start, token.end));
+            return addToNode(parent, cGlobal(token.start, token.end, token.params));
         case NodeNames.Macro:
-            return addToNode(parent, cMacro(token.params, token.start, token.end));
+            return addToNode(parent, cMacro(token.start, token.end, token.params));
         case NodeNames.Assign:
-            return addToNode(parent, cAssign(token.params, token.start, token.end));
+            return addToNode(parent, cAssign(token.start, token.end, token.params));
         case NodeNames.Include:
-            return addToNode(parent, cInclude(token.params, token.start, token.end));
+            return addToNode(parent, cInclude(token.start, token.end, token.params));
         case NodeNames.Local:
-            return addToNode(parent, cLocal(token.params, token.start, token.end));
+            return addToNode(parent, cLocal(token.start, token.end, token.params));
         case NodeNames.Interpolation:
-            return addToNode(parent, cInterpolation(token.params, token.start, token.end));
+            return addToNode(parent, cInterpolation(token.start, token.end, token.params));
         case NodeNames.Text:
             return addToNode(parent, cText(token.text, token.start, token.end));
         case NodeNames.MacroCall:
-            return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end));
+            return addToNode(parent, cMacroCall(token.text, token.start, token.end, token.params));
         case NodeNames.Comment:
             return addToNode(parent, cComment(token.text, token.start, token.end));
         case NodeNames.Switch:
-            return addToNode(parent, cSwitch(token.params, token.start, token.end));
+            return addToNode(parent, cSwitch(token.start, token.end, token.params));
         case NodeNames.Break:
             return addToNode(parent, cBreak(token.start, token.end));
         case NodeNames.Program:

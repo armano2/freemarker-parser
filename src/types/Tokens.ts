@@ -45,7 +45,7 @@ export interface IToken {
   type : ENodeType
   start : number
   end : number
-  params : IExpression
+  params? : IExpression
   text : string
   isClose : boolean
 }

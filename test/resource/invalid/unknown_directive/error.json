@@ -1,0 +1,4 @@
+{
+  "message": "Directive `foo` is not supported",
+  "file": " file: test\\resource\\invalid\\unknown_directive\\template.ftl:1:1"
+}

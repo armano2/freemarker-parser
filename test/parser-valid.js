@@ -22,13 +22,13 @@ for (const name of tests) {
     const file = path.join(dir, 'template.ftl')
 
     it('should have no errors', function () {
+      const template = fs.readFileSync(file, 'utf8')
       try {
-        const code = fs.readFileSync(file, 'utf8')
-        data = parser.parse(code)
+        data = parser.parse(template)
       } catch (e) {
         let message = e.message
         if (e.nodeType) {
-          const loc = lineColumn(parser.template).fromIndex(e.start)
+          const loc = lineColumn(template).fromIndex(e.start)
           message += `\n\tfile:.\\${path.relative(baseDir, file)}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`
         }
         assert.fail(message)

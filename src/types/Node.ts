@@ -56,19 +56,19 @@ export interface IProgram extends INode {
 
 export interface ICondition extends INode {
   type : NodeNames.Condition
-  params : IExpression
+  params? : IExpression
   consequent : INode[]
   alternate? : INode[]
 }
 
 export interface IInclude extends INode {
   type : NodeNames.Include
-  params : IExpression
+  params? : IExpression
 }
 
 export interface IList extends INode {
   type : NodeNames.List
-  params : IExpression
+  params? : IExpression
   body : INode[]
   fallback? : INode[]
 }
@@ -80,35 +80,35 @@ export interface IText extends INode {
 
 export interface IMacro extends INode {
   type : NodeNames.Macro
-  params : IExpression
+  params? : IExpression
   body : INode[]
 }
 
 export interface IMacroCall extends INode {
   type : NodeNames.MacroCall
-  params : IExpression
+  params? : IExpression
   name : string
   body? : INode[]
 }
 
 export interface IAssign extends INode {
   type : NodeNames.Assign
-  params : IExpression
+  params? : IExpression
 }
 
 export interface IGlobal extends INode {
   type : NodeNames.Global
-  params : IExpression
+  params? : IExpression
 }
 
 export interface ILocal extends INode {
   type : NodeNames.Local
-  params : IExpression
+  params? : IExpression
 }
 
 export interface IInterpolation extends INode {
   type : NodeNames.Interpolation
-  params : IExpression
+  params? : IExpression
 }
 
 export interface IAttempt extends INode {
@@ -124,13 +124,13 @@ export interface IComment extends INode {
 
 export interface ISwitch extends INode {
   type : NodeNames.Switch
-  params : IExpression
+  params? : IExpression
   cases : NodeSwitchGroup[]
 }
 
 export interface ISwitchCase extends INode {
   type : NodeNames.SwitchCase
-  params : IExpression
+  params? : IExpression
   consequent : INode[]
 }
 

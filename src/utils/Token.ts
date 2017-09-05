@@ -108,7 +108,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       break
     case NodeNames.ConditionElse:
       if (parent.type === NodeNames.Condition) {
-        const node = cCondition(token.params, token.start, token.end)
+        const node = cCondition(token.start, token.end, token.params)
         if (parent.alternate) {
           throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
         }
@@ -128,7 +128,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       break
     case NodeNames.SwitchCase:
       if (parent.type === NodeNames.Switch) {
-        parent.cases.push(cSwitchCase(token.params, token.start, token.end))
+        parent.cases.push(cSwitchCase(token.start, token.end, token.params))
         return parent
       }
       break
@@ -141,29 +141,29 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
     case NodeNames.Attempt:
       return addToNode(parent, cAttempt(token.start, token.end))
     case NodeNames.Condition:
-      return addToNode(parent, cCondition(token.params, token.start, token.end))
+      return addToNode(parent, cCondition(token.start, token.end, token.params))
     case NodeNames.List:
-      return addToNode(parent, cList(token.params, token.start, token.end))
+      return addToNode(parent, cList(token.start, token.end, token.params))
     case NodeNames.Global:
-      return addToNode(parent, cGlobal(token.params, token.start, token.end))
+      return addToNode(parent, cGlobal(token.start, token.end, token.params))
     case NodeNames.Macro:
-      return addToNode(parent, cMacro(token.params, token.start, token.end))
+      return addToNode(parent, cMacro(token.start, token.end, token.params))
     case NodeNames.Assign:
-      return addToNode(parent, cAssign(token.params, token.start, token.end))
+      return addToNode(parent, cAssign(token.start, token.end, token.params))
     case NodeNames.Include:
-      return addToNode(parent, cInclude(token.params, token.start, token.end))
+      return addToNode(parent, cInclude(token.start, token.end, token.params))
     case NodeNames.Local:
-      return addToNode(parent, cLocal(token.params, token.start, token.end))
+      return addToNode(parent, cLocal(token.start, token.end, token.params))
     case NodeNames.Interpolation:
-      return addToNode(parent, cInterpolation(token.params, token.start, token.end))
+      return addToNode(parent, cInterpolation(token.start, token.end, token.params))
     case NodeNames.Text:
       return addToNode(parent, cText(token.text, token.start, token.end))
     case NodeNames.MacroCall:
-      return addToNode(parent, cMacroCall(token.params, token.text, token.start, token.end))
+      return addToNode(parent, cMacroCall(token.text, token.start, token.end, token.params))
     case NodeNames.Comment:
       return addToNode(parent, cComment(token.text, token.start, token.end))
     case NodeNames.Switch:
-      return addToNode(parent, cSwitch(token.params, token.start, token.end))
+      return addToNode(parent, cSwitch(token.start, token.end, token.params))
     case NodeNames.Break:
       return addToNode(parent, cBreak(token.start, token.end))
     case NodeNames.Program:

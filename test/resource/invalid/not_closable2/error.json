@@ -1,0 +1,4 @@
+{
+  "message": "`Directive` can't self close",
+  "file": " file: test\\resource\\invalid\\not_closable2\\template.ftl:1:1"
+}
