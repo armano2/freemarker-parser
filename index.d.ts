@@ -26,51 +26,30 @@ declare module 'freemarker-parser/Tokenizer' {
 }
 
 declare module 'freemarker-parser/types/Tokens' {
+    import { NodeNames } from 'freemarker-parser/Names';
     import { ENodeType } from 'freemarker-parser/Symbols';
-    import { NodeNames } from 'freemarker-parser/types/Node';
     import { IExpression } from 'freemarker-parser/types/Params';
     export interface IDirectivesTypes {
         [n: string]: NodeNames;
     }
-    export const directives: IDirectivesTypes;
-    export interface IToken {
+    export interface IToken extends ILoc {
         type: ENodeType;
-        start: number;
-        end: number;
         params?: IExpression;
         text: string;
         isClose: boolean;
     }
+    export interface ILoc {
+        start: number;
+        end: number;
+    }
 }
 
 declare module 'freemarker-parser/types/Node' {
+    import { NodeNames } from 'freemarker-parser/Names';
     import { IExpression } from 'freemarker-parser/types/Params';
-    export enum NodeNames {
-        Program = "Program",
-        Else = "Else",
-        Condition = "Condition",
-        Include = "Include",
-        List = "List",
-        Text = "Text",
-        Assign = "Assign",
-        Global = "Global",
-        Local = "Local",
-        Macro = "Macro",
-        MacroCall = "MacroCall",
-        Interpolation = "Interpolation",
-        Attempt = "Attempt",
-        Recover = "Recover",
-        Comment = "Comment",
-        Switch = "Switch",
-        SwitchCase = "SwitchCase",
-        SwitchDefault = "SwitchDefault",
-        Break = "Break",
-        ConditionElse = "ConditionElse",
-    }
-    export interface INode {
+    import { ILoc } from 'freemarker-parser/types/Tokens';
+    export interface INode extends ILoc {
         type: NodeNames;
-        start: number;
-        end: number;
     }
     export interface IProgram extends INode {
         type: NodeNames.Program;
@@ -153,6 +132,44 @@ declare module 'freemarker-parser/types/Node' {
     export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | ISwitch | ISwitchCase | ISwitchDefault | IBreak;
 }
 
+declare module 'freemarker-parser/Names' {
+    import { IDirectivesTypes } from 'freemarker-parser/types/Tokens';
+    export enum NodeNames {
+        Program = "Program",
+        Else = "Else",
+        Condition = "Condition",
+        Include = "Include",
+        List = "List",
+        Text = "Text",
+        Assign = "Assign",
+        Global = "Global",
+        Local = "Local",
+        Macro = "Macro",
+        MacroCall = "MacroCall",
+        Interpolation = "Interpolation",
+        Attempt = "Attempt",
+        Recover = "Recover",
+        Comment = "Comment",
+        Switch = "Switch",
+        SwitchCase = "SwitchCase",
+        SwitchDefault = "SwitchDefault",
+        Break = "Break",
+        ConditionElse = "ConditionElse",
+    }
+    export enum ParamNames {
+        Compound = "Compound",
+        Identifier = "Identifier",
+        MemberExpression = "MemberExpression",
+        Literal = "Literal",
+        CallExpression = "CallExpression",
+        UnaryExpression = "UnaryExpression",
+        BinaryExpression = "BinaryExpression",
+        LogicalExpression = "LogicalExpression",
+        ArrayExpression = "ArrayExpression",
+    }
+    export const directives: IDirectivesTypes;
+}
+
 declare module 'freemarker-parser/Symbols' {
     export enum ENodeType {
         Program = "Program",
@@ -172,17 +189,7 @@ declare module 'freemarker-parser/Symbols' {
 }
 
 declare module 'freemarker-parser/types/Params' {
-    export enum ParamNames {
-        Compound = "Compound",
-        Identifier = "Identifier",
-        MemberExpression = "MemberExpression",
-        Literal = "Literal",
-        CallExpression = "CallExpression",
-        UnaryExpression = "UnaryExpression",
-        BinaryExpression = "BinaryExpression",
-        LogicalExpression = "LogicalExpression",
-        ArrayExpression = "ArrayExpression",
-    }
+    import { ParamNames } from 'freemarker-parser/Names';
     export interface IExpression {
         type: ParamNames;
     }

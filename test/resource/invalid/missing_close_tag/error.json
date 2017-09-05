@@ -1,7 +1,8 @@
 {
   "message": "Unclosed tag",
-  "loc": {
+  "start": {
     "line": 2,
     "col": 12
-  }
+  },
+  "end": null
 }

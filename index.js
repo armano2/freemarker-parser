@@ -7,23 +7,22 @@ var util = require('util');
 class NodeError extends Error {
     constructor(m, el) {
         super(m);
-        if (el) {
-            this.nodeType = el.type;
-            this.start = el.start;
-            this.end = el.end;
-        }
+        this.start = el.start;
+        this.end = el.end;
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 class ParamError extends SyntaxError {
-    constructor(message, index) {
-        super(`${message} at character ${index}`);
+    constructor(message, start) {
+        super(`${message} at character ${start}`);
         this.description = message;
-        this.index = index;
+        this.start = start;
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -42,6 +41,7 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
+//# sourceMappingURL=Symbols.js.map
 
 var ECharCodes;
 (function (ECharCodes) {
@@ -132,7 +132,31 @@ const literals = {
     false: false,
     null: null,
 };
+//# sourceMappingURL=Chars.js.map
 
+var NodeNames;
+(function (NodeNames) {
+    NodeNames["Program"] = "Program";
+    NodeNames["Else"] = "Else";
+    NodeNames["Condition"] = "Condition";
+    NodeNames["Include"] = "Include";
+    NodeNames["List"] = "List";
+    NodeNames["Text"] = "Text";
+    NodeNames["Assign"] = "Assign";
+    NodeNames["Global"] = "Global";
+    NodeNames["Local"] = "Local";
+    NodeNames["Macro"] = "Macro";
+    NodeNames["MacroCall"] = "MacroCall";
+    NodeNames["Interpolation"] = "Interpolation";
+    NodeNames["Attempt"] = "Attempt";
+    NodeNames["Recover"] = "Recover";
+    NodeNames["Comment"] = "Comment";
+    NodeNames["Switch"] = "Switch";
+    NodeNames["SwitchCase"] = "SwitchCase";
+    NodeNames["SwitchDefault"] = "SwitchDefault";
+    NodeNames["Break"] = "Break";
+    NodeNames["ConditionElse"] = "ConditionElse";
+})(NodeNames || (NodeNames = {}));
 var ParamNames;
 (function (ParamNames) {
     ParamNames["Compound"] = "Compound";
@@ -145,6 +169,24 @@ var ParamNames;
     ParamNames["LogicalExpression"] = "LogicalExpression";
     ParamNames["ArrayExpression"] = "ArrayExpression";
 })(ParamNames || (ParamNames = {}));
+const directives = {
+    if: NodeNames.Condition,
+    else: NodeNames.Else,
+    elseif: NodeNames.ConditionElse,
+    list: NodeNames.List,
+    include: NodeNames.Include,
+    assign: NodeNames.Assign,
+    attempt: NodeNames.Attempt,
+    global: NodeNames.Global,
+    local: NodeNames.Local,
+    macro: NodeNames.Macro,
+    recover: NodeNames.Recover,
+    switch: NodeNames.Switch,
+    case: NodeNames.SwitchCase,
+    default: NodeNames.SwitchDefault,
+    break: NodeNames.Break,
+};
+//# sourceMappingURL=Names.js.map
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -551,6 +593,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function cToken(type, start, end, text, params, isClose = false) {
     if (params) {
@@ -574,6 +617,7 @@ function cToken(type, start, end, text, params, isClose = false) {
         };
     }
 }
+//# sourceMappingURL=Params.js.map
 
 class Tokenizer {
     constructor() {
@@ -662,7 +706,6 @@ class Tokenizer {
                             this.parseInterpolation(start);
                             return;
                     }
-                    break;
                 }
             }
             text += this.charAt(this.cursorPos);
@@ -751,30 +794,7 @@ class Tokenizer {
         return this.template.charCodeAt(i);
     }
 }
-
-var NodeNames;
-(function (NodeNames) {
-    NodeNames["Program"] = "Program";
-    NodeNames["Else"] = "Else";
-    NodeNames["Condition"] = "Condition";
-    NodeNames["Include"] = "Include";
-    NodeNames["List"] = "List";
-    NodeNames["Text"] = "Text";
-    NodeNames["Assign"] = "Assign";
-    NodeNames["Global"] = "Global";
-    NodeNames["Local"] = "Local";
-    NodeNames["Macro"] = "Macro";
-    NodeNames["MacroCall"] = "MacroCall";
-    NodeNames["Interpolation"] = "Interpolation";
-    NodeNames["Attempt"] = "Attempt";
-    NodeNames["Recover"] = "Recover";
-    NodeNames["Comment"] = "Comment";
-    NodeNames["Switch"] = "Switch";
-    NodeNames["SwitchCase"] = "SwitchCase";
-    NodeNames["SwitchDefault"] = "SwitchDefault";
-    NodeNames["Break"] = "Break";
-    NodeNames["ConditionElse"] = "ConditionElse";
-})(NodeNames || (NodeNames = {}));
+//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(start, end, params) {
     return { type: NodeNames.Assign, start, end, params };
@@ -827,24 +847,7 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
-
-const directives = {
-    if: NodeNames.Condition,
-    else: NodeNames.Else,
-    elseif: NodeNames.ConditionElse,
-    list: NodeNames.List,
-    include: NodeNames.Include,
-    assign: NodeNames.Assign,
-    attempt: NodeNames.Attempt,
-    global: NodeNames.Global,
-    local: NodeNames.Local,
-    macro: NodeNames.Macro,
-    recover: NodeNames.Recover,
-    switch: NodeNames.Switch,
-    case: NodeNames.SwitchCase,
-    default: NodeNames.SwitchDefault,
-    break: NodeNames.Break,
-};
+//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -904,8 +907,6 @@ function tokenToNodeType(token) {
             return NodeNames.Text;
         case ENodeType.Macro:
             return NodeNames.MacroCall;
-        case ENodeType.Program:
-            return NodeNames.Program;
         case ENodeType.Comment:
             return NodeNames.Comment;
     }
@@ -1075,11 +1076,14 @@ class Parser {
             }
         }
         if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, token ? token : stack.pop());
+            throw new NodeError(`Unclosed tag`, token ? token : stack[0]);
         }
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

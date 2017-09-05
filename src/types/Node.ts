@@ -1,52 +1,9 @@
+import { NodeNames } from '../Names'
 import { IExpression } from './Params'
+import { ILoc } from './Tokens'
 
-export enum NodeNames {
-  Program = 'Program',
-  Else = 'Else',
-  Condition = 'Condition',
-  Include = 'Include',
-  List = 'List',
-  Text = 'Text',
-  Assign = 'Assign',
-  Global = 'Global',
-  Local = 'Local',
-  Macro = 'Macro',
-  MacroCall = 'MacroCall',
-  Interpolation = 'Interpolation',
-  Attempt = 'Attempt',
-  Recover = 'Recover',
-  Comment = 'Comment',
-  Switch = 'Switch',
-  SwitchCase = 'SwitchCase',
-  SwitchDefault = 'SwitchDefault',
-  Break = 'Break',
-
-  ConditionElse = 'ConditionElse',
-
-  // Unsupported for now
-  // Function = 'Function',
-    // return = 'return',
-  // Flush = 'Flush',
-  // Local = 'Local',
-  // Lt = 'Lt',
-  // Nested = 'Nested',
-  // nt = 'nt',
-  // recurse = 'recurse',
-  // rt = 'rt',
-  // setting = 'setting',
-  // stop = 'stop',
-  // switch = 'switch',
-  //   // else = 'else',
-  //   case = 'case',
-  //   break = 'break',
-  // t = 't',
-  // visit = 'visit',
-}
-
-export interface INode {
+export interface INode extends ILoc {
   type : NodeNames
-  start : number
-  end : number
 }
 
 export interface IProgram extends INode {

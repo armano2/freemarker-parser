@@ -103,7 +103,6 @@ export class Tokenizer {
               this.parseInterpolation(start)
               return
           }
-          break
         }
       }
       text += this.charAt(this.cursorPos)

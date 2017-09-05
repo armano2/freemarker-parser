@@ -60,7 +60,7 @@ export class Parser {
     }
 
     if (stack.length > 0) {
-      throw new NodeError(`Unclosed tag`, token ? token : stack.pop())
+      throw new NodeError(`Unclosed tag`, token ? token : stack[0])
     }
     return { ast, tokens }
   }

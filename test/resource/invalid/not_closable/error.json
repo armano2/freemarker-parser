@@ -1,7 +1,11 @@
 {
   "message": "Unexpected close tag `Directive`",
-  "loc": {
+  "start": {
     "line": 2,
     "col": 3
+  },
+  "end": {
+    "line": 2,
+    "col": 11
   }
 }

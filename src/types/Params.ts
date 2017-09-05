@@ -1,14 +1,4 @@
-export enum ParamNames {
-  Compound = 'Compound',
-  Identifier = 'Identifier',
-  MemberExpression = 'MemberExpression',
-  Literal = 'Literal',
-  CallExpression = 'CallExpression',
-  UnaryExpression = 'UnaryExpression',
-  BinaryExpression = 'BinaryExpression',
-  LogicalExpression = 'LogicalExpression',
-  ArrayExpression = 'ArrayExpression',
-}
+import { ParamNames } from '../Names'
 
 export interface IExpression {
   type : ParamNames

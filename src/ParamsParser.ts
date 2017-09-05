@@ -1,4 +1,5 @@
 import ParamError from './errors/ParamError'
+import { ParamNames } from './Names'
 import {
   AllParamTypes,
   IArrayExpression,
@@ -9,7 +10,6 @@ import {
   ILogicalExpression,
   IMemberExpression,
   IUnaryExpression,
-  ParamNames,
 } from './types/Params'
 import {
   binaryOps,

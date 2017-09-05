@@ -146,6 +146,18 @@ describe('parsing comments', function () {
   })
 })
 
+describe('parsing text', function () {
+  it('empty text', function () {
+    const tokens = parse('')
+    assert.equal(tokens.length, 0, 'Invalid amount of elements')
+  })
+  it('raw text', function () {
+    const tokens = parse('<foo>')
+    assert.equal(tokens.length, 1, 'Invalid amount of elements')
+    isText(tokens, 0, '<foo>')
+  })
+})
+
 describe('errors', function () {
   it('invalid amount of brackets', function () {
     try {

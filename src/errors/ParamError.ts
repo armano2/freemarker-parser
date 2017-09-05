@@ -1,11 +1,11 @@
 export default class ParamError extends SyntaxError {
-  public index : number
+  public start : number
   public description : string
 
-  constructor (message : string, index : number) {
-    super(`${message} at character ${index}`)
+  constructor (message : string, start : number) {
+    super(`${message} at character ${start}`)
     this.description = message
-    this.index = index
+    this.start = start
 
     // Set the prototype explicitly.
     Object.setPrototypeOf(this, ParamError.prototype)

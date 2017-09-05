@@ -27,7 +27,7 @@ function updateData (testsPath) {
       fs.writeFileSync(path.join(dir, 'ast.json'), JSON.stringify(data.ast, null, 2))
     } catch (e) {
       console.error(fName, chalk.red(e.message))
-      if (e.nodeType) {
+      if (e.start) {
         const loc = lineColumn(template).fromIndex(e.start)
         console.error(fName, chalk.red(' file:', `${path.relative(baseDir, file)}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`))
       }
@@ -49,12 +49,9 @@ function updateTokens (testsPath) {
       console.log(fName, ' file:', path.relative(baseDir, file))
       parser.parse(template)
     } catch (e) {
-      const errors = {
-        message: e.message
-      }
-      if (e.nodeType) {
-        errors.loc = lineColumn(template).fromIndex(e.start)
-      }
+      const errors = { message: e.message }
+      if ('start' in e) { errors.start = lineColumn(template).fromIndex(e.start) }
+      if ('end' in e) { errors.end = lineColumn(template).fromIndex(e.end) }
       fs.writeFileSync(path.join(dir, 'error.json'), JSON.stringify(errors, null, 2))
     }
   }

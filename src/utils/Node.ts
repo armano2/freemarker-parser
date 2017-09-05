@@ -1,3 +1,4 @@
+import { NodeNames } from '../Names'
 import {
   IAssign,
   IAttempt,
@@ -16,7 +17,6 @@ import {
   ISwitchCase,
   ISwitchDefault,
   IText,
-  NodeNames,
 } from '../types/Node'
 import { IExpression } from '../types/Params'
 

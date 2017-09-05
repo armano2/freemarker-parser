@@ -26,12 +26,9 @@ for (const name of tests) {
         parser.parse(template)
         assert.fail('This test should have an error')
       } catch (e) {
-        errors = {
-          message: e.message
-        }
-        if (e.nodeType) {
-          errors.loc = lineColumn(template).fromIndex(e.start)
-        }
+        errors = { message: e.message }
+        if ('start' in e) { errors.start = lineColumn(template).fromIndex(e.start) }
+        if ('end' in e) { errors.end = lineColumn(template).fromIndex(e.end) }
       }
     })
     it('should have valid error', function () {

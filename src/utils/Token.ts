@@ -1,7 +1,8 @@
 import NodeError from '../errors/NodeError'
+import { directives, NodeNames } from '../Names'
 import { ENodeType } from '../Symbols'
-import { AllNodeTypes, NodeNames } from '../types/Node'
-import { directives, IToken } from '../types/Tokens'
+import { AllNodeTypes } from '../types/Node'
+import { IToken } from '../types/Tokens'
 import {
   cAssign,
   cAttempt,
@@ -79,8 +80,6 @@ export function tokenToNodeType (token : IToken) : NodeNames {
       return NodeNames.Text
     case ENodeType.Macro:
       return NodeNames.MacroCall
-    case ENodeType.Program:
-      return NodeNames.Program
     case ENodeType.Comment:
       return NodeNames.Comment
   }
