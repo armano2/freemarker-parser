@@ -20,6 +20,12 @@ export enum ECharCodes {
   OBRACK_CODE = 91, // [
   CBRACK_CODE = 93, // ]
   SEMCOL_CODE = 59, // ;
+  SPACE = 32, // (space)
+  TAB = 9, // (tab)
+  LINE_FEED = 10, // \n
+  CARRIAGE_RETURN = 13, // \r
+  SLASH = 47, // /
+  GREATER_THAN = 62, // >
 }
 
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
@@ -34,21 +40,21 @@ export const binaryOps : IBinaryOperators = {
   '*': 10, '/': 10, '%': 10,
 }
 
-export function isDecimalDigit (ch : number) {
+export function isDecimalDigit (ch : number) : boolean {
   return ch >= 48 && ch <= 57 // 0...9
 }
 
-export function isLetter (ch : number) {
+export function isLetter (ch : number) : boolean {
   return (ch >= 65 && ch <= 90) || // a...z
   (ch >= 97 && ch <= 122) // A...Z
 }
 
-export function isNumeric (ch : number) {
-  return (ch >= 65 && ch <= 90) // 0...9
+export function isWhitespace (ch : number) : boolean {
+  return ch === ECharCodes.SPACE || ch === ECharCodes.TAB || ch === ECharCodes.CARRIAGE_RETURN || ch === ECharCodes.LINE_FEED
 }
 
 // any non-ASCII that is not an operator
-export function isIdentifierStart (ch : number) {
+export function isIdentifierStart (ch : number) : boolean {
   return (
     isLetter(ch) ||
     (ch === 36) || (ch === 95) || // `$` and `_`
@@ -57,11 +63,11 @@ export function isIdentifierStart (ch : number) {
 }
 
 // any non-ASCII that is not an operator
-export function isIdentifierPart (ch : number) {
+export function isIdentifierPart (ch : number) : boolean {
   return (
     isLetter(ch) ||
+    isDecimalDigit(ch) ||
     (ch === 36) || (ch === 95) || // `$` and `_`
-    isNumeric(ch) ||
     ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }
@@ -87,12 +93,10 @@ export const unaryOps : IUnaryOperators = {
 function getMaxKeyLen (obj : object) : number {
   let maxLen = 0
   let len
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      len = key.length
-      if (len > maxLen) {
-        maxLen = len
-      }
+  for (const key of Object.keys(obj)) {
+    len = key.length
+    if (len > maxLen) {
+      maxLen = len
     }
   }
   return maxLen

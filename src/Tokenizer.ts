@@ -1,5 +1,7 @@
-import { ENodeType, isWhitespace, ISymbol, symbols, whitespaces } from './Symbols'
+import ParamError from './errors/ParamError'
+import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
+import { ECharCodes, isLetter, isWhitespace } from './utils/Chars'
 import { cToken } from './utils/Token'
 
 interface INextPos {
@@ -27,11 +29,11 @@ export class Tokenizer {
     return this.tokens
   }
 
-  private getNextPos (items : string[], template : string = this.template, cursorPos : number = this.cursorPos) : INextPos {
+  private getNextPos (items : string[]) : INextPos {
     let pos = -1
     let text = ''
     for (const item of items) {
-      const n = template.indexOf(item, cursorPos)
+      const n = this.template.indexOf(item, this.cursorPos)
       if (n >= 0 && (pos === -1 || n < pos)) {
         pos = n
         text = item
@@ -40,15 +42,25 @@ export class Tokenizer {
     return { pos, text }
   }
 
-  private parseTag (endTag : string[]) : string {
-    const pos = this.getNextPos([
-      ...whitespaces,
-      ...endTag,
-    ])
-    if (pos.pos < 0) {
-      throw new SyntaxError('Missing name') // TODO: add more info like location
+  private parseTag () : string {
+    let text : string = ''
+    let ch : number = this.charCodeAt(this.cursorPos)
+
+    while (this.cursorPos < this.template.length) {
+      if (isWhitespace(ch) ||
+        ch === ECharCodes.GREATER_THAN ||
+        (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)
+      ) {
+        break
+      }
+      if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {
+        text += this.charAt(this.cursorPos)
+        ch = this.charCodeAt(++this.cursorPos)
+      } else {
+        throw new ParamError(`Invalid \`${this.charAt(this.cursorPos)}\``, this.cursorPos)
+      }
     }
-    return this.template.substring(this.cursorPos, pos.pos)
+    return text
   }
 
   private parseToken () : boolean {
@@ -110,8 +122,10 @@ export class Tokenizer {
   }
 
   private parseMacro (symbol : ISymbol, start : number, isClose : boolean) : IToken {
-    const typeString = this.parseTag(symbol.endToken)
-    this.cursorPos += typeString.length
+    const typeString = this.parseTag()
+    if (typeString.length === 0) {
+      throw new ParamError('Macro name cannot be empty', this.cursorPos)
+    }
 
     const params : string[] = this.parseParams(symbol.endToken)
 
@@ -119,8 +133,10 @@ export class Tokenizer {
   }
 
   private parseDirective (symbol : ISymbol, startPos : number, isClose : boolean) : IToken {
-    const typeString = this.parseTag(symbol.endToken)
-    this.cursorPos += typeString.length
+    const typeString = this.parseTag()
+    if (typeString.length === 0) {
+      throw new ParamError('Directive name cannot be empty', this.cursorPos)
+    }
 
     const params : string[] = this.parseParams(symbol.endToken)
 
@@ -139,7 +155,8 @@ export class Tokenizer {
     let endTag : string = ''
 
     while (this.cursorPos <= this.template.length) {
-      const char = this.template[this.cursorPos]
+      const ch = this.charCodeAt(this.cursorPos)
+      const char = this.charAt(this.cursorPos)
       if (char === '"') {
         inString = !inString
       }
@@ -157,7 +174,7 @@ export class Tokenizer {
       }
 
       if (bracketLevel === 0 && !inString) {
-        const nextPos = this.getNextPos(endTags, this.template, this.cursorPos)
+        const nextPos = this.getNextPos(endTags)
         if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
           if (paramText !== '') {
             endTag = nextPos.text
@@ -167,7 +184,7 @@ export class Tokenizer {
 
           this.cursorPos += nextPos.text.length
           return params
-        } else if (isWhitespace(char)) {
+        } else if (isWhitespace(ch)) {
           if (paramText !== '') {
             params.push(paramText)
             paramText = ''
@@ -183,5 +200,13 @@ export class Tokenizer {
       }
     }
     throw new SyntaxError(`Unclosed directive or macro`) // TODO: add more info like location
+  }
+
+  private charAt (i : number) : string {
+    return this.template.charAt(i)
+  }
+
+  private charCodeAt (i : number) : number {
+    return this.template.charCodeAt(i)
   }
 }

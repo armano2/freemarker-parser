@@ -23,14 +23,3 @@ export const symbols : ISymbol[] = [
   // tslint:disable-next-line:no-invalid-template-strings
   { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ]
-
-export const whitespaces : string[] = [
-  ' ',
-  '\t',
-  '\n',
-  '\r',
-]
-
-export function isWhitespace (char : string) : boolean {
-  return char === ' ' || char === '\t' || char === '\r' || char === '\n'
-}

@@ -171,8 +171,6 @@ declare module 'freemarker-parser/Symbols' {
         end: boolean;
     }
     export const symbols: ISymbol[];
-    export const whitespaces: string[];
-    export function isWhitespace(char: string): boolean;
 }
 
 declare module 'freemarker-parser/types/Params' {

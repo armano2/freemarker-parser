@@ -17,6 +17,7 @@ import {
   isDecimalDigit,
   isIdentifierPart,
   isIdentifierStart,
+  isWhitespace,
   literals,
   maxBinopLen,
   maxUnopLen,
@@ -100,7 +101,7 @@ export class ParamsParser {
     let node
 
     while (this.index < this.length) {
-      chI = this.exprICode(this.index)
+      chI = this.charCodeAt(this.index)
 
       // Expressions can be separated by semicolons, commas, or just inferred without any
       // separators
@@ -114,7 +115,7 @@ export class ParamsParser {
           // the expression passed in probably has too much
           nodes.push(node)
         } else if (this.index < this.length) {
-          throw new ParamError(`Unexpected "${this.exprI(this.index)}"`, this.index)
+          throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index)
         }
       }
     }
@@ -130,20 +131,20 @@ export class ParamsParser {
     }
   }
 
-  private exprI (i : number) : string {
+  private charAt (i : number) : string {
     return this.expr.charAt(i)
   }
 
-  private exprICode (i : number) : number {
+  private charCodeAt (i : number) : number {
     return this.expr.charCodeAt(i)
   }
 
   // Push `index` up to the next non-space character
   private parseSpaces () {
-    let ch = this.exprICode(this.index)
+    let ch = this.charCodeAt(this.index)
     // space or tab
-    while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
-      ch = this.exprICode(++this.index)
+    while (isWhitespace(ch)) {
+      ch = this.charCodeAt(++this.index)
     }
   }
 
@@ -270,7 +271,7 @@ export class ParamsParser {
     let tcLen
 
     this.parseSpaces()
-    ch = this.exprICode(this.index)
+    ch = this.charCodeAt(this.index)
 
     if (isDecimalDigit(ch) || ch === ECharCodes.PERIOD_CODE) {
       // Char code 46 is a dot `.` which can start off a numeric literal
@@ -308,37 +309,37 @@ export class ParamsParser {
     let rawName = ''
     let ch
     let chCode
-    while (isDecimalDigit(this.exprICode(this.index))) {
-      rawName += this.exprI(this.index++)
+    while (isDecimalDigit(this.charCodeAt(this.index))) {
+      rawName += this.charAt(this.index++)
     }
 
-    if (this.exprICode(this.index) === ECharCodes.PERIOD_CODE) { // can start with a decimal marker
-      rawName += this.exprI(this.index++)
+    if (this.charCodeAt(this.index) === ECharCodes.PERIOD_CODE) { // can start with a decimal marker
+      rawName += this.charAt(this.index++)
 
-      while (isDecimalDigit(this.exprICode(this.index))) {
-        rawName += this.exprI(this.index++)
+      while (isDecimalDigit(this.charCodeAt(this.index))) {
+        rawName += this.charAt(this.index++)
       }
     }
 
-    ch = this.exprI(this.index)
+    ch = this.charAt(this.index)
     if (ch === 'e' || ch === 'E') { // exponent marker
-      rawName += this.exprI(this.index++)
-      ch = this.exprI(this.index)
+      rawName += this.charAt(this.index++)
+      ch = this.charAt(this.index)
       if (ch === '+' || ch === '-') { // exponent sign
-        rawName += this.exprI(this.index++)
+        rawName += this.charAt(this.index++)
       }
-      while (isDecimalDigit(this.exprICode(this.index))) { // exponent itself
-        rawName += this.exprI(this.index++)
+      while (isDecimalDigit(this.charCodeAt(this.index))) { // exponent itself
+        rawName += this.charAt(this.index++)
       }
-      if (!isDecimalDigit(this.exprICode(this.index - 1))) {
-        throw new ParamError(`Expected exponent (${rawName}${this.exprI(this.index)})`, this.index)
+      if (!isDecimalDigit(this.charCodeAt(this.index - 1))) {
+        throw new ParamError(`Expected exponent (${rawName}${this.charAt(this.index)})`, this.index)
       }
     }
 
-    chCode = this.exprICode(this.index)
+    chCode = this.charCodeAt(this.index)
     // Check to make sure this isn't a variable name that start with a number (123abc)
     if (isIdentifierStart(chCode)) {
-      throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index)
+      throw new ParamError(`Variable names cannot start with a number (${rawName}${this.charAt(this.index)})`, this.index)
     } else if (chCode === ECharCodes.PERIOD_CODE) {
       throw new ParamError('Unexpected period', this.index)
     }
@@ -354,18 +355,18 @@ export class ParamsParser {
   // e.g. `"hello world"`, `'this is\nJSEP'`
   private parseStringLiteral () : ILiteral {
     let str = ''
-    const quote = this.exprI(this.index++)
+    const quote = this.charAt(this.index++)
     let closed = false
     let ch
 
     while (this.index < this.length) {
-      ch = this.exprI(this.index++)
+      ch = this.charAt(this.index++)
       if (ch === quote) {
         closed = true
         break
       } else if (ch === '\\') {
         // Check for all of the common escape codes
-        ch = this.exprI(this.index++)
+        ch = this.charAt(this.index++)
         switch (ch) {
           case 'n': str += '\n'; break
           case 'r': str += '\r'; break
@@ -396,18 +397,18 @@ export class ParamsParser {
   // Also, this function checks if that identifier is a literal:
   // (e.g. `true`, `false`, `null`) or `this`
   private parseIdentifier () : IIdentifier | ILiteral {
-    let ch = this.exprICode(this.index)
+    let ch = this.charCodeAt(this.index)
     const start = this.index
     let identifier : string
 
     if (isIdentifierStart(ch)) {
       this.index++
     } else {
-      throw new ParamError(`Unexpected ${this.exprI(this.index)}`, this.index)
+      throw new ParamError(`Unexpected ${this.charAt(this.index)}`, this.index)
     }
 
     while (this.index < this.length) {
-      ch = this.exprICode(this.index)
+      ch = this.charCodeAt(this.index)
       if (isIdentifierPart(ch)) {
         this.index++
       } else {
@@ -442,7 +443,7 @@ export class ParamsParser {
     let closed = false
     while (this.index < this.length) {
       this.parseSpaces()
-      chI = this.exprICode(this.index)
+      chI = this.charCodeAt(this.index)
       if (chI === termination) { // done parsing
         closed = true
         this.index++
@@ -469,13 +470,13 @@ export class ParamsParser {
   // e.g. `Math.acos(obj.angle)`
   private parseVariable () : AllParamTypes | null {
     let chI : number
-    chI = this.exprICode(this.index)
+    chI = this.charCodeAt(this.index)
     let node : AllParamTypes | null = chI === ECharCodes.OPAREN_CODE
       ? this.parseGroup()
       : this.parseIdentifier()
 
     this.parseSpaces()
-    chI = this.exprICode(this.index)
+    chI = this.charCodeAt(this.index)
     while (chI === ECharCodes.PERIOD_CODE || chI === ECharCodes.OBRACK_CODE || chI === ECharCodes.OPAREN_CODE) {
       this.index++
       if (chI === ECharCodes.PERIOD_CODE) {
@@ -494,7 +495,7 @@ export class ParamsParser {
           property: this.parseExpression(),
         } as IMemberExpression
         this.parseSpaces()
-        chI = this.exprICode(this.index)
+        chI = this.charCodeAt(this.index)
         if (chI !== ECharCodes.CBRACK_CODE) {
           throw new ParamError('Unclosed [', this.index)
         }
@@ -508,7 +509,7 @@ export class ParamsParser {
         } as ICallExpression
       }
       this.parseSpaces()
-      chI = this.exprICode(this.index)
+      chI = this.charCodeAt(this.index)
     }
     return node
   }
@@ -522,7 +523,7 @@ export class ParamsParser {
     this.index++
     const node = this.parseExpression()
     this.parseSpaces()
-    if (this.exprICode(this.index) === ECharCodes.CPAREN_CODE) {
+    if (this.charCodeAt(this.index) === ECharCodes.CPAREN_CODE) {
       this.index++
       return node
     } else {

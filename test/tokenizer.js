@@ -43,6 +43,11 @@ describe('parsing directives', function () {
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isDirective(tokens, 0, 0, false)
   })
+  it('no arguments, self closing', function () {
+    const tokens = parse('<#foo/>')
+    assert.equal(tokens.length, 1, 'Invalid amount of elements')
+    isDirective(tokens, 0, 0, false)
+  })
   it('many, no arguments', function () {
     const tokens = parse('<#foo><#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
@@ -81,6 +86,11 @@ describe('parsing directives', function () {
 describe('parsing macros', function () {
   it('no arguments', function () {
     const tokens = parse('<@foo>')
+    assert.equal(tokens.length, 1, 'Invalid amount of elements')
+    isMacro(tokens, 0, 0, false)
+  })
+  it('no arguments, self closing', function () {
+    const tokens = parse('<@foo/>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isMacro(tokens, 0, 0, false)
   })
@@ -162,7 +172,7 @@ describe('errors', function () {
       parse('<#')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Missing name', 'error message is invalid')
+      assert.equal(e.message, 'Directive name cannot be empty at character 2', 'error message is invalid')
     }
   })
   it('missing close tag in macro', function () {
@@ -170,7 +180,23 @@ describe('errors', function () {
       parse('<@')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Missing name', 'error message is invalid')
+      assert.equal(e.message, 'Macro name cannot be empty at character 2', 'error message is invalid')
+    }
+  })
+  it('invalid character in macro name', function () {
+    try {
+      parse('<@?')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'Invalid `?` at character 2', 'error message is invalid')
+    }
+  })
+  it('invalid character in directive name', function () {
+    try {
+      parse('<@&')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'Invalid `&` at character 2', 'error message is invalid')
     }
   })
 })

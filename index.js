@@ -16,6 +16,15 @@ class NodeError extends Error {
     }
 }
 
+class ParamError extends SyntaxError {
+    constructor(message, index) {
+        super(`${message} at character ${index}`);
+        this.description = message;
+        this.index = index;
+        Object.setPrototypeOf(this, ParamError.prototype);
+    }
+}
+
 var ENodeType;
 (function (ENodeType) {
     ENodeType["Program"] = "Program";
@@ -33,15 +42,89 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
-const whitespaces = [
-    ' ',
-    '\t',
-    '\n',
-    '\r',
-];
-function isWhitespace(char) {
-    return char === ' ' || char === '\t' || char === '\r' || char === '\n';
+
+var ECharCodes;
+(function (ECharCodes) {
+    ECharCodes[ECharCodes["PERIOD_CODE"] = 46] = "PERIOD_CODE";
+    ECharCodes[ECharCodes["COMMA_CODE"] = 44] = "COMMA_CODE";
+    ECharCodes[ECharCodes["SQUOTE_CODE"] = 39] = "SQUOTE_CODE";
+    ECharCodes[ECharCodes["DQUOTE_CODE"] = 34] = "DQUOTE_CODE";
+    ECharCodes[ECharCodes["OPAREN_CODE"] = 40] = "OPAREN_CODE";
+    ECharCodes[ECharCodes["CPAREN_CODE"] = 41] = "CPAREN_CODE";
+    ECharCodes[ECharCodes["OBRACK_CODE"] = 91] = "OBRACK_CODE";
+    ECharCodes[ECharCodes["CBRACK_CODE"] = 93] = "CBRACK_CODE";
+    ECharCodes[ECharCodes["SEMCOL_CODE"] = 59] = "SEMCOL_CODE";
+    ECharCodes[ECharCodes["SPACE"] = 32] = "SPACE";
+    ECharCodes[ECharCodes["TAB"] = 9] = "TAB";
+    ECharCodes[ECharCodes["LINE_FEED"] = 10] = "LINE_FEED";
+    ECharCodes[ECharCodes["CARRIAGE_RETURN"] = 13] = "CARRIAGE_RETURN";
+    ECharCodes[ECharCodes["SLASH"] = 47] = "SLASH";
+    ECharCodes[ECharCodes["GREATER_THAN"] = 62] = "GREATER_THAN";
+})(ECharCodes || (ECharCodes = {}));
+const binaryOps = {
+    '||': 1,
+    '&&': 2,
+    '^': 4,
+    '&': 5,
+    '==': 6, '!=': 6, '===': 6, '!==': 6,
+    '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
+    '+': 9, '-': 9,
+    '*': 10, '/': 10, '%': 10,
+};
+function isDecimalDigit(ch) {
+    return ch >= 48 && ch <= 57;
 }
+function isLetter(ch) {
+    return (ch >= 65 && ch <= 90) ||
+        (ch >= 97 && ch <= 122);
+}
+function isWhitespace(ch) {
+    return ch === ECharCodes.SPACE || ch === ECharCodes.TAB || ch === ECharCodes.CARRIAGE_RETURN || ch === ECharCodes.LINE_FEED;
+}
+function isIdentifierStart(ch) {
+    return (isLetter(ch) ||
+        (ch === 36) || (ch === 95) ||
+        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
+function isIdentifierPart(ch) {
+    return (isLetter(ch) ||
+        isDecimalDigit(ch) ||
+        (ch === 36) || (ch === 95) ||
+        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
+}
+const unaryOps = {
+    '-': true,
+    '!': true,
+    '~': true,
+    '+': true,
+    '?': true,
+    '=': true,
+    '+=': true,
+    '-=': true,
+    '*=': true,
+    '/=': true,
+    '%=': true,
+    '--': true,
+    '++': true,
+};
+function getMaxKeyLen(obj) {
+    let maxLen = 0;
+    let len;
+    for (const key of Object.keys(obj)) {
+        len = key.length;
+        if (len > maxLen) {
+            maxLen = len;
+        }
+    }
+    return maxLen;
+}
+const maxUnopLen = getMaxKeyLen(unaryOps);
+const maxBinopLen = getMaxKeyLen(binaryOps);
+const literals = {
+    true: true,
+    false: false,
+    null: null,
+};
 
 var NodeNames;
 (function (NodeNames) {
@@ -137,15 +220,6 @@ function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
 
-class ParamError extends SyntaxError {
-    constructor(message, index) {
-        super(`${message} at character ${index}`);
-        this.description = message;
-        this.index = index;
-        Object.setPrototypeOf(this, ParamError.prototype);
-    }
-}
-
 var ParamNames;
 (function (ParamNames) {
     ParamNames["Compound"] = "Compound";
@@ -158,85 +232,6 @@ var ParamNames;
     ParamNames["LogicalExpression"] = "LogicalExpression";
     ParamNames["ArrayExpression"] = "ArrayExpression";
 })(ParamNames || (ParamNames = {}));
-
-var ECharCodes;
-(function (ECharCodes) {
-    ECharCodes[ECharCodes["PERIOD_CODE"] = 46] = "PERIOD_CODE";
-    ECharCodes[ECharCodes["COMMA_CODE"] = 44] = "COMMA_CODE";
-    ECharCodes[ECharCodes["SQUOTE_CODE"] = 39] = "SQUOTE_CODE";
-    ECharCodes[ECharCodes["DQUOTE_CODE"] = 34] = "DQUOTE_CODE";
-    ECharCodes[ECharCodes["OPAREN_CODE"] = 40] = "OPAREN_CODE";
-    ECharCodes[ECharCodes["CPAREN_CODE"] = 41] = "CPAREN_CODE";
-    ECharCodes[ECharCodes["OBRACK_CODE"] = 91] = "OBRACK_CODE";
-    ECharCodes[ECharCodes["CBRACK_CODE"] = 93] = "CBRACK_CODE";
-    ECharCodes[ECharCodes["SEMCOL_CODE"] = 59] = "SEMCOL_CODE";
-})(ECharCodes || (ECharCodes = {}));
-const binaryOps = {
-    '||': 1,
-    '&&': 2,
-    '^': 4,
-    '&': 5,
-    '==': 6, '!=': 6, '===': 6, '!==': 6,
-    '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
-    '+': 9, '-': 9,
-    '*': 10, '/': 10, '%': 10,
-};
-function isDecimalDigit(ch) {
-    return ch >= 48 && ch <= 57;
-}
-function isLetter(ch) {
-    return (ch >= 65 && ch <= 90) ||
-        (ch >= 97 && ch <= 122);
-}
-function isNumeric(ch) {
-    return (ch >= 65 && ch <= 90);
-}
-function isIdentifierStart(ch) {
-    return (isLetter(ch) ||
-        (ch === 36) || (ch === 95) ||
-        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
-}
-function isIdentifierPart(ch) {
-    return (isLetter(ch) ||
-        (ch === 36) || (ch === 95) ||
-        isNumeric(ch) ||
-        ch >= 128) && !binaryOps[String.fromCharCode(ch)];
-}
-const unaryOps = {
-    '-': true,
-    '!': true,
-    '~': true,
-    '+': true,
-    '?': true,
-    '=': true,
-    '+=': true,
-    '-=': true,
-    '*=': true,
-    '/=': true,
-    '%=': true,
-    '--': true,
-    '++': true,
-};
-function getMaxKeyLen(obj) {
-    let maxLen = 0;
-    let len;
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            len = key.length;
-            if (len > maxLen) {
-                maxLen = len;
-            }
-        }
-    }
-    return maxLen;
-}
-const maxUnopLen = getMaxKeyLen(unaryOps);
-const maxBinopLen = getMaxKeyLen(binaryOps);
-const literals = {
-    true: true,
-    false: false,
-    null: null,
-};
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -267,7 +262,7 @@ class ParamsParser {
         let chI;
         let node;
         while (this.index < this.length) {
-            chI = this.exprICode(this.index);
+            chI = this.charCodeAt(this.index);
             if (chI === ECharCodes.SEMCOL_CODE || chI === ECharCodes.COMMA_CODE) {
                 this.index++;
             }
@@ -277,7 +272,7 @@ class ParamsParser {
                     nodes.push(node);
                 }
                 else if (this.index < this.length) {
-                    throw new ParamError(`Unexpected "${this.exprI(this.index)}"`, this.index);
+                    throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index);
                 }
             }
         }
@@ -291,16 +286,16 @@ class ParamsParser {
             };
         }
     }
-    exprI(i) {
+    charAt(i) {
         return this.expr.charAt(i);
     }
-    exprICode(i) {
+    charCodeAt(i) {
         return this.expr.charCodeAt(i);
     }
     parseSpaces() {
-        let ch = this.exprICode(this.index);
-        while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
-            ch = this.exprICode(++this.index);
+        let ch = this.charCodeAt(this.index);
+        while (isWhitespace(ch)) {
+            ch = this.charCodeAt(++this.index);
         }
     }
     parseExpression() {
@@ -396,7 +391,7 @@ class ParamsParser {
         let toCheck;
         let tcLen;
         this.parseSpaces();
-        ch = this.exprICode(this.index);
+        ch = this.charCodeAt(this.index);
         if (isDecimalDigit(ch) || ch === ECharCodes.PERIOD_CODE) {
             return this.parseNumericLiteral();
         }
@@ -431,32 +426,32 @@ class ParamsParser {
         let rawName = '';
         let ch;
         let chCode;
-        while (isDecimalDigit(this.exprICode(this.index))) {
-            rawName += this.exprI(this.index++);
+        while (isDecimalDigit(this.charCodeAt(this.index))) {
+            rawName += this.charAt(this.index++);
         }
-        if (this.exprICode(this.index) === ECharCodes.PERIOD_CODE) {
-            rawName += this.exprI(this.index++);
-            while (isDecimalDigit(this.exprICode(this.index))) {
-                rawName += this.exprI(this.index++);
+        if (this.charCodeAt(this.index) === ECharCodes.PERIOD_CODE) {
+            rawName += this.charAt(this.index++);
+            while (isDecimalDigit(this.charCodeAt(this.index))) {
+                rawName += this.charAt(this.index++);
             }
         }
-        ch = this.exprI(this.index);
+        ch = this.charAt(this.index);
         if (ch === 'e' || ch === 'E') {
-            rawName += this.exprI(this.index++);
-            ch = this.exprI(this.index);
+            rawName += this.charAt(this.index++);
+            ch = this.charAt(this.index);
             if (ch === '+' || ch === '-') {
-                rawName += this.exprI(this.index++);
+                rawName += this.charAt(this.index++);
             }
-            while (isDecimalDigit(this.exprICode(this.index))) {
-                rawName += this.exprI(this.index++);
+            while (isDecimalDigit(this.charCodeAt(this.index))) {
+                rawName += this.charAt(this.index++);
             }
-            if (!isDecimalDigit(this.exprICode(this.index - 1))) {
-                throw new ParamError(`Expected exponent (${rawName}${this.exprI(this.index)})`, this.index);
+            if (!isDecimalDigit(this.charCodeAt(this.index - 1))) {
+                throw new ParamError(`Expected exponent (${rawName}${this.charAt(this.index)})`, this.index);
             }
         }
-        chCode = this.exprICode(this.index);
+        chCode = this.charCodeAt(this.index);
         if (isIdentifierStart(chCode)) {
-            throw new ParamError(`Variable names cannot start with a number (${rawName}${this.exprI(this.index)})`, this.index);
+            throw new ParamError(`Variable names cannot start with a number (${rawName}${this.charAt(this.index)})`, this.index);
         }
         else if (chCode === ECharCodes.PERIOD_CODE) {
             throw new ParamError('Unexpected period', this.index);
@@ -469,17 +464,17 @@ class ParamsParser {
     }
     parseStringLiteral() {
         let str = '';
-        const quote = this.exprI(this.index++);
+        const quote = this.charAt(this.index++);
         let closed = false;
         let ch;
         while (this.index < this.length) {
-            ch = this.exprI(this.index++);
+            ch = this.charAt(this.index++);
             if (ch === quote) {
                 closed = true;
                 break;
             }
             else if (ch === '\\') {
-                ch = this.exprI(this.index++);
+                ch = this.charAt(this.index++);
                 switch (ch) {
                     case 'n':
                         str += '\n';
@@ -516,17 +511,17 @@ class ParamsParser {
         };
     }
     parseIdentifier() {
-        let ch = this.exprICode(this.index);
+        let ch = this.charCodeAt(this.index);
         const start = this.index;
         let identifier;
         if (isIdentifierStart(ch)) {
             this.index++;
         }
         else {
-            throw new ParamError(`Unexpected ${this.exprI(this.index)}`, this.index);
+            throw new ParamError(`Unexpected ${this.charAt(this.index)}`, this.index);
         }
         while (this.index < this.length) {
-            ch = this.exprICode(this.index);
+            ch = this.charCodeAt(this.index);
             if (isIdentifierPart(ch)) {
                 this.index++;
             }
@@ -556,7 +551,7 @@ class ParamsParser {
         let closed = false;
         while (this.index < this.length) {
             this.parseSpaces();
-            chI = this.exprICode(this.index);
+            chI = this.charCodeAt(this.index);
             if (chI === termination) {
                 closed = true;
                 this.index++;
@@ -580,12 +575,12 @@ class ParamsParser {
     }
     parseVariable() {
         let chI;
-        chI = this.exprICode(this.index);
+        chI = this.charCodeAt(this.index);
         let node = chI === ECharCodes.OPAREN_CODE
             ? this.parseGroup()
             : this.parseIdentifier();
         this.parseSpaces();
-        chI = this.exprICode(this.index);
+        chI = this.charCodeAt(this.index);
         while (chI === ECharCodes.PERIOD_CODE || chI === ECharCodes.OBRACK_CODE || chI === ECharCodes.OPAREN_CODE) {
             this.index++;
             if (chI === ECharCodes.PERIOD_CODE) {
@@ -605,7 +600,7 @@ class ParamsParser {
                     property: this.parseExpression(),
                 };
                 this.parseSpaces();
-                chI = this.exprICode(this.index);
+                chI = this.charCodeAt(this.index);
                 if (chI !== ECharCodes.CBRACK_CODE) {
                     throw new ParamError('Unclosed [', this.index);
                 }
@@ -619,7 +614,7 @@ class ParamsParser {
                 };
             }
             this.parseSpaces();
-            chI = this.exprICode(this.index);
+            chI = this.charCodeAt(this.index);
         }
         return node;
     }
@@ -627,7 +622,7 @@ class ParamsParser {
         this.index++;
         const node = this.parseExpression();
         this.parseSpaces();
-        if (this.exprICode(this.index) === ECharCodes.CPAREN_CODE) {
+        if (this.charCodeAt(this.index) === ECharCodes.CPAREN_CODE) {
             this.index++;
             return node;
         }
@@ -871,11 +866,11 @@ class Tokenizer {
         }
         return this.tokens;
     }
-    getNextPos(items, template = this.template, cursorPos = this.cursorPos) {
+    getNextPos(items) {
         let pos = -1;
         let text = '';
         for (const item of items) {
-            const n = template.indexOf(item, cursorPos);
+            const n = this.template.indexOf(item, this.cursorPos);
             if (n >= 0 && (pos === -1 || n < pos)) {
                 pos = n;
                 text = item;
@@ -883,15 +878,24 @@ class Tokenizer {
         }
         return { pos, text };
     }
-    parseTag(endTag) {
-        const pos = this.getNextPos([
-            ...whitespaces,
-            ...endTag,
-        ]);
-        if (pos.pos < 0) {
-            throw new SyntaxError('Missing name');
+    parseTag() {
+        let text = '';
+        let ch = this.charCodeAt(this.cursorPos);
+        while (this.cursorPos < this.template.length) {
+            if (isWhitespace(ch) ||
+                ch === ECharCodes.GREATER_THAN ||
+                (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)) {
+                break;
+            }
+            if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {
+                text += this.charAt(this.cursorPos);
+                ch = this.charCodeAt(++this.cursorPos);
+            }
+            else {
+                throw new ParamError(`Invalid \`${this.charAt(this.cursorPos)}\``, this.cursorPos);
+            }
         }
-        return this.template.substring(this.cursorPos, pos.pos);
+        return text;
     }
     parseToken() {
         let symbol = null;
@@ -944,14 +948,18 @@ class Tokenizer {
         return cToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
     }
     parseMacro(symbol, start, isClose) {
-        const typeString = this.parseTag(symbol.endToken);
-        this.cursorPos += typeString.length;
+        const typeString = this.parseTag();
+        if (typeString.length === 0) {
+            throw new ParamError('Macro name cannot be empty', this.cursorPos);
+        }
         const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
     }
     parseDirective(symbol, startPos, isClose) {
-        const typeString = this.parseTag(symbol.endToken);
-        this.cursorPos += typeString.length;
+        const typeString = this.parseTag();
+        if (typeString.length === 0) {
+            throw new ParamError('Directive name cannot be empty', this.cursorPos);
+        }
         const params = this.parseParams(symbol.endToken);
         return cToken(ENodeType.Directive, startPos, this.cursorPos, typeString, params, isClose);
     }
@@ -961,7 +969,8 @@ class Tokenizer {
         let bracketLevel = 0;
         let inString = false;
         while (this.cursorPos <= this.template.length) {
-            const char = this.template[this.cursorPos];
+            const ch = this.charCodeAt(this.cursorPos);
+            const char = this.charAt(this.cursorPos);
             if (char === '"') {
                 inString = !inString;
             }
@@ -977,7 +986,7 @@ class Tokenizer {
                 throw new SyntaxError(`bracketLevel < 0`);
             }
             if (bracketLevel === 0 && !inString) {
-                const nextPos = this.getNextPos(endTags, this.template, this.cursorPos);
+                const nextPos = this.getNextPos(endTags);
                 if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
                     if (paramText !== '') {
                         params.push(paramText);
@@ -986,7 +995,7 @@ class Tokenizer {
                     this.cursorPos += nextPos.text.length;
                     return params;
                 }
-                else if (isWhitespace(char)) {
+                else if (isWhitespace(ch)) {
                     if (paramText !== '') {
                         params.push(paramText);
                         paramText = '';
@@ -1004,6 +1013,12 @@ class Tokenizer {
             }
         }
         throw new SyntaxError(`Unclosed directive or macro`);
+    }
+    charAt(i) {
+        return this.template.charAt(i);
+    }
+    charCodeAt(i) {
+        return this.template.charCodeAt(i);
     }
 }
 
