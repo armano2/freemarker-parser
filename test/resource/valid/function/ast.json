@@ -1,0 +1,105 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 72,
+  "body": [
+    {
+      "type": "Function",
+      "start": 0,
+      "end": 19,
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "avg"
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "y"
+          }
+        ]
+      },
+      "body": [
+        {
+          "type": "Text",
+          "start": 19,
+          "end": 22,
+          "text": "\n  "
+        },
+        {
+          "type": "Return",
+          "start": 22,
+          "end": 43,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "/",
+            "left": {
+              "type": "BinaryExpression",
+              "operator": "+",
+              "left": {
+                "type": "Identifier",
+                "name": "x"
+              },
+              "right": {
+                "type": "Identifier",
+                "name": "y"
+              }
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          }
+        },
+        {
+          "type": "Text",
+          "start": 43,
+          "end": 44,
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 56,
+      "end": 57,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 57,
+      "end": 71,
+      "params": {
+        "type": "CallExpression",
+        "arguments": [
+          {
+            "type": "Literal",
+            "value": 10,
+            "raw": "10"
+          },
+          {
+            "type": "Literal",
+            "value": 20,
+            "raw": "20"
+          }
+        ],
+        "callee": {
+          "type": "Identifier",
+          "name": "avg"
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 71,
+      "end": 72,
+      "text": "\n"
+    }
+  ]
+}

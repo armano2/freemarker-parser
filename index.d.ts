@@ -128,8 +128,17 @@ declare module 'freemarker-parser/types/Node' {
     export interface IBreak extends INode {
         type: NodeNames.Break;
     }
+    export interface IFunction extends INode {
+        type: NodeNames.Function;
+        params?: IExpression;
+        body: INode[];
+    }
+    export interface IReturn extends INode {
+        type: NodeNames.Return;
+        params?: IExpression;
+    }
     export type NodeSwitchGroup = ISwitchCase | ISwitchDefault;
-    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | ISwitch | ISwitchCase | ISwitchDefault | IBreak;
+    export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment | ICondition | IList | IGlobal | ILocal | IAssign | IInclude | IMacro | IAttempt | ISwitch | ISwitchCase | ISwitchDefault | IBreak | IReturn | IFunction;
 }
 
 declare module 'freemarker-parser/Names' {
@@ -154,6 +163,8 @@ declare module 'freemarker-parser/Names' {
         SwitchCase = "SwitchCase",
         SwitchDefault = "SwitchDefault",
         Break = "Break",
+        Function = "Function",
+        Return = "Return",
         ConditionElse = "ConditionElse",
     }
     export enum ParamNames {

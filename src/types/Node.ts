@@ -100,6 +100,17 @@ export interface IBreak extends INode {
   type : NodeNames.Break
 }
 
+export interface IFunction extends INode {
+  type : NodeNames.Function
+  params? : IExpression
+  body : INode[]
+}
+
+export interface IReturn extends INode {
+  type : NodeNames.Return
+  params? : IExpression
+}
+
 export type NodeSwitchGroup = ISwitchCase | ISwitchDefault
 
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
@@ -109,4 +120,5 @@ export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICom
   IMacro |
   IAttempt |
   ISwitch | ISwitchCase | ISwitchDefault |
-  IBreak
+  IBreak |
+  IReturn | IFunction

@@ -5,6 +5,7 @@ import {
   IBreak,
   IComment,
   ICondition,
+  IFunction,
   IGlobal,
   IInclude,
   IInterpolation,
@@ -13,6 +14,7 @@ import {
   IMacro,
   IMacroCall,
   IProgram,
+  IReturn,
   ISwitch,
   ISwitchCase,
   ISwitchDefault,
@@ -86,4 +88,12 @@ export function cSwitchDefault (start : number, end : number) : ISwitchDefault {
 
 export function cBreak (start : number, end : number) : IBreak {
   return { type : NodeNames.Break, start, end }
+}
+
+export function cFunction (start : number, end : number, params? : IExpression) : IFunction {
+  return { type : NodeNames.Function, start, end, params, body: [] }
+}
+
+export function cReturn (start : number, end : number, params? : IExpression) : IReturn {
+  return { type : NodeNames.Return, start, end, params }
 }

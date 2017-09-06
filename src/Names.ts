@@ -20,12 +20,12 @@ export enum NodeNames {
   SwitchCase = 'SwitchCase',
   SwitchDefault = 'SwitchDefault',
   Break = 'Break',
+  Function = 'Function',
+  Return = 'Return',
 
   ConditionElse = 'ConditionElse',
 
   // Unsupported for now
-  // Function = 'Function',
-    // return = 'return',
   // Flush = 'Flush',
   // Local = 'Local',
   // Lt = 'Lt',
@@ -67,7 +67,7 @@ export const directives : IDirectivesTypes = {
   // escape: 'escape',
   // noescape: 'noescape',
   // fallback: 'fallback',
-  // function: 'function',
+  function: NodeNames.Function,
   // flush: 'flush',
   global: NodeNames.Global,
   // import: 'import',
@@ -78,7 +78,7 @@ export const directives : IDirectivesTypes = {
   // nt: 'nt',
   recover: NodeNames.Recover,
   // recurse: 'recurse',
-  // return: 'return',
+  return: NodeNames.Return,
   // rt: 'rt',
   // setting: 'setting',
   // stop: 'stop',

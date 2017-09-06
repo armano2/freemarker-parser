@@ -102,7 +102,6 @@ const unaryOps = {
     '~': true,
     '+': true,
     '?': true,
-    '=': true,
     '+=': true,
     '-=': true,
     '*=': true,
@@ -110,6 +109,7 @@ const unaryOps = {
     '%=': true,
     '--': true,
     '++': true,
+    '=': true,
 };
 function getMaxKeyLen(obj) {
     let maxLen = 0;
@@ -151,6 +151,8 @@ var NodeNames;
     NodeNames["SwitchCase"] = "SwitchCase";
     NodeNames["SwitchDefault"] = "SwitchDefault";
     NodeNames["Break"] = "Break";
+    NodeNames["Function"] = "Function";
+    NodeNames["Return"] = "Return";
     NodeNames["ConditionElse"] = "ConditionElse";
 })(NodeNames || (NodeNames = {}));
 var ParamNames;
@@ -173,10 +175,12 @@ const directives = {
     include: NodeNames.Include,
     assign: NodeNames.Assign,
     attempt: NodeNames.Attempt,
+    function: NodeNames.Function,
     global: NodeNames.Global,
     local: NodeNames.Local,
     macro: NodeNames.Macro,
     recover: NodeNames.Recover,
+    return: NodeNames.Return,
     switch: NodeNames.Switch,
     case: NodeNames.SwitchCase,
     default: NodeNames.SwitchDefault,
@@ -832,6 +836,12 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
+function cFunction(start, end, params) {
+    return { type: NodeNames.Function, start, end, params, body: [] };
+}
+function cReturn(start, end, params) {
+    return { type: NodeNames.Return, start, end, params };
+}
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -856,6 +866,7 @@ function addToNode(parent, child) {
             break;
         case NodeNames.Macro:
         case NodeNames.Program:
+        case NodeNames.Function:
             parent.body.push(child);
             break;
         case NodeNames.Attempt:
@@ -869,6 +880,7 @@ function addToNode(parent, child) {
         case NodeNames.Interpolation:
         case NodeNames.Include:
         case NodeNames.Text:
+        case NodeNames.Return:
         case NodeNames.Comment:
         case NodeNames.SwitchDefault:
         case NodeNames.SwitchCase:
@@ -947,6 +959,10 @@ function addNodeChild(parent, token) {
                 return parent;
             }
             break;
+        case NodeNames.Function:
+            return addToNode(parent, cFunction(token.start, token.end, token.params));
+        case NodeNames.Return:
+            return addToNode(parent, cReturn(token.start, token.end, token.params));
         case NodeNames.Attempt:
             return addToNode(parent, cAttempt(token.start, token.end));
         case NodeNames.Condition:
@@ -994,6 +1010,7 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Condition:
         case NodeNames.List:
         case NodeNames.Switch:
+        case NodeNames.Function:
             return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
         case NodeNames.ConditionElse:
             return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
@@ -1014,6 +1031,7 @@ function isClosing(type, parentType, isClose) {
         case NodeNames.Text:
         case NodeNames.Interpolation:
         case NodeNames.Comment:
+        case NodeNames.Return:
         case NodeNames.Break:
             return EClosingType.Ignore;
     }

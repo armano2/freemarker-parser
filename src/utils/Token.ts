@@ -9,6 +9,7 @@ import {
   cBreak,
   cComment,
   cCondition,
+  cFunction,
   cGlobal,
   cInclude,
   cInterpolation,
@@ -16,6 +17,7 @@ import {
   cLocal,
   cMacro,
   cMacroCall,
+  cReturn,
   cSwitch,
   cSwitchCase,
   cSwitchDefault,
@@ -43,6 +45,7 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
       break
     case NodeNames.Macro:
     case NodeNames.Program:
+    case NodeNames.Function:
       parent.body.push(child)
       break
     case NodeNames.Attempt:
@@ -57,6 +60,7 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
     case NodeNames.Interpolation:
     case NodeNames.Include:
     case NodeNames.Text:
+    case NodeNames.Return:
     case NodeNames.Comment:
     case NodeNames.SwitchDefault:
     case NodeNames.SwitchCase:
@@ -137,6 +141,10 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
         return parent
       }
       break
+    case NodeNames.Function:
+      return addToNode(parent, cFunction(token.start, token.end, token.params))
+    case NodeNames.Return:
+      return addToNode(parent, cReturn(token.start, token.end, token.params))
     case NodeNames.Attempt:
       return addToNode(parent, cAttempt(token.start, token.end))
     case NodeNames.Condition:
@@ -186,6 +194,7 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Condition:
     case NodeNames.List:
     case NodeNames.Switch:
+    case NodeNames.Function:
       return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
     case NodeNames.ConditionElse:
       return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No
@@ -206,6 +215,7 @@ export function isClosing (type : NodeNames, parentType : NodeNames, isClose : b
     case NodeNames.Text:
     case NodeNames.Interpolation:
     case NodeNames.Comment:
+    case NodeNames.Return:
     case NodeNames.Break:
       return EClosingType.Ignore
   }
