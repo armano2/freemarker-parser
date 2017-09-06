@@ -51,16 +51,19 @@ export interface IMacroCall extends INode {
 export interface IAssign extends INode {
   type : NodeNames.Assign
   params? : IExpression[]
+  body? : INode[]
 }
 
 export interface IGlobal extends INode {
   type : NodeNames.Global
   params? : IExpression[]
+  body? : INode[]
 }
 
 export interface ILocal extends INode {
   type : NodeNames.Local
   params? : IExpression[]
+  body? : INode[]
 }
 
 export interface IInterpolation extends INode {

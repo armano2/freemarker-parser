@@ -1,4 +1,3 @@
-import { format } from 'util'
 import NodeError from './errors/NodeError'
 
 import { Tokenizer } from './Tokenizer'
@@ -6,17 +5,11 @@ import { IToken } from './types/Tokens'
 
 import { AllNodeTypes, IProgram } from './types/Node'
 import { cProgram } from './utils/Node'
-import { addNodeChild, EClosingType, isClosing, tokenToNodeType } from './utils/Token'
+import { addNodeChild, canAddChildren, isPartial, tokenToNodeType } from './utils/Token'
 
 export interface IParserReturn {
   ast : IProgram
   tokens : IToken[]
-}
-
-const errorMessages = {
-  [EClosingType.No]: 'Unexpected close tag \`%s\`',
-  [EClosingType.Ignore]: '\`%s\` can\'t self close',
-  [EClosingType.Partial]: '\`%s\` can\'t self close',
 }
 
 export class Parser {
@@ -35,23 +28,15 @@ export class Parser {
     for (token of tokens) {
       const tokenType = tokenToNodeType(token)
 
-      const closing = isClosing(tokenType, parent.type, token.isClose)
-
       if (token.isClose) {
-        if (closing !== EClosingType.Yes) {
-          throw new NodeError(format(errorMessages[closing], token.type), token)
+        if (parent.type !== tokenType) {
+          throw new NodeError(`Unexpected close tag '${token.type}'`, token)
         }
-
-        const parentNode = stack.pop()
-        if (!parentNode) {
-          throw new NodeError(`Stack is empty`, token)
-        }
-        parent = parentNode
-
+        parent = stack.pop() as AllNodeTypes // its always
       } else {
         const node = addNodeChild(parent, token)
-        if (closing !== EClosingType.Ignore) {
-          if (closing !== EClosingType.Partial) {
+        if (node !== parent && canAddChildren(node)) {
+          if (!isPartial(tokenType, parent.type)) {
             stack.push(parent)
           }
           parent = node
@@ -60,7 +45,8 @@ export class Parser {
     }
 
     if (stack.length > 0) {
-      throw new NodeError(`Unclosed tag`, token ? token : stack[0])
+      const el = stack.pop() as AllNodeTypes
+      throw new NodeError(`Unclosed tag '${el.type}'`, el)
     }
     return { ast, tokens }
   }

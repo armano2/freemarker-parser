@@ -1,5 +1,5 @@
 {
-  "message": "`Directive` can't self close",
+  "message": "Unexpected close tag 'Directive'",
   "start": {
     "line": 1,
     "col": 1

@@ -2,8 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var util = require('util');
-
 class NodeError extends Error {
     constructor(m, el) {
         super(m);
@@ -12,6 +10,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, start) {
@@ -21,6 +20,7 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -39,6 +39,7 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
+//# sourceMappingURL=Symbols.js.map
 
 var ECharCodes;
 (function (ECharCodes) {
@@ -123,6 +124,7 @@ const literals = {
     false: false,
     null: null,
 };
+//# sourceMappingURL=Chars.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -182,6 +184,7 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
+//# sourceMappingURL=Names.js.map
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -588,6 +591,7 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
 function cIdentifier(name) {
     return { type: ParamNames.Identifier, name };
@@ -636,7 +640,7 @@ function parseAssignParams(params) {
             }
         }
     }
-    if (values.length > 0 && values.some((item) => item.type === ParamNames.Identifier)) {
+    if (values.length > 1 && values.some((item) => item.type === ParamNames.Identifier)) {
         throw new SyntaxError('Wrong parameters');
     }
     return values.length > 0 ? values : undefined;
@@ -650,15 +654,22 @@ function paramParser(params) {
         return undefined;
     }
 }
+//# sourceMappingURL=Params.js.map
 
-function cAssign(start, end, params) {
-    return { type: NodeNames.Assign, start, end, params: parseAssignParams(params) };
+function cAssign(start, end, paramsText) {
+    const params = parseAssignParams(paramsText);
+    const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
+    return { type: NodeNames.Assign, start, end, params, body };
 }
-function cGlobal(start, end, params) {
-    return { type: NodeNames.Global, start, end, params: parseAssignParams(params) };
+function cGlobal(start, end, paramsText) {
+    const params = parseAssignParams(paramsText);
+    const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
+    return { type: NodeNames.Global, start, end, params, body };
 }
-function cLocal(start, end, params) {
-    return { type: NodeNames.Local, start, end, params: parseAssignParams(params) };
+function cLocal(start, end, paramsText) {
+    const params = parseAssignParams(paramsText);
+    const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
+    return { type: NodeNames.Local, start, end, params, body };
 }
 function cCondition(start, end, params) {
     return { type: NodeNames.Condition, start, end, params: paramParser(params), consequent: [] };
@@ -718,6 +729,7 @@ function cToken(type, start, end, text, isClose, params) {
         isClose,
     };
 }
+//# sourceMappingURL=Node.js.map
 
 class Tokenizer {
     constructor() {
@@ -889,42 +901,47 @@ class Tokenizer {
         return this.template.charCodeAt(i);
     }
 }
+//# sourceMappingURL=Tokenizer.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
         case NodeNames.Condition:
             parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child);
-            break;
+            return;
         case NodeNames.List:
             parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
-            break;
+            return;
         case NodeNames.Switch:
             if (child.type === NodeNames.SwitchCase || child.type === NodeNames.SwitchDefault) {
                 parent.cases.push(child);
             }
             else if (parent.cases.length === 0) {
-                if (child.type !== NodeNames.Text) {
-                    throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+                if (child.type === NodeNames.Text) {
+                    return;
                 }
             }
             else {
                 parent.cases[parent.cases.length - 1].consequent.push(child);
+                return;
             }
             break;
         case NodeNames.Macro:
         case NodeNames.Program:
         case NodeNames.Function:
             parent.body.push(child);
-            break;
+            return;
         case NodeNames.Attempt:
             parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
-            break;
+            return;
         case NodeNames.Assign:
         case NodeNames.Global:
         case NodeNames.Local:
-            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+            if (parent.body) {
+                parent.body.push(child);
+            }
+            return;
         case NodeNames.MacroCall:
-            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+            throw new NodeError(`addToNode3(${parent.type}, ${child.type}) failed`, child);
         case NodeNames.Interpolation:
         case NodeNames.Include:
         case NodeNames.Text:
@@ -933,10 +950,8 @@ function addToNode(parent, child) {
         case NodeNames.SwitchDefault:
         case NodeNames.SwitchCase:
         case NodeNames.Break:
-        default:
-            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
     }
-    return child;
+    throw new NodeError(`addToNode(${parent.type}, ${child.type}) failed`, child);
 }
 function tokenToNodeType(token) {
     switch (token.type) {
@@ -958,29 +973,21 @@ function tokenToNodeType(token) {
 }
 function addNodeChild(parent, token) {
     const tokenType = tokenToNodeType(token);
+    let node = null;
     switch (tokenType) {
         case NodeNames.Else:
-            if (parent.type === NodeNames.Condition) {
-                if (parent.alternate) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
+            if (parent.type === NodeNames.Condition && !parent.alternate) {
                 parent.alternate = [];
                 return parent;
             }
-            else if (parent.type === NodeNames.List) {
-                if (parent.fallback) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
+            else if (parent.type === NodeNames.List && !parent.fallback) {
                 parent.fallback = [];
                 return parent;
             }
             break;
         case NodeNames.ConditionElse:
-            if (parent.type === NodeNames.Condition) {
-                const node = cCondition(token.start, token.end, token.params);
-                if (parent.alternate) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
-                }
+            if (parent.type === NodeNames.Condition && !parent.alternate) {
+                node = cCondition(token.start, token.end, token.params);
                 parent.alternate = [];
                 parent.alternate.push(node);
                 return node;
@@ -988,11 +995,10 @@ function addNodeChild(parent, token) {
             break;
         case NodeNames.Recover:
             if (parent.type === NodeNames.Attempt) {
-                if (parent.fallback) {
-                    throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
+                if (!parent.fallback) {
+                    parent.fallback = [];
+                    return parent;
                 }
-                parent.fallback = [];
-                return parent;
             }
             break;
         case NodeNames.SwitchCase:
@@ -1007,90 +1013,92 @@ function addNodeChild(parent, token) {
                 return parent;
             }
             break;
-        case NodeNames.Function:
-            return addToNode(parent, cFunction(token.start, token.end, token.params));
-        case NodeNames.Return:
-            return addToNode(parent, cReturn(token.start, token.end, token.params));
-        case NodeNames.Attempt:
-            return addToNode(parent, cAttempt(token.start, token.end));
-        case NodeNames.Condition:
-            return addToNode(parent, cCondition(token.start, token.end, token.params));
-        case NodeNames.List:
-            return addToNode(parent, cList(token.start, token.end, token.params));
         case NodeNames.Global:
-            return addToNode(parent, cGlobal(token.start, token.end, token.params));
-        case NodeNames.Macro:
-            return addToNode(parent, cMacro(token.start, token.end, token.params));
-        case NodeNames.Assign:
-            return addToNode(parent, cAssign(token.start, token.end, token.params));
-        case NodeNames.Include:
-            return addToNode(parent, cInclude(token.start, token.end, token.params));
+            node = cGlobal(token.start, token.end, token.params);
+            break;
         case NodeNames.Local:
-            return addToNode(parent, cLocal(token.start, token.end, token.params));
+            node = cLocal(token.start, token.end, token.params);
+            break;
+        case NodeNames.Assign:
+            node = cAssign(token.start, token.end, token.params);
+            break;
+        case NodeNames.Function:
+            node = cFunction(token.start, token.end, token.params);
+            break;
+        case NodeNames.Return:
+            node = cReturn(token.start, token.end, token.params);
+            break;
+        case NodeNames.Attempt:
+            node = cAttempt(token.start, token.end);
+            break;
+        case NodeNames.Condition:
+            node = cCondition(token.start, token.end, token.params);
+            break;
+        case NodeNames.List:
+            node = cList(token.start, token.end, token.params);
+            break;
+        case NodeNames.Macro:
+            node = cMacro(token.start, token.end, token.params);
+            break;
+        case NodeNames.Include:
+            node = cInclude(token.start, token.end, token.params);
+            break;
         case NodeNames.Interpolation:
-            return addToNode(parent, cInterpolation(token.start, token.end, token.params));
+            node = cInterpolation(token.start, token.end, token.params);
+            break;
         case NodeNames.Text:
-            return addToNode(parent, cText(token.text, token.start, token.end));
+            node = cText(token.text, token.start, token.end);
+            break;
         case NodeNames.MacroCall:
-            return addToNode(parent, cMacroCall(token.text, token.start, token.end, token.params));
+            node = cMacroCall(token.text, token.start, token.end, token.params);
+            break;
         case NodeNames.Comment:
-            return addToNode(parent, cComment(token.text, token.start, token.end));
+            node = cComment(token.text, token.start, token.end);
+            break;
         case NodeNames.Switch:
-            return addToNode(parent, cSwitch(token.start, token.end, token.params));
+            node = cSwitch(token.start, token.end, token.params);
+            break;
         case NodeNames.Break:
-            return addToNode(parent, cBreak(token.start, token.end));
-        case NodeNames.Program:
+            node = cBreak(token.start, token.end);
+            break;
+    }
+    if (node) {
+        addToNode(parent, node);
+        return node;
     }
     throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token);
 }
-var EClosingType;
-(function (EClosingType) {
-    EClosingType[EClosingType["No"] = 0] = "No";
-    EClosingType[EClosingType["Yes"] = 1] = "Yes";
-    EClosingType[EClosingType["Partial"] = 2] = "Partial";
-    EClosingType[EClosingType["Ignore"] = 3] = "Ignore";
-})(EClosingType || (EClosingType = {}));
-function isClosing(type, parentType, isClose) {
+function isPartial(type, parentType) {
     switch (type) {
-        case NodeNames.Program:
-        case NodeNames.Attempt:
-        case NodeNames.Macro:
+        case NodeNames.ConditionElse:
+            return NodeNames.Condition === parentType;
+        case NodeNames.Else:
+            return (NodeNames.Condition === parentType || NodeNames.List === parentType);
+        case NodeNames.Recover:
+            return (NodeNames.Attempt === parentType);
+    }
+    return false;
+}
+function canAddChildren(node) {
+    switch (node.type) {
         case NodeNames.Condition:
         case NodeNames.List:
-        case NodeNames.Switch:
+        case NodeNames.Attempt:
         case NodeNames.Function:
-            return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No;
-        case NodeNames.ConditionElse:
-            return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.Else:
-            return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.Recover:
-            return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No;
-        case NodeNames.MacroCall:
-            return EClosingType.Ignore;
-        case NodeNames.Assign:
+        case NodeNames.Switch:
+        case NodeNames.Macro:
+        case NodeNames.Program:
+            return true;
         case NodeNames.Global:
         case NodeNames.Local:
-            return EClosingType.Ignore;
-        case NodeNames.SwitchCase:
-        case NodeNames.SwitchDefault:
-            return EClosingType.Ignore;
-        case NodeNames.Include:
-        case NodeNames.Text:
-        case NodeNames.Interpolation:
-        case NodeNames.Comment:
-        case NodeNames.Return:
-        case NodeNames.Break:
-            return EClosingType.Ignore;
+        case NodeNames.Assign:
+            return Boolean(node.body);
+        case NodeNames.MacroCall:
+            return false;
     }
-    throw new ReferenceError(`isClosing(${type}) failed`);
+    return false;
 }
 
-const errorMessages = {
-    [EClosingType.No]: 'Unexpected close tag \`%s\`',
-    [EClosingType.Ignore]: '\`%s\` can\'t self close',
-    [EClosingType.Partial]: '\`%s\` can\'t self close',
-};
 class Parser {
     parse(template) {
         const ast = cProgram(0, template.length);
@@ -1104,21 +1112,16 @@ class Parser {
         let token = null;
         for (token of tokens) {
             const tokenType = tokenToNodeType(token);
-            const closing = isClosing(tokenType, parent.type, token.isClose);
             if (token.isClose) {
-                if (closing !== EClosingType.Yes) {
-                    throw new NodeError(util.format(errorMessages[closing], token.type), token);
+                if (parent.type !== tokenType) {
+                    throw new NodeError(`Unexpected close tag '${token.type}'`, token);
                 }
-                const parentNode = stack.pop();
-                if (!parentNode) {
-                    throw new NodeError(`Stack is empty`, token);
-                }
-                parent = parentNode;
+                parent = stack.pop();
             }
             else {
                 const node = addNodeChild(parent, token);
-                if (closing !== EClosingType.Ignore) {
-                    if (closing !== EClosingType.Partial) {
+                if (node !== parent && canAddChildren(node)) {
+                    if (!isPartial(tokenType, parent.type)) {
                         stack.push(parent);
                     }
                     parent = node;
@@ -1126,11 +1129,15 @@ class Parser {
             }
         }
         if (stack.length > 0) {
-            throw new NodeError(`Unclosed tag`, token ? token : stack[0]);
+            const el = stack.pop();
+            throw new NodeError(`Unclosed tag '${el.type}'`, el);
         }
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

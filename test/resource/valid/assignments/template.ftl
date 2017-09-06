@@ -34,6 +34,12 @@
 <#assign --x>
 <#assign x-->
 
-<#--  <#assign x>
+<#assign x>
   foo ${bar}
-</#assign>  -->
+</#assign>
+<#local x>
+  foo ${bar}
+</#local>
+<#global x>
+  foo ${bar}
+</#global>

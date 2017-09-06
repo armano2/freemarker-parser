@@ -24,41 +24,44 @@ import {
   cText,
 } from './Node'
 
-function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes {
+function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : void {
   switch (parent.type) {
     case NodeNames.Condition:
       parent.alternate ? parent.alternate.push(child) : parent.consequent.push(child)
-      break
+      return
     case NodeNames.List:
       parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
-      break
+      return
     case NodeNames.Switch:
       if (child.type === NodeNames.SwitchCase || child.type === NodeNames.SwitchDefault) {
         parent.cases.push(child)
       } else if (parent.cases.length === 0) {
-        if (child.type !== NodeNames.Text) {
-          throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
+        if (child.type === NodeNames.Text) {
+          return
         }
       } else {
         parent.cases[parent.cases.length - 1].consequent.push(child)
+        return
       }
       break
     case NodeNames.Macro:
     case NodeNames.Program:
     case NodeNames.Function:
       parent.body.push(child)
-      break
+      return
     case NodeNames.Attempt:
       parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
-      break
+      return
     case NodeNames.Assign:
     case NodeNames.Global:
     case NodeNames.Local:
-      // TODO: only when multiline
-      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
+      if (parent.body) {
+        parent.body.push(child)
+      }
+      return
     case NodeNames.MacroCall:
       // TODO: only when multiline
-      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
+      throw new NodeError(`addToNode3(${parent.type}, ${child.type}) failed`, child)
     case NodeNames.Interpolation:
     case NodeNames.Include:
     case NodeNames.Text:
@@ -67,10 +70,8 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
     case NodeNames.SwitchDefault:
     case NodeNames.SwitchCase:
     case NodeNames.Break:
-    default:
-      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
   }
-  return child
+  throw new NodeError(`addToNode(${parent.type}, ${child.type}) failed`, child)
 }
 
 export function tokenToNodeType (token : IToken) : NodeNames {
@@ -94,29 +95,20 @@ export function tokenToNodeType (token : IToken) : NodeNames {
 
 export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTypes {
   const tokenType = tokenToNodeType(token)
-  // console.log(`addNodeChild(${parent.type}, ${tokenType})`)
+  let node : AllNodeTypes | null = null
   switch (tokenType) {
     case NodeNames.Else:
-      if (parent.type === NodeNames.Condition) {
-        if (parent.alternate) {
-          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
-        }
+      if (parent.type === NodeNames.Condition && !parent.alternate) {
         parent.alternate = []
         return parent
-      } else if (parent.type === NodeNames.List) {
-        if (parent.fallback) {
-          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
-        }
+      } else if (parent.type === NodeNames.List && !parent.fallback) {
         parent.fallback = []
         return parent
       }
       break
     case NodeNames.ConditionElse:
-      if (parent.type === NodeNames.Condition) {
-        const node = cCondition(token.start, token.end, token.params)
-        if (parent.alternate) {
-          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
-        }
+      if (parent.type === NodeNames.Condition && !parent.alternate) {
+        node = cCondition(token.start, token.end, token.params)
         parent.alternate = []
         parent.alternate.push(node)
         return node
@@ -124,11 +116,10 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       break
     case NodeNames.Recover:
       if (parent.type === NodeNames.Attempt) {
-        if (parent.fallback) {
-          throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token) // TODO: improve this message
+        if (!parent.fallback) {
+          parent.fallback = []
+          return parent
         }
-        parent.fallback = []
-        return parent
       }
       break
     case NodeNames.SwitchCase:
@@ -143,84 +134,92 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
         return parent
       }
       break
-    case NodeNames.Function:
-      return addToNode(parent, cFunction(token.start, token.end, token.params))
-    case NodeNames.Return:
-      return addToNode(parent, cReturn(token.start, token.end, token.params))
-    case NodeNames.Attempt:
-      return addToNode(parent, cAttempt(token.start, token.end))
-    case NodeNames.Condition:
-      return addToNode(parent, cCondition(token.start, token.end, token.params))
-    case NodeNames.List:
-      return addToNode(parent, cList(token.start, token.end, token.params))
     case NodeNames.Global:
-      return addToNode(parent, cGlobal(token.start, token.end, token.params))
-    case NodeNames.Macro:
-      return addToNode(parent, cMacro(token.start, token.end, token.params))
-    case NodeNames.Assign:
-      return addToNode(parent, cAssign(token.start, token.end, token.params))
-    case NodeNames.Include:
-      return addToNode(parent, cInclude(token.start, token.end, token.params))
+      node = cGlobal(token.start, token.end, token.params)
+      break
     case NodeNames.Local:
-      return addToNode(parent, cLocal(token.start, token.end, token.params))
+      node = cLocal(token.start, token.end, token.params)
+      break
+    case NodeNames.Assign:
+      node = cAssign(token.start, token.end, token.params)
+      break
+    case NodeNames.Function:
+      node = cFunction(token.start, token.end, token.params)
+      break
+    case NodeNames.Return:
+      node = cReturn(token.start, token.end, token.params)
+      break
+    case NodeNames.Attempt:
+      node = cAttempt(token.start, token.end)
+      break
+    case NodeNames.Condition:
+      node = cCondition(token.start, token.end, token.params)
+      break
+    case NodeNames.List:
+      node = cList(token.start, token.end, token.params)
+      break
+    case NodeNames.Macro:
+      node = cMacro(token.start, token.end, token.params)
+      break
+    case NodeNames.Include:
+      node = cInclude(token.start, token.end, token.params)
+      break
     case NodeNames.Interpolation:
-      return addToNode(parent, cInterpolation(token.start, token.end, token.params))
+      node = cInterpolation(token.start, token.end, token.params)
+      break
     case NodeNames.Text:
-      return addToNode(parent, cText(token.text, token.start, token.end))
+      node = cText(token.text, token.start, token.end)
+      break
     case NodeNames.MacroCall:
-      return addToNode(parent, cMacroCall(token.text, token.start, token.end, token.params))
+      node = cMacroCall(token.text, token.start, token.end, token.params)
+      break
     case NodeNames.Comment:
-      return addToNode(parent, cComment(token.text, token.start, token.end))
+      node = cComment(token.text, token.start, token.end)
+      break
     case NodeNames.Switch:
-      return addToNode(parent, cSwitch(token.start, token.end, token.params))
+      node = cSwitch(token.start, token.end, token.params)
+      break
     case NodeNames.Break:
-      return addToNode(parent, cBreak(token.start, token.end))
-    case NodeNames.Program:
-      // this should nevet happen
+      node = cBreak(token.start, token.end)
+      break
+  }
+
+  if (node) {
+    addToNode(parent, node)
+    return node
   }
   throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token)
 }
 
-export enum EClosingType {
-  No,
-  Yes,
-  Partial,
-  Ignore,
-}
-
-export function isClosing (type : NodeNames, parentType : NodeNames, isClose : boolean) : EClosingType {
+export function isPartial (type : NodeNames, parentType : NodeNames) : boolean {
   switch (type) {
-    case NodeNames.Program:
-    case NodeNames.Attempt:
-    case NodeNames.Macro:
-    case NodeNames.Condition:
-    case NodeNames.List:
-    case NodeNames.Switch:
-    case NodeNames.Function:
-      return (type === parentType && isClose) ? EClosingType.Yes : EClosingType.No
     case NodeNames.ConditionElse:
-      return NodeNames.Condition === parentType ? EClosingType.Partial : EClosingType.No
+      return NodeNames.Condition === parentType
     case NodeNames.Else:
-      return (NodeNames.Condition === parentType || NodeNames.List === parentType) ? EClosingType.Partial : EClosingType.No
+      return (NodeNames.Condition === parentType || NodeNames.List === parentType)
     case NodeNames.Recover:
-      return (NodeNames.Attempt === parentType) ? EClosingType.Partial : EClosingType.No
-    case NodeNames.MacroCall:
-      return EClosingType.Ignore // TODO: conditional
-    case NodeNames.Assign:
-    case NodeNames.Global:
-    case NodeNames.Local:
-      return EClosingType.Ignore // TODO: conditional based on params
-    case NodeNames.SwitchCase:
-    case NodeNames.SwitchDefault:
-      return EClosingType.Ignore
-    case NodeNames.Include:
-    case NodeNames.Text:
-    case NodeNames.Interpolation:
-    case NodeNames.Comment:
-    case NodeNames.Return:
-    case NodeNames.Break:
-      return EClosingType.Ignore
+      return (NodeNames.Attempt === parentType)
   }
 
-  throw new ReferenceError(`isClosing(${type}) failed`)
+  return false
+}
+
+export function canAddChildren (node : AllNodeTypes) : boolean {
+  switch (node.type) {
+    case NodeNames.Condition:
+    case NodeNames.List:
+    case NodeNames.Attempt:
+    case NodeNames.Function:
+    case NodeNames.Switch:
+    case NodeNames.Macro:
+    case NodeNames.Program:
+      return true
+    case NodeNames.Global:
+    case NodeNames.Local:
+    case NodeNames.Assign:
+      return Boolean(node.body)
+    case NodeNames.MacroCall:
+      return false // todo conditional
+  }
+  return false
 }

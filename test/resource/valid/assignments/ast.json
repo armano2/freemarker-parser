@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 683,
+  "end": 742,
   "body": [
     {
       "type": "Comment",
@@ -983,15 +983,123 @@
       "text": "\n\n"
     },
     {
-      "type": "Comment",
+      "type": "Assign",
       "start": 636,
-      "end": 682,
-      "text": "  <#assign x>\n  foo ${bar}\n</#assign>  "
+      "end": 647,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "body": [
+        {
+          "type": "Text",
+          "start": 647,
+          "end": 654,
+          "text": "\n  foo "
+        },
+        {
+          "type": "Interpolation",
+          "start": 654,
+          "end": 660,
+          "params": {
+            "type": "Identifier",
+            "name": "bar"
+          }
+        },
+        {
+          "type": "Text",
+          "start": 660,
+          "end": 661,
+          "text": "\n"
+        }
+      ]
     },
     {
       "type": "Text",
-      "start": 682,
-      "end": 683,
+      "start": 671,
+      "end": 672,
+      "text": "\n"
+    },
+    {
+      "type": "Local",
+      "start": 672,
+      "end": 682,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "body": [
+        {
+          "type": "Text",
+          "start": 682,
+          "end": 689,
+          "text": "\n  foo "
+        },
+        {
+          "type": "Interpolation",
+          "start": 689,
+          "end": 695,
+          "params": {
+            "type": "Identifier",
+            "name": "bar"
+          }
+        },
+        {
+          "type": "Text",
+          "start": 695,
+          "end": 696,
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 705,
+      "end": 706,
+      "text": "\n"
+    },
+    {
+      "type": "Global",
+      "start": 706,
+      "end": 717,
+      "params": [
+        {
+          "type": "Identifier",
+          "name": "x"
+        }
+      ],
+      "body": [
+        {
+          "type": "Text",
+          "start": 717,
+          "end": 724,
+          "text": "\n  foo "
+        },
+        {
+          "type": "Interpolation",
+          "start": 724,
+          "end": 730,
+          "params": {
+            "type": "Identifier",
+            "name": "bar"
+          }
+        },
+        {
+          "type": "Text",
+          "start": 730,
+          "end": 731,
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 741,
+      "end": 742,
       "text": "\n"
     }
   ]

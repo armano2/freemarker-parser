@@ -1,11 +1,11 @@
 {
-  "message": "Unclosed tag 'Condition'",
+  "message": "addNodeChild(Program, Else) is not supported",
   "start": {
     "line": 1,
     "col": 1
   },
   "end": {
     "line": 1,
-    "col": 10
+    "col": 8
   }
 }

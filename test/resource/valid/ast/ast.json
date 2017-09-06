@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 371,
+  "end": 360,
   "body": [
     {
       "type": "Assign",
@@ -217,51 +217,99 @@
       "text": "\n"
     },
     {
-      "type": "Comment",
+      "type": "Function",
       "start": 169,
-      "end": 238,
-      "text": "  <#function foo x y><#local x = 123><#return 1></#function>  "
+      "end": 188,
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "y"
+          }
+        ]
+      },
+      "body": [
+        {
+          "type": "Local",
+          "start": 188,
+          "end": 204,
+          "params": [
+            {
+              "type": "AssignmentExpression",
+              "operator": "=",
+              "left": {
+                "type": "Identifier",
+                "name": "x"
+              },
+              "right": {
+                "type": "Literal",
+                "value": 123,
+                "raw": "123"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Return",
+          "start": 204,
+          "end": 215,
+          "params": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
     },
     {
       "type": "Text",
-      "start": 238,
-      "end": 239,
+      "start": 227,
+      "end": 228,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 239,
-      "end": 273,
+      "start": 228,
+      "end": 262,
       "text": "  <#list xs as x></#list>  "
     },
     {
       "type": "Text",
-      "start": 273,
-      "end": 274,
+      "start": 262,
+      "end": 263,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 274,
-      "end": 350,
+      "start": 263,
+      "end": 339,
       "text": "  <#list xs>[<#items as x>${x}<#sep>, </#items>]<#else>None</#list>  "
     },
     {
       "type": "Text",
-      "start": 350,
-      "end": 351,
+      "start": 339,
+      "end": 340,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 351,
-      "end": 369,
+      "start": 340,
+      "end": 358,
       "text": " A comment "
     },
     {
       "type": "Text",
-      "start": 369,
-      "end": 371,
+      "start": 358,
+      "end": 360,
       "text": "\n\n"
     }
   ]

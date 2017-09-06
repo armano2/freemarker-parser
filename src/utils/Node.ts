@@ -1,4 +1,4 @@
-import { NodeNames } from '../Names'
+import { NodeNames, ParamNames } from '../Names'
 import { ENodeType } from '../Symbols'
 import {
   IAssign,
@@ -24,16 +24,22 @@ import {
 import { IToken } from '../types/Tokens'
 import { paramParser, parseAssignParams } from './Params'
 
-export function cAssign (start : number, end : number, params? : string) : IAssign {
-  return { type : NodeNames.Assign, start, end, params: parseAssignParams(params) }
+export function cAssign (start : number, end : number, paramsText? : string) : IAssign {
+  const params = parseAssignParams(paramsText)
+  const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
+  return { type : NodeNames.Assign, start, end, params, body }
 }
 
-export function cGlobal (start : number, end : number, params? : string) : IGlobal {
-  return { type : NodeNames.Global, start, end, params: parseAssignParams(params) }
+export function cGlobal (start : number, end : number, paramsText? : string) : IGlobal {
+  const params = parseAssignParams(paramsText)
+  const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
+  return { type : NodeNames.Global, start, end, params, body }
 }
 
-export function cLocal (start : number, end : number, params? : string) : ILocal {
-  return { type : NodeNames.Local, start, end, params: parseAssignParams(params) }
+export function cLocal (start : number, end : number, paramsText? : string) : ILocal {
+  const params = parseAssignParams(paramsText)
+  const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
+  return { type : NodeNames.Local, start, end, params, body }
 }
 
 export function cCondition (start : number, end : number, params? : string) : ICondition {

@@ -1,5 +1,5 @@
 {
-  "message": "Unexpected close tag `Directive`",
+  "message": "Unexpected close tag 'Directive'",
   "start": {
     "line": 2,
     "col": 3

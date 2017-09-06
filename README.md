@@ -14,9 +14,9 @@ This project contains experimental version of parser ftl to ast tree
   - directives:
     - `#attempt`
       - `#recover`
-    - `#assign` (only self closing `<#assign foo=bar>`, `<#assign foo=bar />`)
-    - `#global` (only self closing `<#global foo=bar>`, `<#global foo=bar />`)
-    - `#local` (only self closing `<#local foo=bar>`, `<#local foo=bar />`)
+    - `#assign`
+    - `#global`
+    - `#local`
     - `#if`
       - `#elseif`
       - `#else`
