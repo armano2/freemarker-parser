@@ -59,6 +59,21 @@ export interface ICallExpression extends IExpression {
   callee : AllParamTypes
 }
 
+export interface IAssignmentExpression extends IExpression {
+  type : ParamNames.AssignmentExpression
+  operator : string
+  left : AllParamTypes
+  right : AllParamTypes
+}
+
+export interface IUpdateExpression extends IExpression {
+  type : ParamNames.UpdateExpression
+  operator : string
+  prefix : boolean
+  argument : AllParamTypes
+}
+
 export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier |
   IBinaryExpression | ILogicalExpression | IUnaryExpression |
-  IMemberExpression | ICallExpression | ICompound
+  IMemberExpression | ICallExpression | ICompound |
+  IAssignmentExpression | IUpdateExpression

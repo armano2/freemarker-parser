@@ -2,7 +2,7 @@ import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
 import { ECharCodes, isLetter, isWhitespace } from './utils/Chars'
-import { cToken } from './utils/Params'
+import { cToken } from './utils/Node'
 
 interface INextPos {
   pos : number

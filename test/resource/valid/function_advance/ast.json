@@ -39,23 +39,17 @@
           "end": 51,
           "params": [
             {
-              "type": "Compound",
-              "body": [
-                {
-                  "type": "Identifier",
-                  "name": "sum"
-                },
-                {
-                  "type": "UnaryExpression",
-                  "operator": "=",
-                  "argument": {
-                    "type": "Literal",
-                    "value": 0,
-                    "raw": "0"
-                  },
-                  "prefix": true
-                }
-              ]
+              "type": "AssignmentExpression",
+              "operator": "=",
+              "left": {
+                "type": "Identifier",
+                "name": "sum"
+              },
+              "right": {
+                "type": "Literal",
+                "value": 0,
+                "raw": "0"
+              }
             }
           ]
         },
@@ -99,20 +93,15 @@
               "end": 97,
               "params": [
                 {
-                  "type": "BinaryExpression",
-                  "operator": "+",
+                  "type": "AssignmentExpression",
+                  "operator": "+=",
                   "left": {
                     "type": "Identifier",
                     "name": "sum"
                   },
                   "right": {
-                    "type": "UnaryExpression",
-                    "operator": "=",
-                    "argument": {
-                      "type": "Identifier",
-                      "name": "num"
-                    },
-                    "prefix": true
+                    "type": "Identifier",
+                    "name": "num"
                   }
                 }
               ]

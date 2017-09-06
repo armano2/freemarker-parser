@@ -45,22 +45,16 @@
       "end": 97,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "var"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Identifier",
-                "name": "value"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "var"
+          },
+          "right": {
+            "type": "Identifier",
+            "name": "value"
+          }
         }
       ]
     },

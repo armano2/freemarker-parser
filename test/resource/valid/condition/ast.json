@@ -1,58 +1,51 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 204,
+  "end": 205,
   "body": [
     {
       "type": "Assign",
       "start": 0,
-      "end": 21,
+      "end": 22,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "foo"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 2,
-                "raw": "2"
-              },
-              "prefix": true
-            },
-            {
-              "type": "Identifier",
-              "name": "bar"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 3,
-                "raw": "3"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "foo"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 2,
+            "raw": "2"
+          }
+        },
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "bar"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 3,
+            "raw": "3"
+          }
         }
       ]
     },
     {
       "type": "Text",
-      "start": 21,
-      "end": 23,
+      "start": 22,
+      "end": 24,
       "text": "\n\n"
     },
     {
       "type": "Condition",
-      "start": 23,
-      "end": 39,
+      "start": 24,
+      "end": 40,
       "params": {
         "type": "BinaryExpression",
         "operator": "gt",
@@ -68,14 +61,14 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 39,
-          "end": 46,
+          "start": 40,
+          "end": 47,
           "text": "\n  foo("
         },
         {
           "type": "Interpolation",
-          "start": 46,
-          "end": 52,
+          "start": 47,
+          "end": 53,
           "params": {
             "type": "Identifier",
             "name": "foo"
@@ -83,14 +76,14 @@
         },
         {
           "type": "Text",
-          "start": 52,
-          "end": 71,
+          "start": 53,
+          "end": 72,
           "text": ") is more than bar("
         },
         {
           "type": "Interpolation",
-          "start": 71,
-          "end": 77,
+          "start": 72,
+          "end": 78,
           "params": {
             "type": "Identifier",
             "name": "bar"
@@ -98,16 +91,16 @@
         },
         {
           "type": "Text",
-          "start": 77,
-          "end": 79,
+          "start": 78,
+          "end": 80,
           "text": ")\n"
         }
       ],
       "alternate": [
         {
           "type": "Condition",
-          "start": 79,
-          "end": 114,
+          "start": 80,
+          "end": 115,
           "params": {
             "type": "LogicalExpression",
             "operator": "||",
@@ -139,14 +132,14 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 114,
-              "end": 121,
+              "start": 115,
+              "end": 122,
               "text": "\n  foo("
             },
             {
               "type": "Interpolation",
-              "start": 121,
-              "end": 127,
+              "start": 122,
+              "end": 128,
               "params": {
                 "type": "Identifier",
                 "name": "foo"
@@ -154,14 +147,14 @@
             },
             {
               "type": "Text",
-              "start": 127,
-              "end": 146,
+              "start": 128,
+              "end": 147,
               "text": ") is less than bar("
             },
             {
               "type": "Interpolation",
-              "start": 146,
-              "end": 152,
+              "start": 147,
+              "end": 153,
               "params": {
                 "type": "Identifier",
                 "name": "bar"
@@ -169,22 +162,22 @@
             },
             {
               "type": "Text",
-              "start": 152,
-              "end": 154,
+              "start": 153,
+              "end": 155,
               "text": ")\n"
             }
           ],
           "alternate": [
             {
               "type": "Text",
-              "start": 161,
-              "end": 168,
+              "start": 162,
+              "end": 169,
               "text": "\n  foo("
             },
             {
               "type": "Interpolation",
-              "start": 168,
-              "end": 174,
+              "start": 169,
+              "end": 175,
               "params": {
                 "type": "Identifier",
                 "name": "foo"
@@ -192,14 +185,14 @@
             },
             {
               "type": "Text",
-              "start": 174,
-              "end": 189,
+              "start": 175,
+              "end": 190,
               "text": ") is equal bar("
             },
             {
               "type": "Interpolation",
-              "start": 189,
-              "end": 195,
+              "start": 190,
+              "end": 196,
               "params": {
                 "type": "Identifier",
                 "name": "bar"
@@ -207,8 +200,8 @@
             },
             {
               "type": "Text",
-              "start": 195,
-              "end": 197,
+              "start": 196,
+              "end": 198,
               "text": ")\n"
             }
           ]
@@ -217,8 +210,8 @@
     },
     {
       "type": "Text",
-      "start": 203,
-      "end": 204,
+      "start": 204,
+      "end": 205,
       "text": "\n"
     }
   ]

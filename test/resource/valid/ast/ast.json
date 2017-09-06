@@ -9,23 +9,17 @@
       "end": 17,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 123,
-                "raw": "123"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 123,
+            "raw": "123"
+          }
         }
       ]
     },
@@ -35,31 +29,30 @@
       "end": 40,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Compound",
+            "body": [
+              {
                 "type": "Literal",
                 "value": 123,
                 "raw": "123"
               },
-              "prefix": true
-            },
-            {
-              "type": "Identifier",
-              "name": "in"
-            },
-            {
-              "type": "Identifier",
-              "name": "ns"
-            }
-          ]
+              {
+                "type": "Identifier",
+                "name": "in"
+              },
+              {
+                "type": "Identifier",
+                "name": "ns"
+              }
+            ]
+          }
         }
       ]
     },
@@ -69,23 +62,17 @@
       "end": 57,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "x"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 123,
-                "raw": "123"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 123,
+            "raw": "123"
+          }
         }
       ]
     },

@@ -1,4 +1,4 @@
-<#assign foo=2 bar=3>
+<#assign foo=2, bar=3>
 
 <#if foo gt bar>
   foo(${foo}) is more than bar(${bar})

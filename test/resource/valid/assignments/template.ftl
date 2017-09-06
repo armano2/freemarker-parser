@@ -12,6 +12,28 @@
   <#local x = 1>
   <#local x = 1, y = 2>
 </#macro>
+
+<#assign x = 1>
+<#assign x += 1>
+<#assign x -= 1>
+<#assign x *= 1>
+<#assign x /= 1>
+<#assign x %= 1>
+<#assign ++x>
+<#assign x++>
+<#assign --x>
+<#assign x-->
+
+<#assign x += 1+2>
+<#assign x -= 1-1>
+<#assign x *= 1*2>
+<#assign x /= 1/7>
+<#assign x %= 1%3>
+<#assign ++x>
+<#assign x++>
+<#assign --x>
+<#assign x-->
+
 <#--  <#assign x>
   foo ${bar}
 </#assign>  -->

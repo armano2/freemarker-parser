@@ -28,13 +28,12 @@ declare module 'freemarker-parser/Tokenizer' {
 declare module 'freemarker-parser/types/Tokens' {
     import { NodeNames } from 'freemarker-parser/Names';
     import { ENodeType } from 'freemarker-parser/Symbols';
-    import { IExpression } from 'freemarker-parser/types/Params';
     export interface IDirectivesTypes {
         [n: string]: NodeNames;
     }
     export interface IToken extends ILoc {
         type: ENodeType;
-        params?: IExpression;
+        params?: string;
         text: string;
         isClose: boolean;
     }
@@ -88,15 +87,15 @@ declare module 'freemarker-parser/types/Node' {
     }
     export interface IAssign extends INode {
         type: NodeNames.Assign;
-        params?: IExpression;
+        params?: IExpression[];
     }
     export interface IGlobal extends INode {
         type: NodeNames.Global;
-        params?: IExpression;
+        params?: IExpression[];
     }
     export interface ILocal extends INode {
         type: NodeNames.Local;
-        params?: IExpression;
+        params?: IExpression[];
     }
     export interface IInterpolation extends INode {
         type: NodeNames.Interpolation;
@@ -177,6 +176,8 @@ declare module 'freemarker-parser/Names' {
         BinaryExpression = "BinaryExpression",
         LogicalExpression = "LogicalExpression",
         ArrayExpression = "ArrayExpression",
+        AssignmentExpression = "AssignmentExpression",
+        UpdateExpression = "UpdateExpression",
     }
     export const directives: IDirectivesTypes;
 }
@@ -250,6 +251,18 @@ declare module 'freemarker-parser/types/Params' {
         arguments: AllParamTypes[];
         callee: AllParamTypes;
     }
-    export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier | IBinaryExpression | ILogicalExpression | IUnaryExpression | IMemberExpression | ICallExpression | ICompound;
+    export interface IAssignmentExpression extends IExpression {
+        type: ParamNames.AssignmentExpression;
+        operator: string;
+        left: AllParamTypes;
+        right: AllParamTypes;
+    }
+    export interface IUpdateExpression extends IExpression {
+        type: ParamNames.UpdateExpression;
+        operator: string;
+        prefix: boolean;
+        argument: AllParamTypes;
+    }
+    export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier | IBinaryExpression | ILogicalExpression | IUnaryExpression | IMemberExpression | ICallExpression | ICompound | IAssignmentExpression | IUpdateExpression;
 }
 

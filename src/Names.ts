@@ -53,6 +53,8 @@ export enum ParamNames {
   BinaryExpression = 'BinaryExpression',
   LogicalExpression = 'LogicalExpression',
   ArrayExpression = 'ArrayExpression',
+  AssignmentExpression = 'AssignmentExpression',
+  UpdateExpression = 'UpdateExpression',
 }
 
 export const directives : IDirectivesTypes = {

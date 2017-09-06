@@ -15,22 +15,16 @@
       "end": 19,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "xs"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "ArrayExpression",
-                "elements": []
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "xs"
+          },
+          "right": {
+            "type": "ArrayExpression",
+            "elements": []
+          }
         }
       ]
     },
@@ -97,23 +91,17 @@
       "end": 71,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "a"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 1,
-                "raw": "1"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
         }
       ]
     },
@@ -129,23 +117,17 @@
       "end": 87,
       "params": [
         {
-          "type": "Compound",
-          "body": [
-            {
-              "type": "Identifier",
-              "name": "b"
-            },
-            {
-              "type": "UnaryExpression",
-              "operator": "=",
-              "argument": {
-                "type": "Literal",
-                "value": 1,
-                "raw": "1"
-              },
-              "prefix": true
-            }
-          ]
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "b"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
         }
       ]
     },

@@ -1,43 +1,25 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 29,
+  "end": 25,
   "body": [
     {
       "type": "MacroCall",
       "start": 0,
-      "end": 28,
+      "end": 24,
       "name": "m",
       "params": {
         "type": "Compound",
         "body": [
           {
-            "type": "Identifier",
-            "name": "x"
+            "type": "Literal",
+            "value": "${e1}",
+            "raw": "'${e1}'"
           },
           {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": "${e1}",
-              "raw": "'${e1}'"
-            },
-            "prefix": true
-          },
-          {
-            "type": "Identifier",
-            "name": "y"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": "$\\\\{e2}",
-              "raw": "'$\\\\{e2}'"
-            },
-            "prefix": true
+            "type": "Literal",
+            "value": "$\\\\{e2}",
+            "raw": "'$\\\\{e2}'"
           }
         ]
       },
@@ -45,8 +27,8 @@
     },
     {
       "type": "Text",
-      "start": 28,
-      "end": 29,
+      "start": 24,
+      "end": 25,
       "text": "\n"
     }
   ]

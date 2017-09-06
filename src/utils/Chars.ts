@@ -86,14 +86,8 @@ export const unaryOps : IUnaryOperators = {
   '~': true,
   '+': true,
   '?': true,
-  '+=': true,
-  '-=': true,
-  '*=': true,
-  '/=': true,
-  '%=': true,
   '--': true,
   '++': true,
-  '=': true,
 }
 
 // Get return the longest key length of any object

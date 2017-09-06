@@ -1,5 +1,5 @@
 import { NodeNames } from '../Names'
-import { ParamsParser } from '../ParamsParser'
+import { ENodeType } from '../Symbols'
 import {
   IAssign,
   IAttempt,
@@ -21,32 +21,8 @@ import {
   ISwitchDefault,
   IText,
 } from '../types/Node'
-import { IExpression } from '../types/Params'
-
-function paramParser (params? : string) : IExpression | undefined {
-  if (params) {
-    const parser = new ParamsParser()
-    return parser.parse(params)
-  } else {
-    return undefined
-  }
-}
-
-function parseAssignParams (params? : string) : IExpression[] | undefined {
-  if (!params) {
-    return undefined
-  }
-
-  const values : IExpression[] = []
-  const pars = params.trim().split(/\s*[,\n\r]+\s*/)
-  for (const item of pars) {
-    const tm = paramParser(item)
-    if (tm) {
-      values.push(tm)
-    }
-  }
-  return values.length > 0 ? values : undefined
-}
+import { IToken } from '../types/Tokens'
+import { paramParser, parseAssignParams } from './Params'
 
 export function cAssign (start : number, end : number, params? : string) : IAssign {
   return { type : NodeNames.Assign, start, end, params: parseAssignParams(params) }
@@ -122,4 +98,15 @@ export function cFunction (start : number, end : number, params? : string) : IFu
 
 export function cReturn (start : number, end : number, params? : string) : IReturn {
   return { type : NodeNames.Return, start, end, params: paramParser(params) }
+}
+
+export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, params? : string) : IToken {
+  return {
+    type,
+    start,
+    end,
+    text,
+    params: params || undefined,
+    isClose,
+  }
 }
