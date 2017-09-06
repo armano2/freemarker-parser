@@ -636,6 +636,9 @@ function parseAssignParams(params) {
             }
         }
     }
+    if (values.length > 0 && values.some((item) => item.type === ParamNames.Identifier)) {
+        throw new SyntaxError('Wrong parameters');
+    }
     return values.length > 0 ? values : undefined;
 }
 function paramParser(params) {
@@ -916,10 +919,11 @@ function addToNode(parent, child) {
         case NodeNames.Attempt:
             parent.fallback ? parent.fallback.push(child) : parent.body.push(child);
             break;
-        case NodeNames.MacroCall:
         case NodeNames.Assign:
         case NodeNames.Global:
         case NodeNames.Local:
+            throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
+        case NodeNames.MacroCall:
             throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child);
         case NodeNames.Interpolation:
         case NodeNames.Include:

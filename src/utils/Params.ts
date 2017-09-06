@@ -51,6 +51,9 @@ export function parseAssignParams (params? : string) : IExpression[] | undefined
       }
     }
   }
+  if (values.length > 0 && values.some((item) => item.type === ParamNames.Identifier)) {
+    throw new SyntaxError('Wrong parameters')
+  }
   return values.length > 0 ? values : undefined
 }
 

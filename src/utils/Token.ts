@@ -51,10 +51,12 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : AllNodeTypes 
     case NodeNames.Attempt:
       parent.fallback ? parent.fallback.push(child) : parent.body.push(child)
       break
-    case NodeNames.MacroCall:
     case NodeNames.Assign:
     case NodeNames.Global:
     case NodeNames.Local:
+      // TODO: only when multiline
+      throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
+    case NodeNames.MacroCall:
       // TODO: only when multiline
       throw new NodeError(`addToChild(${parent.type}, ${child.type}) failed`, child)
     case NodeNames.Interpolation:
