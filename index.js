@@ -12,7 +12,6 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, start) {
@@ -22,7 +21,6 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -41,7 +39,6 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
-//# sourceMappingURL=Symbols.js.map
 
 var ECharCodes;
 (function (ECharCodes) {
@@ -132,7 +129,6 @@ const literals = {
     false: false,
     null: null,
 };
-//# sourceMappingURL=Chars.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -186,7 +182,6 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
-//# sourceMappingURL=Names.js.map
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -593,9 +588,8 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
-function cToken(type, start, end, text, params, isClose = false) {
+function cToken(type, start, end, text, isClose, params) {
     if (params) {
         const parser = new ParamsParser();
         return {
@@ -617,7 +611,6 @@ function cToken(type, start, end, text, params, isClose = false) {
         };
     }
 }
-//# sourceMappingURL=Params.js.map
 
 class Tokenizer {
     constructor() {
@@ -694,30 +687,23 @@ class Tokenizer {
                     this.cursorPos += token.startToken.length;
                     switch (token.type) {
                         case ENodeType.Comment:
-                            this.parseComment(start);
-                            return;
+                            return this.parseComment(start);
                         case ENodeType.Directive:
-                            this.parseDirective(start, Boolean(token.end));
-                            return;
+                            return this.parseDirective(start, Boolean(token.end));
                         case ENodeType.Macro:
-                            this.parseMacro(start, Boolean(token.end));
-                            return;
+                            return this.parseMacro(start, Boolean(token.end));
                         case ENodeType.Interpolation:
-                            this.parseInterpolation(start);
-                            return;
+                            return this.parseInterpolation(start);
                     }
                 }
             }
             text += this.charAt(this.cursorPos);
             ++this.cursorPos;
         }
-        if (text.length > 0) {
-            this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
-        }
-        return;
+        return this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
     }
     addToken(type, start, end, text, params, isClose = false) {
-        this.tokens.push(cToken(type, start, end, text, params, isClose));
+        this.tokens.push(cToken(type, start, end, text, isClose, params));
     }
     parseComment(start) {
         const end = this.getNextPos(['-->']);
@@ -794,7 +780,6 @@ class Tokenizer {
         return this.template.charCodeAt(i);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 function cAssign(start, end, params) {
     return { type: NodeNames.Assign, start, end, params };
@@ -847,7 +832,6 @@ function cSwitchDefault(start, end) {
 function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
-//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -1081,9 +1065,6 @@ class Parser {
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

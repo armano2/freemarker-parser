@@ -91,17 +91,13 @@ export class Tokenizer {
 
           switch (token.type) {
             case ENodeType.Comment: // <#-- foo -->
-              this.parseComment(start)
-              return
+              return this.parseComment(start)
             case ENodeType.Directive: // <#foo> | </#foo>
-              this.parseDirective(start, Boolean(token.end))
-              return
+              return this.parseDirective(start, Boolean(token.end))
             case ENodeType.Macro: // <@foo> | </@foo>
-              this.parseMacro(start, Boolean(token.end))
-              return
+              return this.parseMacro(start, Boolean(token.end))
             case ENodeType.Interpolation: // ${ foo?string }
-              this.parseInterpolation(start)
-              return
+              return this.parseInterpolation(start)
           }
         }
       }
@@ -109,15 +105,11 @@ export class Tokenizer {
       ++this.cursorPos
     }
 
-    if (text.length > 0) {
-      this.addToken(ENodeType.Text, startPos, this.cursorPos, text)
-    }
-
-    return
+    return this.addToken(ENodeType.Text, startPos, this.cursorPos, text)
   }
 
   private addToken (type : ENodeType, start : number, end : number, text : string, params? : string, isClose : boolean = false) {
-    this.tokens.push(cToken(type, start, end, text, params, isClose))
+    this.tokens.push(cToken(type, start, end, text, isClose, params))
   }
 
   private parseComment (start : number) {

@@ -156,6 +156,18 @@ describe('parsing text', function () {
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isText(tokens, 0, '<foo>')
   })
+  it('text after directive', function () {
+    const tokens = parse('<#foo>foo')
+    assert.equal(tokens.length, 2, 'Invalid amount of elements')
+    isDirective(tokens, 0, undefined, false)
+    isText(tokens, 1, 'foo')
+  })
+  it('text before directive', function () {
+    const tokens = parse('foo<#foo>')
+    assert.equal(tokens.length, 2, 'Invalid amount of elements')
+    isText(tokens, 0, 'foo')
+    isDirective(tokens, 1, undefined, false)
+  })
 })
 
 describe('errors', function () {
