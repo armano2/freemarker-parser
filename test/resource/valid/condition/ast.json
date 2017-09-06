@@ -7,39 +7,41 @@
       "type": "Assign",
       "start": 0,
       "end": 21,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "foo"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 2,
-              "raw": "2"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "foo"
             },
-            "prefix": true
-          },
-          {
-            "type": "Identifier",
-            "name": "bar"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 3,
-              "raw": "3"
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 2,
+                "raw": "2"
+              },
+              "prefix": true
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "Identifier",
+              "name": "bar"
+            },
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 3,
+                "raw": "3"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",

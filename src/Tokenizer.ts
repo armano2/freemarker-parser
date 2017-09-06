@@ -43,10 +43,11 @@ export class Tokenizer {
     let ch : number = this.charCodeAt(this.cursorPos)
 
     while (this.cursorPos < this.template.length) {
-      if (isWhitespace(ch) ||
-        ch === ECharCodes.GREATER_THAN ||
-        (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)
-      ) {
+      if (isWhitespace(ch)) {
+        ++this.cursorPos
+        break
+      }
+      if (ch === ECharCodes.GREATER_THAN || (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)) {
         break
       }
       if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {

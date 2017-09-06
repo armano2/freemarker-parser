@@ -43,24 +43,26 @@
       "type": "Assign",
       "start": 78,
       "end": 97,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "var"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
               "type": "Identifier",
-              "name": "value"
+              "name": "var"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Identifier",
+                "name": "value"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",

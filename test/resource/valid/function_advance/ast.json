@@ -37,25 +37,27 @@
           "type": "Local",
           "start": 35,
           "end": 51,
-          "params": {
-            "type": "Compound",
-            "body": [
-              {
-                "type": "Identifier",
-                "name": "sum"
-              },
-              {
-                "type": "UnaryExpression",
-                "operator": "=",
-                "argument": {
-                  "type": "Literal",
-                  "value": 0,
-                  "raw": "0"
+          "params": [
+            {
+              "type": "Compound",
+              "body": [
+                {
+                  "type": "Identifier",
+                  "name": "sum"
                 },
-                "prefix": true
-              }
-            ]
-          }
+                {
+                  "type": "UnaryExpression",
+                  "operator": "=",
+                  "argument": {
+                    "type": "Literal",
+                    "value": 0,
+                    "raw": "0"
+                  },
+                  "prefix": true
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "Text",
@@ -95,23 +97,25 @@
               "type": "Local",
               "start": 78,
               "end": 97,
-              "params": {
-                "type": "BinaryExpression",
-                "operator": "+",
-                "left": {
-                  "type": "Identifier",
-                  "name": "sum"
-                },
-                "right": {
-                  "type": "UnaryExpression",
-                  "operator": "=",
-                  "argument": {
+              "params": [
+                {
+                  "type": "BinaryExpression",
+                  "operator": "+",
+                  "left": {
                     "type": "Identifier",
-                    "name": "num"
+                    "name": "sum"
                   },
-                  "prefix": true
+                  "right": {
+                    "type": "UnaryExpression",
+                    "operator": "=",
+                    "argument": {
+                      "type": "Identifier",
+                      "name": "num"
+                    },
+                    "prefix": true
+                  }
                 }
-              }
+              ]
             },
             {
               "type": "Text",

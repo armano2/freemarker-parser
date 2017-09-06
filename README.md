@@ -28,6 +28,8 @@ This project contains experimental version of parser ftl to ast tree
       - `#case`
       - `#default`
     - `#break`
+    - `#function`
+      - `#return`
   - comments `<#-- -->`
 
 ## TODO:
@@ -46,14 +48,12 @@ This project contains experimental version of parser ftl to ast tree
     - `#escape`
       - `#noescape`
     - `#fallback`
-    - `#function`
     - `#flush`
     - `#import`
     - `#lt`
     - `#nested`
     - `#nt`
     - `#recurse`
-    - `#return`
     - `#rt`
     - `#setting`
     - `#stop`

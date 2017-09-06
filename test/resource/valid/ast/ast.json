@@ -7,81 +7,87 @@
       "type": "Assign",
       "start": 0,
       "end": 17,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 123,
-              "raw": "123"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "x"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 123,
+                "raw": "123"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Assign",
       "start": 17,
       "end": 40,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 123,
-              "raw": "123"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "x"
             },
-            "prefix": true
-          },
-          {
-            "type": "Identifier",
-            "name": "in"
-          },
-          {
-            "type": "Identifier",
-            "name": "ns"
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 123,
+                "raw": "123"
+              },
+              "prefix": true
+            },
+            {
+              "type": "Identifier",
+              "name": "in"
+            },
+            {
+              "type": "Identifier",
+              "name": "ns"
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Global",
       "start": 40,
       "end": 57,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 123,
-              "raw": "123"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "x"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 123,
+                "raw": "123"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",

@@ -13,24 +13,26 @@
       "type": "Assign",
       "start": 2,
       "end": 19,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "xs"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "ArrayExpression",
-              "elements": []
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "xs"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "ArrayExpression",
+                "elements": []
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",
@@ -93,25 +95,27 @@
       "type": "Assign",
       "start": 56,
       "end": 71,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 1,
-              "raw": "1"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "a"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",
@@ -123,25 +127,27 @@
       "type": "Assign",
       "start": 72,
       "end": 87,
-      "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "=",
-            "argument": {
-              "type": "Literal",
-              "value": 1,
-              "raw": "1"
+      "params": [
+        {
+          "type": "Compound",
+          "body": [
+            {
+              "type": "Identifier",
+              "name": "b"
             },
-            "prefix": true
-          }
-        ]
-      }
+            {
+              "type": "UnaryExpression",
+              "operator": "=",
+              "argument": {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+              },
+              "prefix": true
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "Text",
@@ -166,10 +172,6 @@
       "start": 118,
       "end": 124,
       "name": "c",
-      "params": {
-        "type": "Compound",
-        "body": []
-      },
       "body": []
     },
     {

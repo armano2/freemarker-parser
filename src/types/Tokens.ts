@@ -1,6 +1,5 @@
 import { NodeNames } from '../Names'
 import { ENodeType } from '../Symbols'
-import { IExpression } from './Params'
 
 export interface IDirectivesTypes {
   [n : string] : NodeNames
@@ -8,7 +7,7 @@ export interface IDirectivesTypes {
 
 export interface IToken extends ILoc {
   type : ENodeType
-  params? : IExpression
+  params? : string
   text : string
   isClose : boolean
 }

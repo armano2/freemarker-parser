@@ -12,6 +12,7 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
+//# sourceMappingURL=NodeError.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, start) {
@@ -21,6 +22,7 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
+//# sourceMappingURL=ParamError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -39,6 +41,7 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
+//# sourceMappingURL=Symbols.js.map
 
 var ECharCodes;
 (function (ECharCodes) {
@@ -129,6 +132,190 @@ const literals = {
     false: false,
     null: null,
 };
+//# sourceMappingURL=Chars.js.map
+
+function cToken(type, start, end, text, isClose, params) {
+    return {
+        type,
+        start,
+        end,
+        text,
+        params: params || undefined,
+        isClose,
+    };
+}
+
+class Tokenizer {
+    constructor() {
+        this.template = '';
+        this.tokens = [];
+        this.cursorPos = 0;
+    }
+    parse(template) {
+        this.template = template;
+        this.tokens = [];
+        this.cursorPos = 0;
+        while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
+            this.parseToken();
+        }
+        return this.tokens;
+    }
+    getNextPos(items) {
+        let pos = -1;
+        let text = '';
+        for (const item of items) {
+            const n = this.template.indexOf(item, this.cursorPos);
+            if (n >= 0 && (pos === -1 || n < pos)) {
+                pos = n;
+                text = item;
+            }
+        }
+        return { pos, text };
+    }
+    parseTag() {
+        let text = '';
+        let ch = this.charCodeAt(this.cursorPos);
+        while (this.cursorPos < this.template.length) {
+            if (isWhitespace(ch)) {
+                ++this.cursorPos;
+                break;
+            }
+            if (ch === ECharCodes.GREATER_THAN || (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)) {
+                break;
+            }
+            if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {
+                text += this.charAt(this.cursorPos);
+                ch = this.charCodeAt(++this.cursorPos);
+            }
+            else {
+                throw new ParamError(`Invalid \`${this.charAt(this.cursorPos)}\``, this.cursorPos);
+            }
+        }
+        return text;
+    }
+    getToken() {
+        let symbol = null;
+        let startPos = 0;
+        for (const item of symbols) {
+            const n = this.template.indexOf(item.startToken, this.cursorPos);
+            if (n >= 0 && (!symbol || n < startPos)) {
+                symbol = item;
+                startPos = n;
+            }
+        }
+        return symbol || null;
+    }
+    parseToken() {
+        let text = '';
+        const startPos = this.cursorPos;
+        let ch;
+        while (this.cursorPos < this.template.length) {
+            ch = this.charCodeAt(this.cursorPos);
+            if (ch === ECharCodes.LESS_THAN || ch === ECharCodes.DOLAR) {
+                const token = this.getToken();
+                if (token) {
+                    if (text.length > 0) {
+                        this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
+                        text = '';
+                    }
+                    const start = this.cursorPos;
+                    this.cursorPos += token.startToken.length;
+                    switch (token.type) {
+                        case ENodeType.Comment:
+                            return this.parseComment(start);
+                        case ENodeType.Directive:
+                            return this.parseDirective(start, Boolean(token.end));
+                        case ENodeType.Macro:
+                            return this.parseMacro(start, Boolean(token.end));
+                        case ENodeType.Interpolation:
+                            return this.parseInterpolation(start);
+                    }
+                }
+            }
+            text += this.charAt(this.cursorPos);
+            ++this.cursorPos;
+        }
+        return this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
+    }
+    addToken(type, start, end, text, params, isClose = false) {
+        this.tokens.push(cToken(type, start, end, text, isClose, params));
+    }
+    parseComment(start) {
+        const end = this.getNextPos(['-->']);
+        if (end.pos === -1) {
+            throw new ReferenceError(`Unclosed comment`);
+        }
+        const text = this.template.substring(this.cursorPos, end.pos);
+        this.cursorPos = end.pos + end.text.length;
+        this.addToken(ENodeType.Comment, start, this.cursorPos, text);
+    }
+    parseInterpolation(start) {
+        const params = this.parseParams(['}']);
+        this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
+    }
+    parseMacro(start, isClose) {
+        const typeString = this.parseTag();
+        if (typeString.length === 0) {
+            throw new ParamError('Macro name cannot be empty', this.cursorPos);
+        }
+        const params = this.parseParams(['>', '/>']);
+        this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
+    }
+    parseDirective(start, isClose) {
+        const typeString = this.parseTag();
+        if (typeString.length === 0) {
+            throw new ParamError('Directive name cannot be empty', this.cursorPos);
+        }
+        const params = this.parseParams(['>', '/>']);
+        this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, params, isClose);
+    }
+    parseParams(endTags) {
+        let paramText = '';
+        let bracketLevel = 0;
+        let inString = false;
+        while (this.cursorPos <= this.template.length) {
+            const ch = this.charCodeAt(this.cursorPos);
+            const char = this.charAt(this.cursorPos);
+            if (char === '"') {
+                inString = !inString;
+            }
+            if (!inString) {
+                if (ch === ECharCodes.OPAREN_CODE) {
+                    ++bracketLevel;
+                }
+                else if (ch === ECharCodes.CPAREN_CODE) {
+                    --bracketLevel;
+                }
+            }
+            if (bracketLevel < 0) {
+                throw new SyntaxError(`bracketLevel < 0`);
+            }
+            if (bracketLevel === 0 && !inString) {
+                const nextPos = this.getNextPos(endTags);
+                if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
+                    this.cursorPos += nextPos.text.length;
+                    return paramText;
+                }
+                else {
+                    paramText += char;
+                    ++this.cursorPos;
+                }
+            }
+            else {
+                paramText += char;
+                ++this.cursorPos;
+            }
+        }
+        throw new SyntaxError(`Unclosed directive or macro`);
+    }
+    charAt(i) {
+        return this.template.charAt(i);
+    }
+    charCodeAt(i) {
+        return this.template.charCodeAt(i);
+    }
+}
+//# sourceMappingURL=Tokenizer.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -186,6 +373,7 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
+//# sourceMappingURL=Names.js.map
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -592,231 +780,63 @@ class ParamsParser {
         };
     }
 }
+//# sourceMappingURL=ParamsParser.js.map
 
-function cToken(type, start, end, text, isClose, params) {
+function paramParser(params) {
     if (params) {
         const parser = new ParamsParser();
-        return {
-            type,
-            start,
-            end,
-            text,
-            params: parser.parse(params),
-            isClose,
-        };
+        return parser.parse(params);
     }
     else {
-        return {
-            type,
-            start,
-            end,
-            text,
-            isClose,
-        };
+        return undefined;
     }
 }
-
-class Tokenizer {
-    constructor() {
-        this.template = '';
-        this.tokens = [];
-        this.cursorPos = 0;
+function parseAssignParams(params) {
+    if (!params) {
+        return undefined;
     }
-    parse(template) {
-        this.template = template;
-        this.tokens = [];
-        this.cursorPos = 0;
-        while (this.cursorPos >= 0 && this.cursorPos < this.template.length) {
-            this.parseToken();
+    const values = [];
+    const pars = params.trim().split(/\s*[,\n\r]+\s*/);
+    for (const item of pars) {
+        const tm = paramParser(item);
+        if (tm) {
+            values.push(tm);
         }
-        return this.tokens;
     }
-    getNextPos(items) {
-        let pos = -1;
-        let text = '';
-        for (const item of items) {
-            const n = this.template.indexOf(item, this.cursorPos);
-            if (n >= 0 && (pos === -1 || n < pos)) {
-                pos = n;
-                text = item;
-            }
-        }
-        return { pos, text };
-    }
-    parseTag() {
-        let text = '';
-        let ch = this.charCodeAt(this.cursorPos);
-        while (this.cursorPos < this.template.length) {
-            if (isWhitespace(ch) ||
-                ch === ECharCodes.GREATER_THAN ||
-                (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)) {
-                break;
-            }
-            if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {
-                text += this.charAt(this.cursorPos);
-                ch = this.charCodeAt(++this.cursorPos);
-            }
-            else {
-                throw new ParamError(`Invalid \`${this.charAt(this.cursorPos)}\``, this.cursorPos);
-            }
-        }
-        return text;
-    }
-    getToken() {
-        let symbol = null;
-        let startPos = 0;
-        for (const item of symbols) {
-            const n = this.template.indexOf(item.startToken, this.cursorPos);
-            if (n >= 0 && (!symbol || n < startPos)) {
-                symbol = item;
-                startPos = n;
-            }
-        }
-        return symbol || null;
-    }
-    parseToken() {
-        let text = '';
-        const startPos = this.cursorPos;
-        let ch;
-        while (this.cursorPos < this.template.length) {
-            ch = this.charCodeAt(this.cursorPos);
-            if (ch === ECharCodes.LESS_THAN || ch === ECharCodes.DOLAR) {
-                const token = this.getToken();
-                if (token) {
-                    if (text.length > 0) {
-                        this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
-                        text = '';
-                    }
-                    const start = this.cursorPos;
-                    this.cursorPos += token.startToken.length;
-                    switch (token.type) {
-                        case ENodeType.Comment:
-                            return this.parseComment(start);
-                        case ENodeType.Directive:
-                            return this.parseDirective(start, Boolean(token.end));
-                        case ENodeType.Macro:
-                            return this.parseMacro(start, Boolean(token.end));
-                        case ENodeType.Interpolation:
-                            return this.parseInterpolation(start);
-                    }
-                }
-            }
-            text += this.charAt(this.cursorPos);
-            ++this.cursorPos;
-        }
-        return this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
-    }
-    addToken(type, start, end, text, params, isClose = false) {
-        this.tokens.push(cToken(type, start, end, text, isClose, params));
-    }
-    parseComment(start) {
-        const end = this.getNextPos(['-->']);
-        if (end.pos === -1) {
-            throw new ReferenceError(`Unclosed comment`);
-        }
-        const text = this.template.substring(this.cursorPos, end.pos);
-        this.cursorPos = end.pos + end.text.length;
-        this.addToken(ENodeType.Comment, start, this.cursorPos, text);
-    }
-    parseInterpolation(start) {
-        const params = this.parseParams(['}']);
-        this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
-    }
-    parseMacro(start, isClose) {
-        const typeString = this.parseTag();
-        if (typeString.length === 0) {
-            throw new ParamError('Macro name cannot be empty', this.cursorPos);
-        }
-        const params = this.parseParams(['>', '/>']);
-        this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
-    }
-    parseDirective(start, isClose) {
-        const typeString = this.parseTag();
-        if (typeString.length === 0) {
-            throw new ParamError('Directive name cannot be empty', this.cursorPos);
-        }
-        const params = this.parseParams(['>', '/>']);
-        this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, params, isClose);
-    }
-    parseParams(endTags) {
-        let paramText = '';
-        let bracketLevel = 0;
-        let inString = false;
-        while (this.cursorPos <= this.template.length) {
-            const ch = this.charCodeAt(this.cursorPos);
-            const char = this.charAt(this.cursorPos);
-            if (char === '"') {
-                inString = !inString;
-            }
-            if (!inString) {
-                if (ch === ECharCodes.OPAREN_CODE) {
-                    ++bracketLevel;
-                }
-                else if (ch === ECharCodes.CPAREN_CODE) {
-                    --bracketLevel;
-                }
-            }
-            if (bracketLevel < 0) {
-                throw new SyntaxError(`bracketLevel < 0`);
-            }
-            if (bracketLevel === 0 && !inString) {
-                const nextPos = this.getNextPos(endTags);
-                if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
-                    this.cursorPos += nextPos.text.length;
-                    return paramText;
-                }
-                else {
-                    paramText += char;
-                    ++this.cursorPos;
-                }
-            }
-            else {
-                paramText += char;
-                ++this.cursorPos;
-            }
-        }
-        throw new SyntaxError(`Unclosed directive or macro`);
-    }
-    charAt(i) {
-        return this.template.charAt(i);
-    }
-    charCodeAt(i) {
-        return this.template.charCodeAt(i);
-    }
+    return values.length > 0 ? values : undefined;
 }
-
 function cAssign(start, end, params) {
-    return { type: NodeNames.Assign, start, end, params };
+    return { type: NodeNames.Assign, start, end, params: parseAssignParams(params) };
 }
 function cGlobal(start, end, params) {
-    return { type: NodeNames.Global, start, end, params };
+    return { type: NodeNames.Global, start, end, params: parseAssignParams(params) };
+}
+function cLocal(start, end, params) {
+    return { type: NodeNames.Local, start, end, params: parseAssignParams(params) };
 }
 function cCondition(start, end, params) {
-    return { type: NodeNames.Condition, start, end, params, consequent: [] };
+    return { type: NodeNames.Condition, start, end, params: paramParser(params), consequent: [] };
 }
 function cList(start, end, params) {
-    return { type: NodeNames.List, start, end, params, body: [] };
+    return { type: NodeNames.List, start, end, params: paramParser(params), body: [] };
 }
 function cMacro(start, end, params) {
-    return { type: NodeNames.Macro, start, end, params, body: [] };
+    return { type: NodeNames.Macro, start, end, params: paramParser(params), body: [] };
 }
 function cProgram(start, end) {
     return { type: NodeNames.Program, start, end, body: [] };
 }
 function cMacroCall(name, start, end, params) {
-    return { type: NodeNames.MacroCall, start, end, name, params, body: [] };
+    return { type: NodeNames.MacroCall, start, end, name, params: paramParser(params), body: [] };
 }
 function cText(text, start, end) {
     return { type: NodeNames.Text, start, end, text };
 }
 function cInclude(start, end, params) {
-    return { type: NodeNames.Include, start, end, params };
+    return { type: NodeNames.Include, start, end, params: paramParser(params) };
 }
 function cInterpolation(start, end, params) {
-    return { type: NodeNames.Interpolation, start, end, params };
-}
-function cLocal(start, end, params) {
-    return { type: NodeNames.Local, start, end, params };
+    return { type: NodeNames.Interpolation, start, end, params: paramParser(params) };
 }
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, start, end, body: [] };
@@ -825,10 +845,10 @@ function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
 function cSwitch(start, end, params) {
-    return { type: NodeNames.Switch, start, end, params, cases: [] };
+    return { type: NodeNames.Switch, start, end, params: paramParser(params), cases: [] };
 }
 function cSwitchCase(start, end, params) {
-    return { type: NodeNames.SwitchCase, start, end, params, consequent: [] };
+    return { type: NodeNames.SwitchCase, start, end, params: paramParser(params), consequent: [] };
 }
 function cSwitchDefault(start, end) {
     return { type: NodeNames.SwitchDefault, start, end, consequent: [] };
@@ -837,11 +857,12 @@ function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
 function cFunction(start, end, params) {
-    return { type: NodeNames.Function, start, end, params, body: [] };
+    return { type: NodeNames.Function, start, end, params: paramParser(params), body: [] };
 }
 function cReturn(start, end, params) {
-    return { type: NodeNames.Return, start, end, params };
+    return { type: NodeNames.Return, start, end, params: paramParser(params) };
 }
+//# sourceMappingURL=Node.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -1037,6 +1058,7 @@ function isClosing(type, parentType, isClose) {
     }
     throw new ReferenceError(`isClosing(${type}) failed`);
 }
+//# sourceMappingURL=Token.js.map
 
 const errorMessages = {
     [EClosingType.No]: 'Unexpected close tag \`%s\`',
@@ -1083,6 +1105,9 @@ class Parser {
         return { ast, tokens };
     }
 }
+//# sourceMappingURL=Parser.js.map
+
+//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

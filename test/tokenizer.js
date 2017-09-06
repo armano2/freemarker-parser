@@ -10,16 +10,14 @@ function parse (text) {
 function isDirective (tokens, index, paramsType, isClose) {
   const token = tokens[index]
   assert.equal(token.type, 'Directive', `[${index}] Is not a directive`)
-  const paramType = token.params && token.params.type
-  assert.equal(paramType, paramsType, `[${index}] Found ${paramType && 'no params'} but expected ${paramsType}`)
+  assert.equal(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
 function isMacro (tokens, index, paramsType, isClose) {
   const token = tokens[index]
   assert.equal(token.type, 'Macro', `[${index}] Is not a macro`)
-  const paramType = token.params && token.params.type
-  assert.equal(paramType, paramsType, `[${index}] Found ${paramType && 'no params'} but expected ${paramsType}`)
+  assert.equal(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
@@ -74,14 +72,14 @@ describe('parsing directives', function () {
   it('with arguments', function () {
     const tokens = parse('<#foo bar>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Identifier', false)
+    isDirective(tokens, 0, 'bar', false)
   })
   it('many, with arguments', function () {
     const tokens = parse('<#foo bar><#foo bar test><#foo bar less>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'Identifier', false)
-    isDirective(tokens, 1, 'Compound', false)
-    isDirective(tokens, 2, 'Compound', false)
+    isDirective(tokens, 0, 'bar', false)
+    isDirective(tokens, 1, 'bar test', false)
+    isDirective(tokens, 2, 'bar less', false)
   })
 })
 
@@ -120,14 +118,14 @@ describe('parsing macros', function () {
   it('with arguments', function () {
     const tokens = parse('<@foo bar>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Identifier', false)
+    isMacro(tokens, 0, 'bar', false)
   })
   it('many, with arguments', function () {
     const tokens = parse('<@foo bar><@foo bar test><@foo bar less>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'Identifier', false)
-    isMacro(tokens, 1, 'Compound', false)
-    isMacro(tokens, 2, 'Compound', false)
+    isMacro(tokens, 0, 'bar', false)
+    isMacro(tokens, 1, 'bar test', false)
+    isMacro(tokens, 2, 'bar less', false)
   })
 })
 
