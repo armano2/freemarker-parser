@@ -1,5 +1,5 @@
 {
-  "name": "freemarker",
+  "name": "freemarker-parser",
   "version": "1.0.0",
   "description": "Freemarker Parser is a javascript implementation of the Freemarker",
   "scripts": {
@@ -23,6 +23,7 @@
   },
   "keywords": [
     "freemarker",
+    "parser",
     "js",
     "ast",
     "ftl"

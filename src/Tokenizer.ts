@@ -167,6 +167,7 @@ export class Tokenizer {
     while (this.cursorPos <= this.template.length) {
       const ch = this.charCodeAt(this.cursorPos)
       const char = this.charAt(this.cursorPos)
+      // TODO: fix me "${"${""}"}"
       if (char === '"') {
         inString = !inString
       }

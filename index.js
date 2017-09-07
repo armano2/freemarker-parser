@@ -179,6 +179,8 @@ const directives = {
     case: NodeNames.SwitchCase,
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
+    noparse: NodeNames.Text,
+    noParse: NodeNames.Text,
 };
 
 function isIBiopInfo(object) {

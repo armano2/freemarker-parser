@@ -90,4 +90,6 @@ export const directives : IDirectivesTypes = {
   break: NodeNames.Break,
   // t: 't',
   // visit: 'visit',
+  noparse: NodeNames.Text,
+  noParse: NodeNames.Text,
 }
