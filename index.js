@@ -10,7 +10,6 @@ class NodeError extends Error {
         Object.setPrototypeOf(this, NodeError.prototype);
     }
 }
-//# sourceMappingURL=NodeError.js.map
 
 class ParamError extends SyntaxError {
     constructor(message, start) {
@@ -20,7 +19,6 @@ class ParamError extends SyntaxError {
         Object.setPrototypeOf(this, ParamError.prototype);
     }
 }
-//# sourceMappingURL=ParamError.js.map
 
 var ENodeType;
 (function (ENodeType) {
@@ -39,7 +37,6 @@ const symbols = [
     { startToken: '<@', endToken: ['>', '/>'], type: ENodeType.Macro, end: false },
     { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
 ];
-//# sourceMappingURL=Symbols.js.map
 
 var ECharCodes;
 (function (ECharCodes) {
@@ -124,7 +121,6 @@ const literals = {
     false: false,
     null: null,
 };
-//# sourceMappingURL=Chars.js.map
 
 var NodeNames;
 (function (NodeNames) {
@@ -184,7 +180,6 @@ const directives = {
     default: NodeNames.SwitchDefault,
     break: NodeNames.Break,
 };
-//# sourceMappingURL=Names.js.map
 
 function isIBiopInfo(object) {
     return object && 'prec' in object;
@@ -591,7 +586,6 @@ class ParamsParser {
         };
     }
 }
-//# sourceMappingURL=ParamsParser.js.map
 
 function cIdentifier(name) {
     return { type: ParamNames.Identifier, name };
@@ -654,7 +648,6 @@ function paramParser(params) {
         return undefined;
     }
 }
-//# sourceMappingURL=Params.js.map
 
 function cAssign(start, end, paramsText) {
     const params = parseAssignParams(paramsText);
@@ -683,8 +676,9 @@ function cMacro(start, end, params) {
 function cProgram(start, end) {
     return { type: NodeNames.Program, start, end, body: [] };
 }
-function cMacroCall(name, start, end, params) {
-    return { type: NodeNames.MacroCall, start, end, name, params: paramParser(params), body: [] };
+function cMacroCall(name, start, end, endTag, params) {
+    const body = endTag === '/>' ? undefined : [];
+    return { type: NodeNames.MacroCall, start, end, name, params: paramParser(params), body };
 }
 function cText(text, start, end) {
     return { type: NodeNames.Text, start, end, text };
@@ -719,17 +713,18 @@ function cFunction(start, end, params) {
 function cReturn(start, end, params) {
     return { type: NodeNames.Return, start, end, params: paramParser(params) };
 }
-function cToken(type, start, end, text, isClose, params) {
+function cToken(type, start, end, text, isClose, startTag, endTag, params) {
     return {
         type,
         start,
         end,
+        startTag,
+        endTag,
         text,
         params: params || undefined,
         isClose,
     };
 }
-//# sourceMappingURL=Node.js.map
 
 class Tokenizer {
     constructor() {
@@ -808,13 +803,13 @@ class Tokenizer {
                     this.cursorPos += token.startToken.length;
                     switch (token.type) {
                         case ENodeType.Comment:
-                            return this.parseComment(start);
+                            return this.parseComment(token.startToken, token.endToken, start);
                         case ENodeType.Directive:
-                            return this.parseDirective(start, Boolean(token.end));
+                            return this.parseDirective(token.startToken, token.endToken, start, Boolean(token.end));
                         case ENodeType.Macro:
-                            return this.parseMacro(start, Boolean(token.end));
+                            return this.parseMacro(token.startToken, token.endToken, start, Boolean(token.end));
                         case ENodeType.Interpolation:
-                            return this.parseInterpolation(start);
+                            return this.parseInterpolation(token.startToken, token.endToken, start);
                     }
                 }
             }
@@ -823,37 +818,37 @@ class Tokenizer {
         }
         return this.addToken(ENodeType.Text, startPos, this.cursorPos, text);
     }
-    addToken(type, start, end, text, params, isClose = false) {
-        this.tokens.push(cToken(type, start, end, text, isClose, params));
+    addToken(type, start, end, text, startTag, endTag, params, isClose = false) {
+        this.tokens.push(cToken(type, start, end, text, isClose, startTag, endTag, params));
     }
-    parseComment(start) {
-        const end = this.getNextPos(['-->']);
+    parseComment(startToken, endTokens, start) {
+        const end = this.getNextPos(endTokens);
         if (end.pos === -1) {
             throw new ReferenceError(`Unclosed comment`);
         }
         const text = this.template.substring(this.cursorPos, end.pos);
         this.cursorPos = end.pos + end.text.length;
-        this.addToken(ENodeType.Comment, start, this.cursorPos, text);
+        this.addToken(ENodeType.Comment, start, this.cursorPos, text, startToken, end.text);
     }
-    parseInterpolation(start) {
-        const params = this.parseParams(['}']);
-        this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', params);
+    parseInterpolation(startToken, endTokens, start) {
+        const params = this.parseParams(endTokens);
+        this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', startToken, params.endToken, params.paramText);
     }
-    parseMacro(start, isClose) {
+    parseMacro(startToken, endTokens, start, isClose) {
         const typeString = this.parseTag();
         if (typeString.length === 0) {
             throw new ParamError('Macro name cannot be empty', this.cursorPos);
         }
-        const params = this.parseParams(['>', '/>']);
-        this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose);
+        const params = this.parseParams(endTokens);
+        this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, startToken, params.endToken, params.paramText, isClose);
     }
-    parseDirective(start, isClose) {
+    parseDirective(startToken, endTokens, start, isClose) {
         const typeString = this.parseTag();
         if (typeString.length === 0) {
             throw new ParamError('Directive name cannot be empty', this.cursorPos);
         }
-        const params = this.parseParams(['>', '/>']);
-        this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, params, isClose);
+        const params = this.parseParams(endTokens);
+        this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, startToken, params.endToken, params.paramText, isClose);
     }
     parseParams(endTags) {
         let paramText = '';
@@ -880,7 +875,7 @@ class Tokenizer {
                 const nextPos = this.getNextPos(endTags);
                 if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
                     this.cursorPos += nextPos.text.length;
-                    return paramText;
+                    return { paramText, endToken: nextPos.text };
                 }
                 else {
                     paramText += char;
@@ -901,7 +896,6 @@ class Tokenizer {
         return this.template.charCodeAt(i);
     }
 }
-//# sourceMappingURL=Tokenizer.js.map
 
 function addToNode(parent, child) {
     switch (parent.type) {
@@ -936,12 +930,12 @@ function addToNode(parent, child) {
         case NodeNames.Assign:
         case NodeNames.Global:
         case NodeNames.Local:
+        case NodeNames.MacroCall:
             if (parent.body) {
                 parent.body.push(child);
+                return;
             }
-            return;
-        case NodeNames.MacroCall:
-            throw new NodeError(`addToNode3(${parent.type}, ${child.type}) failed`, child);
+            break;
         case NodeNames.Interpolation:
         case NodeNames.Include:
         case NodeNames.Text:
@@ -1050,7 +1044,7 @@ function addNodeChild(parent, token) {
             node = cText(token.text, token.start, token.end);
             break;
         case NodeNames.MacroCall:
-            node = cMacroCall(token.text, token.start, token.end, token.params);
+            node = cMacroCall(token.text, token.start, token.end, token.endTag, token.params);
             break;
         case NodeNames.Comment:
             node = cComment(token.text, token.start, token.end);
@@ -1092,9 +1086,8 @@ function canAddChildren(node) {
         case NodeNames.Global:
         case NodeNames.Local:
         case NodeNames.Assign:
-            return Boolean(node.body);
         case NodeNames.MacroCall:
-            return false;
+            return Boolean(node.body);
     }
     return false;
 }
@@ -1113,6 +1106,9 @@ class Parser {
         for (token of tokens) {
             const tokenType = tokenToNodeType(token);
             if (token.isClose) {
+                if (token.params) {
+                    throw new NodeError(`Close tag '${token.type}' should not have params`, token);
+                }
                 if (parent.type !== tokenType) {
                     throw new NodeError(`Unexpected close tag '${token.type}'`, token);
                 }
@@ -1135,9 +1131,6 @@ class Parser {
         return { ast, tokens };
     }
 }
-//# sourceMappingURL=Parser.js.map
-
-//# sourceMappingURL=index.js.map
 
 exports.Parser = Parser;
 exports.Tokenizer = Tokenizer;

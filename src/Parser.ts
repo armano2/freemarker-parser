@@ -29,6 +29,9 @@ export class Parser {
       const tokenType = tokenToNodeType(token)
 
       if (token.isClose) {
+        if (token.params) {
+          throw new NodeError(`Close tag '${token.type}' should not have params`, token)
+        }
         if (parent.type !== tokenType) {
           throw new NodeError(`Unexpected close tag '${token.type}'`, token)
         }

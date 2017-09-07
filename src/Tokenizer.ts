@@ -9,6 +9,11 @@ interface INextPos {
   text : string
 }
 
+interface IParams {
+  paramText : string
+  endToken : string
+}
+
 export class Tokenizer {
   private template : string = ''
   private tokens : IToken[] = []
@@ -92,13 +97,13 @@ export class Tokenizer {
 
           switch (token.type) {
             case ENodeType.Comment: // <#-- foo -->
-              return this.parseComment(start)
+              return this.parseComment(token.startToken, token.endToken, start)
             case ENodeType.Directive: // <#foo> | </#foo>
-              return this.parseDirective(start, Boolean(token.end))
+              return this.parseDirective(token.startToken, token.endToken, start, Boolean(token.end))
             case ENodeType.Macro: // <@foo> | </@foo>
-              return this.parseMacro(start, Boolean(token.end))
+              return this.parseMacro(token.startToken, token.endToken, start, Boolean(token.end))
             case ENodeType.Interpolation: // ${ foo?string }
-              return this.parseInterpolation(start)
+              return this.parseInterpolation(token.startToken, token.endToken, start)
           }
         }
       }
@@ -109,52 +114,52 @@ export class Tokenizer {
     return this.addToken(ENodeType.Text, startPos, this.cursorPos, text)
   }
 
-  private addToken (type : ENodeType, start : number, end : number, text : string, params? : string, isClose : boolean = false) {
-    this.tokens.push(cToken(type, start, end, text, isClose, params))
+  private addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string, isClose : boolean = false) {
+    this.tokens.push(cToken(type, start, end, text, isClose, startTag, endTag, params))
   }
 
-  private parseComment (start : number) {
-    const end = this.getNextPos(['-->'])
+  private parseComment (startToken : string, endTokens : string[], start : number) {
+    const end = this.getNextPos(endTokens)
     if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`)
     }
     const text = this.template.substring(this.cursorPos, end.pos)
     this.cursorPos = end.pos + end.text.length
 
-    this.addToken(ENodeType.Comment, start, this.cursorPos, text)
+    this.addToken(ENodeType.Comment, start, this.cursorPos, text, startToken, end.text)
   }
 
-  private parseInterpolation (start : number) {
-    const params = this.parseParams(['}'])
-    this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', params)
+  private parseInterpolation (startToken : string, endTokens : string[], start : number) {
+    const params = this.parseParams(endTokens)
+    this.addToken(ENodeType.Interpolation, start, this.cursorPos, '', startToken, params.endToken, params.paramText)
   }
 
-  private parseMacro (start : number, isClose : boolean) {
+  private parseMacro (startToken : string, endTokens : string[], start : number, isClose : boolean) {
     const typeString = this.parseTag()
     if (typeString.length === 0) {
       throw new ParamError('Macro name cannot be empty', this.cursorPos)
     }
 
-    const params = this.parseParams(['>', '/>'])
-    this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, params, isClose)
+    const params = this.parseParams(endTokens)
+    this.addToken(ENodeType.Macro, start, this.cursorPos, typeString, startToken, params.endToken, params.paramText, isClose)
   }
 
-  private parseDirective (start : number, isClose : boolean) {
+  private parseDirective (startToken : string, endTokens : string[], start : number, isClose : boolean) {
     const typeString = this.parseTag()
     if (typeString.length === 0) {
       throw new ParamError('Directive name cannot be empty', this.cursorPos)
     }
 
-    const params = this.parseParams(['>', '/>'])
+    const params = this.parseParams(endTokens)
 
-    this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, params, isClose)
+    this.addToken(ENodeType.Directive, start, this.cursorPos, typeString, startToken, params.endToken, params.paramText, isClose)
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  private parseParams (endTags : string[]) : string {
+  private parseParams (endTags : string[]) : IParams {
     let paramText : string = ''
     let bracketLevel = 0
     let inString = false
@@ -182,7 +187,7 @@ export class Tokenizer {
         const nextPos = this.getNextPos(endTags)
         if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
           this.cursorPos += nextPos.text.length
-          return paramText
+          return { paramText, endToken: nextPos.text }
         } else {
           paramText += char
           ++this.cursorPos

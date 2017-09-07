@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 169,
+  "end": 147,
   "body": [
     {
       "type": "Text",
@@ -138,52 +138,60 @@
       "text": "\n\n"
     },
     {
-      "type": "Comment",
+      "type": "MacroCall",
       "start": 89,
-      "end": 116,
-      "text": "  <@b>\n    x\n</@b>  "
+      "end": 93,
+      "name": "b",
+      "body": [
+        {
+          "type": "Text",
+          "start": 93,
+          "end": 100,
+          "text": "\n    x\n"
+        }
+      ]
     },
     {
       "type": "Text",
-      "start": 116,
-      "end": 118,
+      "start": 105,
+      "end": 107,
       "text": "\n\n"
     },
     {
       "type": "MacroCall",
-      "start": 118,
-      "end": 124,
-      "name": "c",
+      "start": 107,
+      "end": 113,
+      "name": "c"
+    },
+    {
+      "type": "Text",
+      "start": 113,
+      "end": 115,
+      "text": "\n\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 115,
+      "end": 119,
+      "name": "d",
       "body": []
     },
     {
       "type": "Text",
       "start": 124,
-      "end": 126,
-      "text": "\n\n"
-    },
-    {
-      "type": "Comment",
-      "start": 126,
-      "end": 146,
-      "text": "  <@d></@d>  "
-    },
-    {
-      "type": "Text",
-      "start": 146,
-      "end": 150,
+      "end": 128,
       "text": "\n\na\n"
     },
     {
       "type": "Comment",
-      "start": 150,
-      "end": 166,
+      "start": 128,
+      "end": 144,
       "text": " comment "
     },
     {
       "type": "Text",
-      "start": 166,
-      "end": 169,
+      "start": 144,
+      "end": 147,
       "text": "\nb\n"
     }
   ]

@@ -2,4 +2,4 @@
   ${param}
 </#macro>
 
-<@foo "test">
+<@foo "test" />

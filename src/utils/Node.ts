@@ -58,8 +58,9 @@ export function cProgram (start : number, end : number) : IProgram {
   return { type : NodeNames.Program, start, end, body : [] }
 }
 
-export function cMacroCall (name : string, start : number, end : number, params? : string) : IMacroCall {
-  return { type : NodeNames.MacroCall, start, end, name, params: paramParser(params), body : [] }
+export function cMacroCall (name : string, start : number, end : number, endTag? : string, params? : string) : IMacroCall {
+  const body = endTag === '/>' ? undefined : []
+  return { type : NodeNames.MacroCall, start, end, name, params: paramParser(params), body }
 }
 
 export function cText (text : string, start : number, end : number) : IText {
@@ -106,11 +107,13 @@ export function cReturn (start : number, end : number, params? : string) : IRetu
   return { type : NodeNames.Return, start, end, params: paramParser(params) }
 }
 
-export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, params? : string) : IToken {
+export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, startTag? : string, endTag? : string, params? : string) : IToken {
   return {
     type,
     start,
     end,
+    startTag,
+    endTag,
     text,
     params: params || undefined,
     isClose,

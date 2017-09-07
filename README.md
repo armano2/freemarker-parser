@@ -10,7 +10,7 @@ This project contains experimental version of parser ftl to ast tree
 ## Currently supported:
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
-  - executing macro (only self closing `<@foo>`, `<@foo bar />`)
+  - executing macro
   - directives:
     - `#attempt`
       - `#recover`

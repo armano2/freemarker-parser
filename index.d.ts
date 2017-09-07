@@ -33,6 +33,8 @@ declare module 'freemarker-parser/types/Tokens' {
     }
     export interface IToken extends ILoc {
         type: ENodeType;
+        startTag?: string;
+        endTag?: string;
         params?: string;
         text: string;
         isClose: boolean;
@@ -88,14 +90,17 @@ declare module 'freemarker-parser/types/Node' {
     export interface IAssign extends INode {
         type: NodeNames.Assign;
         params?: IExpression[];
+        body?: INode[];
     }
     export interface IGlobal extends INode {
         type: NodeNames.Global;
         params?: IExpression[];
+        body?: INode[];
     }
     export interface ILocal extends INode {
         type: NodeNames.Local;
         params?: IExpression[];
+        body?: INode[];
     }
     export interface IInterpolation extends INode {
         type: NodeNames.Interpolation;

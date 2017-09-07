@@ -55,13 +55,12 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : void {
     case NodeNames.Assign:
     case NodeNames.Global:
     case NodeNames.Local:
+    case NodeNames.MacroCall:
       if (parent.body) {
         parent.body.push(child)
+        return
       }
-      return
-    case NodeNames.MacroCall:
-      // TODO: only when multiline
-      throw new NodeError(`addToNode3(${parent.type}, ${child.type}) failed`, child)
+      break
     case NodeNames.Interpolation:
     case NodeNames.Include:
     case NodeNames.Text:
@@ -171,7 +170,7 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       node = cText(token.text, token.start, token.end)
       break
     case NodeNames.MacroCall:
-      node = cMacroCall(token.text, token.start, token.end, token.params)
+      node = cMacroCall(token.text, token.start, token.end, token.endTag, token.params)
       break
     case NodeNames.Comment:
       node = cComment(token.text, token.start, token.end)
@@ -217,9 +216,8 @@ export function canAddChildren (node : AllNodeTypes) : boolean {
     case NodeNames.Global:
     case NodeNames.Local:
     case NodeNames.Assign:
-      return Boolean(node.body)
     case NodeNames.MacroCall:
-      return false // todo conditional
+      return Boolean(node.body)
   }
   return false
 }

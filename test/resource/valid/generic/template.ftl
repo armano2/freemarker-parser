@@ -9,4 +9,4 @@ ${foo}
   ${foo.bar?toString}
 </#if>
 
-<@macro foo "./include/test_include.ftl">
+<@macro foo "./include/test_include.ftl" />

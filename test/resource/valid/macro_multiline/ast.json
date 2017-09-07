@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 61,
+  "end": 68,
   "body": [
     {
       "type": "Macro",
@@ -60,13 +60,20 @@
         "value": "test",
         "raw": "\"test\""
       },
-      "body": []
+      "body": [
+        {
+          "type": "Text",
+          "start": 54,
+          "end": 60,
+          "text": "\ntest\n"
+        }
+      ]
     },
     {
       "type": "Text",
-      "start": 54,
-      "end": 61,
-      "text": "\n\ntest\n"
+      "start": 67,
+      "end": 68,
+      "text": "\n"
     }
   ]
 }
