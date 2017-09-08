@@ -7,6 +7,38 @@ Freemarker Parser is a javascript implementation of the Freemarker (http://freem
 
 This project contains experimental version of parser ftl to ast tree
 
+## Installation
+You can install `freemarker-parser` using [npm](https://npmjs.com):
+
+```bash
+$ npm install freemarker-parser --save-dev
+```
+
+## Usage
+Require `freemarker-parser` inside of your JavaScript:
+
+```js
+const freemarker = require("freemarker-parser");
+```
+
+### Parser
+```freemarker
+<#assign f=1>
+
+<#if f gt 0>
+  ${f} > 0
+<#else>
+  ${f} < 0
+</#if>
+```
+
+```js
+const parser = new freemarker.Parser()
+const astTree = parser.parse(template)
+
+console.log(astTree)
+```
+
 ## Currently supported:
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
