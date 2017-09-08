@@ -13,7 +13,7 @@ class NodeError extends Error {
 
 class ParamError extends SyntaxError {
     constructor(message, start) {
-        super(`${message} at character ${start}`);
+        super(message);
         this.description = message;
         this.start = start;
         Object.setPrototypeOf(this, ParamError.prototype);
@@ -63,6 +63,12 @@ var ECharCodes;
     ECharCodes[ECharCodes["OBRACE_CODE"] = 123] = "OBRACE_CODE";
     ECharCodes[ECharCodes["CBRACE_CODE"] = 125] = "CBRACE_CODE";
 })(ECharCodes || (ECharCodes = {}));
+const chrMatrix = {
+    [ECharCodes.DQUOTE_CODE]: ECharCodes.DQUOTE_CODE,
+    [ECharCodes.OPAREN_CODE]: ECharCodes.CPAREN_CODE,
+    [ECharCodes.OBRACE_CODE]: ECharCodes.CBRACK_CODE,
+    [ECharCodes.OBRACK_CODE]: ECharCodes.CBRACK_CODE,
+};
 const binaryOps = {
     '||': 1,
     '&&': 2,
@@ -592,15 +598,15 @@ class ParamsParser {
 function cIdentifier(name) {
     return { type: ParamNames.Identifier, name };
 }
-function parseAssignParams(params) {
+function parseAssignParams(start, end, params) {
     if (!params) {
-        throw new SyntaxError('Assign require params');
+        throw new NodeError('Assign require params', { start, end });
     }
     const values = [];
     const pars = params.trim().split(/\s*[,\n\r]+\s*/);
     for (const item of pars) {
         if (!item) {
-            throw new SyntaxError('Assign empty assign');
+            throw new NodeError('Assign empty assign', { start, end });
         }
         let match = item.match(/^([a-zA-Z\.]+)\s*((=|-=|\*=|\/=|%=|\+=)\s*(.*))?$/i);
         if (!match) {
@@ -614,7 +620,7 @@ function parseAssignParams(params) {
                 });
                 continue;
             }
-            throw new SyntaxError('Assign invalid character');
+            throw new NodeError('Assign invalid character', { start, end });
         }
         const operator = match[3];
         const data = match[4];
@@ -623,28 +629,33 @@ function parseAssignParams(params) {
                 type: ParamNames.AssignmentExpression,
                 operator,
                 left: cIdentifier(match[1]),
-                right: paramParser(data),
+                right: paramParser(start, end, data),
             });
         }
         else {
-            const parsee = paramParser(item);
+            const parsee = paramParser(start, end, item);
             if (parsee) {
                 values.push(parsee);
             }
             else {
-                throw new SyntaxError('Assign invalid character');
+                throw new NodeError('Assign invalid character', { start, end });
             }
         }
     }
     if (values.length > 1 && values.some((item) => item.type === ParamNames.Identifier)) {
-        throw new SyntaxError('Wrong parameters');
+        throw new NodeError('Wrong parameters', { start, end });
     }
     return values.length > 0 ? values : undefined;
 }
-function paramParser(params) {
+function paramParser(start, end, params) {
     if (params) {
         const parser = new ParamsParser();
-        return parser.parse(params);
+        try {
+            return parser.parse(params);
+        }
+        catch (e) {
+            throw new NodeError(e.message, { start: start + e.start, end });
+        }
     }
     else {
         return undefined;
@@ -652,44 +663,44 @@ function paramParser(params) {
 }
 
 function cAssign(start, end, paramsText) {
-    const params = parseAssignParams(paramsText);
+    const params = parseAssignParams(start, end, paramsText);
     const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
     return { type: NodeNames.Assign, start, end, params, body };
 }
 function cGlobal(start, end, paramsText) {
-    const params = parseAssignParams(paramsText);
+    const params = parseAssignParams(start, end, paramsText);
     const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
     return { type: NodeNames.Global, start, end, params, body };
 }
 function cLocal(start, end, paramsText) {
-    const params = parseAssignParams(paramsText);
+    const params = parseAssignParams(start, end, paramsText);
     const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined;
     return { type: NodeNames.Local, start, end, params, body };
 }
 function cCondition(start, end, params) {
-    return { type: NodeNames.Condition, start, end, params: paramParser(params), consequent: [] };
+    return { type: NodeNames.Condition, start, end, params: paramParser(start, end, params), consequent: [] };
 }
 function cList(start, end, params) {
-    return { type: NodeNames.List, start, end, params: paramParser(params), body: [] };
+    return { type: NodeNames.List, start, end, params: paramParser(start, end, params), body: [] };
 }
 function cMacro(start, end, params) {
-    return { type: NodeNames.Macro, start, end, params: paramParser(params), body: [] };
+    return { type: NodeNames.Macro, start, end, params: paramParser(start, end, params), body: [] };
 }
 function cProgram(start, end) {
     return { type: NodeNames.Program, start, end, body: [] };
 }
 function cMacroCall(name, start, end, endTag, params) {
     const body = endTag === '/>' ? undefined : [];
-    return { type: NodeNames.MacroCall, start, end, name, params: paramParser(params), body };
+    return { type: NodeNames.MacroCall, start, end, name, params: paramParser(start, end, params), body };
 }
 function cText(text, start, end) {
     return { type: NodeNames.Text, start, end, text };
 }
 function cInclude(start, end, params) {
-    return { type: NodeNames.Include, start, end, params: paramParser(params) };
+    return { type: NodeNames.Include, start, end, params: paramParser(start, end, params) };
 }
 function cInterpolation(start, end, params) {
-    return { type: NodeNames.Interpolation, start, end, params: paramParser(params) };
+    return { type: NodeNames.Interpolation, start, end, params: paramParser(start, end, params) };
 }
 function cAttempt(start, end) {
     return { type: NodeNames.Attempt, start, end, body: [] };
@@ -698,10 +709,10 @@ function cComment(text, start, end) {
     return { type: NodeNames.Comment, start, end, text };
 }
 function cSwitch(start, end, params) {
-    return { type: NodeNames.Switch, start, end, params: paramParser(params), cases: [] };
+    return { type: NodeNames.Switch, start, end, params: paramParser(start, end, params), cases: [] };
 }
 function cSwitchCase(start, end, params) {
-    return { type: NodeNames.SwitchCase, start, end, params: paramParser(params), consequent: [] };
+    return { type: NodeNames.SwitchCase, start, end, params: paramParser(start, end, params), consequent: [] };
 }
 function cSwitchDefault(start, end) {
     return { type: NodeNames.SwitchDefault, start, end, consequent: [] };
@@ -710,10 +721,10 @@ function cBreak(start, end) {
     return { type: NodeNames.Break, start, end };
 }
 function cFunction(start, end, params) {
-    return { type: NodeNames.Function, start, end, params: paramParser(params), body: [] };
+    return { type: NodeNames.Function, start, end, params: paramParser(start, end, params), body: [] };
 }
 function cReturn(start, end, params) {
-    return { type: NodeNames.Return, start, end, params: paramParser(params) };
+    return { type: NodeNames.Return, start, end, params: paramParser(start, end, params) };
 }
 function cToken(type, start, end, text, isClose, startTag, endTag, params) {
     return {
@@ -854,42 +865,61 @@ class Tokenizer {
     }
     parseParams(endTags) {
         let paramText = '';
-        let bracketLevel = 0;
-        let inString = false;
+        const start = this.cursorPos;
+        const stack = [];
+        let lastCode;
         while (this.cursorPos <= this.template.length) {
             const ch = this.charCodeAt(this.cursorPos);
-            const char = this.charAt(this.cursorPos);
-            if (char === '"') {
-                inString = !inString;
-            }
-            if (!inString) {
-                if (ch === ECharCodes.OPAREN_CODE) {
-                    ++bracketLevel;
+            if (lastCode !== ECharCodes.DQUOTE_CODE && lastCode !== ECharCodes.SQUOTE_CODE) {
+                switch (ch) {
+                    case ECharCodes.SQUOTE_CODE:
+                    case ECharCodes.DQUOTE_CODE:
+                    case ECharCodes.OPAREN_CODE:
+                    case ECharCodes.OBRACK_CODE:
+                        if (lastCode) {
+                            stack.push(lastCode);
+                        }
+                        lastCode = ch;
+                        break;
+                    case ECharCodes.CBRACK_CODE:
+                    case ECharCodes.CPAREN_CODE:
+                        if (!lastCode || ch !== chrMatrix[lastCode]) {
+                            throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.cursorPos });
+                        }
+                        lastCode = stack.pop();
+                        break;
                 }
-                else if (ch === ECharCodes.CPAREN_CODE) {
-                    --bracketLevel;
+            }
+            else {
+                switch (ch) {
+                    case ECharCodes.SQUOTE_CODE:
+                    case ECharCodes.DQUOTE_CODE:
+                        if (lastCode === ch) {
+                            lastCode = stack.pop();
+                        }
+                        break;
                 }
             }
-            if (bracketLevel < 0) {
-                throw new SyntaxError(`bracketLevel < 0`);
-            }
-            if (bracketLevel === 0 && !inString) {
+            if (!lastCode) {
                 const nextPos = this.getNextPos(endTags);
                 if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
                     this.cursorPos += nextPos.text.length;
                     return { paramText, endToken: nextPos.text };
                 }
                 else {
-                    paramText += char;
+                    paramText += this.charAt(this.cursorPos);
                     ++this.cursorPos;
                 }
             }
             else {
-                paramText += char;
+                paramText += this.charAt(this.cursorPos);
                 ++this.cursorPos;
             }
         }
-        throw new SyntaxError(`Unclosed directive or macro`);
+        if (lastCode) {
+            throw new NodeError(`Unclosed tag ${String.fromCharCode(lastCode)}`, { start, end: this.cursorPos });
+        }
+        throw new NodeError(`Unclosed directive or macro`, { start, end: this.cursorPos });
     }
     charAt(i) {
         return this.template.charAt(i);

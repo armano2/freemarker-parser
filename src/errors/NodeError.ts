@@ -1,7 +1,6 @@
 import { ILoc } from '../types/Tokens'
 
 export default class NodeError extends Error {
-  public nodeType : string
   public start : number
   public end : number
 

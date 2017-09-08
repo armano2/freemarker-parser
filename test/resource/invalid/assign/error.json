@@ -1,3 +1,11 @@
 {
-  "message": "Assign require params"
+  "message": "Assign require params",
+  "start": {
+    "line": 1,
+    "col": 1
+  },
+  "end": {
+    "line": 1,
+    "col": 10
+  }
 }

@@ -3,7 +3,7 @@ export default class ParamError extends SyntaxError {
   public description : string
 
   constructor (message : string, start : number) {
-    super(`${message} at character ${start}`)
+    super(message)
     this.description = message
     this.start = start
 

@@ -1,7 +1,8 @@
+import NodeError from './errors/NodeError'
 import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
-import { ECharCodes, isLetter, isWhitespace } from './utils/Chars'
+import { chrMatrix, ECharCodes, isLetter, isWhitespace } from './utils/Chars'
 import { cToken } from './utils/Node'
 
 interface INextPos {
@@ -161,44 +162,59 @@ export class Tokenizer {
   // like <#if foo.bar(x > 0)> works as expected.
   private parseParams (endTags : string[]) : IParams {
     let paramText : string = ''
-    let bracketLevel = 0
-    let inString = false
+    const start = this.cursorPos
+    const stack : number[] = []
+    let lastCode : number | undefined
 
     while (this.cursorPos <= this.template.length) {
       const ch = this.charCodeAt(this.cursorPos)
-      const char = this.charAt(this.cursorPos)
-      // TODO: fix me "${"${""}"}"
-      if (char === '"') {
-        inString = !inString
-      }
 
-      if (!inString) {
-        if (ch === ECharCodes.OPAREN_CODE) {
-          ++bracketLevel
-        } else if (ch === ECharCodes.CPAREN_CODE) {
-          --bracketLevel
+      if (lastCode !== ECharCodes.DQUOTE_CODE && lastCode !== ECharCodes.SQUOTE_CODE) {
+        switch (ch) {
+          case ECharCodes.SQUOTE_CODE: // '
+          case ECharCodes.DQUOTE_CODE: // "
+          case ECharCodes.OPAREN_CODE: // (
+          case ECharCodes.OBRACK_CODE: // [
+            if (lastCode) { stack.push(lastCode) }
+            lastCode = ch
+            break
+          case ECharCodes.CBRACK_CODE: // ]
+          case ECharCodes.CPAREN_CODE: // )
+            if (!lastCode || ch !== chrMatrix[lastCode]) {
+              throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.cursorPos})
+            }
+            lastCode = stack.pop()
+            break
+        }
+      } else {
+        switch (ch) {
+          case ECharCodes.SQUOTE_CODE: // '
+          case ECharCodes.DQUOTE_CODE: // "
+            if (lastCode === ch) {
+              lastCode = stack.pop()
+            }
+            break
         }
       }
 
-      if (bracketLevel < 0) {
-        throw new SyntaxError(`bracketLevel < 0`) // TODO: add more info like location
-      }
-
-      if (bracketLevel === 0 && !inString) {
+      if (!lastCode) {
         const nextPos = this.getNextPos(endTags)
         if (nextPos.pos !== -1 && this.cursorPos === nextPos.pos) {
           this.cursorPos += nextPos.text.length
           return { paramText, endToken: nextPos.text }
         } else {
-          paramText += char
+          paramText += this.charAt(this.cursorPos)
           ++this.cursorPos
         }
       } else {
-        paramText += char
+        paramText += this.charAt(this.cursorPos)
         ++this.cursorPos
       }
     }
-    throw new SyntaxError(`Unclosed directive or macro`) // TODO: add more info like location
+    if (lastCode) {
+      throw new NodeError(`Unclosed tag ${String.fromCharCode(lastCode)}`, { start, end: this.cursorPos})
+    }
+    throw new NodeError(`Unclosed directive or macro`, { start, end: this.cursorPos})
   }
 
   private charAt (i : number) : string {

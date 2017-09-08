@@ -1,3 +1,4 @@
+import NodeError from '../errors/NodeError'
 import { ParamNames } from '../Names'
 import { ParamsParser } from '../ParamsParser'
 import { AllParamTypes, IAssignmentExpression, IExpression, IIdentifier, IUpdateExpression } from '../types/Params'
@@ -6,16 +7,16 @@ function cIdentifier (name : string) : IIdentifier {
   return { type: ParamNames.Identifier, name }
 }
 
-export function parseAssignParams (params? : string) : IExpression[] | undefined {
+export function parseAssignParams (start : number, end : number, params? : string) : IExpression[] | undefined {
   if (!params) {
-    throw new SyntaxError('Assign require params')
+    throw new NodeError('Assign require params', { start, end })
   }
 
   const values : AllParamTypes[] = []
   const pars = params.trim().split(/\s*[,\n\r]+\s*/)
   for (const item of pars) {
     if (!item) {
-      throw new SyntaxError('Assign empty assign')
+      throw new NodeError('Assign empty assign', { start, end })
     }
     /* '=' '+=' '-=' '*=' '/=' '%=' */
     let match = item.match(/^([a-zA-Z\.]+)\s*((=|-=|\*=|\/=|%=|\+=)\s*(.*))?$/i)
@@ -30,7 +31,7 @@ export function parseAssignParams (params? : string) : IExpression[] | undefined
         } as IUpdateExpression)
         continue
       }
-      throw new SyntaxError('Assign invalid character')
+      throw new NodeError('Assign invalid character', { start, end })
     }
 
     const operator = match[3]
@@ -40,27 +41,31 @@ export function parseAssignParams (params? : string) : IExpression[] | undefined
         type: ParamNames.AssignmentExpression,
         operator,
         left: cIdentifier(match[1]),
-        right: paramParser(data),
+        right: paramParser(start, end, data),
       } as IAssignmentExpression)
     } else {
-      const parsee = paramParser(item)
+      const parsee = paramParser(start, end, item)
       if (parsee) {
         values.push(parsee)
       } else {
-        throw new SyntaxError('Assign invalid character')
+        throw new NodeError('Assign invalid character', { start, end })
       }
     }
   }
   if (values.length > 1 && values.some((item) => item.type === ParamNames.Identifier)) {
-    throw new SyntaxError('Wrong parameters')
+    throw new NodeError('Wrong parameters', { start, end })
   }
   return values.length > 0 ? values : undefined
 }
 
-export function paramParser (params? : string) : AllParamTypes | undefined {
+export function paramParser (start : number, end : number, params? : string) : AllParamTypes | undefined {
   if (params) {
     const parser = new ParamsParser()
+    try {
     return parser.parse(params)
+    } catch (e) {
+      throw new NodeError(e.message, { start: start + e.start, end })
+    }
   } else {
     return undefined
   }

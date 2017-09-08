@@ -1,0 +1,3 @@
+<#assign foo bar>
+
+</#assign>

@@ -25,33 +25,33 @@ import { IToken } from '../types/Tokens'
 import { paramParser, parseAssignParams } from './Params'
 
 export function cAssign (start : number, end : number, paramsText? : string) : IAssign {
-  const params = parseAssignParams(paramsText)
+  const params = parseAssignParams(start, end, paramsText)
   const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
   return { type : NodeNames.Assign, start, end, params, body }
 }
 
 export function cGlobal (start : number, end : number, paramsText? : string) : IGlobal {
-  const params = parseAssignParams(paramsText)
+  const params = parseAssignParams(start, end, paramsText)
   const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
   return { type : NodeNames.Global, start, end, params, body }
 }
 
 export function cLocal (start : number, end : number, paramsText? : string) : ILocal {
-  const params = parseAssignParams(paramsText)
+  const params = parseAssignParams(start, end, paramsText)
   const body = params && params.length === 1 && params[0].type === ParamNames.Identifier ? [] : undefined
   return { type : NodeNames.Local, start, end, params, body }
 }
 
 export function cCondition (start : number, end : number, params? : string) : ICondition {
-  return { type : NodeNames.Condition, start, end, params: paramParser(params), consequent: [] }
+  return { type : NodeNames.Condition, start, end, params: paramParser(start, end, params), consequent: [] }
 }
 
 export function cList (start : number, end : number, params? : string) : IList {
-  return { type : NodeNames.List, start, end, params: paramParser(params), body : [] }
+  return { type : NodeNames.List, start, end, params: paramParser(start, end, params), body : [] }
 }
 
 export function cMacro (start : number, end : number, params? : string) : IMacro {
-  return { type : NodeNames.Macro, start, end, params: paramParser(params), body : [] }
+  return { type : NodeNames.Macro, start, end, params: paramParser(start, end, params), body : [] }
 }
 
 export function cProgram (start : number, end : number) : IProgram {
@@ -60,7 +60,7 @@ export function cProgram (start : number, end : number) : IProgram {
 
 export function cMacroCall (name : string, start : number, end : number, endTag? : string, params? : string) : IMacroCall {
   const body = endTag === '/>' ? undefined : []
-  return { type : NodeNames.MacroCall, start, end, name, params: paramParser(params), body }
+  return { type : NodeNames.MacroCall, start, end, name, params: paramParser(start, end, params), body }
 }
 
 export function cText (text : string, start : number, end : number) : IText {
@@ -68,11 +68,11 @@ export function cText (text : string, start : number, end : number) : IText {
 }
 
 export function cInclude (start : number, end : number, params? : string) : IInclude {
-  return { type : NodeNames.Include, start, end, params: paramParser(params) }
+  return { type : NodeNames.Include, start, end, params: paramParser(start, end, params) }
 }
 
 export function cInterpolation (start : number, end : number, params? : string) : IInterpolation {
-  return { type : NodeNames.Interpolation, start, end, params: paramParser(params) }
+  return { type : NodeNames.Interpolation, start, end, params: paramParser(start, end, params) }
 }
 
 export function cAttempt (start : number, end : number) : IAttempt {
@@ -84,11 +84,11 @@ export function cComment (text : string, start : number, end : number) : ICommen
 }
 
 export function cSwitch (start : number, end : number, params? : string) : ISwitch {
-  return { type : NodeNames.Switch, start, end, params: paramParser(params), cases: [] }
+  return { type : NodeNames.Switch, start, end, params: paramParser(start, end, params), cases: [] }
 }
 
 export function cSwitchCase (start : number, end : number, params? : string) : ISwitchCase {
-  return { type : NodeNames.SwitchCase, start, end, params: paramParser(params), consequent: [] }
+  return { type : NodeNames.SwitchCase, start, end, params: paramParser(start, end, params), consequent: [] }
 }
 
 export function cSwitchDefault (start : number, end : number) : ISwitchDefault {
@@ -100,11 +100,11 @@ export function cBreak (start : number, end : number) : IBreak {
 }
 
 export function cFunction (start : number, end : number, params? : string) : IFunction {
-  return { type : NodeNames.Function, start, end, params: paramParser(params), body: [] }
+  return { type : NodeNames.Function, start, end, params: paramParser(start, end, params), body: [] }
 }
 
 export function cReturn (start : number, end : number, params? : string) : IReturn {
-  return { type : NodeNames.Return, start, end, params: paramParser(params) }
+  return { type : NodeNames.Return, start, end, params: paramParser(start, end, params) }
 }
 
 export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, startTag? : string, endTag? : string, params? : string) : IToken {

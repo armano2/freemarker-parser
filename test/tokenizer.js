@@ -174,13 +174,13 @@ describe('errors', function () {
       parse('<#foo foo)>')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'bracketLevel < 0', 'error message is invalid')
+      assert.equal(e.message, 'To many close tags )', 'error message is invalid')
     }
     try {
       parse('<#foo foo(>')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
+      assert.equal(e.message, 'Unclosed tag (', 'error message is invalid')
     }
   })
   it('unclosed comment', function () {
@@ -196,7 +196,8 @@ describe('errors', function () {
       parse('<#')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Directive name cannot be empty at character 2', 'error message is invalid')
+      assert.equal(e.message, 'Directive name cannot be empty', 'error message is invalid')
+      assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
   it('missing close tag in macro', function () {
@@ -204,7 +205,8 @@ describe('errors', function () {
       parse('<@')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Macro name cannot be empty at character 2', 'error message is invalid')
+      assert.equal(e.message, 'Macro name cannot be empty', 'error message is invalid')
+      assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
   it('invalid character in macro name', function () {
@@ -212,7 +214,8 @@ describe('errors', function () {
       parse('<@?')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Invalid `?` at character 2', 'error message is invalid')
+      assert.equal(e.message, 'Invalid `?`', 'error message is invalid')
+      assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
   it('invalid character in directive name', function () {
@@ -220,7 +223,54 @@ describe('errors', function () {
       parse('<@&')
       assert.fail('should fail')
     } catch (e) {
-      assert.equal(e.message, 'Invalid `&` at character 2', 'error message is invalid')
+      assert.equal(e.message, 'Invalid `&`', 'error message is invalid')
+      assert.equal(e.start, 2, 'start pos is invalid')
+    }
+  })
+})
+
+describe('error_expresion', function () {
+  it('to many close tags ]', function () {
+    try {
+      parse('<@foo a["foo"]]')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'To many close tags ]', 'error message is invalid')
+    }
+  })
+  it('to many close tags )', function () {
+    try {
+      parse('<@foo a("foo"))')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'To many close tags )', 'error message is invalid')
+    }
+  })
+})
+
+describe('unclosed', function () {
+  it('directive', function () {
+    try {
+      parse('<#foo')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
+    }
+  })
+  it('macro', function () {
+    try {
+      parse('<@foo')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
+    }
+  })
+  it('interpolation', function () {
+    try {
+      parse('${ foo')
+      assert.fail('should fail')
+    } catch (e) {
+      assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
     }
   })
 })
