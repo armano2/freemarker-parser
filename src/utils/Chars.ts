@@ -54,7 +54,7 @@ export function closeChar (ch : number) : ECharCodes {
     case ECharCodes.OPAREN_CODE:
       return ECharCodes.CPAREN_CODE
     case ECharCodes.OBRACE_CODE:
-      return ECharCodes.CBRACK_CODE
+      return ECharCodes.CBRACE_CODE
     case ECharCodes.OBRACK_CODE:
       return ECharCodes.CBRACK_CODE
   }
