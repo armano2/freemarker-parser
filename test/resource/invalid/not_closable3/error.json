@@ -1,8 +1,7 @@
 {
   "message": "Unclosed tag (",
   "start": {
-    "line": 1,
-    "col": 7
-  },
-  "end": null
+    "line": 0,
+    "column": 6
+  }
 }

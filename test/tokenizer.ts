@@ -1,27 +1,29 @@
-const freemarker = require('../index')
-const assert = require('assert')
+import * as assert from 'assert'
 
-const tokenizer = new freemarker.Tokenizer()
+import { Tokenizer } from '../src/index'
+import { IToken } from '../src/types/Tokens';
 
-function parse (text) {
+const tokenizer = new Tokenizer()
+
+function parse (text : string) : IToken[] {
   return tokenizer.parse(text)
 }
 
-function isDirective (tokens, index, paramsType, isClose) {
+function isDirective (tokens : IToken[], index : number, paramsType : string | undefined, isClose : boolean) : void {
   const token = tokens[index]
   assert.equal(token.type, 'Directive', `[${index}] Is not a directive`)
   assert.equal(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
-function isMacro (tokens, index, paramsType, isClose) {
+function isMacro (tokens : IToken[], index : number, paramsType : string | undefined, isClose: boolean) : void {
   const token = tokens[index]
   assert.equal(token.type, 'Macro', `[${index}] Is not a macro`)
   assert.equal(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
-function isText (tokens, index, text) {
+function isText (tokens : IToken[], index : number, text : string) : void {
   const token = tokens[index]
   assert.equal(token.type, 'Text', `[${index}] Is not a text`)
   assert.equal(token.params, undefined, `[${index}] Found not expected params`)
@@ -29,7 +31,7 @@ function isText (tokens, index, text) {
   assert.equal(token.text, text, `[${index}] text do not match`)
 }
 
-function isComment (tokens, index, text) {
+function isComment (tokens : IToken[], index : number, text : string) : void {
   const token = tokens[index]
   assert.equal(token.type, 'Comment', `[${index}] Is not a comment`)
   assert.equal(token.params, undefined, `[${index}] Found not expected params`)

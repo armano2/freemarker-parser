@@ -12,11 +12,10 @@
         "declaration": true,
         "diagnostics": true,
         "forceConsistentCasingInFileNames": true,
-        "inlineSources": true,
         "lib": [
             "es2015"
         ],
-        "module": "es2015",
+        "module": "commonjs",
         "moduleResolution": "node",
         "newLine": "LF",
         "noEmitOnError": true,
@@ -26,14 +25,16 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "outDir": ".temp",
+        "outDir": "dist/",
         "paths": {
-            "*": ["typings/*"]
+            "*": [
+                "typings/*.d.ts"
+            ]
         },
-        "pretty": true,
-        "removeComments": true,
         "sourceMap": true,
         "sourceRoot": "src",
+        "pretty": true,
+        "removeComments": true,
         "strict": true,
         "strictNullChecks": true,
         "target": "es2015"

@@ -3,19 +3,15 @@
   "version": "1.0.1",
   "description": "Freemarker Parser is a javascript implementation of the Freemarker",
   "scripts": {
-    "build": "npm run lint && tsc && rollup -c && dts-bundle --name freemarker-parser --main .temp/index.d.ts --out ../index.d.ts",
-    "mocha": "mocha \"test/*.js\" --reporter=dot --timeout 5000",
-    "lcov": "nyc report --reporter=lcovonly",
-    "lint": "eslint ./test && tslint './src/**/*.ts'",
+    "build": "npm run lint & tsc",
     "pretest": "npm run build",
-    "test": "nyc npm run mocha",
-    "posttest": "npm run lcov && codecov -f coverage/*.info",
+    "mocha": "nyc mocha \"test/*.ts\"",
+    "test": "npm run mocha",
+    "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
+    "lint": "tslint './src/**/*.ts'",
     "update-ast": "node ./scripts/update-ast.js",
-    "watch": "run-p watch:*",
-    "watch:tsc": "tsc --watch",
-    "watch:rollup": "wait-on .temp/index.js && rollup -c --watch",
-    "watch-test": "wait-on index.js && warun index.js \"test/*.js\" \"test/**/*.ftl\" -- npm run mocha",
-    "coverage": "nyc npm run mocha && nyc report --reporter lcov"
+    "watch": "tsc --watch",
+    "coverage": "npm run mocha && nyc report --reporter html"
   },
   "repository": {
     "type": "git",
@@ -44,33 +40,35 @@
   ],
   "homepage": "https://github.com/armano2/freemarker-parser#readme",
   "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.0.26",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.0",
     "assert": "^1.4.1",
-    "chalk": "^2.1.0",
-    "codecov": "^2.3.0",
-    "dts-bundle": "^0.7.3",
-    "eslint": "^4.5.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-mocha": "^4.11.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^3.5.0",
-    "npm-run-all": "^4.1.1",
-    "nyc": "^11.1.0",
-    "rollup": "^0.49.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-watch": "^4.3.1",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.2",
-    "wait-on": "^2.0.2",
-    "warun": "^1.0.0"
+    "chalk": "^2.4.1",
+    "codecov": "^3.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "source-map-support": "^0.5.9",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.3"
   },
   "dependencies": {
-    "debug": "^3.0.1",
-    "line-column": "^1.0.2"
+    "debug": "^4.1.0",
+    "lines-and-columns": "^1.1.6"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.js",
+      "test/**/*"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }

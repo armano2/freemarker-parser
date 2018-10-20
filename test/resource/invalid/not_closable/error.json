@@ -1,11 +1,11 @@
 {
   "message": "Unexpected close tag 'Directive'",
   "start": {
-    "line": 2,
-    "col": 3
+    "line": 1,
+    "column": 2
   },
   "end": {
-    "line": 2,
-    "col": 11
+    "line": 1,
+    "column": 10
   }
 }

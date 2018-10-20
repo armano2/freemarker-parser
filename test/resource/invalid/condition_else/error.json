@@ -1,11 +1,11 @@
 {
   "message": "addNodeChild(Condition, ConditionElse) is not supported",
   "start": {
-    "line": 3,
-    "col": 3
+    "line": 2,
+    "column": 2
   },
   "end": {
-    "line": 3,
-    "col": 12
+    "line": 2,
+    "column": 11
   }
 }

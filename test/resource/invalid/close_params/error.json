@@ -1,11 +1,11 @@
 {
   "message": "Close tag 'Directive' should not have params",
   "start": {
-    "line": 3,
-    "col": 1
+    "line": 2,
+    "column": 0
   },
   "end": {
-    "line": 3,
-    "col": 16
+    "line": 2,
+    "column": 15
   }
 }

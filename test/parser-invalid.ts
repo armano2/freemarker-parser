@@ -1,23 +1,31 @@
-const freemarker = require('../index')
-const fs = require('fs')
-const path = require('path')
-const assert = require('assert')
-const lineColumn = require('line-column')
+import * as fs from 'fs'
+import * as path from 'path'
+import * as assert from 'assert'
+import LinesAndColumns, { SourceLocation } from 'lines-and-columns'
 
-const parser = new freemarker.Parser()
+import { Parser } from '../src/index'
+import NodeError from '../src/errors/NodeError';
+
+interface TestError {
+  message: string
+  start?: SourceLocation
+  end?: SourceLocation
+}
+
+const parser = new Parser()
 
 const testsPath = path.join(__dirname, '/resource/invalid/')
 const tests = fs.readdirSync(testsPath)
   .filter(f => fs.statSync(path.join(testsPath, f)).isDirectory())
 
-function stringify (text) {
+function stringify (text : TestError) {
   return JSON.stringify(text, null, 2)
 }
 
 for (const name of tests) {
   describe(name, function () {
     const dir = path.join(testsPath, name)
-    let errors = {}
+    let errors = {} as TestError
     const file = path.join(dir, 'template.ftl')
 
     it('should have error', function () {
@@ -27,8 +35,12 @@ for (const name of tests) {
         assert.fail('This test should have an error')
       } catch (e) {
         errors = { message: e.message }
-        if ('start' in e) { errors.start = lineColumn(template).fromIndex(e.start) }
-        if ('end' in e) { errors.end = lineColumn(template).fromIndex(e.end) }
+
+        if (e instanceof NodeError) {
+          const line = new LinesAndColumns(template)
+          errors.start = line.locationForIndex(e.start) || undefined
+          errors.end = line.locationForIndex(e.end) || undefined
+        }
       }
     })
     it('should have valid error', function () {

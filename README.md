@@ -1,8 +1,8 @@
 # freemarker-parser
 
-[![Build Status](https://travis-ci.org/armano2/freemarker-parser.svg?branch=master)](https://travis-ci.org/armano2/freemarker-parser)
+[![CircleCI](https://circleci.com/gh/armano2/freemarker-parser/tree/master.svg?style=svg)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
 [![Coverage Status](https://codecov.io/gh/armano2/freemarker-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/armano2/freemarker-parser)
-[![Dependency Status](https://www.versioneye.com/user/projects/59b700720fb24f00439e5924/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59b700720fb24f00439e5924)
+[![Greenkeeper badge](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://greenkeeper.io/)
 
 Freemarker Parser is a javascript implementation of the Freemarker (http://freemarker.sourceforge.com).
 
