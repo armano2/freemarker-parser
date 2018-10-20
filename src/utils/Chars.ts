@@ -1,3 +1,5 @@
+import ECharCodes from '../enum/CharCodes'
+
 export interface IBinaryOperators {
   [n : string] : number
 }
@@ -8,31 +10,6 @@ export interface IUnaryOperators {
 
 export interface ILiteralOperators {
   [n : string] : true | false | null
-}
-
-export enum ECharCodes {
-  TAB = 9, // (tab)
-  LINE_FEED = 10, // \n
-  CARRIAGE_RETURN = 13, // \r
-  SPACE = 32, // (space)
-  HASH = 35, // #
-  DOLAR = 36, // $
-  PERIOD_CODE = 46, // '.'
-  SLASH = 47, // /
-  COMMA_CODE = 44, // ','
-  HYPHEN = 45, // -
-  SQUOTE_CODE = 39, // single quote
-  DQUOTE_CODE = 34, // double quotes
-  OPAREN_CODE = 40, // (
-  CPAREN_CODE = 41, // )
-  OBRACK_CODE = 91, // [
-  CBRACK_CODE = 93, // ]
-  SEMCOL_CODE = 59, // ;
-  LESS_THAN = 60, // <
-  GREATER_THAN = 62, // >
-  AT_SYMBOL = 64, // @
-  OBRACE_CODE = 123, // {
-  CBRACE_CODE = 125, // }
 }
 
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
@@ -49,37 +26,37 @@ export const binaryOps : IBinaryOperators = {
 
 export function closeChar (ch : number) : ECharCodes {
   switch (ch) {
-    case ECharCodes.DQUOTE_CODE:
-      return ECharCodes.DQUOTE_CODE
-    case ECharCodes.OPAREN_CODE:
-      return ECharCodes.CPAREN_CODE
-    case ECharCodes.OBRACE_CODE:
-      return ECharCodes.CBRACE_CODE
-    case ECharCodes.OBRACK_CODE:
-      return ECharCodes.CBRACK_CODE
+    case ECharCodes.DoubleQuote:
+      return ECharCodes.DoubleQuote
+    case ECharCodes.OpenParenthesis:
+      return ECharCodes.CloseParenthesis
+    case ECharCodes.OpenBrace:
+      return ECharCodes.CloseBrace
+    case ECharCodes.OpenBracket:
+      return ECharCodes.CloseBracket
   }
 
   throw new Error(`Unknow close tag ${ch}`)
 }
 
 export function isDecimalDigit (ch : number) : boolean {
-  return ch >= 48 && ch <= 57 // 0...9
+  return ch >= ECharCodes._0 && ch <= ECharCodes._9 // 0...9
 }
 
 export function isLetter (ch : number) : boolean {
-  return (ch >= 65 && ch <= 90) || // a...z
-  (ch >= 97 && ch <= 122) // A...Z
+  return (ch >= ECharCodes.a && ch <= ECharCodes.z) || // a...z
+  (ch >= ECharCodes.A && ch <= ECharCodes.Z) // A...Z
 }
 
 export function isWhitespace (ch : number) : boolean {
-  return ch === ECharCodes.SPACE || ch === ECharCodes.TAB || ch === ECharCodes.CARRIAGE_RETURN || ch === ECharCodes.LINE_FEED
+  return ch === ECharCodes.Space || ch === ECharCodes.Tab || ch === ECharCodes.CarriageReturn || ch === ECharCodes.LineFeed
 }
 
 // any non-ASCII that is not an operator
 export function isIdentifierStart (ch : number) : boolean {
   return (
     isLetter(ch) ||
-    (ch === 36) || (ch === 95) || // `$` and `_`
+    (ch === ECharCodes.$) || (ch === ECharCodes.Underscore) || // `$` and `_`
     ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }
@@ -89,7 +66,7 @@ export function isIdentifierPart (ch : number) : boolean {
   return (
     isLetter(ch) ||
     isDecimalDigit(ch) ||
-    (ch === 36) || (ch === 95) || // `$` and `_`
+    (ch === ECharCodes.$) || (ch === ECharCodes.Underscore) || // `$` and `_`
     ch >= 128
   ) && !binaryOps[String.fromCharCode(ch)]
 }

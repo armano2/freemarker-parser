@@ -1,8 +1,9 @@
+import ECharCodes from './enum/CharCodes'
 import NodeError from './errors/NodeError'
 import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
-import { closeChar, ECharCodes, isLetter, isWhitespace } from './utils/Chars'
+import { closeChar, isLetter, isWhitespace } from './utils/Chars'
 import { cToken } from './utils/Node'
 
 interface INextPos {
@@ -53,10 +54,10 @@ export class Tokenizer {
         ++this.cursorPos
         break
       }
-      if (ch === ECharCodes.GREATER_THAN || (ch === ECharCodes.SLASH && this.charCodeAt(this.cursorPos + 1) === ECharCodes.GREATER_THAN)) {
+      if (ch === ECharCodes.Greater || (ch === ECharCodes.Slash && this.charCodeAt(this.cursorPos + 1) === ECharCodes.Greater)) {
         break
       }
-      if (isLetter(ch) || ch === ECharCodes.PERIOD_CODE) {
+      if (isLetter(ch) || ch === ECharCodes.Period) {
         text += this.charAt(this.cursorPos)
         ch = this.charCodeAt(++this.cursorPos)
       } else {
@@ -85,7 +86,7 @@ export class Tokenizer {
     let ch : number
     while (this.cursorPos < this.template.length) {
       ch = this.charCodeAt(this.cursorPos)
-      if (ch === ECharCodes.LESS_THAN || ch === ECharCodes.DOLAR) { // <
+      if (ch === ECharCodes.Less || ch === ECharCodes.$) { // <
         const token = this.getToken()
         if (token) {
           if (text.length > 0) {
@@ -169,17 +170,17 @@ export class Tokenizer {
     while (this.cursorPos <= this.template.length) {
       const ch = this.charCodeAt(this.cursorPos)
 
-      if (lastCode !== ECharCodes.DQUOTE_CODE && lastCode !== ECharCodes.SQUOTE_CODE) {
+      if (lastCode !== ECharCodes.DoubleQuote && lastCode !== ECharCodes.SingleQuote) {
         switch (ch) {
-          case ECharCodes.SQUOTE_CODE: // '
-          case ECharCodes.DQUOTE_CODE: // "
-          case ECharCodes.OPAREN_CODE: // (
-          case ECharCodes.OBRACK_CODE: // [
+          case ECharCodes.SingleQuote: // '
+          case ECharCodes.DoubleQuote: // "
+          case ECharCodes.OpenParenthesis: // (
+          case ECharCodes.OpenBracket: // [
             if (lastCode) { stack.push(lastCode) }
             lastCode = ch
             break
-          case ECharCodes.CBRACK_CODE: // ]
-          case ECharCodes.CPAREN_CODE: // )
+          case ECharCodes.CloseBracket: // ]
+          case ECharCodes.CloseParenthesis: // )
             if (!lastCode || ch !== closeChar(lastCode)) {
               throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.cursorPos})
             }
@@ -188,8 +189,8 @@ export class Tokenizer {
         }
       } else {
         switch (ch) {
-          case ECharCodes.SQUOTE_CODE: // '
-          case ECharCodes.DQUOTE_CODE: // "
+          case ECharCodes.SingleQuote: // '
+          case ECharCodes.DoubleQuote: // "
             if (lastCode === ch) {
               lastCode = stack.pop()
             }
