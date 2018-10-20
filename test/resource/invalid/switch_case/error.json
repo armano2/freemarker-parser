@@ -1,11 +1,11 @@
 {
   "message": "addNodeChild(Program, SwitchCase) is not supported",
   "start": {
-    "line": 1,
-    "col": 1
+    "line": 0,
+    "column": 0
   },
   "end": {
-    "line": 1,
-    "col": 8
+    "line": 0,
+    "column": 7
   }
 }

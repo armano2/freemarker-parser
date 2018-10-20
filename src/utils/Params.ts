@@ -19,7 +19,7 @@ export function parseAssignParams (start : number, end : number, params? : strin
       throw new NodeError('Assign empty assign', { start, end })
     }
     /* '=' '+=' '-=' '*=' '/=' '%=' */
-    let match = item.match(/^([a-zA-Z\.]+)\s*((=|-=|\*=|\/=|%=|\+=)\s*(.*))?$/i)
+    let match = item.match(/^([a-zA-Z.]+)\s*((=|-=|\*=|\/=|%=|\+=)\s*(.*))?$/i)
     if (!match) {
       match = item.match(/^\s*(\+\+|--)?([a-zA-Z.]+)(\+\+|--)?\s*$/i)
       if (match && match[2] && (match[1] || match[3])) {

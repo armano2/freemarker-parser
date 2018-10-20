@@ -35,13 +35,6 @@ export enum ECharCodes {
   CBRACE_CODE = 125, // }
 }
 
-export const chrMatrix = {
-  [ECharCodes.DQUOTE_CODE]: ECharCodes.DQUOTE_CODE,
-  [ECharCodes.OPAREN_CODE]: ECharCodes.CPAREN_CODE,
-  [ECharCodes.OBRACE_CODE]: ECharCodes.CBRACK_CODE,
-  [ECharCodes.OBRACK_CODE]: ECharCodes.CBRACK_CODE,
-}
-
 // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
 export const binaryOps : IBinaryOperators = {
   '||': 1,
@@ -52,6 +45,21 @@ export const binaryOps : IBinaryOperators = {
   '<': 7, '>': 7, '<=': 7, '>=': 7, 'gt': 7, 'lt': 7, 'gte': 7, 'lte': 7,
   '+': 9, '-': 9,
   '*': 10, '/': 10, '%': 10,
+}
+
+export function closeChar (ch : number) : ECharCodes {
+  switch (ch) {
+    case ECharCodes.DQUOTE_CODE:
+      return ECharCodes.DQUOTE_CODE
+    case ECharCodes.OPAREN_CODE:
+      return ECharCodes.CPAREN_CODE
+    case ECharCodes.OBRACE_CODE:
+      return ECharCodes.CBRACK_CODE
+    case ECharCodes.OBRACK_CODE:
+      return ECharCodes.CBRACK_CODE
+  }
+
+  throw new Error(`Unknow close tag ${ch}`)
 }
 
 export function isDecimalDigit (ch : number) : boolean {

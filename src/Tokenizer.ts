@@ -2,7 +2,7 @@ import NodeError from './errors/NodeError'
 import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
-import { chrMatrix, ECharCodes, isLetter, isWhitespace } from './utils/Chars'
+import { closeChar, ECharCodes, isLetter, isWhitespace } from './utils/Chars'
 import { cToken } from './utils/Node'
 
 interface INextPos {
@@ -180,7 +180,7 @@ export class Tokenizer {
             break
           case ECharCodes.CBRACK_CODE: // ]
           case ECharCodes.CPAREN_CODE: // )
-            if (!lastCode || ch !== chrMatrix[lastCode]) {
+            if (!lastCode || ch !== closeChar(lastCode)) {
               throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.cursorPos})
             }
             lastCode = stack.pop()

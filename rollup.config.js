@@ -1,23 +1,13 @@
-const resolve = require('rollup-plugin-node-resolve')
-const sourcemaps = require('rollup-plugin-sourcemaps')
+import typescript from 'rollup-plugin-typescript2';
 
-const pkg = require('./package.json')
-
-const external = [
-  'util'
-].concat(Object.keys(pkg.dependencies))
-
-module.exports = {
-  input: '.temp/index.js',
-  external,
+export default {
+  input: './src/index.ts',
   output: {
-    file: 'index.js',
+    file: 'dist/index.js',
     format: 'cjs',
     sourcemap: true
   },
-  sourcemapFile: 'index.js.map',
   plugins: [
-    sourcemaps(),
-    resolve({external})
+    typescript()
   ]
 }

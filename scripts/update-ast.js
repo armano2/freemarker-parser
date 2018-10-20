@@ -1,7 +1,7 @@
-const freemarker = require('../index')
+const freemarker = require('../dist/index')
 const fs = require('fs')
 const path = require('path')
-const lineColumn = require('line-column')
+const { default: LinesAndColumns } = require('lines-and-columns')
 const chalk = require('chalk')
 
 const parser = new freemarker.Parser()
@@ -50,8 +50,11 @@ function updateTokens (testsPath) {
       parser.parse(template)
     } catch (e) {
       const errors = { message: e.message }
-      if ('start' in e) { errors.start = lineColumn(template).fromIndex(e.start) }
-      if ('end' in e) { errors.end = lineColumn(template).fromIndex(e.end) }
+      if ('start' in e || 'end' in e) {
+        const line = new LinesAndColumns(template)
+        errors.start = line.locationForIndex(e.start) || undefined
+        errors.end = line.locationForIndex(e.end) || undefined
+      }
       fs.writeFileSync(path.join(dir, 'error.json'), JSON.stringify(errors, null, 2))
     }
   }
