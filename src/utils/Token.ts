@@ -8,6 +8,7 @@ import {
   cAttempt,
   cBreak,
   cComment,
+  cCompress,
   cCondition,
   cFunction,
   cGlobal,
@@ -55,6 +56,7 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : void {
     case NodeNames.Assign:
     case NodeNames.Global:
     case NodeNames.Local:
+    case NodeNames.Compress:
     case NodeNames.MacroCall:
       if (parent.body) {
         parent.body.push(child)
@@ -181,6 +183,9 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
     case NodeNames.Break:
       node = cBreak(token.start, token.end)
       break
+    case NodeNames.Compress:
+      node = cCompress(token.start, token.end)
+      break
   }
 
   if (node) {
@@ -206,6 +211,7 @@ export function isPartial (type : NodeNames, parentType : NodeNames) : boolean {
 export function canAddChildren (node : AllNodeTypes) : boolean {
   switch (node.type) {
     case NodeNames.Condition:
+    case NodeNames.Compress:
     case NodeNames.List:
     case NodeNames.Attempt:
     case NodeNames.Function:

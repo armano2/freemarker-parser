@@ -5,6 +5,7 @@ import {
   IAttempt,
   IBreak,
   IComment,
+  ICompress,
   ICondition,
   IFunction,
   IGlobal,
@@ -105,6 +106,10 @@ export function cFunction (start : number, end : number, params? : string) : IFu
 
 export function cReturn (start : number, end : number, params? : string) : IReturn {
   return { type : NodeNames.Return, start, end, params: paramParser(start, end, params) }
+}
+
+export function cCompress (start : number, end : number) : ICompress {
+  return { type : NodeNames.Compress, start, end, body : [] }
 }
 
 export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, startTag? : string, endTag? : string, params? : string) : IToken {

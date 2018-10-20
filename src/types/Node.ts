@@ -114,6 +114,11 @@ export interface IReturn extends INode {
   params? : IExpression
 }
 
+export interface ICompress extends INode {
+  type : NodeNames.Compress
+  body : INode[]
+}
+
 export type NodeSwitchGroup = ISwitchCase | ISwitchDefault
 
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
@@ -124,4 +129,5 @@ export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICom
   IAttempt |
   ISwitch | ISwitchCase | ISwitchDefault |
   IBreak |
-  IReturn | IFunction
+  IReturn | IFunction |
+  ICompress

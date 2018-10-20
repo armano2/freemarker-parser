@@ -28,7 +28,8 @@ function updateData (testsPath) {
     } catch (e) {
       console.error(fName, chalk.red(e.message))
       if (e.start) {
-        const loc = lineColumn(template).fromIndex(e.start)
+        const line = new LinesAndColumns(template)
+        const loc = line.locationForIndex(e.start) || undefined
         console.error(fName, chalk.red(' file:', `${path.relative(baseDir, file)}:${loc ? `${loc.line}:${loc.col}` : '0:0'}`))
       }
     }

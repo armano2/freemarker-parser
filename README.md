@@ -61,6 +61,7 @@ console.log(astTree)
       - `#case`
       - `#default`
     - `#break`
+    - `#compress`
     - `#function`
       - `#return`
   - comments `<#-- -->`
@@ -77,7 +78,6 @@ console.log(astTree)
   - null resistance in above expressions if in parenthesis
   - alternative syntax if starts with `[#ftl]`
   - directives: http://freemarker.sourceforge.net/docs/ref_directives.html
-    - `#compress`
     - `#escape`
       - `#noescape`
     - `#fallback`

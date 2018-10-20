@@ -22,6 +22,7 @@ export enum NodeNames {
   Break = 'Break',
   Function = 'Function',
   Return = 'Return',
+  Compress = 'Compress',
 
   ConditionElse = 'ConditionElse',
 
@@ -65,7 +66,7 @@ export const directives : IDirectivesTypes = {
   include: NodeNames.Include,
   assign: NodeNames.Assign,
   attempt: NodeNames.Attempt,
-  // compress: 'compress',
+  compress: NodeNames.Compress,
   // escape: 'escape',
   // noescape: 'noescape',
   // fallback: 'fallback',

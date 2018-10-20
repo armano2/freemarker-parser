@@ -15,14 +15,14 @@
         "--timeout",
         "999999",
         "--colors",
-        "${workspaceRoot}/test"
+        "${workspaceRoot}/test/*.ts"
       ],
       "internalConsoleOptions": "openOnSessionStart"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Update Data",
+      "name": "Update Ast",
       "program": "${workspaceRoot}/scripts/update-ast",
       "internalConsoleOptions": "openOnSessionStart"
     }
