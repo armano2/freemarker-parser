@@ -1,5 +1,6 @@
+import directives from '../Directives'
+import NodeNames from '../enum/NodeNames'
 import NodeError from '../errors/NodeError'
-import { directives, NodeNames } from '../Names'
 import { ENodeType } from '../Symbols'
 import { AllNodeTypes } from '../types/Node'
 import { IToken } from '../types/Tokens'
@@ -12,6 +13,7 @@ import {
   cCondition,
   cFunction,
   cGlobal,
+  cImport,
   cInclude,
   cInterpolation,
   cList,
@@ -185,6 +187,9 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
       break
     case NodeNames.Compress:
       node = cCompress(token.start, token.end)
+      break
+    case NodeNames.Import:
+      node = cImport(token.start, token.end, token.params)
       break
   }
 

@@ -56,6 +56,7 @@ console.log(astTree)
     - `#list`
       - `#else`
     - `#include`
+    - `#import`
     - `#macro`
     - `#switch`
       - `#case`
@@ -82,7 +83,6 @@ console.log(astTree)
       - `#noescape`
     - `#fallback`
     - `#flush`
-    - `#import`
     - `#lt`
     - `#nested`
     - `#nt`

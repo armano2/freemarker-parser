@@ -12,7 +12,9 @@ export interface ILiteralOperators {
   [n : string] : true | false | null
 }
 
-// see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
+/**
+ * @see http://en.wikipedia.org/wiki/Order_of_operations#Programming_language
+ */
 export const binaryOps : IBinaryOperators = {
   '||': 1,
   '&&': 2,

@@ -9,7 +9,8 @@
     "test": "npm run mocha",
     "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
     "lint": "tslint './src/**/*.ts'",
-    "update-ast": "node ./scripts/update-ast.js",
+    "lint-fix": "tslint --fix './src/**/*.ts'",
+    "update-ast": "npm run build & node ./scripts/update-ast.js",
     "watch": "tsc --watch",
     "coverage": "npm run mocha && nyc report --reporter html"
   },

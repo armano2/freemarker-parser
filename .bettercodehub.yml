@@ -1,7 +1,5 @@
 exclude:
-- /_test/test.js
-- /index.js
-- /rollup.config.js
+- /dist
 component_depth: 1
 languages:
 - javascript

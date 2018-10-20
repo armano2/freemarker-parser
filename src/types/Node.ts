@@ -1,4 +1,4 @@
-import { NodeNames } from '../Names'
+import NodeNames from '../enum/NodeNames'
 import { IExpression } from './Params'
 import { ILoc } from './Tokens'
 
@@ -118,13 +118,17 @@ export interface ICompress extends INode {
   type : NodeNames.Compress
   body : INode[]
 }
+export interface IImport extends INode {
+  type : NodeNames.Import
+  params? : IExpression
+}
 
 export type NodeSwitchGroup = ISwitchCase | ISwitchDefault
 
 export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | IComment |
   ICondition | IList |
   IGlobal | ILocal | IAssign |
-  IInclude |
+  IInclude | IImport |
   IMacro |
   IAttempt |
   ISwitch | ISwitchCase | ISwitchDefault |

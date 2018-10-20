@@ -4,7 +4,6 @@ import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
 import { closeChar, isLetter, isWhitespace } from './utils/Chars'
-import { cToken } from './utils/Node'
 
 interface INextPos {
   pos : number
@@ -98,13 +97,13 @@ export class Tokenizer {
           this.cursorPos += token.startToken.length
 
           switch (token.type) {
-            case ENodeType.Comment: // <#-- foo -->
+            case ENodeType.Comment:
               return this.parseComment(token.startToken, token.endToken, start)
-            case ENodeType.Directive: // <#foo> | </#foo>
+            case ENodeType.Directive:
               return this.parseDirective(token.startToken, token.endToken, start, Boolean(token.end))
-            case ENodeType.Macro: // <@foo> | </@foo>
+            case ENodeType.Macro:
               return this.parseMacro(token.startToken, token.endToken, start, Boolean(token.end))
-            case ENodeType.Interpolation: // ${ foo?string }
+            case ENodeType.Interpolation:
               return this.parseInterpolation(token.startToken, token.endToken, start)
           }
         }
@@ -117,7 +116,16 @@ export class Tokenizer {
   }
 
   private addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string, isClose : boolean = false) {
-    this.tokens.push(cToken(type, start, end, text, isClose, startTag, endTag, params))
+    this.tokens.push({
+      type,
+      start,
+      end,
+      startTag,
+      endTag,
+      text,
+      params: params || undefined,
+      isClose,
+    })
   }
 
   private parseComment (startToken : string, endTokens : string[], start : number) {

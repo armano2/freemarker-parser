@@ -1,4 +1,4 @@
-import { ParamNames } from '../Names'
+import ParamNames from '../enum/ParamNames'
 
 export interface IExpression {
   type : ParamNames

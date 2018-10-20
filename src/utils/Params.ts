@@ -1,5 +1,5 @@
+import ParamNames from '../enum/ParamNames'
 import NodeError from '../errors/NodeError'
-import { ParamNames } from '../Names'
 import { ParamsParser } from '../ParamsParser'
 import { AllParamTypes, IAssignmentExpression, IExpression, IIdentifier, IUpdateExpression } from '../types/Params'
 

@@ -1,4 +1,4 @@
-import { NodeNames } from '../Names'
+import NodeNames from '../enum/NodeNames'
 import { ENodeType } from '../Symbols'
 
 export interface IDirectivesTypes {

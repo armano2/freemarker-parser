@@ -1,5 +1,5 @@
-import { NodeNames, ParamNames } from '../Names'
-import { ENodeType } from '../Symbols'
+import NodeNames from '../enum/NodeNames'
+import ParamNames from '../enum/ParamNames'
 import {
   IAssign,
   IAttempt,
@@ -9,6 +9,7 @@ import {
   ICondition,
   IFunction,
   IGlobal,
+  IImport,
   IInclude,
   IInterpolation,
   IList,
@@ -22,7 +23,6 @@ import {
   ISwitchDefault,
   IText,
 } from '../types/Node'
-import { IToken } from '../types/Tokens'
 import { paramParser, parseAssignParams } from './Params'
 
 export function cAssign (start : number, end : number, paramsText? : string) : IAssign {
@@ -112,15 +112,6 @@ export function cCompress (start : number, end : number) : ICompress {
   return { type : NodeNames.Compress, start, end, body : [] }
 }
 
-export function cToken (type : ENodeType, start : number, end : number, text : string, isClose : boolean, startTag? : string, endTag? : string, params? : string) : IToken {
-  return {
-    type,
-    start,
-    end,
-    startTag,
-    endTag,
-    text,
-    params: params || undefined,
-    isClose,
-  }
+export function cImport (start : number, end : number, params? : string) : IImport {
+  return { type : NodeNames.Import, start, end, params: paramParser(start, end, params) }
 }

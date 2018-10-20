@@ -1,6 +1,6 @@
 import ECharCodes from './enum/CharCodes'
+import ParamNames from './enum/ParamNames'
 import ParamError from './errors/ParamError'
-import { ParamNames } from './Names'
 import {
   AllParamTypes,
   IArrayExpression,
@@ -67,11 +67,21 @@ function isAllParamTypes (object : any) : object is AllParamTypes {
   return object && 'type' in object
 }
 
-// Returns the precedence of a binary operator or `0` if it isn't a binary operator
-const binaryPrecedence = (opVal : string) : number => binaryOps[opVal] || 0
+/**
+ * Returns the precedence of a binary operator or `0` if it isn't a binary operator
+ * @param opVal
+ */
+function binaryPrecedence (opVal : string) : number {
+  return binaryOps[opVal] || 0
+}
 
-// Utility function (gets called from multiple places)
-// Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
+/**
+ * Utility function (gets called from multiple places)
+ * Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
+ * @param operator
+ * @param left
+ * @param right
+ */
 function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression {
   if (operator === '||' || operator === '&&') {
     return { type: ParamNames.LogicalExpression, operator, left, right }
@@ -139,7 +149,9 @@ export class ParamsParser {
     return this.expr.charCodeAt(i)
   }
 
-  // Push `index` up to the next non-space character
+  /**
+   * Push `index` up to the next non-space character
+   */
   private parseSpaces () {
     let ch = this.charCodeAt(this.index)
     // space or tab
@@ -148,17 +160,21 @@ export class ParamsParser {
     }
   }
 
-  // The main parsing function. Much of this code is dedicated to ternary expressions
+  /**
+   * The main parsing function. Much of this code is dedicated to ternary expressions
+   */
   private parseExpression () : AllParamTypes | null {
     const test = this.parseBinaryExpression()
     this.parseSpaces()
     return test
   }
 
-  // Search for the operation portion of the string (e.g. `+`, `===`)
-  // Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
-  // and move down from 3 to 2 to 1 character until a matching binary operation is found
-  // then, return that binary operation
+  /**
+   * Search for the operation portion of the string (e.g. `+`, `===`)
+   * Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
+   * and move down from 3 to 2 to 1 character until a matching binary operation is found
+   * then, return that binary operation
+   */
   private parseBinaryOp () : string | null {
     this.parseSpaces()
     let toCheck = this.expr.substr(this.index, maxBinopLen)
@@ -173,8 +189,10 @@ export class ParamsParser {
     return null
   }
 
-  // This function is responsible for gobbling an individual expression,
-  // e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
+  /**
+   * This function is responsible for gobbling an individual expression,
+   * e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
+   */
   private parseBinaryExpression () : AllParamTypes | null {
     let node
     let biop : string | null
@@ -209,7 +227,10 @@ export class ParamsParser {
     }
     stack = [left, biopInfo, right]
 
-    // Properly deal with precedence using [recursive descent](http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm)
+    /**
+     * Properly deal with precedence using
+     * @see http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+     */
     while (true) {
       biop = this.parseBinaryOp()
       if (!biop) {
@@ -263,8 +284,10 @@ export class ParamsParser {
     return node
   }
 
-  // An individual part of a binary expression:
-  // e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
+  /**
+   * An individual part of a binary expression:
+   * e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
+   */
   private parseToken () : AllParamTypes | null {
     let ch
     let toCheck
@@ -303,8 +326,10 @@ export class ParamsParser {
     return null
   }
 
-  // Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
-  // keep track of everything in the numeric literal and then calling `parseFloat` on that string
+  /**
+   * Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
+   * keep track of everything in the numeric literal and then calling `parseFloat` on that string
+   */
   private parseNumericLiteral () : ILiteral {
     let rawName = ''
     let ch
@@ -351,8 +376,10 @@ export class ParamsParser {
     }
   }
 
-  // Parses a string literal, staring with single or double quotes with basic support for escape codes
-  // e.g. `"hello world"`, `'this is\nJSEP'`
+  /**
+   * Parses a string literal, staring with single or double quotes with basic support for escape codes
+   * e.g. `"hello world"`, `'this is\nJSEP'`
+   */
   private parseStringLiteral () : ILiteral {
     let str = ''
     const quote = this.charAt(this.index++)
@@ -392,10 +419,12 @@ export class ParamsParser {
     }
   }
 
-  // Gobbles only identifiers
-  // e.g.: `foo`, `_value`, `$x1`
-  // Also, this function checks if that identifier is a literal:
-  // (e.g. `true`, `false`, `null`) or `this`
+  /**
+   * Gobbles only identifiers
+   * e.g.: `foo`, `_value`, `$x1`
+   * Also, this function checks if that identifier is a literal:
+   * (e.g. `true`, `false`, `null`) or `this`
+   */
   private parseIdentifier () : IIdentifier | ILiteral {
     let ch = this.charCodeAt(this.index)
     const start = this.index
@@ -431,11 +460,13 @@ export class ParamsParser {
     }
   }
 
-  // Gobbles a list of arguments within the context of a function call
-  // or array literal. This function also assumes that the opening character
-  // `(` or `[` has already been gobbled, and gobbles expressions and commas
-  // until the terminator character `)` or `]` is encountered.
-  // e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
+  /**
+   * Gobbles a list of arguments within the context of a function call
+   * or array literal. This function also assumes that the opening character
+   * `(` or `[` has already been gobbled, and gobbles expressions and commas
+   * until the terminator character `)` or `]` is encountered.
+   * e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
+   */
   private parseArguments (termination : number) : AllParamTypes[] {
     let chI : number
     const args : AllParamTypes[] = []
@@ -464,10 +495,12 @@ export class ParamsParser {
     return args
   }
 
-  // Gobble a non-literal variable name. This variable name may include properties
-  // e.g. `foo`, `bar.baz`, `foo['bar'].baz`
-  // It also gobbles function calls:
-  // e.g. `Math.acos(obj.angle)`
+  /**
+   * Gobble a non-literal variable name. This variable name may include properties
+   * e.g. `foo`, `bar.baz`, `foo['bar'].baz`
+   * It also gobbles function calls:
+   * e.g. `Math.acos(obj.angle)`
+   */
   private parseVariable () : AllParamTypes | null {
     let chI : number
     chI = this.charCodeAt(this.index)
@@ -514,11 +547,13 @@ export class ParamsParser {
     return node
   }
 
-  // Responsible for parsing a group of things within parentheses `()`
-  // This function assumes that it needs to gobble the opening parenthesis
-  // and then tries to gobble everything within that parenthesis, assuming
-  // that the next thing it should see is the close parenthesis. If not,
-  // then the expression probably doesn't have a `)`
+  /**
+   * Responsible for parsing a group of things within parentheses `()`
+   * This function assumes that it needs to gobble the opening parenthesis
+   * and then tries to gobble everything within that parenthesis, assuming
+   * that the next thing it should see is the close parenthesis. If not,
+   * then the expression probably doesn't have a `)`
+   */
   private parseGroup () : AllParamTypes | null {
     this.index++
     const node = this.parseExpression()
@@ -531,9 +566,11 @@ export class ParamsParser {
     }
   }
 
-  // Responsible for parsing Array literals `[1, 2, 3]`
-  // This function assumes that it needs to gobble the opening bracket
-  // and then tries to gobble the expressions as arguments.
+  /**
+   * Responsible for parsing Array literals `[1, 2, 3]`
+   * This function assumes that it needs to gobble the opening bracket
+   * and then tries to gobble the expressions as arguments.
+   */
   private parseArray () : IArrayExpression {
     this.index++
     return {
