@@ -1,0 +1,54 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 22,
+  "body": [
+    {
+      "type": "Condition",
+      "start": 0,
+      "end": 9,
+      "params": {
+        "type": "Identifier",
+        "name": "foo"
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 9,
+          "end": 12,
+          "text": "\n  "
+        },
+        {
+          "type": "Condition",
+          "start": 12,
+          "end": 21,
+          "params": {
+            "type": "Identifier",
+            "name": "bar"
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 21,
+              "end": 22,
+              "text": "\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "Unclosed tag 'Condition'",
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 0,
+        "column": 9
+      }
+    }
+  ]
+}

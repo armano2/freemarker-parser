@@ -1,0 +1,45 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 37,
+  "body": [
+    {
+      "type": "Condition",
+      "start": 0,
+      "end": 9,
+      "params": {
+        "type": "Identifier",
+        "name": "foo"
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 9,
+          "end": 10,
+          "text": "\n"
+        }
+      ],
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 17,
+          "end": 20,
+          "text": "\n  "
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "Error while creating node 'ConditionElse' inside 'Condition'",
+      "start": {
+        "line": 2,
+        "column": 2
+      },
+      "end": {
+        "line": 2,
+        "column": 11
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 28,
+  "body": [
+    {
+      "type": "Stop",
+      "start": 0,
+      "end": 9
+    },
+    {
+      "type": "Text",
+      "start": 9,
+      "end": 10,
+      "text": "\n"
+    },
+    {
+      "type": "Stop",
+      "start": 10,
+      "end": 17
+    },
+    {
+      "type": "Text",
+      "start": 17,
+      "end": 19,
+      "text": "\n\n"
+    }
+  ],
+  "errors": [
+    {
+      "message": "Unexpected close tag 'Stop'",
+      "start": {
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "line": 3,
+        "column": 8
+      }
+    }
+  ]
+}

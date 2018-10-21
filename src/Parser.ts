@@ -3,9 +3,9 @@ import NodeError from './errors/NodeError'
 import { Tokenizer } from './Tokenizer'
 import { IToken } from './types/Tokens'
 
-import { AllNodeTypes, IProgram } from './types/Node'
-import { cProgram } from './utils/Node'
-import { addNodeChild, canAddChildren, isPartial, tokenToNodeType } from './utils/Token'
+import AbstractNode from './types/Nodes/AbstractNode'
+import IProgram from './types/Nodes/IProgram'
+import { addNodeChild, isPartial, tokenToNodeType } from './utils/Token'
 
 export interface IParserReturn {
   ast : IProgram
@@ -14,43 +14,49 @@ export interface IParserReturn {
 
 export class Parser {
   public parse (template : string) : IParserReturn {
-    const ast = cProgram(0, template.length)
-    const stack : AllNodeTypes[] = []
-    let parent : AllNodeTypes = ast
+    const ast = new IProgram(0, template.length)
+    const stack : AbstractNode[] = []
+    let parent : AbstractNode = ast
+    let tokens : IToken[] = []
 
-    const tokenizer = new Tokenizer()
-    const tokens = tokenizer.parse(template)
-    if (tokens.length === 0) {
-      return { ast, tokens }
-    }
+    try {
+      const tokenizer = new Tokenizer()
+      tokens = tokenizer.parse(template)
+      if (tokens.length === 0) {
+        return { ast, tokens }
+      }
 
-    let token : IToken | null = null
-    for (token of tokens) {
-      const tokenType = tokenToNodeType(token)
+      let token : IToken | null = null
+      for (token of tokens) {
+        const tokenType = tokenToNodeType(token)
 
-      if (token.isClose) {
-        if (token.params) {
-          throw new NodeError(`Close tag '${token.type}' should not have params`, token)
-        }
-        if (parent.type !== tokenType) {
-          throw new NodeError(`Unexpected close tag '${token.type}'`, token)
-        }
-        parent = stack.pop() as AllNodeTypes // its always
-      } else {
-        const node = addNodeChild(parent, token)
-        if (node !== parent && canAddChildren(node)) {
-          if (!isPartial(tokenType, parent.type)) {
-            stack.push(parent)
+        if (token.isClose) {
+          if (token.params) {
+            throw new NodeError(`Close tag '${tokenType}' should not have params`, token)
           }
-          parent = node
+          if (parent.type !== tokenType) {
+            throw new NodeError(`Unexpected close tag '${tokenType}'`, token)
+          }
+          parent = stack.pop() as AbstractNode // its always
+        } else {
+          const node = addNodeChild(parent, token)
+          if (node !== parent && node.hasBody) {
+            if (!isPartial(tokenType, parent.type)) {
+              stack.push(parent)
+            }
+            parent = node
+          }
         }
       }
+
+      if (stack.length > 0) {
+        const el = stack.pop() as AbstractNode
+        throw new NodeError(`Unclosed tag '${el.type}'`, el)
+      }
+    } catch (e) {
+      ast.addError(e, template)
     }
 
-    if (stack.length > 0) {
-      const el = stack.pop() as AllNodeTypes
-      throw new NodeError(`Unclosed tag '${el.type}'`, el)
-    }
     return { ast, tokens }
   }
 }

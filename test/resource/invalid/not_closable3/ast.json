@@ -1,0 +1,15 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 11,
+  "body": [],
+  "errors": [
+    {
+      "message": "Unclosed tag (",
+      "start": {
+        "line": 0,
+        "column": 6
+      }
+    }
+  ]
+}

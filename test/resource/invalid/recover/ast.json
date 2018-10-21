@@ -1,0 +1,19 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 11,
+  "body": [],
+  "errors": [
+    {
+      "message": "Error while creating node 'Recover' inside 'Program'",
+      "start": {
+        "line": 0,
+        "column": 0
+      },
+      "end": {
+        "line": 0,
+        "column": 10
+      }
+    }
+  ]
+}
