@@ -18,6 +18,7 @@ import {
   IMacroCall,
   IProgram,
   IReturn,
+  IStop,
   ISwitch,
   ISwitchCase,
   ISwitchDefault,
@@ -114,4 +115,8 @@ export function cCompress (start : number, end : number) : ICompress {
 
 export function cImport (start : number, end : number, params? : string) : IImport {
   return { type : NodeNames.Import, start, end, params: paramParser(start, end, params) }
+}
+
+export function cStop (start : number, end : number, params? : string) : IStop {
+  return { type : NodeNames.Stop, start, end, params: paramParser(start, end, params) }
 }

@@ -65,6 +65,8 @@ console.log(astTree)
     - `#compress`
     - `#function`
       - `#return`
+    - `#noparse`, `#noParse`
+    - `#stop`
   - comments `<#-- -->`
 
 ## TODO:
@@ -89,7 +91,5 @@ console.log(astTree)
     - `#recurse`
     - `#rt`
     - `#setting`
-    - `#stop`
     - `#t`
     - `#visit`
-    - `#noparse`, `#noParse`

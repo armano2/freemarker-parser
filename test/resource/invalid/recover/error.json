@@ -1,5 +1,5 @@
 {
-  "message": "addNodeChild(Program, Recover) is not supported",
+  "message": "Error while creating node 'Recover' inside 'Program'",
   "start": {
     "line": 0,
     "column": 0

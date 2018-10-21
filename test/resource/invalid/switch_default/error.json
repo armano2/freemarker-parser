@@ -1,5 +1,5 @@
 {
-  "message": "addNodeChild(Program, SwitchDefault) is not supported",
+  "message": "Error while creating node 'SwitchDefault' inside 'Program'",
   "start": {
     "line": 0,
     "column": 0

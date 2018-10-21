@@ -118,8 +118,14 @@ export interface ICompress extends INode {
   type : NodeNames.Compress
   body : INode[]
 }
+
 export interface IImport extends INode {
   type : NodeNames.Import
+  params? : IExpression
+}
+
+export interface IStop extends INode {
+  type : NodeNames.Stop
   params? : IExpression
 }
 
@@ -130,7 +136,7 @@ export type AllNodeTypes = IInterpolation | IMacroCall | IProgram | IText | ICom
   IGlobal | ILocal | IAssign |
   IInclude | IImport |
   IMacro |
-  IAttempt |
+  IAttempt | IStop |
   ISwitch | ISwitchCase | ISwitchDefault |
   IBreak |
   IReturn | IFunction |

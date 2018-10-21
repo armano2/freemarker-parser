@@ -1,5 +1,8 @@
-import NodeNames from './enum/NodeNames'
-import { IDirectivesTypes } from './types/Tokens'
+import NodeNames from '../enum/NodeNames'
+
+export interface IDirectivesTypes {
+  [n : string] : NodeNames
+}
 
 const Directives : IDirectivesTypes = {
   if: NodeNames.Condition,
@@ -27,7 +30,7 @@ const Directives : IDirectivesTypes = {
   return: NodeNames.Return,
   // rt: NodeNames.Rt,
   // setting: NodeNames.Setting,
-  // stop: NodeNames.Stop,
+  stop: NodeNames.Stop,
   switch: NodeNames.Switch,
   case: NodeNames.SwitchCase,
   default: NodeNames.SwitchDefault,

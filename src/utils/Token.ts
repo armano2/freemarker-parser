@@ -1,9 +1,9 @@
-import directives from '../Directives'
 import NodeNames from '../enum/NodeNames'
 import NodeError from '../errors/NodeError'
 import { ENodeType } from '../Symbols'
 import { AllNodeTypes } from '../types/Node'
 import { IToken } from '../types/Tokens'
+import directives from './Directives'
 import {
   cAssign,
   cAttempt,
@@ -21,6 +21,7 @@ import {
   cMacro,
   cMacroCall,
   cReturn,
+  cStop,
   cSwitch,
   cSwitchCase,
   cSwitchDefault,
@@ -67,12 +68,14 @@ function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : void {
       break
     case NodeNames.Interpolation:
     case NodeNames.Include:
+    case NodeNames.Import:
     case NodeNames.Text:
     case NodeNames.Return:
     case NodeNames.Comment:
     case NodeNames.SwitchDefault:
     case NodeNames.SwitchCase:
     case NodeNames.Break:
+    case NodeNames.Stop:
   }
   throw new NodeError(`addToNode(${parent.type}, ${child.type}) failed`, child)
 }
@@ -191,13 +194,16 @@ export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTy
     case NodeNames.Import:
       node = cImport(token.start, token.end, token.params)
       break
+    case NodeNames.Stop:
+      node = cStop(token.start, token.end, token.params)
+      break
   }
 
   if (node) {
     addToNode(parent, node)
     return node
   }
-  throw new NodeError(`addNodeChild(${parent.type}, ${tokenType}) is not supported`, token)
+  throw new NodeError(`Error while creating node '${tokenType}' inside '${parent.type}'`, token)
 }
 
 export function isPartial (type : NodeNames, parentType : NodeNames) : boolean {

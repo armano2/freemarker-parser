@@ -1,5 +1,5 @@
 {
-  "message": "addNodeChild(Condition, ConditionElse) is not supported",
+  "message": "Error while creating node 'ConditionElse' inside 'Condition'",
   "start": {
     "line": 2,
     "column": 2

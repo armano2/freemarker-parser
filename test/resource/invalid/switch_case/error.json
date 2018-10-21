@@ -1,5 +1,5 @@
 {
-  "message": "addNodeChild(Program, SwitchCase) is not supported",
+  "message": "Error while creating node 'SwitchCase' inside 'Program'",
   "start": {
     "line": 0,
     "column": 0

@@ -1,5 +1,5 @@
 {
-  "message": "addNodeChild(Program, Else) is not supported",
+  "message": "Error while creating node 'Else' inside 'Program'",
   "start": {
     "line": 0,
     "column": 0

@@ -23,6 +23,7 @@ enum NodeNames {
   Return = 'Return',
   Compress = 'Compress',
   Import = 'Import',
+  Stop = 'Stop',
 
   // Not supported
   // Escape = 'Escape',
@@ -35,7 +36,6 @@ enum NodeNames {
   // Nt = 'Nt',
   // Rt = 'Rt',
   // Setting = 'Setting',
-  // Stop = 'Stop',
   // T = 'T',
 }
 
