@@ -4,29 +4,7 @@ import { ENodeType } from '../Symbols'
 import { AllNodeTypes } from '../types/Node'
 import { IToken } from '../types/Tokens'
 import directives from './Directives'
-import {
-  cAssign,
-  cAttempt,
-  cBreak,
-  cComment,
-  cCompress,
-  cCondition,
-  cFunction,
-  cGlobal,
-  cImport,
-  cInclude,
-  cInterpolation,
-  cList,
-  cLocal,
-  cMacro,
-  cMacroCall,
-  cReturn,
-  cStop,
-  cSwitch,
-  cSwitchCase,
-  cSwitchDefault,
-  cText,
-} from './Node'
+import Nodes from './Nodes'
 
 function addToNode (parent : AllNodeTypes, child : AllNodeTypes) : void {
   switch (parent.type) {
@@ -101,109 +79,15 @@ export function tokenToNodeType (token : IToken) : NodeNames {
 
 export function addNodeChild (parent : AllNodeTypes, token : IToken) : AllNodeTypes {
   const tokenType = tokenToNodeType(token)
-  let node : AllNodeTypes | null = null
-  switch (tokenType) {
-    case NodeNames.Else:
-      if (parent.type === NodeNames.Condition && !parent.alternate) {
-        parent.alternate = []
-        return parent
-      } else if (parent.type === NodeNames.List && !parent.fallback) {
-        parent.fallback = []
-        return parent
-      }
-      break
-    case NodeNames.ConditionElse:
-      if (parent.type === NodeNames.Condition && !parent.alternate) {
-        node = cCondition(token.start, token.end, token.params)
-        parent.alternate = []
-        parent.alternate.push(node)
-        return node
-      }
-      break
-    case NodeNames.Recover:
-      if (parent.type === NodeNames.Attempt) {
-        if (!parent.fallback) {
-          parent.fallback = []
-          return parent
-        }
-      }
-      break
-    case NodeNames.SwitchCase:
-      if (parent.type === NodeNames.Switch) {
-        parent.cases.push(cSwitchCase(token.start, token.end, token.params))
-        return parent
-      }
-      break
-    case NodeNames.SwitchDefault:
-      if (parent.type === NodeNames.Switch) {
-        parent.cases.push(cSwitchDefault(token.start, token.end))
-        return parent
-      }
-      break
-    case NodeNames.Global:
-      node = cGlobal(token.start, token.end, token.params)
-      break
-    case NodeNames.Local:
-      node = cLocal(token.start, token.end, token.params)
-      break
-    case NodeNames.Assign:
-      node = cAssign(token.start, token.end, token.params)
-      break
-    case NodeNames.Function:
-      node = cFunction(token.start, token.end, token.params)
-      break
-    case NodeNames.Return:
-      node = cReturn(token.start, token.end, token.params)
-      break
-    case NodeNames.Attempt:
-      node = cAttempt(token.start, token.end)
-      break
-    case NodeNames.Condition:
-      node = cCondition(token.start, token.end, token.params)
-      break
-    case NodeNames.List:
-      node = cList(token.start, token.end, token.params)
-      break
-    case NodeNames.Macro:
-      node = cMacro(token.start, token.end, token.params)
-      break
-    case NodeNames.Include:
-      node = cInclude(token.start, token.end, token.params)
-      break
-    case NodeNames.Interpolation:
-      node = cInterpolation(token.start, token.end, token.params)
-      break
-    case NodeNames.Text:
-      node = cText(token.text, token.start, token.end)
-      break
-    case NodeNames.MacroCall:
-      node = cMacroCall(token.text, token.start, token.end, token.endTag, token.params)
-      break
-    case NodeNames.Comment:
-      node = cComment(token.text, token.start, token.end)
-      break
-    case NodeNames.Switch:
-      node = cSwitch(token.start, token.end, token.params)
-      break
-    case NodeNames.Break:
-      node = cBreak(token.start, token.end)
-      break
-    case NodeNames.Compress:
-      node = cCompress(token.start, token.end)
-      break
-    case NodeNames.Import:
-      node = cImport(token.start, token.end, token.params)
-      break
-    case NodeNames.Stop:
-      node = cStop(token.start, token.end, token.params)
-      break
-  }
-
-  if (node) {
-    addToNode(parent, node)
+  if (tokenType in Nodes) {
+    const node : AllNodeTypes = Nodes[tokenType](token, parent)
+    if (parent !== node) {
+      addToNode(parent, node)
+    }
     return node
   }
-  throw new NodeError(`Error while creating node '${tokenType}' inside '${parent.type}'`, token)
+
+  throw new NodeError(`Unknown '${tokenType}'`, token)
 }
 
 export function isPartial (type : NodeNames, parentType : NodeNames) : boolean {

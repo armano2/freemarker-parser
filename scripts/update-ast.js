@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { default: LinesAndColumns } = require('lines-and-columns')
 const chalk = require('chalk')
+const stringify = require('./stringify')
 
 const parser = new freemarker.Parser()
 
@@ -23,8 +24,8 @@ function updateData (testsPath) {
     try {
       console.log(fName, ' file:', path.relative(baseDir, file))
       const data = parser.parse(template)
-      fs.writeFileSync(path.join(dir, 'tokens.json'), JSON.stringify(data.tokens, null, 2))
-      fs.writeFileSync(path.join(dir, 'ast.json'), JSON.stringify(data.ast, null, 2))
+      fs.writeFileSync(path.join(dir, 'tokens.json'), stringify(data.tokens))
+      fs.writeFileSync(path.join(dir, 'ast.json'), stringify(data.ast))
     } catch (e) {
       console.error(fName, chalk.red(e.message))
       if (e.start) {
@@ -56,7 +57,7 @@ function updateTokens (testsPath) {
         errors.start = line.locationForIndex(e.start) || undefined
         errors.end = line.locationForIndex(e.end) || undefined
       }
-      fs.writeFileSync(path.join(dir, 'error.json'), JSON.stringify(errors, null, 2))
+      fs.writeFileSync(path.join(dir, 'error.json'), stringify(errors))
     }
   }
 }
