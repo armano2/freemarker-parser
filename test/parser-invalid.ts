@@ -1,39 +1,42 @@
 import * as assert from 'assert'
 import * as fs from 'fs'
 import * as path from 'path'
+import glob = require('tiny-glob')
 import { Parser } from '../src/index'
 
 const parser = new Parser()
 
-const testsPath = path.join(__dirname, '/resource/invalid/')
-const tests = fs.readdirSync(testsPath)
-  .filter((f) => fs.statSync(path.join(testsPath, f)).isDirectory())
+const testsPath = path.join(__dirname, 'resource', 'invalid')
 
-function stringify (text : any) {
-  return JSON.stringify(text, null, 2)
+function cleanup (data : any) {
+  return JSON.parse(JSON.stringify(data))
 }
 
-for (const name of tests) {
-  describe(name, () => {
-    const dir = path.join(testsPath, name)
-    const file = path.join(dir, 'template.ftl')
-    const template = fs.readFileSync(file, 'utf8')
-    const data = parser.parse(template)
+glob('./**/*.ftl', { cwd: testsPath, filesOnly: true, absolute: true })
+  .then((files : string[]) => {
+    for (const file of files) {
+      describe(file, () => {
+        const dirname = path.dirname(file)
+        const basename = path.basename(file).replace(path.extname(file), '')
 
-    it('should have errors', () => {
-      if (!data.ast.errors) {
-        assert.fail('This test should have an error')
-      }
-    })
+        const template = fs.readFileSync(file, 'utf8')
+        const data = parser.parse(template)
 
-    it('should have correct tokens', () => {
-      const code = fs.readFileSync(path.join(dir, 'tokens.json'), 'utf8')
-      assert.equal(stringify(data.tokens), code, 'tokens do match')
-    })
+        it('should have errors', () => {
+          if (!data.ast.errors) {
+            assert.fail('This test should have an error')
+          }
+        })
 
-    it('should have correct ast', () => {
-      const code = fs.readFileSync(path.join(dir, 'ast.json'), 'utf8')
-      assert.equal(stringify(data.ast), code, 'tokens do match')
-    })
+        it('should have correct tokens', () => {
+          const code = JSON.parse(fs.readFileSync(path.join(dirname, `${basename}-tokens.json`), 'utf8'))
+          assert.deepStrictEqual(cleanup(data.tokens), code, 'tokens do not match')
+        })
+
+        it('should have correct ast', () => {
+          const code = JSON.parse(fs.readFileSync(path.join(dirname, `${basename}-ast.json`), 'utf8'))
+          assert.deepStrictEqual(cleanup(data.ast), code, 'ast do not match')
+        })
+      })
+    }
   })
-}

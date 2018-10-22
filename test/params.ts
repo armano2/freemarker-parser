@@ -11,13 +11,13 @@ describe('params parser', () => {
       operator: '+',
       left: {
         type: 'Identifier',
-        name: 'a'
+        name: 'a',
       },
       right: {
         type: 'Literal',
         value: 1,
-        raw: '1'
-      }
+        raw: '1',
+      },
     }
     assert.deepEqual(result, expected, 'value is not matching')
   })
