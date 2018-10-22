@@ -7,6 +7,12 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "update-ast",
+      "program": "${workspaceFolder}/scripts/update-ast.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Mocha Tests",
       "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
       "args": [

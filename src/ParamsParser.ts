@@ -107,26 +107,17 @@ export class ParamsParser {
     this.length = expr.length
 
     const nodes = []
-    let chI : number
     let node
 
-    while (this.index < this.length) {
-      chI = this.charCodeAt(this.index)
-
-      // Expressions can be separated by semicolons, commas, or just inferred without any
-      // separators
-      if (chI === ECharCodes.Semicolon || chI === ECharCodes.Comma) {
-        this.index++ // ignore separators
-      } else {
-        // Try to gobble each expression individually
-        node = this.parseExpression()
-        if (node) {
-          // If we weren't able to find a binary expression and are out of room, then
-          // the expression passed in probably has too much
-          nodes.push(node)
-        } else if (this.index < this.length) {
-          throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index)
-        }
+    while (this.index < this.length)   {
+      // Try to gobble each expression individually
+      node = this.parseExpression()
+      if (node) {
+        // If we weren't able to find a binary expression and are out of room, then
+        // the expression passed in probably has too much
+        nodes.push(node)
+      } else if (this.index < this.length) {
+        throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index)
       }
     }
 

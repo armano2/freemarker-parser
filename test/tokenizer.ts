@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 
 import { Tokenizer } from '../src/index'
-import { IToken } from '../src/types/Tokens';
+import { IToken } from '../src/types/Tokens'
 
 const tokenizer = new Tokenizer()
 
@@ -16,7 +16,7 @@ function isDirective (tokens : IToken[], index : number, paramsType : string | u
   assert.equal(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
 }
 
-function isMacro (tokens : IToken[], index : number, paramsType : string | undefined, isClose: boolean) : void {
+function isMacro (tokens : IToken[], index : number, paramsType : string | undefined, isClose : boolean) : void {
   const token = tokens[index]
   assert.equal(token.type, 'Macro', `[${index}] Is not a macro`)
   assert.equal(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
@@ -39,24 +39,24 @@ function isComment (tokens : IToken[], index : number, text : string) : void {
   assert.equal(token.text, text, `[${index}] comment do not match`)
 }
 
-describe('parsing directives', function () {
-  it('no arguments', function () {
+describe('parsing directives', () => {
+  it('no arguments', () => {
     const tokens = parse('<#foo>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
   })
-  it('no arguments, self closing', function () {
+  it('no arguments, self closing', () => {
     const tokens = parse('<#foo/>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
   })
-  it('many, no arguments', function () {
+  it('many, no arguments', () => {
     const tokens = parse('<#foo><#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
     isDirective(tokens, 1, undefined, false)
   })
-  it('many, no arguments, with text', function () {
+  it('many, no arguments, with text', () => {
     const tokens = parse('foo<#foo>foo<#foo>foo')
     assert.equal(tokens.length, 5, 'Invalid amount of elements')
     isText(tokens, 0, 'foo')
@@ -65,18 +65,18 @@ describe('parsing directives', function () {
     isDirective(tokens, 3, undefined, false)
     isText(tokens, 4, 'foo')
   })
-  it('no arguments, with close tag', function () {
+  it('no arguments, with close tag', () => {
     const tokens = parse('<#foo></#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
     isDirective(tokens, 1, undefined, true)
   })
-  it('with arguments', function () {
+  it('with arguments', () => {
     const tokens = parse('<#foo bar>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isDirective(tokens, 0, 'bar', false)
   })
-  it('many, with arguments', function () {
+  it('many, with arguments', () => {
     const tokens = parse('<#foo bar><#foo bar test><#foo bar less>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
     isDirective(tokens, 0, 'bar', false)
@@ -85,24 +85,24 @@ describe('parsing directives', function () {
   })
 })
 
-describe('parsing macros', function () {
-  it('no arguments', function () {
+describe('parsing macros', () => {
+  it('no arguments', () => {
     const tokens = parse('<@foo>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isMacro(tokens, 0, undefined, false)
   })
-  it('no arguments, self closing', function () {
+  it('no arguments, self closing', () => {
     const tokens = parse('<@foo/>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isMacro(tokens, 0, undefined, false)
   })
-  it('many, no arguments', function () {
+  it('many, no arguments', () => {
     const tokens = parse('<@foo><@foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isMacro(tokens, 0, undefined, false)
     isMacro(tokens, 1, undefined, false)
   })
-  it('many, no arguments, with text', function () {
+  it('many, no arguments, with text', () => {
     const tokens = parse('foo<@foo>foo<@foo>foo')
     assert.equal(tokens.length, 5, 'Invalid amount of elements')
     isText(tokens, 0, 'foo')
@@ -111,18 +111,18 @@ describe('parsing macros', function () {
     isMacro(tokens, 3, undefined, false)
     isText(tokens, 4, 'foo')
   })
-  it('no arguments, with close tag', function () {
+  it('no arguments, with close tag', () => {
     const tokens = parse('<@foo></@foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isMacro(tokens, 0, undefined, false)
     isMacro(tokens, 1, undefined, true)
   })
-  it('with arguments', function () {
+  it('with arguments', () => {
     const tokens = parse('<@foo bar>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isMacro(tokens, 0, 'bar', false)
   })
-  it('many, with arguments', function () {
+  it('many, with arguments', () => {
     const tokens = parse('<@foo bar><@foo bar test><@foo bar less>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
     isMacro(tokens, 0, 'bar', false)
@@ -131,13 +131,13 @@ describe('parsing macros', function () {
   })
 })
 
-describe('parsing comments', function () {
-  it('coment with text', function () {
+describe('parsing comments', () => {
+  it('coment with text', () => {
     const tokens = parse('<#--  <@d></@d>  -->')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isComment(tokens, 0, '  <@d></@d>  ')
   })
-  it('coment in directive', function () {
+  it('coment in directive', () => {
     const tokens = parse('<#foo><#--  foo  --></#foo>')
     assert.equal(tokens.length, 3, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
@@ -146,23 +146,23 @@ describe('parsing comments', function () {
   })
 })
 
-describe('parsing text', function () {
-  it('empty text', function () {
+describe('parsing text', () => {
+  it('empty text', () => {
     const tokens = parse('')
     assert.equal(tokens.length, 0, 'Invalid amount of elements')
   })
-  it('raw text', function () {
+  it('raw text', () => {
     const tokens = parse('<foo>')
     assert.equal(tokens.length, 1, 'Invalid amount of elements')
     isText(tokens, 0, '<foo>')
   })
-  it('text after directive', function () {
+  it('text after directive', () => {
     const tokens = parse('<#foo>foo')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isDirective(tokens, 0, undefined, false)
     isText(tokens, 1, 'foo')
   })
-  it('text before directive', function () {
+  it('text before directive', () => {
     const tokens = parse('foo<#foo>')
     assert.equal(tokens.length, 2, 'Invalid amount of elements')
     isText(tokens, 0, 'foo')
@@ -170,8 +170,8 @@ describe('parsing text', function () {
   })
 })
 
-describe('errors', function () {
-  it('invalid amount of brackets', function () {
+describe('errors', () => {
+  it('invalid amount of brackets', () => {
     try {
       parse('<#foo foo)>')
       assert.fail('should fail')
@@ -185,7 +185,7 @@ describe('errors', function () {
       assert.equal(e.message, 'Unclosed tag (', 'error message is invalid')
     }
   })
-  it('unclosed comment', function () {
+  it('unclosed comment', () => {
     try {
       parse('<#-- foo bar')
       assert.fail('should fail')
@@ -193,7 +193,7 @@ describe('errors', function () {
       assert.equal(e.message, 'Unclosed comment', 'error message is invalid')
     }
   })
-  it('missing close tag in directive', function () {
+  it('missing close tag in directive', () => {
     try {
       parse('<#')
       assert.fail('should fail')
@@ -202,7 +202,7 @@ describe('errors', function () {
       assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
-  it('missing close tag in macro', function () {
+  it('missing close tag in macro', () => {
     try {
       parse('<@')
       assert.fail('should fail')
@@ -211,7 +211,7 @@ describe('errors', function () {
       assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
-  it('invalid character in macro name', function () {
+  it('invalid character in macro name', () => {
     try {
       parse('<@?')
       assert.fail('should fail')
@@ -220,7 +220,7 @@ describe('errors', function () {
       assert.equal(e.start, 2, 'start pos is invalid')
     }
   })
-  it('invalid character in directive name', function () {
+  it('invalid character in directive name', () => {
     try {
       parse('<@&')
       assert.fail('should fail')
@@ -231,8 +231,8 @@ describe('errors', function () {
   })
 })
 
-describe('error_expresion', function () {
-  it('to many close tags ]', function () {
+describe('error_expresion', () => {
+  it('to many close tags ]', () => {
     try {
       parse('<@foo a["foo"]]')
       assert.fail('should fail')
@@ -240,7 +240,7 @@ describe('error_expresion', function () {
       assert.equal(e.message, 'To many close tags ]', 'error message is invalid')
     }
   })
-  it('to many close tags )', function () {
+  it('to many close tags )', () => {
     try {
       parse('<@foo a("foo"))')
       assert.fail('should fail')
@@ -250,8 +250,8 @@ describe('error_expresion', function () {
   })
 })
 
-describe('unclosed', function () {
-  it('directive', function () {
+describe('unclosed', () => {
+  it('directive', () => {
     try {
       parse('<#foo')
       assert.fail('should fail')
@@ -259,7 +259,7 @@ describe('unclosed', function () {
       assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
     }
   })
-  it('macro', function () {
+  it('macro', () => {
     try {
       parse('<@foo')
       assert.fail('should fail')
@@ -267,9 +267,10 @@ describe('unclosed', function () {
       assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')
     }
   })
-  it('interpolation', function () {
+
+  it('interpolation', () => {
     try {
-      parse('${ foo')
+      parse(`\${ foo`)
       assert.fail('should fail')
     } catch (e) {
       assert.equal(e.message, 'Unclosed directive or macro', 'error message is invalid')

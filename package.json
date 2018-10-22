@@ -8,8 +8,8 @@
     "mocha": "nyc mocha \"test/*.ts\"",
     "test": "npm run mocha",
     "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
-    "lint": "tslint './src/**/*.ts'",
-    "lint-fix": "tslint --fix './src/**/*.ts'",
+    "lint": "tslint '**/*.ts'",
+    "lint-fix": "tslint '**/*.ts' --fix",
     "update-ast": "npm run build & node ./scripts/update-ast.js",
     "watch": "tsc --watch",
     "coverage": "npm run mocha && nyc report --reporter html"
@@ -41,13 +41,16 @@
   ],
   "homepage": "https://github.com/armano2/freemarker-parser#readme",
   "devDependencies": {
+    "@types/json-stringify-safe": "^5.0.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.0",
     "assert": "^1.4.1",
     "codecov": "^3.1.0",
+    "json-stringify-safe": "^5.0.1",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "source-map-support": "^0.5.9",
+    "tiny-glob": "^0.2.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typescript": "^3.1.3"
