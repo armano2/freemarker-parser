@@ -1,9 +1,13 @@
 workflows:
   version: 2
-  node-multi-build:
+  node-v6:
     jobs:
       - node-v6
-      - node-v8
+  node-v8:
+    jobs:
+      - node-v6
+  node-v10:
+    jobs:
       - node-v10
 
 version: 2
