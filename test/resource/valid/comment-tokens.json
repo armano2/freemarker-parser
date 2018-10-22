@@ -63,5 +63,21 @@
     "end": 98,
     "text": "\n",
     "isClose": false
+  },
+  {
+    "type": "Comment",
+    "start": 98,
+    "end": 129,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": "\nTest comment\nmultiline\n",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 129,
+    "end": 130,
+    "text": "\n",
+    "isClose": false
   }
 ]

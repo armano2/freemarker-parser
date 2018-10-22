@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 98,
+  "end": 130,
   "body": [
     {
       "type": "Comment",
@@ -62,6 +62,18 @@
       "type": "Text",
       "start": 97,
       "end": 98,
+      "text": "\n"
+    },
+    {
+      "type": "Comment",
+      "start": 98,
+      "end": 129,
+      "text": "\nTest comment\nmultiline\n"
+    },
+    {
+      "type": "Text",
+      "start": 129,
+      "end": 130,
       "text": "\n"
     }
   ]

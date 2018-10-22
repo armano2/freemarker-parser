@@ -6,3 +6,7 @@ ${foo} c
 <@/foo>
 -->
 <#assign var=value>
+<#--
+Test comment
+multiline
+-->

@@ -1,7 +1,8 @@
 const freemarker = require('../dist/index')
 const fs = require('fs')
 const path = require('path')
-const glob = require('tiny-glob')
+const util = require('util')
+const glob = util.promisify(require('glob'));
 
 const parser = new freemarker.Parser()
 
@@ -11,7 +12,7 @@ function stringify (text) {
   return JSON.stringify(text, null, 2)
 }
 
-glob('./**/*.ftl', { cwd: rootDir, filesOnly: true, absolute: true })
+glob('./**/*.ftl', { cwd: rootDir, nodir: true, absolute: true })
   .then((files) => {
     for (const file of files) {
       fs.readFile(file, 'utf8', (err, template) => {

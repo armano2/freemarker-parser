@@ -250,6 +250,20 @@ describe('error_expresion', () => {
   })
 })
 
+describe('html', () => {
+  it('simple', () => {
+    const tokens = parse('<p>This is include-subdir.ftl</p>')
+    assert.equal(tokens.length, 1, 'Invalid amount of elements')
+    isText(tokens, 0, '<p>This is include-subdir.ftl</p>')
+  })
+  it('advance', () => {
+    const tokens = parse('<p>This is include-subdir.ftl</p><#include "include-subdir2.ftl">')
+    assert.equal(tokens.length, 2, 'Invalid amount of elements')
+    isText(tokens, 0, '<p>This is include-subdir.ftl</p>')
+    isDirective(tokens, 1, '"include-subdir2.ftl"', false)
+  })
+})
+
 describe('unclosed', () => {
   it('directive', () => {
     try {

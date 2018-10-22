@@ -71,7 +71,7 @@ export class Tokenizer {
     let startPos : number = 0
     for (const item of symbols) {
       const n = this.template.indexOf(item.startToken, this.cursorPos)
-      if (n >= 0 && (!symbol || n < startPos)) {
+      if (n === this.cursorPos && (!symbol || n < startPos)) {
         symbol = item
         startPos = n
       }

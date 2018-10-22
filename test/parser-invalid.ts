@@ -1,10 +1,12 @@
 import * as assert from 'assert'
 import * as fs from 'fs'
 import * as path from 'path'
-import glob = require('tiny-glob')
+import { promisify } from 'util'
 import { Parser } from '../src/index'
 
 const parser = new Parser()
+// tslint:disable-next-line
+const glob = promisify(require('glob'))
 
 const testsPath = path.join(__dirname, 'resource', 'invalid')
 
@@ -12,7 +14,7 @@ function cleanup (data : any) {
   return JSON.parse(JSON.stringify(data))
 }
 
-glob('./**/*.ftl', { cwd: testsPath, filesOnly: true, absolute: true })
+glob('./**/*.ftl', { cwd: testsPath, nodir: true, absolute: true })
   .then((files : string[]) => {
     for (const file of files) {
       describe(file, () => {
