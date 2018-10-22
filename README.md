@@ -1,7 +1,7 @@
 # freemarker-parser
 
-[![Codecov](https://img.shields.io/codecov/c/github/armano2/freemarker-parser.svg?style=for-the-badge)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
-[![CircleCI](https://img.shields.io/circleci/project/github/armano2/freemarker-parser/master.svg?style=for-the-badge)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
+[![Codecov](https://img.shields.io/codecov/c/github/armano2/freemarker-parser.svg)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
+[![CircleCI](https://img.shields.io/circleci/project/github/armano2/freemarker-parser/master.svg)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
 [![License](https://img.shields.io/github/license/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![Greenkeeper](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/freemarker-parser.svg)](https://www.npmjs.com/package/freemarker-parser)
