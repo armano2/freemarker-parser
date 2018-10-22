@@ -1,30 +1,32 @@
 const freemarker = require('../dist/index')
 const fs = require('fs')
 const path = require('path')
-const stringify = require('./stringify')
+const glob = require('tiny-glob')
 
 const parser = new freemarker.Parser()
 
-const baseDir = path.join(__dirname, '..')
+const rootDir = path.join(__dirname, '..', 'test', 'resource')
 
-let i = 0
-
-function updateData (testsPath) {
-  const tests = fs.readdirSync(testsPath)
-    .filter(f => fs.statSync(path.join(testsPath, f)).isDirectory())
-
-  for (const name of tests) {
-    const fName = `[${++i}]`
-    console.log(fName, 'Updating data for test', name)
-    const dir = path.join(testsPath, name)
-    const file = path.join(dir, 'template.ftl')
-    const template = fs.readFileSync(file, 'utf8')
-    console.log(fName, ' file:', path.relative(baseDir, file))
-    const data = parser.parse(template)
-    fs.writeFileSync(path.join(dir, 'tokens.json'), stringify(data.tokens))
-    fs.writeFileSync(path.join(dir, 'ast.json'), stringify(data.ast))
-  }
+function stringify (text) {
+  return JSON.stringify(text, null, 2)
 }
 
-updateData(path.join(baseDir, 'test/resource/valid/'))
-updateData(path.join(baseDir, 'test/resource/invalid/'))
+glob('./**/*.ftl', { cwd: rootDir, filesOnly: true, absolute: true })
+  .then((files) => {
+    for (const file of files) {
+      fs.readFile(file, 'utf8', (err, template) => {
+        if (err) {
+          throw new Error(err)
+        }
+        const dirname = path.dirname(file)
+        const basename = path.basename(file).replace(path.extname(file), '')
+
+        console.log(`Updating data ${basename}`)
+        console.log(' file:', path.relative(rootDir, file))
+
+        const data = parser.parse(template)
+        fs.writeFileSync(path.join(dirname, `${basename}-tokens.json`), stringify(data.tokens, null, 2))
+        fs.writeFileSync(path.join(dirname, `${basename}-ast.json`), stringify(data.ast, null, 2))
+      })
+    }
+  })
