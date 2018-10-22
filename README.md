@@ -1,12 +1,14 @@
 # freemarker-parser
 
-[![CircleCI](https://circleci.com/gh/armano2/freemarker-parser/tree/master.svg?style=svg)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
-[![Coverage Status](https://codecov.io/gh/armano2/freemarker-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/armano2/freemarker-parser)
-[![Greenkeeper badge](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://greenkeeper.io/)
+[![Codecov](https://img.shields.io/codecov/c/github/armano2/freemarker-parser.svg?style=for-the-badge)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
+[![CircleCI](https://img.shields.io/circleci/project/github/armano2/freemarker-parser/master.svg?style=for-the-badge)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
+[![License](https://img.shields.io/github/license/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
+[![Greenkeeper](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
+[![npm](https://img.shields.io/npm/v/freemarker-parser.svg)](https://www.npmjs.com/package/freemarker-parser)
 
 Freemarker Parser is a javascript implementation of the Freemarker (http://freemarker.sourceforge.com).
 
-This project contains experimental version of parser ftl to ast tree
+This project contains **experimental version** of parser ftl to ast tree
 
 ## Installation
 You can install `freemarker-parser` using [npm](https://npmjs.com):
@@ -18,12 +20,8 @@ $ npm install freemarker-parser --save-dev
 ## Usage
 Require `freemarker-parser` inside of your JavaScript:
 
-```js
-const freemarker = require("freemarker-parser");
-```
-
 ### Parser
-```freemarker
+```ftl
 <#assign f=1>
 
 <#if f gt 0>
@@ -34,17 +32,20 @@ const freemarker = require("freemarker-parser");
 ```
 
 ```js
-const parser = new freemarker.Parser()
-const astTree = parser.parse(template)
+const freemarker = require("freemarker-parser")
 
-console.log(astTree)
+const parser = new freemarker.Parser()
+const data = parser.parse(template)
+
+console.log(data.ast)
+console.log(data.tokens)
 ```
 
 ## Currently supported:
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
   - executing macro
-  - directives:
+  - directives:  http://freemarker.sourceforge.net/docs/ref_directives.html
     - `#attempt`
       - `#recover`
     - `#assign`
@@ -80,7 +81,7 @@ console.log(astTree)
   - support default values, i.e. `${user!"Anonymous"}`
   - null resistance in above expressions if in parenthesis
   - alternative syntax if starts with `[#ftl]`
-  - directives: http://freemarker.sourceforge.net/docs/ref_directives.html
+  - directives:
     - `#escape`
       - `#noescape`
     - `#fallback`
