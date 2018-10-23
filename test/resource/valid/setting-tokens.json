@@ -237,26 +237,25 @@
     "isClose": false
   },
   {
-    "type": "Directive",
+    "type": "Comment",
     "start": 1086,
-    "end": 1123,
-    "startTag": "<#",
-    "endTag": "/>",
-    "text": "setting",
-    "params": "boolean_format=\"igen,nem\"",
+    "end": 1149,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": "\n  TODO: fix me\n  <#setting boolean_format=\"igen,nem\"/>\n",
     "isClose": false
   },
   {
     "type": "Text",
-    "start": 1123,
-    "end": 1124,
+    "start": 1149,
+    "end": 1150,
     "text": "\n",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1124,
-    "end": 1135,
+    "start": 1150,
+    "end": 1161,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -265,15 +264,15 @@
   },
   {
     "type": "Text",
-    "start": 1135,
-    "end": 1136,
+    "start": 1161,
+    "end": 1162,
     "text": " ",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1136,
-    "end": 1147,
+    "start": 1162,
+    "end": 1173,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -282,15 +281,15 @@
   },
   {
     "type": "Text",
-    "start": 1147,
-    "end": 1148,
+    "start": 1173,
+    "end": 1174,
     "text": "\n",
     "isClose": false
   },
   {
     "type": "Directive",
-    "start": 1148,
-    "end": 1178,
+    "start": 1174,
+    "end": 1204,
     "startTag": "<#",
     "endTag": ">",
     "text": "setting",
@@ -299,15 +298,15 @@
   },
   {
     "type": "Text",
-    "start": 1178,
-    "end": 1179,
+    "start": 1204,
+    "end": 1205,
     "text": "\n",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1179,
-    "end": 1196,
+    "start": 1205,
+    "end": 1222,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -316,15 +315,15 @@
   },
   {
     "type": "Text",
-    "start": 1196,
-    "end": 1197,
+    "start": 1222,
+    "end": 1223,
     "text": " ",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1197,
-    "end": 1214,
+    "start": 1223,
+    "end": 1240,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -333,32 +332,31 @@
   },
   {
     "type": "Text",
-    "start": 1214,
-    "end": 1215,
+    "start": 1240,
+    "end": 1241,
     "text": "\n",
     "isClose": false
   },
   {
-    "type": "Directive",
-    "start": 1215,
-    "end": 1254,
-    "startTag": "<#",
-    "endTag": "/>",
-    "text": "setting",
-    "params": "boolean_format=\"true,false\"",
+    "type": "Comment",
+    "start": 1241,
+    "end": 1306,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": "\n  TODO: fix me\n  <#setting boolean_format=\"true,false\"/>\n",
     "isClose": false
   },
   {
     "type": "Text",
-    "start": 1254,
-    "end": 1255,
+    "start": 1306,
+    "end": 1307,
     "text": "\n",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1255,
-    "end": 1289,
+    "start": 1307,
+    "end": 1341,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -367,15 +365,15 @@
   },
   {
     "type": "Text",
-    "start": 1289,
-    "end": 1290,
+    "start": 1341,
+    "end": 1342,
     "text": " ",
     "isClose": false
   },
   {
     "type": "Interpolation",
-    "start": 1290,
-    "end": 1324,
+    "start": 1342,
+    "end": 1376,
     "startTag": "${",
     "endTag": "}",
     "text": "",
@@ -384,8 +382,8 @@
   },
   {
     "type": "Text",
-    "start": 1324,
-    "end": 1325,
+    "start": 1376,
+    "end": 1377,
     "text": "\n",
     "isClose": false
   }
