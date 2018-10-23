@@ -29,7 +29,7 @@ const Directives : IDirectivesTypes = {
   // recurse: NodeNames.Recurse,
   return: NodeNames.Return,
   // rt: NodeNames.Rt,
-  // setting: NodeNames.Setting,
+  setting: NodeNames.Setting,
   stop: NodeNames.Stop,
   switch: NodeNames.Switch,
   case: NodeNames.SwitchCase,

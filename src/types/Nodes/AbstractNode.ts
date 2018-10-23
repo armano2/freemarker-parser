@@ -17,7 +17,7 @@ export default abstract class AbstractNode implements ILoc {
     this.end = token.end
   }
 
-  public addToNode (child : AbstractNode) {
+  public addToNode (child : AbstractNode) : void {
     throw new NodeError(`Node ${this.type} can't contain ${child.type}`, child)
   }
 }

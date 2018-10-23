@@ -1,13 +1,13 @@
 import ParamNames from '../enum/ParamNames'
 import NodeError from '../errors/NodeError'
 import { ParamsParser } from '../ParamsParser'
-import { AllParamTypes, IAssignmentExpression, IExpression, IIdentifier, IUpdateExpression } from '../types/Params'
+import { AllParamTypes, IAssignmentExpression, IIdentifier, IUpdateExpression } from '../types/Params'
 
 function cIdentifier (name : string) : IIdentifier {
   return { type: ParamNames.Identifier, name }
 }
 
-export function parseAssignParams (start : number, end : number, params? : string) : IExpression[] | undefined {
+export function parseAssignParams (start : number, end : number, params? : string) : AllParamTypes[] | undefined {
   if (!params) {
     throw new NodeError('Assign require params', { start, end })
   }

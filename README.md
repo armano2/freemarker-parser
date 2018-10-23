@@ -45,7 +45,7 @@ console.log(data.tokens)
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
   - executing macro
-  - directives:  http://freemarker.sourceforge.net/docs/ref_directives.html
+  - directives: http://freemarker.sourceforge.net/docs/ref_directives.html
     - `#attempt`
       - `#recover`
     - `#assign`
@@ -68,6 +68,7 @@ console.log(data.tokens)
       - `#return`
     - `#noparse`, `#noParse`
     - `#stop`
+    - `#setting`
   - comments `<#-- -->`
 
 ## TODO:
@@ -91,6 +92,5 @@ console.log(data.tokens)
     - `#nt`
     - `#recurse`
     - `#rt`
-    - `#setting`
     - `#t`
     - `#visit`

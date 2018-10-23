@@ -17,6 +17,7 @@ import ILocal from '../types/Nodes/ILocal'
 import IMacro from '../types/Nodes/IMacro'
 import IMacroCall from '../types/Nodes/IMacroCall'
 import IReturn from '../types/Nodes/IReturn'
+import ISetting from '../types/Nodes/ISetting'
 import IStop from '../types/Nodes/IStop'
 import ISwitch from '../types/Nodes/ISwitch'
 import ISwitchCase from '../types/Nodes/ISwitchCase'
@@ -125,6 +126,9 @@ const Nodes : INodes = {
   },
   [NodeNames.Stop] (token : IToken) : IStop {
     return new IStop(token)
+  },
+  [NodeNames.Setting] (token : IToken) : ISetting {
+    return new ISetting(token)
   },
 }
 

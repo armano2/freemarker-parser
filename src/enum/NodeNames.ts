@@ -24,6 +24,7 @@ enum NodeNames {
   Compress = 'Compress',
   Import = 'Import',
   Stop = 'Stop',
+  Setting = 'Setting',
 
   // Not supported
   // Escape = 'Escape',
@@ -35,7 +36,6 @@ enum NodeNames {
   // Nested = 'Nested',
   // Nt = 'Nt',
   // Rt = 'Rt',
-  // Setting = 'Setting',
   // T = 'T',
 }
 

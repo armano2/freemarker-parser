@@ -1,0 +1,392 @@
+[
+  {
+    "type": "Comment",
+    "start": 0,
+    "end": 791,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 791,
+    "end": 792,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 792,
+    "end": 817,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "setting",
+    "params": "locale=\"en_US\"",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 817,
+    "end": 818,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 818,
+    "end": 833,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "assign",
+    "params": "x = 3",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 833,
+    "end": 834,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 834,
+    "end": 853,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "x?string[\"0.00\"]",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 853,
+    "end": 854,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 854,
+    "end": 873,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "x?string(\"0.00\")",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 873,
+    "end": 874,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 874,
+    "end": 916,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "'01:02:03'?time.iso?string[\"iso ms nz\"]",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 916,
+    "end": 917,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 917,
+    "end": 959,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "'01:02:03'?time.iso?string(\"iso ms nz\")",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 959,
+    "end": 964,
+    "text": "\n---\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 964,
+    "end": 972,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "multi",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 972,
+    "end": 973,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 973,
+    "end": 991,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "assign",
+    "params": "a = true",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 991,
+    "end": 992,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 992,
+    "end": 1011,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "assign",
+    "params": "b = false",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1011,
+    "end": 1012,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1012,
+    "end": 1023,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "a?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1023,
+    "end": 1024,
+    "text": " ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1024,
+    "end": 1035,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "b?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1035,
+    "end": 1036,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1036,
+    "end": 1060,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "a?string(\"yes\", \"no\")",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1060,
+    "end": 1061,
+    "text": " ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1061,
+    "end": 1085,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "b?string(\"yes\", \"no\")",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1085,
+    "end": 1086,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1086,
+    "end": 1123,
+    "startTag": "<#",
+    "endTag": "/>",
+    "text": "setting",
+    "params": "boolean_format=\"igen,nem\"",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1123,
+    "end": 1124,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1124,
+    "end": 1135,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "a?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1135,
+    "end": 1136,
+    "text": " ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1136,
+    "end": 1147,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "b?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1147,
+    "end": 1148,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1148,
+    "end": 1178,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "setting",
+    "params": "number_format=\"0.0\"",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1178,
+    "end": 1179,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1179,
+    "end": 1196,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "a?string(0, 1)",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1196,
+    "end": 1197,
+    "text": " ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1197,
+    "end": 1214,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "b?string(0, 1)",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1214,
+    "end": 1215,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1215,
+    "end": 1254,
+    "startTag": "<#",
+    "endTag": "/>",
+    "text": "setting",
+    "params": "boolean_format=\"true,false\"",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1254,
+    "end": 1255,
+    "text": "\n",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1255,
+    "end": 1289,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "a?string(0, 1)?is_string?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1289,
+    "end": 1290,
+    "text": " ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1290,
+    "end": 1324,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "b?string(0, 1)?is_string?string",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1324,
+    "end": 1325,
+    "text": "\n",
+    "isClose": false
+  }
+]
