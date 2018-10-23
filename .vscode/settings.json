@@ -1,22 +1,8 @@
 {
-    "eslint.autoFixOnSave": true,
-    "tslint.autoFixOnSave": true,
-    "tslint.configFile": "./tslint.json",
-    "tslint.enable": true,
-    "files.exclude": {
-      ".temp/": true
-    },
-    "typescriptHero.resolver.ignorePatterns": [
-      "build",
-      "out",
-      "dist",
-      "freemarkerjs"
-    ],
-    "typescriptHero.resolver.insertSemicolons": false,
-    "typescriptHero.resolver.importGroups": [
-      {
-        "identifier": "Remaining",
-        "order": "desc"
-      }
-    ]
+  "tslint.autoFixOnSave": true,
+  "tslint.configFile": "./tslint.json",
+  "tslint.enable": true,
+  "files.exclude": {
+    ".temp/": true
   }
+}
