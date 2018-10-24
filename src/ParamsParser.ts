@@ -1,3 +1,4 @@
+import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
 import ParamNames from './enum/ParamNames'
 import ParamError from './errors/ParamError'
@@ -90,22 +91,9 @@ function createBinaryExpression (operator : string, left : AllParamTypes, right 
   }
 }
 
-export class ParamsParser {
-  private expr : string
-  private index : number
-  private length : number
-
-  constructor () {
-    this.expr = ''
-    this.index = 0
-    this.length = 0
-  }
-
-  public parse (expr : string) : AllParamTypes {
-    this.expr = expr
-    this.index = 0
-    this.length = expr.length
-
+export class ParamsParser extends AbstractTokenizer {
+  public parse (template : string) : AllParamTypes {
+    super.init(template)
     const nodes = []
     let node
 
@@ -130,14 +118,6 @@ export class ParamsParser {
         body: nodes,
       }
     }
-  }
-
-  private charAt (i : number) : string {
-    return this.expr.charAt(i)
-  }
-
-  private charCodeAt (i : number) : number {
-    return this.expr.charCodeAt(i)
   }
 
   /**
@@ -168,7 +148,7 @@ export class ParamsParser {
    */
   private parseBinaryOp () : string | null {
     this.parseSpaces()
-    let toCheck = this.expr.substr(this.index, maxBinopLen)
+    let toCheck = this.template.substr(this.index, maxBinopLen)
     let tcLen = toCheck.length
     while (tcLen > 0) {
       if (binaryOps.hasOwnProperty(toCheck)) {
@@ -280,12 +260,11 @@ export class ParamsParser {
    * e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
    */
   private parseToken () : AllParamTypes | null {
-    let ch
     let toCheck
     let tcLen
 
     this.parseSpaces()
-    ch = this.charCodeAt(this.index)
+    const ch = this.charCodeAt(this.index)
 
     if (isDecimalDigit(ch) || ch === ECharCodes.Period) {
       // Char code 46 is a dot `.` which can start off a numeric literal
@@ -299,7 +278,7 @@ export class ParamsParser {
     } else if (ch === ECharCodes.OpenBracket) {
       return this.parseArray()
     } else {
-      toCheck = this.expr.substr(this.index, maxUnopLen)
+      toCheck = this.template.substr(this.index, maxUnopLen)
       tcLen = toCheck.length
       while (tcLen > 0) {
         if (unaryOps.hasOwnProperty(toCheck)) {
@@ -435,7 +414,7 @@ export class ParamsParser {
         break
       }
     }
-    identifier = this.expr.slice(start, this.index)
+    identifier = this.template.slice(start, this.index)
 
     if (literals.hasOwnProperty(identifier)) {
       return {

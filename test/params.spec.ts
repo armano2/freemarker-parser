@@ -19,6 +19,6 @@ describe('params parser', () => {
         raw: '1',
       },
     }
-    assert.deepEqual(result, expected, 'value is not matching')
+    assert.deepStrictEqual(result, expected, 'value is not matching')
   })
 })

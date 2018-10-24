@@ -44,9 +44,9 @@ export function parseAssignParams (start : number, end : number, params? : strin
         right: paramParser(start, end, data),
       } as IAssignmentExpression)
     } else {
-      const parsee = paramParser(start, end, item)
-      if (parsee) {
-        values.push(parsee)
+      const value = paramParser(start, end, item)
+      if (value) {
+        values.push(value)
       } else {
         throw new NodeError('Assign invalid character', { start, end })
       }

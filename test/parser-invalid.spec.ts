@@ -2,13 +2,11 @@ import * as assert from 'assert'
 import * as fs from 'fs'
 import glob = require('glob')
 import * as path from 'path'
-import { Parser } from '../src/index'
+import { Parser } from '../src'
 
 const parser = new Parser()
 
-const baseDir = path.join(__dirname, '..')
-
-const testsPath = path.join(__dirname, 'resource', 'valid')
+const testsPath = path.join(__dirname, 'resource', 'invalid')
 
 function cleanup (data : any) {
   return JSON.parse(JSON.stringify(data))
@@ -26,11 +24,9 @@ glob('./**/*.ftl', { cwd: testsPath, nodir: true, absolute: true }, (e : Error |
       const template = fs.readFileSync(file, 'utf8')
       const data = parser.parse(template)
 
-      it('should have no errors', () => {
-        if (data.ast.errors) {
-          for (const error of data.ast.errors) {
-            assert.fail(`${error.message}\n\tfile:.\\${path.relative(baseDir, file)}:${error.start ? `${error.start.line}:${error.start.column}` : '0:0'}`)
-          }
+      it('should have errors', () => {
+        if (!data.ast.errors) {
+          assert.fail('This test should have an error')
         }
       })
 

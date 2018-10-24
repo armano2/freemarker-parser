@@ -58,3 +58,9 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+
+# Intellij
+.idea
+*.iml
+*.ipr
+docs/
