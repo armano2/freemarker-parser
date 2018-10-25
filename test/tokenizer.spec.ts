@@ -1,7 +1,8 @@
 import * as assert from 'assert'
 
-import { Tokenizer } from '../src'
-import { IToken } from '../src/types/Tokens'
+import {Tokenizer} from '../src'
+import {IToken} from '../src/types/Tokens'
+import {ENodeType} from '../src/Symbols'
 
 const tokenizer = new Tokenizer()
 
@@ -9,164 +10,230 @@ function parse (text : string) : IToken[] {
   return tokenizer.parse(text)
 }
 
-function isDirective (tokens : IToken[], index : number, paramsType : string | undefined, isClose : boolean) : void {
-  const token = tokens[index]
-  assert.strictEqual(token.type, 'Directive', `[${index}] Is not a directive`)
-  assert.strictEqual(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
-  assert.strictEqual(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
-}
+class Tester {
+  public static instance (tokens : IToken[]) {
+    return new Tester(tokens)
+  }
 
-function isMacro (tokens : IToken[], index : number, paramsType : string | undefined, isClose : boolean) : void {
-  const token = tokens[index]
-  assert.strictEqual(token.type, 'Macro', `[${index}] Is not a macro`)
-  assert.strictEqual(token.params, paramsType, `[${index}] Found ${token.params || 'no params'} but expected ${paramsType || 'no params'}`)
-  assert.strictEqual(token.isClose, isClose, `[${index}] should isClose = ${isClose}`)
-}
+  private readonly tokens : IToken[]
+  private index : number = 0
 
-function isText (tokens : IToken[], index : number, text : string) : void {
-  const token = tokens[index]
-  assert.strictEqual(token.type, 'Text', `[${index}] Is not a text`)
-  assert.strictEqual(token.params, undefined, `[${index}] Found not expected params`)
-  assert.strictEqual(token.isClose, false, `[${index}] text is not allowed to have close tag`)
-  assert.strictEqual(token.text, text, `[${index}] text do not match`)
-}
+  private get token () {
+    return this.tokens[this.index]
+  }
 
-function isComment (tokens : IToken[], index : number, text : string) : void {
-  const token = tokens[index]
-  assert.strictEqual(token.type, 'Comment', `[${index}] Is not a comment`)
-  assert.strictEqual(token.params, undefined, `[${index}] Found not expected params`)
-  assert.strictEqual(token.isClose, false, `[${index}] comment is not allowed to have close tag`)
-  assert.strictEqual(token.text, text, `[${index}] comment do not match`)
+  constructor (tokens : IToken[]) {
+    this.tokens = tokens
+  }
+
+  public hasCount (value : number) {
+    assert.strictEqual(this.tokens.length, value, 'Invalid amount of elements')
+    return this
+  }
+
+  public nextToken () {
+    ++this.index
+    return this
+  }
+
+  public get (index : number) {
+    this.index = index
+    return this
+  }
+
+  public isType (tokenType : ENodeType) {
+    assert.strictEqual(this.token.type, tokenType, `[${this.index}] Is not a ${tokenType}`)
+    return this
+  }
+
+  public hasNoParams () {
+    return this.hasParams()
+  }
+
+  public hasParams (params? : string) {
+    assert.strictEqual(this.token.params, params, `[${this.index}] Found ${this.token.params || 'no params'} but expected ${params || 'no params'}`)
+    return this
+  }
+
+  public isCloseTag (isClose : boolean) {
+    assert.strictEqual(this.token.isClose, isClose, `[${this.index}] should isClose = ${isClose}`)
+    return this
+  }
+
+  public hasText (text : string) {
+    assert.strictEqual(this.token.text, text, `[${this.index}] text do not match`)
+    return this
+  }
 }
 
 describe('parsing directives', () => {
   it('no arguments', () => {
     const tokens = parse('<#foo>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false)
   })
   it('no arguments, self closing', () => {
     const tokens = parse('<#foo/>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false)
   })
   it('many, no arguments', () => {
     const tokens = parse('<#foo><#foo>')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
-    isDirective(tokens, 1, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false)
   })
   it('many, no arguments, with text', () => {
     const tokens = parse('foo<#foo>foo<#foo>foo')
-    assert.strictEqual(tokens.length, 5, 'Invalid amount of elements')
-    isText(tokens, 0, 'foo')
-    isDirective(tokens, 1, undefined, false)
-    isText(tokens, 2, 'foo')
-    isDirective(tokens, 3, undefined, false)
-    isText(tokens, 4, 'foo')
+    Tester.instance(tokens)
+      .hasCount(5)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
   })
   it('no arguments, with close tag', () => {
     const tokens = parse('<#foo></#foo>')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
-    isDirective(tokens, 1, undefined, true)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(true)
   })
   it('with arguments', () => {
     const tokens = parse('<#foo bar>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'bar', false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Directive).hasParams('bar').isCloseTag(false)
   })
   it('many, with arguments', () => {
     const tokens = parse('<#foo bar><#foo bar test><#foo bar less>')
-    assert.strictEqual(tokens.length, 3, 'Invalid amount of elements')
-    isDirective(tokens, 0, 'bar', false)
-    isDirective(tokens, 1, 'bar test', false)
-    isDirective(tokens, 2, 'bar less', false)
+    Tester.instance(tokens)
+      .hasCount(3)
+      .isType(ENodeType.Directive).hasParams('bar').isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams('bar test').isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams('bar less').isCloseTag(false)
   })
 })
 
 describe('parsing macros', () => {
   it('no arguments', () => {
     const tokens = parse('<@foo>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
   })
   it('no arguments, self closing', () => {
     const tokens = parse('<@foo/>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
   })
   it('many, no arguments', () => {
     const tokens = parse('<@foo><@foo>')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isMacro(tokens, 0, undefined, false)
-    isMacro(tokens, 1, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
   })
   it('many, no arguments, with text', () => {
     const tokens = parse('foo<@foo>foo<@foo>foo')
-    assert.strictEqual(tokens.length, 5, 'Invalid amount of elements')
-    isText(tokens, 0, 'foo')
-    isMacro(tokens, 1, undefined, false)
-    isText(tokens, 2, 'foo')
-    isMacro(tokens, 3, undefined, false)
-    isText(tokens, 4, 'foo')
+    Tester.instance(tokens)
+      .hasCount(5)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
   })
   it('no arguments, with close tag', () => {
     const tokens = parse('<@foo></@foo>')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isMacro(tokens, 0, undefined, false)
-    isMacro(tokens, 1, undefined, true)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams(undefined).isCloseTag(true)
   })
   it('with arguments', () => {
     const tokens = parse('<@foo bar>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'bar', false)
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Macro).hasParams('bar').isCloseTag(false)
   })
   it('many, with arguments', () => {
     const tokens = parse('<@foo bar><@foo bar test><@foo bar less>')
-    assert.strictEqual(tokens.length, 3, 'Invalid amount of elements')
-    isMacro(tokens, 0, 'bar', false)
-    isMacro(tokens, 1, 'bar test', false)
-    isMacro(tokens, 2, 'bar less', false)
+    Tester.instance(tokens)
+      .hasCount(3)
+      .isType(ENodeType.Macro).hasParams('bar').isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams('bar test').isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Macro).hasParams('bar less').isCloseTag(false)
   })
 })
 
 describe('parsing comments', () => {
   it('coment with text', () => {
     const tokens = parse('<#--  <@d></@d>  -->')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isComment(tokens, 0, '  <@d></@d>  ')
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Comment).hasNoParams().isCloseTag(false).hasText('  <@d></@d>  ')
   })
   it('coment in directive', () => {
     const tokens = parse('<#foo><#--  foo  --></#foo>')
-    assert.strictEqual(tokens.length, 3, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
-    isComment(tokens, 1, '  foo  ')
-    isDirective(tokens, 2, undefined, true)
+    Tester.instance(tokens)
+      .hasCount(3)
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Comment).hasNoParams().isCloseTag(false).hasText('  foo  ')
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(true)
   })
 })
 
 describe('parsing text', () => {
   it('empty text', () => {
     const tokens = parse('')
-    assert.strictEqual(tokens.length, 0, 'Invalid amount of elements')
+    Tester.instance(tokens)
+      .hasCount(0)
   })
   it('raw text', () => {
     const tokens = parse('<foo>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isText(tokens, 0, '<foo>')
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('<foo>')
   })
   it('text after directive', () => {
     const tokens = parse('<#foo>foo')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isDirective(tokens, 0, undefined, false)
-    isText(tokens, 1, 'foo')
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
+      .nextToken()
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
   })
   it('text before directive', () => {
     const tokens = parse('foo<#foo>')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isText(tokens, 0, 'foo')
-    isDirective(tokens, 1, undefined, false)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams(undefined).isCloseTag(false)
   })
 })
 
@@ -253,14 +320,17 @@ describe('error_expresion', () => {
 describe('html', () => {
   it('simple', () => {
     const tokens = parse('<p>This is include-subdir.ftl</p>')
-    assert.strictEqual(tokens.length, 1, 'Invalid amount of elements')
-    isText(tokens, 0, '<p>This is include-subdir.ftl</p>')
+    Tester.instance(tokens)
+      .hasCount(1)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('<p>This is include-subdir.ftl</p>')
   })
   it('advance', () => {
     const tokens = parse('<p>This is include-subdir.ftl</p><#include "include-subdir2.ftl">')
-    assert.strictEqual(tokens.length, 2, 'Invalid amount of elements')
-    isText(tokens, 0, '<p>This is include-subdir.ftl</p>')
-    isDirective(tokens, 1, '"include-subdir2.ftl"', false)
+    Tester.instance(tokens)
+      .hasCount(2)
+      .isType(ENodeType.Text).hasNoParams().isCloseTag(false).hasText('<p>This is include-subdir.ftl</p>')
+      .nextToken()
+      .isType(ENodeType.Directive).hasParams('"include-subdir2.ftl"').isCloseTag(false)
   })
 })
 
@@ -289,5 +359,20 @@ describe('unclosed', () => {
     } catch (e) {
       assert.strictEqual(e.message, 'Unclosed directive or macro', 'error message is invalid')
     }
+  })
+})
+
+describe('names', () => {
+  it('directive', () => {
+    const tokens = parse('<#foo/><#Foo/><#FoO/><#Fo_O/>')
+    Tester.instance(tokens)
+      .hasCount(4)
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false).hasText('foo')
+      .nextToken()
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false).hasText('Foo')
+      .nextToken()
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false).hasText('FoO')
+      .nextToken()
+      .isType(ENodeType.Directive).hasNoParams().isCloseTag(false).hasText('Fo_O')
   })
 })
