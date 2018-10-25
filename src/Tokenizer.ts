@@ -16,15 +16,42 @@ interface IParams {
   endToken : string
 }
 
+export enum TagSyntax {
+  SQUARE = 'square',
+  DEFAULT = 'default',
+}
+
+export interface ITokenizerOptions {
+  tagSyntax : TagSyntax
+}
+
 export class Tokenizer extends AbstractTokenizer {
   private tokens : IToken[] = []
+  private options : ITokenizerOptions
+
+  private get openTag () : ECharCodes {
+    return this.options.tagSyntax === TagSyntax.SQUARE ? ECharCodes.OpenBracket : ECharCodes.Less
+  }
+
+  private get closeTag () : ECharCodes {
+    return this.options.tagSyntax === TagSyntax.SQUARE ? ECharCodes.CloseBracket : ECharCodes.Greater
+  }
+
+  constructor (options? : ITokenizerOptions) {
+    super()
+
+    this.options = {
+      tagSyntax : TagSyntax.DEFAULT,
+      ...options,
+    }
+  }
 
   public parse (template : string) : IToken[] {
     super.init(template)
 
     this.tokens = []
     while (this.index >= 0 && this.index < this.template.length) {
-      this.parseToken()
+      this.parseTemplate()
     }
 
     return this.tokens
@@ -43,7 +70,7 @@ export class Tokenizer extends AbstractTokenizer {
     return { pos, text }
   }
 
-  private parseTag () : string {
+  private parseTagName () : string {
     let text : string = ''
     let ch : number = this.charCodeAt(this.index)
 
@@ -52,10 +79,10 @@ export class Tokenizer extends AbstractTokenizer {
         ++this.index
         break
       }
-      if (ch === ECharCodes.Greater || (ch === ECharCodes.Slash && this.charCodeAt(this.index + 1) === ECharCodes.Greater)) {
+      if (ch === this.closeTag || (ch === ECharCodes.Slash && this.charCodeAt(this.index + 1) === this.closeTag)) {
         break
       }
-      if (isLetter(ch) || ch === ECharCodes.Period) {
+      if (isLetter(ch) || ch === ECharCodes.Period || ch === ECharCodes.Underscore) {
         text += this.charAt(this.index)
         ch = this.charCodeAt(++this.index)
       } else {
@@ -78,13 +105,13 @@ export class Tokenizer extends AbstractTokenizer {
     return symbol || null
   }
 
-  private parseToken () {
+  private parseTemplate () {
     let text : string = ''
     const startPos = this.index
     let ch : number
-    while (this.index < this.template.length) {
+    while (this.index < this.length) {
       ch = this.charCodeAt(this.index)
-      if (ch === ECharCodes.Less || ch === ECharCodes.$) { // <
+      if (ch === this.openTag || ch === ECharCodes.$) {
         const token = this.getToken()
         if (token) {
           if (text.length > 0) {
@@ -97,13 +124,13 @@ export class Tokenizer extends AbstractTokenizer {
 
           switch (token.type) {
             case ENodeType.Comment:
-              return this.parseComment(token.startToken, token.endToken, start)
+              return this.parseComment(token, start)
             case ENodeType.Directive:
-              return this.parseDirective(token.startToken, token.endToken, start, Boolean(token.end))
+              return this.parseDirective(token, start, Boolean(token.end))
             case ENodeType.Macro:
-              return this.parseMacro(token.startToken, token.endToken, start, Boolean(token.end))
+              return this.parseMacro(token, start, Boolean(token.end))
             case ENodeType.Interpolation:
-              return this.parseInterpolation(token.startToken, token.endToken, start)
+              return this.parseInterpolation(token, start)
           }
         }
       }
@@ -127,41 +154,41 @@ export class Tokenizer extends AbstractTokenizer {
     })
   }
 
-  private parseComment (startToken : string, endTokens : string[], start : number) {
-    const end = this.getNextPos(endTokens)
+  private parseComment (symbol : ISymbol, start : number) {
+    const end = this.getNextPos(symbol.endToken)
     if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`)
     }
     const text = this.template.substring(this.index, end.pos)
     this.index = end.pos + end.text.length
 
-    this.addToken(ENodeType.Comment, start, this.index, text, startToken, end.text)
+    this.addToken(symbol.type, start, this.index, text, symbol.startToken, end.text)
   }
 
-  private parseInterpolation (startToken : string, endTokens : string[], start : number) {
-    const params = this.parseParams(endTokens)
-    this.addToken(ENodeType.Interpolation, start, this.index, '', startToken, params.endToken, params.paramText)
+  private parseInterpolation (symbol : ISymbol, start : number) {
+    const params = this.parseParams(symbol.endToken)
+    this.addToken(symbol.type, start, this.index, '', symbol.startToken, params.endToken, params.paramText)
   }
 
-  private parseMacro (startToken : string, endTokens : string[], start : number, isClose : boolean) {
-    const typeString = this.parseTag()
+  private parseMacro (symbol : ISymbol, start : number, isClose : boolean) {
+    const typeString = this.parseTagName()
     if (typeString.length === 0) {
       throw new ParamError('Macro name cannot be empty', this.index)
     }
 
-    const params = this.parseParams(endTokens)
-    this.addToken(ENodeType.Macro, start, this.index, typeString, startToken, params.endToken, params.paramText, isClose)
+    const params = this.parseParams(symbol.endToken)
+    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText, isClose)
   }
 
-  private parseDirective (startToken : string, endTokens : string[], start : number, isClose : boolean) {
-    const typeString = this.parseTag()
+  private parseDirective (symbol : ISymbol, start : number, isClose : boolean) {
+    const typeString = this.parseTagName()
     if (typeString.length === 0) {
       throw new ParamError('Directive name cannot be empty', this.index)
     }
 
-    const params = this.parseParams(endTokens)
+    const params = this.parseParams(symbol.endToken)
 
-    this.addToken(ENodeType.Directive, start, this.index, typeString, startToken, params.endToken, params.paramText, isClose)
+    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText, isClose)
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
@@ -174,7 +201,7 @@ export class Tokenizer extends AbstractTokenizer {
     const stack : number[] = []
     let lastCode : number | undefined
 
-    while (this.index <= this.template.length) {
+    while (this.index <= this.length) {
       const ch = this.charCodeAt(this.index)
 
       if (lastCode !== ECharCodes.DoubleQuote && lastCode !== ECharCodes.SingleQuote) {
