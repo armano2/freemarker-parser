@@ -302,7 +302,6 @@ export class ParamsParser extends AbstractTokenizer {
    */
   private parseNumericLiteral () : ILiteral {
     let rawName = ''
-    let ch
     let chCode
     while (isDecimalDigit(this.charCodeAt(this.index))) {
       rawName += this.charAt(this.index++)
@@ -313,21 +312,6 @@ export class ParamsParser extends AbstractTokenizer {
 
       while (isDecimalDigit(this.charCodeAt(this.index))) {
         rawName += this.charAt(this.index++)
-      }
-    }
-
-    ch = this.charAt(this.index)
-    if (ch === 'e' || ch === 'E') { // exponent marker
-      rawName += this.charAt(this.index++)
-      ch = this.charAt(this.index)
-      if (ch === '+' || ch === '-') { // exponent sign
-        rawName += this.charAt(this.index++)
-      }
-      while (isDecimalDigit(this.charCodeAt(this.index))) { // exponent itself
-        rawName += this.charAt(this.index++)
-      }
-      if (!isDecimalDigit(this.charCodeAt(this.index - 1))) {
-        throw new ParamError(`Expected exponent (${rawName}${this.charAt(this.index)})`, this.index)
       }
     }
 
@@ -364,15 +348,7 @@ export class ParamsParser extends AbstractTokenizer {
       } else if (ch === '\\') {
         // Check for all of the common escape codes
         ch = this.charAt(this.index++)
-        switch (ch) {
-          case 'n': str += '\n'; break
-          case 'r': str += '\r'; break
-          case 't': str += '\t'; break
-          case 'b': str += '\b'; break
-          case 'f': str += '\f'; break
-          case 'v': str += '\x0B'; break
-          default : str += `\\${ch}`
-        }
+        str += `\\${ch}`
       } else {
         str += ch
       }
