@@ -73,6 +73,7 @@ console.log(data.tokens)
     - `#t`
     - `#nt`
     - `#rt`
+    - `#flush`
   - comments `<#-- -->`
   - built-ins:
     - `?toUpperCase`
@@ -88,7 +89,6 @@ console.log(data.tokens)
     - `#escape`
       - `#noescape`
     - `#fallback`
-    - `#flush`
     - `#nested`
     - `#recurse`
     - `#visit`

@@ -7,6 +7,7 @@ import IBreak from '../types/Nodes/IBreak'
 import IComment from '../types/Nodes/IComment'
 import ICompress from '../types/Nodes/ICompress'
 import ICondition from '../types/Nodes/ICondition'
+import IFlush from '../types/Nodes/IFlush'
 import IFunction from '../types/Nodes/IFunction'
 import IGlobal from '../types/Nodes/IGlobal'
 import IImport from '../types/Nodes/IImport'
@@ -145,6 +146,9 @@ const Nodes : INodes = {
   },
   [NodeNames.T] (token : IToken) : IT {
     return new IT(token)
+  },
+  [NodeNames.Flush] (token : IToken) : IFlush {
+    return new IFlush(token)
   },
 }
 

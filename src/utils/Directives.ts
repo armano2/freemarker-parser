@@ -17,7 +17,7 @@ const Directives : IDirectivesTypes = {
   // noescape: NodeNames.NoEscape,
   // fallback: NodeNames.Fallback,
   function: NodeNames.Function,
-  // flush: NodeNames.Flush,
+  flush: NodeNames.Flush,
   global: NodeNames.Global,
   import: NodeNames.Import,
   local: NodeNames.Local,

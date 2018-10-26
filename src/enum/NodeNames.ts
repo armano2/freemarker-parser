@@ -29,13 +29,13 @@ enum NodeNames {
   Nt = 'Nt',
   Rt = 'Rt',
   T = 'T',
+  Flush = 'Flush',
 
   // Not supported
   // Escape = 'Escape',
   // NoEscape = 'NoEscape',
   // Visit = 'visit',
   // Recurse = 'Recurse',
-  // Flush = 'Flush',
   // Nested = 'Nested',
 }
 
