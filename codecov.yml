@@ -1,0 +1,6 @@
+ignore:
+  - ".circleci"
+  - ".nyc_output"
+  - "scripts"
+  - "typings"
+  - "dist"
