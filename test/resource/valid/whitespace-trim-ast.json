@@ -1,0 +1,1538 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 1853,
+  "body": [
+    {
+      "type": "Comment",
+      "start": 0,
+      "end": 791,
+      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n"
+    },
+    {
+      "type": "Text",
+      "start": 791,
+      "end": 794,
+      "text": "\nLB"
+    },
+    {
+      "type": "Lt",
+      "start": 794,
+      "end": 799
+    },
+    {
+      "type": "Text",
+      "start": 799,
+      "end": 804,
+      "text": "\n  LB"
+    },
+    {
+      "type": "Lt",
+      "start": 804,
+      "end": 809
+    },
+    {
+      "type": "Text",
+      "start": 809,
+      "end": 813,
+      "text": "\n\tLB"
+    },
+    {
+      "type": "Lt",
+      "start": 813,
+      "end": 818
+    },
+    {
+      "type": "Text",
+      "start": 818,
+      "end": 821,
+      "text": "\nLB"
+    },
+    {
+      "type": "Lt",
+      "start": 821,
+      "end": 826
+    },
+    {
+      "type": "Text",
+      "start": 826,
+      "end": 837,
+      "text": "\n  IB\n  IC1"
+    },
+    {
+      "type": "Rt",
+      "start": 837,
+      "end": 842
+    },
+    {
+      "type": "Text",
+      "start": 842,
+      "end": 848,
+      "text": "\n  IC2"
+    },
+    {
+      "type": "Rt",
+      "start": 848,
+      "end": 853
+    },
+    {
+      "type": "Text",
+      "start": 853,
+      "end": 856,
+      "text": "\nC1"
+    },
+    {
+      "type": "Rt",
+      "start": 856,
+      "end": 861
+    },
+    {
+      "type": "Text",
+      "start": 861,
+      "end": 864,
+      "text": "\nC2"
+    },
+    {
+      "type": "Rt",
+      "start": 864,
+      "end": 869
+    },
+    {
+      "type": "Text",
+      "start": 869,
+      "end": 876,
+      "text": "\n  ICS "
+    },
+    {
+      "type": "Rt",
+      "start": 876,
+      "end": 881
+    },
+    {
+      "type": "Text",
+      "start": 881,
+      "end": 886,
+      "text": "\nCS1 "
+    },
+    {
+      "type": "Rt",
+      "start": 886,
+      "end": 891
+    },
+    {
+      "type": "Text",
+      "start": 891,
+      "end": 898,
+      "text": "\n  CS2 "
+    },
+    {
+      "type": "T",
+      "start": 898,
+      "end": 902
+    },
+    {
+      "type": "Text",
+      "start": 902,
+      "end": 907,
+      "text": "\n  C3"
+    },
+    {
+      "type": "T",
+      "start": 907,
+      "end": 911
+    },
+    {
+      "type": "Text",
+      "start": 911,
+      "end": 916,
+      "text": "\n  C1"
+    },
+    {
+      "type": "T",
+      "start": 916,
+      "end": 920
+    },
+    {
+      "type": "Text",
+      "start": 920,
+      "end": 932,
+      "text": "\nC2\nB\nB\n  C1"
+    },
+    {
+      "type": "T",
+      "start": 932,
+      "end": 936
+    },
+    {
+      "type": "Text",
+      "start": 936,
+      "end": 947,
+      "text": "\nCB\nC1\n  C2"
+    },
+    {
+      "type": "T",
+      "start": 947,
+      "end": 951
+    },
+    {
+      "type": "Text",
+      "start": 951,
+      "end": 962,
+      "text": "\n  ICB\n  IC"
+    },
+    {
+      "type": "Rt",
+      "start": 962,
+      "end": 967
+    },
+    {
+      "type": "Text",
+      "start": 967,
+      "end": 978,
+      "text": "\n  ICB\n  IC"
+    },
+    {
+      "type": "Rt",
+      "start": 978,
+      "end": 983
+    },
+    {
+      "type": "Text",
+      "start": 983,
+      "end": 988,
+      "text": "\n  CB"
+    },
+    {
+      "type": "Lt",
+      "start": 988,
+      "end": 993
+    },
+    {
+      "type": "Text",
+      "start": 993,
+      "end": 997,
+      "text": "\n--\n"
+    },
+    {
+      "type": "Macro",
+      "start": 997,
+      "end": 1009,
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "Identifier",
+            "name": "x"
+          },
+          {
+            "type": "Identifier",
+            "name": "t"
+          }
+        ]
+      },
+      "body": [
+        {
+          "type": "Interpolation",
+          "start": 1009,
+          "end": 1013,
+          "params": {
+            "type": "Identifier",
+            "name": "t"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1022,
+      "end": 1023,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 1023,
+      "end": 1028,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "MacroCall",
+      "start": 1028,
+      "end": 1040,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "LB",
+          "raw": "\"LB\""
+        }
+      }
+    },
+    {
+      "type": "Lt",
+      "start": 1040,
+      "end": 1045
+    },
+    {
+      "type": "Text",
+      "start": 1045,
+      "end": 1046,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1046,
+      "end": 1058,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "LB",
+          "raw": "\"LB\""
+        }
+      }
+    },
+    {
+      "type": "Lt",
+      "start": 1058,
+      "end": 1063
+    },
+    {
+      "type": "Interpolation",
+      "start": 1063,
+      "end": 1068,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1068,
+      "end": 1069,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1069,
+      "end": 1081,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "LB",
+          "raw": "\"LB\""
+        }
+      }
+    },
+    {
+      "type": "Lt",
+      "start": 1081,
+      "end": 1086
+    },
+    {
+      "type": "Interpolation",
+      "start": 1086,
+      "end": 1091,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1091,
+      "end": 1092,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1092,
+      "end": 1104,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "LB",
+          "raw": "\"LB\""
+        }
+      }
+    },
+    {
+      "type": "Lt",
+      "start": 1104,
+      "end": 1109
+    },
+    {
+      "type": "Interpolation",
+      "start": 1109,
+      "end": 1114,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1114,
+      "end": 1115,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1115,
+      "end": 1127,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "IB",
+          "raw": "\"IB\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1127,
+      "end": 1132,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1132,
+      "end": 1133,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 1133,
+      "end": 1138,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1138,
+      "end": 1140,
+      "text": "  "
+    },
+    {
+      "type": "MacroCall",
+      "start": 1140,
+      "end": 1153,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "IC1",
+          "raw": "\"IC1\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1153,
+      "end": 1158
+    },
+    {
+      "type": "Text",
+      "start": 1158,
+      "end": 1159,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1159,
+      "end": 1172,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "IC2",
+          "raw": "\"IC2\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1172,
+      "end": 1177
+    },
+    {
+      "type": "Interpolation",
+      "start": 1177,
+      "end": 1182,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1182,
+      "end": 1183,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 1183,
+      "end": 1188,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "MacroCall",
+      "start": 1188,
+      "end": 1200,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C1",
+          "raw": "\"C1\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1200,
+      "end": 1205
+    },
+    {
+      "type": "Text",
+      "start": 1205,
+      "end": 1206,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1206,
+      "end": 1218,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C2",
+          "raw": "\"C2\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1218,
+      "end": 1223
+    },
+    {
+      "type": "Interpolation",
+      "start": 1223,
+      "end": 1228,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1228,
+      "end": 1229,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1229,
+      "end": 1242,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "ICS",
+          "raw": "\"ICS\""
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1242,
+      "end": 1243,
+      "text": " "
+    },
+    {
+      "type": "Rt",
+      "start": 1243,
+      "end": 1248
+    },
+    {
+      "type": "Interpolation",
+      "start": 1248,
+      "end": 1253,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1253,
+      "end": 1254,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1254,
+      "end": 1267,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "CS1",
+          "raw": "\"CS1\""
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1267,
+      "end": 1268,
+      "text": " "
+    },
+    {
+      "type": "Rt",
+      "start": 1268,
+      "end": 1273
+    },
+    {
+      "type": "Interpolation",
+      "start": 1273,
+      "end": 1278,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1278,
+      "end": 1279,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1279,
+      "end": 1292,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "CS2",
+          "raw": "\"CS2\""
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1292,
+      "end": 1293,
+      "text": " "
+    },
+    {
+      "type": "T",
+      "start": 1293,
+      "end": 1297
+    },
+    {
+      "type": "Interpolation",
+      "start": 1297,
+      "end": 1302,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1302,
+      "end": 1303,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1303,
+      "end": 1315,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C3",
+          "raw": "\"C3\""
+        }
+      }
+    },
+    {
+      "type": "T",
+      "start": 1315,
+      "end": 1319
+    },
+    {
+      "type": "Text",
+      "start": 1319,
+      "end": 1320,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1320,
+      "end": 1332,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C1",
+          "raw": "\"C1\""
+        }
+      }
+    },
+    {
+      "type": "T",
+      "start": 1332,
+      "end": 1336
+    },
+    {
+      "type": "Text",
+      "start": 1336,
+      "end": 1337,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1337,
+      "end": 1349,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C2",
+          "raw": "\"C2\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1349,
+      "end": 1354,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1354,
+      "end": 1355,
+      "text": "\n"
+    },
+    {
+      "type": "Nt",
+      "start": 1355,
+      "end": 1360
+    },
+    {
+      "type": "MacroCall",
+      "start": 1360,
+      "end": 1371,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "B",
+          "raw": "\"B\""
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1371,
+      "end": 1372,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1372,
+      "end": 1383,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "B",
+          "raw": "\"B\""
+        }
+      }
+    },
+    {
+      "type": "Nt",
+      "start": 1383,
+      "end": 1388
+    },
+    {
+      "type": "Text",
+      "start": 1388,
+      "end": 1389,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1389,
+      "end": 1401,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C1",
+          "raw": "\"C1\""
+        }
+      }
+    },
+    {
+      "type": "T",
+      "start": 1401,
+      "end": 1405
+    },
+    {
+      "type": "Text",
+      "start": 1405,
+      "end": 1406,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1406,
+      "end": 1418,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "CB",
+          "raw": "\"CB\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1418,
+      "end": 1423,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1423,
+      "end": 1424,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1424,
+      "end": 1436,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C1",
+          "raw": "\"C1\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1436,
+      "end": 1441,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1441,
+      "end": 1442,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1442,
+      "end": 1454,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "C2",
+          "raw": "\"C2\""
+        }
+      }
+    },
+    {
+      "type": "T",
+      "start": 1454,
+      "end": 1458
+    },
+    {
+      "type": "Interpolation",
+      "start": 1458,
+      "end": 1463,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1463,
+      "end": 1464,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1464,
+      "end": 1477,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "ICB",
+          "raw": "\"ICB\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1477,
+      "end": 1482,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1482,
+      "end": 1483,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 1483,
+      "end": 1488,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "MacroCall",
+      "start": 1488,
+      "end": 1500,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "IC",
+          "raw": "\"IC\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1500,
+      "end": 1505
+    },
+    {
+      "type": "Text",
+      "start": 1505,
+      "end": 1506,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1506,
+      "end": 1519,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "ICB",
+          "raw": "\"ICB\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1519,
+      "end": 1524,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1524,
+      "end": 1525,
+      "text": "\n"
+    },
+    {
+      "type": "Interpolation",
+      "start": 1525,
+      "end": 1530,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1530,
+      "end": 1532,
+      "text": "  "
+    },
+    {
+      "type": "MacroCall",
+      "start": 1532,
+      "end": 1544,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "IC",
+          "raw": "\"IC\""
+        }
+      }
+    },
+    {
+      "type": "Rt",
+      "start": 1544,
+      "end": 1549
+    },
+    {
+      "type": "Text",
+      "start": 1549,
+      "end": 1550,
+      "text": "\n"
+    },
+    {
+      "type": "MacroCall",
+      "start": 1550,
+      "end": 1562,
+      "name": "x",
+      "params": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "t"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "CB",
+          "raw": "\"CB\""
+        }
+      }
+    },
+    {
+      "type": "Interpolation",
+      "start": 1562,
+      "end": 1567,
+      "params": {
+        "type": "Literal",
+        "value": "",
+        "raw": "\"\""
+      }
+    },
+    {
+      "type": "Lt",
+      "start": 1567,
+      "end": 1572
+    },
+    {
+      "type": "Text",
+      "start": 1572,
+      "end": 1576,
+      "text": "\n--\n"
+    },
+    {
+      "type": "Lt",
+      "start": 1576,
+      "end": 1581
+    },
+    {
+      "type": "Text",
+      "start": 1581,
+      "end": 1591,
+      "text": "  IB\n  IC1"
+    },
+    {
+      "type": "Rt",
+      "start": 1591,
+      "end": 1596
+    },
+    {
+      "type": "Text",
+      "start": 1596,
+      "end": 1597,
+      "text": "\n"
+    },
+    {
+      "type": "Assign",
+      "start": 1597,
+      "end": 1612,
+      "params": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1612,
+      "end": 1613,
+      "text": " "
+    },
+    {
+      "type": "Comment",
+      "start": 1613,
+      "end": 1636,
+      "text": " just a comment "
+    },
+    {
+      "type": "Text",
+      "start": 1636,
+      "end": 1641,
+      "text": "\n  C2"
+    },
+    {
+      "type": "T",
+      "start": 1641,
+      "end": 1645
+    },
+    {
+      "type": "Text",
+      "start": 1645,
+      "end": 1646,
+      "text": "\n"
+    },
+    {
+      "type": "Assign",
+      "start": 1646,
+      "end": 1661,
+      "params": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1661,
+      "end": 1668,
+      "text": "\n  IB\n1"
+    },
+    {
+      "type": "T",
+      "start": 1668,
+      "end": 1672
+    },
+    {
+      "type": "Text",
+      "start": 1672,
+      "end": 1673,
+      "text": "\n"
+    },
+    {
+      "type": "Assign",
+      "start": 1673,
+      "end": 1688,
+      "params": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1688,
+      "end": 1695,
+      "text": "\n2\n---\n"
+    },
+    {
+      "type": "T",
+      "start": 1695,
+      "end": 1699
+    },
+    {
+      "type": "Text",
+      "start": 1699,
+      "end": 1701,
+      "text": "1\n"
+    },
+    {
+      "type": "T",
+      "start": 1701,
+      "end": 1705
+    },
+    {
+      "type": "Text",
+      "start": 1705,
+      "end": 1708,
+      "text": " 2\n"
+    },
+    {
+      "type": "Lt",
+      "start": 1708,
+      "end": 1713
+    },
+    {
+      "type": "Text",
+      "start": 1713,
+      "end": 1719,
+      "text": "3\n  4\n"
+    },
+    {
+      "type": "Rt",
+      "start": 1719,
+      "end": 1724
+    },
+    {
+      "type": "Text",
+      "start": 1724,
+      "end": 1736,
+      "text": "5\n  6\n---\na\n"
+    },
+    {
+      "type": "Assign",
+      "start": 1736,
+      "end": 1751,
+      "params": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "T",
+      "start": 1751,
+      "end": 1755
+    },
+    {
+      "type": "Text",
+      "start": 1755,
+      "end": 1757,
+      "text": "\nb"
+    },
+    {
+      "type": "T",
+      "start": 1757,
+      "end": 1761
+    },
+    {
+      "type": "Text",
+      "start": 1761,
+      "end": 1768,
+      "text": "\nc\n---\n"
+    },
+    {
+      "type": "Condition",
+      "start": 1768,
+      "end": 1778,
+      "params": {
+        "type": "Literal",
+        "value": true,
+        "raw": "true"
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1778,
+          "end": 1781,
+          "text": "\n  "
+        },
+        {
+          "type": "T",
+          "start": 1781,
+          "end": 1785
+        },
+        {
+          "type": "Text",
+          "start": 1785,
+          "end": 1789,
+          "text": "foo\n"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1795,
+      "end": 1800,
+      "text": "\n---\n"
+    },
+    {
+      "type": "Condition",
+      "start": 1800,
+      "end": 1810,
+      "params": {
+        "type": "Literal",
+        "value": true,
+        "raw": "true"
+      },
+      "consequent": [
+        {
+          "type": "Comment",
+          "start": 1810,
+          "end": 1833,
+          "text": " just a comment "
+        },
+        {
+          "type": "Text",
+          "start": 1833,
+          "end": 1841,
+          "text": "\n    foo"
+        },
+        {
+          "type": "T",
+          "start": 1841,
+          "end": 1845
+        },
+        {
+          "type": "Text",
+          "start": 1845,
+          "end": 1846,
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1852,
+      "end": 1853,
+      "text": "\n"
+    }
+  ]
+}

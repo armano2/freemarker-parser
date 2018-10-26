@@ -14,14 +14,18 @@ import IInclude from '../types/Nodes/IInclude'
 import IInterpolation from '../types/Nodes/IInterpolation'
 import IList from '../types/Nodes/IList'
 import ILocal from '../types/Nodes/ILocal'
+import ILt from '../types/Nodes/ILt'
 import IMacro from '../types/Nodes/IMacro'
 import IMacroCall from '../types/Nodes/IMacroCall'
+import INt from '../types/Nodes/INt'
 import IReturn from '../types/Nodes/IReturn'
+import IRt from '../types/Nodes/IRt'
 import ISetting from '../types/Nodes/ISetting'
 import IStop from '../types/Nodes/IStop'
 import ISwitch from '../types/Nodes/ISwitch'
 import ISwitchCase from '../types/Nodes/ISwitchCase'
 import ISwitchDefault from '../types/Nodes/ISwitchDefault'
+import IT from '../types/Nodes/IT'
 import IText from '../types/Nodes/IText'
 import { IToken } from '../types/Tokens'
 
@@ -129,6 +133,18 @@ const Nodes : INodes = {
   },
   [NodeNames.Setting] (token : IToken) : ISetting {
     return new ISetting(token)
+  },
+  [NodeNames.Rt] (token : IToken) : IRt {
+    return new IRt(token)
+  },
+  [NodeNames.Lt] (token : IToken) : ILt {
+    return new ILt(token)
+  },
+  [NodeNames.Nt] (token : IToken) : INt {
+    return new INt(token)
+  },
+  [NodeNames.T] (token : IToken) : IT {
+    return new IT(token)
   },
 }
 

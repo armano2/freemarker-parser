@@ -4,3 +4,6 @@ ignore:
   - "scripts"
   - "typings"
   - "dist"
+  - "README.md"
+  - "LICENSE.md"
+  - "test"

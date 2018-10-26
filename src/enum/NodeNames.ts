@@ -25,6 +25,10 @@ enum NodeNames {
   Import = 'Import',
   Stop = 'Stop',
   Setting = 'Setting',
+  Lt = 'Lt',
+  Nt = 'Nt',
+  Rt = 'Rt',
+  T = 'T',
 
   // Not supported
   // Escape = 'Escape',
@@ -32,11 +36,7 @@ enum NodeNames {
   // Visit = 'visit',
   // Recurse = 'Recurse',
   // Flush = 'Flush',
-  // Lt = 'Lt',
   // Nested = 'Nested',
-  // Nt = 'Nt',
-  // Rt = 'Rt',
-  // T = 'T',
 }
 
 export default NodeNames

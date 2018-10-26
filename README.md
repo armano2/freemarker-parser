@@ -69,6 +69,10 @@ console.log(data.tokens)
     - `#noparse`, `#noParse`
     - `#stop`
     - `#setting`
+    - `#lt`
+    - `#t`
+    - `#nt`
+    - `#rt`
   - comments `<#-- -->`
   - built-ins:
     - `?toUpperCase`
@@ -88,8 +92,3 @@ console.log(data.tokens)
     - `#nested`
     - `#recurse`
     - `#visit`
-    
-    - `#lt`
-    - `#t`
-    - `#nt`
-    - `#rt`
