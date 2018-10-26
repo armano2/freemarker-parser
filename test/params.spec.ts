@@ -81,4 +81,58 @@ describe('params parser', () => {
     }
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
+  it('toUpperCase', () => {
+    const result = parser.parse('foo?toUpperCase')
+    const expected = {
+      type: ParamNames.Compound,
+      body: [
+        {
+          type: ParamNames.Identifier,
+          name: 'foo',
+        },
+        {
+          type: ParamNames.UnaryExpression,
+          operator: '?',
+          prefix: true,
+          argument: {
+            type: ParamNames.Identifier,
+            name: 'toUpperCase',
+          },
+        },
+      ],
+    }
+    assert.deepStrictEqual(result, expected, 'value is not matching')
+  })
+  it('to string', () => {
+    const result = parser.parse('foo?string("yes")')
+    const expected = {
+      type: ParamNames.Compound,
+      body: [
+        {
+          type: ParamNames.Identifier,
+          name: 'foo',
+        },
+        {
+          type: ParamNames.UnaryExpression,
+          operator: '?',
+          prefix: true,
+          argument: {
+            type: ParamNames.CallExpression,
+            arguments: [
+              {
+                type: ParamNames.Literal,
+                raw: '"yes"',
+                value: 'yes',
+              },
+            ],
+            callee: {
+              name: 'string',
+              type: ParamNames.Identifier,
+            },
+          },
+        },
+      ],
+    }
+    assert.deepStrictEqual(result, expected, 'value is not matching')
+  })
 })

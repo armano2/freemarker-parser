@@ -70,27 +70,26 @@ console.log(data.tokens)
     - `#stop`
     - `#setting`
   - comments `<#-- -->`
-
-## TODO:
   - built-ins:
     - `?toUpperCase`
     - `?toLowerCase`
     - `?capitalize`
     - `?length`
     - `?string("yes", "no")`
-  - size builtin for arrays
+
+## TODO:
   - support default values, i.e. `${user!"Anonymous"}`
-  - null resistance in above expressions if in parenthesis
-  - alternative syntax if starts with `[#ftl]`
+  - alternative syntax `[` or `<`
   - directives:
     - `#escape`
       - `#noescape`
     - `#fallback`
     - `#flush`
-    - `#lt`
     - `#nested`
-    - `#nt`
     - `#recurse`
-    - `#rt`
-    - `#t`
     - `#visit`
+    
+    - `#lt`
+    - `#t`
+    - `#nt`
+    - `#rt`
