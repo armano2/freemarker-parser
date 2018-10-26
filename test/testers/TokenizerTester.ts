@@ -39,7 +39,10 @@ export default class Tester {
   }
 
   public hasNoParams () {
-    return this.hasParams()
+    if (this.token.params) {
+      assert.strictEqual(this.token.params.length, 0, `[${this.index}] Expected to have no params`)
+    }
+    return this
   }
 
   public hasParams (params? : string) {

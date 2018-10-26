@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 1377,
+  "end": 1325,
   "body": [
     {
       "type": "Comment",
@@ -469,21 +469,33 @@
       "text": "\n"
     },
     {
-      "type": "Comment",
+      "type": "Setting",
       "start": 1086,
-      "end": 1149,
-      "text": "\n  TODO: fix me\n  <#setting boolean_format=\"igen,nem\"/>\n"
+      "end": 1123,
+      "expression": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "boolean_format"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "igen,nem",
+          "raw": "\"igen,nem\""
+        }
+      }
     },
     {
       "type": "Text",
-      "start": 1149,
-      "end": 1150,
+      "start": 1123,
+      "end": 1124,
       "text": "\n"
     },
     {
       "type": "Interpolation",
-      "start": 1150,
-      "end": 1161,
+      "start": 1124,
+      "end": 1135,
       "params": {
         "type": "Compound",
         "body": [
@@ -505,14 +517,14 @@
     },
     {
       "type": "Text",
-      "start": 1161,
-      "end": 1162,
+      "start": 1135,
+      "end": 1136,
       "text": " "
     },
     {
       "type": "Interpolation",
-      "start": 1162,
-      "end": 1173,
+      "start": 1136,
+      "end": 1147,
       "params": {
         "type": "Compound",
         "body": [
@@ -534,14 +546,14 @@
     },
     {
       "type": "Text",
-      "start": 1173,
-      "end": 1174,
+      "start": 1147,
+      "end": 1148,
       "text": "\n"
     },
     {
       "type": "Setting",
-      "start": 1174,
-      "end": 1204,
+      "start": 1148,
+      "end": 1178,
       "expression": {
         "type": "AssignmentExpression",
         "operator": "=",
@@ -558,14 +570,14 @@
     },
     {
       "type": "Text",
-      "start": 1204,
-      "end": 1205,
+      "start": 1178,
+      "end": 1179,
       "text": "\n"
     },
     {
       "type": "Interpolation",
-      "start": 1205,
-      "end": 1222,
+      "start": 1179,
+      "end": 1196,
       "params": {
         "type": "Compound",
         "body": [
@@ -602,14 +614,14 @@
     },
     {
       "type": "Text",
-      "start": 1222,
-      "end": 1223,
+      "start": 1196,
+      "end": 1197,
       "text": " "
     },
     {
       "type": "Interpolation",
-      "start": 1223,
-      "end": 1240,
+      "start": 1197,
+      "end": 1214,
       "params": {
         "type": "Compound",
         "body": [
@@ -646,26 +658,38 @@
     },
     {
       "type": "Text",
-      "start": 1240,
-      "end": 1241,
+      "start": 1214,
+      "end": 1215,
       "text": "\n"
     },
     {
-      "type": "Comment",
-      "start": 1241,
-      "end": 1306,
-      "text": "\n  TODO: fix me\n  <#setting boolean_format=\"true,false\"/>\n"
+      "type": "Setting",
+      "start": 1215,
+      "end": 1254,
+      "expression": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "boolean_format"
+        },
+        "right": {
+          "type": "Literal",
+          "value": "true,false",
+          "raw": "\"true,false\""
+        }
+      }
     },
     {
       "type": "Text",
-      "start": 1306,
-      "end": 1307,
+      "start": 1254,
+      "end": 1255,
       "text": "\n"
     },
     {
       "type": "Interpolation",
-      "start": 1307,
-      "end": 1341,
+      "start": 1255,
+      "end": 1289,
       "params": {
         "type": "Compound",
         "body": [
@@ -720,14 +744,14 @@
     },
     {
       "type": "Text",
-      "start": 1341,
-      "end": 1342,
+      "start": 1289,
+      "end": 1290,
       "text": " "
     },
     {
       "type": "Interpolation",
-      "start": 1342,
-      "end": 1376,
+      "start": 1290,
+      "end": 1324,
       "params": {
         "type": "Compound",
         "body": [
@@ -782,8 +806,8 @@
     },
     {
       "type": "Text",
-      "start": 1376,
-      "end": 1377,
+      "start": 1324,
+      "end": 1325,
       "text": "\n"
     }
   ]

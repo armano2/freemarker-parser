@@ -28,15 +28,9 @@ ${multi}
 <#assign b = false>
 ${a?string} ${b?string}
 ${a?string("yes", "no")} ${b?string("yes", "no")}
-<#--
-  TODO: fix me
-  <#setting boolean_format="igen,nem"/>
--->
+<#setting boolean_format="igen,nem"/>
 ${a?string} ${b?string}
 <#setting number_format="0.0">
 ${a?string(0, 1)} ${b?string(0, 1)}
-<#--
-  TODO: fix me
-  <#setting boolean_format="true,false"/>
--->
+<#setting boolean_format="true,false"/>
 ${a?string(0, 1)?is_string?string} ${b?string(0, 1)?is_string?string}

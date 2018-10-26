@@ -1,11 +1,15 @@
 import NodeError from './errors/NodeError'
 
+import { ENodeType } from './Symbols'
 import { Tokenizer } from './Tokenizer'
 import { IToken } from './types/Tokens'
 
 import AbstractNode from './types/Nodes/AbstractNode'
 import IProgram from './types/Nodes/IProgram'
-import { addNodeChild, isPartial, tokenToNodeType } from './utils/Token'
+import directives from './utils/Directives'
+
+import NodeNames from './enum/NodeNames'
+import Nodes from './utils/Nodes'
 
 export interface IParserReturn {
   ast : IProgram
@@ -28,7 +32,7 @@ export class Parser {
 
       let token : IToken | null = null
       for (token of tokens) {
-        const tokenType = tokenToNodeType(token)
+        const tokenType = this.tokenToNodeType(token)
 
         if (token.isClose) {
           if (token.params) {
@@ -39,9 +43,9 @@ export class Parser {
           }
           parent = stack.pop() as AbstractNode // its always
         } else {
-          const node = addNodeChild(parent, token)
+          const node = this.addNodeChild(parent, token)
           if (node !== parent && node.hasBody) {
-            if (!isPartial(tokenType, parent.type)) {
+            if (!this.isPartial(tokenType, parent.type)) {
               stack.push(parent)
             }
             parent = node
@@ -58,5 +62,50 @@ export class Parser {
     }
 
     return { ast, tokens }
+  }
+
+  protected addNodeChild (parent : AbstractNode, token : IToken) : AbstractNode {
+    const tokenType = this.tokenToNodeType(token)
+    if (tokenType in Nodes) {
+      const node : AbstractNode = Nodes[tokenType](token, parent)
+      if (parent !== node) {
+        parent.addToNode(node)
+      }
+      return node
+    }
+
+    throw new NodeError(`Unknown '${tokenType}'`, token)
+  }
+
+  protected isPartial (type : NodeNames, parentType : NodeNames) : boolean {
+    switch (type) {
+      case NodeNames.ConditionElse:
+        return NodeNames.Condition === parentType
+      case NodeNames.Else:
+        return (NodeNames.Condition === parentType || NodeNames.List === parentType)
+      case NodeNames.Recover:
+        return (NodeNames.Attempt === parentType)
+    }
+
+    return false
+  }
+
+  protected tokenToNodeType (token : IToken) : NodeNames {
+    switch (token.type) {
+      case ENodeType.Directive:
+        if (token.text in directives) {
+          return directives[token.text]
+        }
+        throw new NodeError(`Directive \`${token.text}\` is not supported`, token)
+      case ENodeType.Interpolation:
+        return NodeNames.Interpolation
+      case ENodeType.Text:
+        return NodeNames.Text
+      case ENodeType.Macro:
+        return NodeNames.MacroCall
+      case ENodeType.Comment:
+        return NodeNames.Comment
+    }
+    throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token)
   }
 }

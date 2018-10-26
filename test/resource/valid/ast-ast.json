@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 360,
+  "end": 354,
   "body": [
     {
       "type": "Assign",
@@ -26,7 +26,7 @@
     {
       "type": "Assign",
       "start": 17,
-      "end": 40,
+      "end": 34,
       "params": [
         {
           "type": "AssignmentExpression",
@@ -36,30 +36,17 @@
             "name": "x"
           },
           "right": {
-            "type": "Compound",
-            "body": [
-              {
-                "type": "Literal",
-                "value": 123,
-                "raw": "123"
-              },
-              {
-                "type": "Identifier",
-                "name": "in"
-              },
-              {
-                "type": "Identifier",
-                "name": "ns"
-              }
-            ]
+            "type": "Literal",
+            "value": 123,
+            "raw": "123"
           }
         }
       ]
     },
     {
       "type": "Global",
-      "start": 40,
-      "end": 57,
+      "start": 34,
+      "end": 51,
       "params": [
         {
           "type": "AssignmentExpression",
@@ -78,14 +65,14 @@
     },
     {
       "type": "Text",
-      "start": 57,
-      "end": 58,
+      "start": 51,
+      "end": 52,
       "text": "\n"
     },
     {
       "type": "Condition",
-      "start": 58,
-      "end": 74,
+      "start": 52,
+      "end": 68,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -111,14 +98,14 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 74,
-          "end": 77,
+          "start": 68,
+          "end": 71,
           "text": "foo"
         },
         {
           "type": "Interpolation",
-          "start": 77,
-          "end": 81,
+          "start": 71,
+          "end": 75,
           "params": {
             "type": "Identifier",
             "name": "y"
@@ -126,16 +113,16 @@
         },
         {
           "type": "Text",
-          "start": 81,
-          "end": 84,
+          "start": 75,
+          "end": 78,
           "text": "bar"
         }
       ],
       "alternate": [
         {
           "type": "Interpolation",
-          "start": 91,
-          "end": 102,
+          "start": 85,
+          "end": 96,
           "params": {
             "type": "Literal",
             "value": "static",
@@ -146,14 +133,14 @@
     },
     {
       "type": "Text",
-      "start": 108,
-      "end": 109,
+      "start": 102,
+      "end": 103,
       "text": "\n"
     },
     {
       "type": "Switch",
-      "start": 109,
-      "end": 120,
+      "start": 103,
+      "end": 114,
       "params": {
         "type": "Identifier",
         "name": "x"
@@ -161,8 +148,8 @@
       "cases": [
         {
           "type": "SwitchCase",
-          "start": 120,
-          "end": 129,
+          "start": 114,
+          "end": 123,
           "params": {
             "type": "Literal",
             "value": 1,
@@ -171,16 +158,16 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 129,
-              "end": 132,
+              "start": 123,
+              "end": 126,
               "text": "one"
             }
           ]
         },
         {
           "type": "SwitchCase",
-          "start": 132,
-          "end": 141,
+          "start": 126,
+          "end": 135,
           "params": {
             "type": "Literal",
             "value": 2,
@@ -189,21 +176,21 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 141,
-              "end": 144,
+              "start": 135,
+              "end": 138,
               "text": "two"
             }
           ]
         },
         {
           "type": "SwitchDefault",
-          "start": 144,
-          "end": 154,
+          "start": 138,
+          "end": 148,
           "consequent": [
             {
               "type": "Text",
-              "start": 154,
-              "end": 158,
+              "start": 148,
+              "end": 152,
               "text": "more"
             }
           ]
@@ -212,14 +199,14 @@
     },
     {
       "type": "Text",
-      "start": 168,
-      "end": 169,
+      "start": 162,
+      "end": 163,
       "text": "\n"
     },
     {
       "type": "Function",
-      "start": 169,
-      "end": 188,
+      "start": 163,
+      "end": 182,
       "params": {
         "type": "Compound",
         "body": [
@@ -240,8 +227,8 @@
       "body": [
         {
           "type": "Local",
-          "start": 188,
-          "end": 204,
+          "start": 182,
+          "end": 198,
           "params": [
             {
               "type": "AssignmentExpression",
@@ -260,8 +247,8 @@
         },
         {
           "type": "Return",
-          "start": 204,
-          "end": 215,
+          "start": 198,
+          "end": 209,
           "params": {
             "type": "Literal",
             "value": 1,
@@ -272,44 +259,44 @@
     },
     {
       "type": "Text",
-      "start": 227,
-      "end": 228,
+      "start": 221,
+      "end": 222,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 228,
-      "end": 262,
+      "start": 222,
+      "end": 256,
       "text": "  <#list xs as x></#list>  "
     },
     {
       "type": "Text",
-      "start": 262,
-      "end": 263,
+      "start": 256,
+      "end": 257,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 263,
-      "end": 339,
+      "start": 257,
+      "end": 333,
       "text": "  <#list xs>[<#items as x>${x}<#sep>, </#items>]<#else>None</#list>  "
     },
     {
       "type": "Text",
-      "start": 339,
-      "end": 340,
+      "start": 333,
+      "end": 334,
       "text": "\n"
     },
     {
       "type": "Comment",
-      "start": 340,
-      "end": 358,
+      "start": 334,
+      "end": 352,
       "text": " A comment "
     },
     {
       "type": "Text",
-      "start": 358,
-      "end": 360,
+      "start": 352,
+      "end": 354,
       "text": "\n\n"
     }
   ]

@@ -1,8 +1,8 @@
 <#--  <#ftl stripWhitespace=false>  -->
 <#assign x = 1>
 <#assign x = 1, y = 2>
-<#assign x = 1 in ns>
-<#assign x = 1, y = 2 in ns>
+<#assign x = 1>
+<#assign x = 1, y = 2>
 <#assign a += b + c>
 <#assign a += 1, b -= 2, c *= 3, d /= 4, e %= 5, f++, g-->
 <#global x = 1>
@@ -19,9 +19,9 @@
 <#assign x *= 1>
 <#assign x /= 1>
 <#assign x %= 1>
-<#assign ++x>
+<#assign y++>
 <#assign x++>
-<#assign --x>
+<#assign y-->
 <#assign x-->
 
 <#assign x += 1+2>
@@ -29,9 +29,9 @@
 <#assign x *= 1*2>
 <#assign x /= 1/7>
 <#assign x %= 1%3>
-<#assign ++x>
+<#assign y++>
 <#assign x++>
-<#assign --x>
+<#assign y-->
 <#assign x-->
 
 <#assign x>

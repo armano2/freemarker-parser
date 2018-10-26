@@ -1,18 +1,18 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 12,
+  "end": 13,
   "body": [],
   "errors": [
     {
-      "message": "Unexpected \",\"",
+      "message": "Missing argument in before '--'",
       "start": {
         "line": 0,
         "column": 0
       },
       "end": {
         "line": 0,
-        "column": 11
+        "column": 12
       }
     }
   ]

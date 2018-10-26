@@ -1,0 +1,2 @@
+<#assign ++x>
+<#assign --x>

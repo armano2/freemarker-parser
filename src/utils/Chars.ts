@@ -16,6 +16,7 @@ export interface ILiteralOperators {
  * @see http://en.wikipedia.org/wiki/Order_of_operations#Programming_language
  */
 export const binaryOps : IBinaryOperators = {
+  '=': 0, '+=': 0, '-=': 0, '*=': 0, '/=': 0, '%=': 0, '++': 0, '--': 0,
   '||': 1,
   '&&': 2,
   '^': 4,

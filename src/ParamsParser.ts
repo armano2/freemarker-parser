@@ -5,6 +5,7 @@ import ParamError from './errors/ParamError'
 import {
   AllParamTypes,
   IArrayExpression,
+  IAssignmentExpression,
   IBinaryExpression,
   ICallExpression,
   IIdentifier,
@@ -12,6 +13,7 @@ import {
   ILogicalExpression,
   IMemberExpression,
   IUnaryExpression,
+  IUpdateExpression,
 } from './types/Params'
 import {
   binaryOps,
@@ -83,11 +85,33 @@ function binaryPrecedence (opVal : string) : number {
  * @param left
  * @param right
  */
-function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression {
-  if (operator === '||' || operator === '&&') {
-    return { type: ParamNames.LogicalExpression, operator, left, right }
-  } else {
-    return { type: ParamNames.BinaryExpression, operator, left, right }
+function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression | IAssignmentExpression {
+  switch (operator) {
+    case '=':
+    case '+=':
+    case '-=':
+    case '*=':
+    case '/=':
+    case '%=':
+      return { type: ParamNames.AssignmentExpression, operator, left, right }
+    case '||':
+    case '&&':
+      return { type: ParamNames.LogicalExpression, operator, left, right }
+    default:
+      return { type: ParamNames.BinaryExpression, operator, left, right }
+  }
+}
+
+function createUnaryExpression (operator : string, argument : AllParamTypes | null, prefix : boolean = true) : IUnaryExpression | IUpdateExpression {
+  if (!argument) {
+    throw new ParamError(`Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`, 0)
+  }
+  switch (operator) {
+    case '++':
+    case '--':
+      return { type: ParamNames.UpdateExpression, operator, prefix, argument }
+    default:
+      return { type: ParamNames.UnaryExpression, operator, argument, prefix }
   }
 }
 
@@ -104,6 +128,10 @@ export class ParamsParser extends AbstractTokenizer {
         // If we weren't able to find a binary expression and are out of room, then
         // the expression passed in probably has too much
         nodes.push(node)
+
+        if (this.charCodeAt(this.index) === ECharCodes.Comma) {
+          ++this.index
+        }
       } else if (this.index < this.length) {
         throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index)
       }
@@ -183,6 +211,10 @@ export class ParamsParser extends AbstractTokenizer {
     // If there wasn't a binary operator, just return the leftmost node
     if (!biop) {
       return left
+    }
+
+    if (biop === '++' || biop === '--') {
+      return createUnaryExpression(biop, left, false)
     }
 
     // Otherwise, we need to start a stack to properly place the binary operations in their
@@ -283,12 +315,7 @@ export class ParamsParser extends AbstractTokenizer {
       while (tcLen > 0) {
         if (unaryOps.hasOwnProperty(toCheck)) {
           this.index += tcLen
-          return {
-            type: ParamNames.UnaryExpression,
-            operator: toCheck,
-            argument: this.parseToken(),
-            prefix: true,
-          } as IUnaryExpression
+          return createUnaryExpression(toCheck, this.parseToken(), true)
         }
         toCheck = toCheck.substr(0, --tcLen)
       }

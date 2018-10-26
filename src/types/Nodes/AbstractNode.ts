@@ -11,7 +11,7 @@ export default abstract class AbstractNode implements ILoc {
     return false
   }
 
-  constructor (type : NodeNames, token : ILoc) {
+  protected constructor (type : NodeNames, token : ILoc) {
     this.type = type
     this.start = token.start
     this.end = token.end

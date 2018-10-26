@@ -5,7 +5,7 @@
   "body": [],
   "errors": [
     {
-      "message": "Assign invalid character",
+      "message": "Invalid parameters in Assign",
       "start": {
         "line": 0,
         "column": 0
