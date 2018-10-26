@@ -1,7 +1,7 @@
 import NodeError from './errors/NodeError'
 
 import { ENodeType } from './Symbols'
-import { Tokenizer } from './Tokenizer'
+import { ITokenizerOptions, Tokenizer } from './Tokenizer'
 import { IToken } from './types/Tokens'
 
 import AbstractNode from './types/Nodes/AbstractNode'
@@ -17,14 +17,14 @@ export interface IParserReturn {
 }
 
 export class Parser {
-  public parse (template : string) : IParserReturn {
+  public parse (template : string, options? : ITokenizerOptions) : IParserReturn {
     const ast = new IProgram(0, template.length)
     const stack : AbstractNode[] = []
     let parent : AbstractNode = ast
     let tokens : IToken[] = []
 
     try {
-      const tokenizer = new Tokenizer()
+      const tokenizer = new Tokenizer(options)
       tokens = tokenizer.parse(template)
       if (tokens.length === 0) {
         return { ast, tokens }

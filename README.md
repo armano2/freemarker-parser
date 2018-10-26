@@ -20,7 +20,7 @@ $ npm install freemarker-parser --save-dev
 ## Usage
 Require `freemarker-parser` inside of your JavaScript:
 
-### Parser
+### Parser 
 ```ftl
 <#assign f=1>
 
@@ -30,12 +30,33 @@ Require `freemarker-parser` inside of your JavaScript:
   ${f} < 0
 </#if>
 ```
-
-```js
+```ts
 const freemarker = require("freemarker-parser")
 
 const parser = new freemarker.Parser()
 const data = parser.parse(template)
+
+console.log(data.ast)
+console.log(data.tokens)
+```
+
+### Parser (bracket style)
+```ftl
+[#assign f=1]
+
+[#if f gt 0]
+  ${f} > 0
+[#else]
+  ${f} < 0
+[/#if]
+```
+```ts
+const freemarker = require("freemarker-parser")
+
+const parser = new freemarker.Parser()
+const data = parser.parse(template, {
+  useSquareTags: true
+})
 
 console.log(data.ast)
 console.log(data.tokens)
@@ -84,7 +105,6 @@ console.log(data.tokens)
 
 ## TODO:
   - support default values, i.e. `${user!"Anonymous"}`
-  - alternative syntax `[` or `<`
   - directives:
     - `#escape`
       - `#noescape`

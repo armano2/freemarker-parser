@@ -2,7 +2,7 @@ import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
 import NodeError from './errors/NodeError'
 import ParamError from './errors/ParamError'
-import { ENodeType, ISymbol, symbols } from './Symbols'
+import { ENodeType, ISymbol } from './Symbols'
 import { IToken } from './types/Tokens'
 import { isLetter, isWhitespace } from './utils/Chars'
 
@@ -16,34 +16,43 @@ interface IParams {
   endToken : string
 }
 
-export enum TagSyntax {
-  SQUARE = 'square',
-  DEFAULT = 'default',
-}
-
 export interface ITokenizerOptions {
-  tagSyntax : TagSyntax
+  useSquareTags : boolean
 }
 
 export class Tokenizer extends AbstractTokenizer {
-  private tokens : IToken[] = []
-  private options : ITokenizerOptions
+  protected tokens : IToken[] = []
+  protected options : ITokenizerOptions
+  protected symbols : ISymbol[]
 
-  private get openTag () : ECharCodes {
-    return this.options.tagSyntax === TagSyntax.SQUARE ? ECharCodes.OpenBracket : ECharCodes.Less
+  protected get openTag () : ECharCodes {
+    return this.options.useSquareTags ? ECharCodes.OpenBracket : ECharCodes.Less
   }
 
-  private get closeTag () : ECharCodes {
-    return this.options.tagSyntax === TagSyntax.SQUARE ? ECharCodes.CloseBracket : ECharCodes.Greater
+  protected get closeTag () : ECharCodes {
+    return this.options.useSquareTags ? ECharCodes.CloseBracket : ECharCodes.Greater
   }
 
   constructor (options? : ITokenizerOptions) {
     super()
 
     this.options = {
-      tagSyntax : TagSyntax.DEFAULT,
+      useSquareTags : false,
       ...options,
     }
+
+    const openTag = String.fromCharCode(this.openTag)
+    const closeTag = String.fromCharCode(this.closeTag)
+
+    this.symbols = [
+      { startToken: `${openTag}#--`, endToken: [`--${closeTag}`], type: ENodeType.Comment, end: false },
+      { startToken: `${openTag}/#`, endToken: [`${closeTag}`], type: ENodeType.Directive, end: true },
+      { startToken: `${openTag}#`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.Directive, end: false },
+      { startToken: `${openTag}/@`, endToken: [`${closeTag}`], type: ENodeType.Macro, end: true },
+      { startToken: `${openTag}@`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.Macro, end: false },
+      // tslint:disable-next-line:no-invalid-template-strings
+      { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
+    ]
   }
 
   public parse (template : string) : IToken[] {
@@ -57,7 +66,7 @@ export class Tokenizer extends AbstractTokenizer {
     return this.tokens
   }
 
-  private getNextPos (items : string[]) : INextPos {
+  protected getNextPos (items : string[]) : INextPos {
     let pos = -1
     let text = ''
     for (const item of items) {
@@ -70,7 +79,7 @@ export class Tokenizer extends AbstractTokenizer {
     return { pos, text }
   }
 
-  private parseTagName () : string {
+  protected parseTagName () : string {
     let text : string = ''
     let ch : number = this.charCodeAt(this.index)
 
@@ -92,10 +101,10 @@ export class Tokenizer extends AbstractTokenizer {
     return text
   }
 
-  private getToken () : ISymbol | null {
+  protected getToken () : ISymbol | null {
     let symbol : ISymbol | null = null
     let startPos : number = 0
-    for (const item of symbols) {
+    for (const item of this.symbols) {
       const n = this.template.indexOf(item.startToken, this.index)
       if (n === this.index && (!symbol || n < startPos)) {
         symbol = item
@@ -105,7 +114,7 @@ export class Tokenizer extends AbstractTokenizer {
     return symbol || null
   }
 
-  private parseTemplate () {
+  protected parseTemplate () {
     let text : string = ''
     const startPos = this.index
     let ch : number
@@ -141,7 +150,7 @@ export class Tokenizer extends AbstractTokenizer {
     return this.addToken(ENodeType.Text, startPos, this.index, text)
   }
 
-  private addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string, isClose : boolean = false) {
+  protected addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string, isClose : boolean = false) {
     this.tokens.push({
       type,
       start,
@@ -154,7 +163,7 @@ export class Tokenizer extends AbstractTokenizer {
     })
   }
 
-  private parseComment (symbol : ISymbol, start : number) {
+  protected parseComment (symbol : ISymbol, start : number) {
     const end = this.getNextPos(symbol.endToken)
     if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`)
@@ -165,12 +174,12 @@ export class Tokenizer extends AbstractTokenizer {
     this.addToken(symbol.type, start, this.index, text, symbol.startToken, end.text)
   }
 
-  private parseInterpolation (symbol : ISymbol, start : number) {
+  protected parseInterpolation (symbol : ISymbol, start : number) {
     const params = this.parseParams(symbol.endToken)
     this.addToken(symbol.type, start, this.index, '', symbol.startToken, params.endToken, params.paramText)
   }
 
-  private parseMacro (symbol : ISymbol, start : number, isClose : boolean) {
+  protected parseMacro (symbol : ISymbol, start : number, isClose : boolean) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
       throw new ParamError('Macro name cannot be empty', this.index)
@@ -180,7 +189,7 @@ export class Tokenizer extends AbstractTokenizer {
     this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText, isClose)
   }
 
-  private parseDirective (symbol : ISymbol, start : number, isClose : boolean) {
+  protected parseDirective (symbol : ISymbol, start : number, isClose : boolean) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
       throw new ParamError('Directive name cannot be empty', this.index)
@@ -195,7 +204,7 @@ export class Tokenizer extends AbstractTokenizer {
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  private parseParams (endTags : string[]) : IParams {
+  protected parseParams (endTags : string[]) : IParams {
     let paramText : string = ''
     const start = this.index
     const stack : number[] = []

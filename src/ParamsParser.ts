@@ -151,7 +151,7 @@ export class ParamsParser extends AbstractTokenizer {
   /**
    * Push `index` up to the next non-space character
    */
-  private parseSpaces () {
+  protected parseSpaces () {
     let ch = this.charCodeAt(this.index)
     // space or tab
     while (isWhitespace(ch)) {
@@ -162,7 +162,7 @@ export class ParamsParser extends AbstractTokenizer {
   /**
    * The main parsing function. Much of this code is dedicated to ternary expressions
    */
-  private parseExpression () : AllParamTypes | null {
+  protected parseExpression () : AllParamTypes | null {
     const test = this.parseBinaryExpression()
     this.parseSpaces()
     return test
@@ -174,7 +174,7 @@ export class ParamsParser extends AbstractTokenizer {
    * and move down from 3 to 2 to 1 character until a matching binary operation is found
    * then, return that binary operation
    */
-  private parseBinaryOp () : string | null {
+  protected parseBinaryOp () : string | null {
     this.parseSpaces()
     let toCheck = this.template.substr(this.index, maxBinopLen)
     let tcLen = toCheck.length
@@ -192,7 +192,7 @@ export class ParamsParser extends AbstractTokenizer {
    * This function is responsible for gobbling an individual expression,
    * e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
    */
-  private parseBinaryExpression () : AllParamTypes | null {
+  protected parseBinaryExpression () : AllParamTypes | null {
     let node
     let biop : string | null
     let prec
@@ -291,7 +291,7 @@ export class ParamsParser extends AbstractTokenizer {
    * An individual part of a binary expression:
    * e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
    */
-  private parseToken () : AllParamTypes | null {
+  protected parseToken () : AllParamTypes | null {
     let toCheck
     let tcLen
 
@@ -327,7 +327,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
    * keep track of everything in the numeric literal and then calling `parseFloat` on that string
    */
-  private parseNumericLiteral () : ILiteral {
+  protected parseNumericLiteral () : ILiteral {
     let rawName = ''
     let chCode
     while (isDecimalDigit(this.charCodeAt(this.index))) {
@@ -361,7 +361,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Parses a string literal, staring with single or double quotes with basic support for escape codes
    * e.g. `"hello world"`, `'this is\nJSEP'`
    */
-  private parseStringLiteral () : ILiteral {
+  protected parseStringLiteral () : ILiteral {
     let str = ''
     const quote = this.charAt(this.index++)
     let closed = false
@@ -398,7 +398,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Also, this function checks if that identifier is a literal:
    * (e.g. `true`, `false`, `null`) or `this`
    */
-  private parseIdentifier () : IIdentifier | ILiteral {
+  protected parseIdentifier () : IIdentifier | ILiteral {
     let ch = this.charCodeAt(this.index)
     const start = this.index
     let identifier : string
@@ -440,7 +440,7 @@ export class ParamsParser extends AbstractTokenizer {
    * until the terminator character `)` or `]` is encountered.
    * e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
    */
-  private parseArguments (termination : number) : AllParamTypes[] {
+  protected parseArguments (termination : number) : AllParamTypes[] {
     let chI : number
     const args : AllParamTypes[] = []
     let node
@@ -474,7 +474,7 @@ export class ParamsParser extends AbstractTokenizer {
    * It also gobbles function calls:
    * e.g. `Math.acos(obj.angle)`
    */
-  private parseVariable () : AllParamTypes | null {
+  protected parseVariable () : AllParamTypes | null {
     let chI : number
     chI = this.charCodeAt(this.index)
     let node : AllParamTypes | null = chI === ECharCodes.OpenParenthesis
@@ -527,7 +527,7 @@ export class ParamsParser extends AbstractTokenizer {
    * that the next thing it should see is the close parenthesis. If not,
    * then the expression probably doesn't have a `)`
    */
-  private parseGroup () : AllParamTypes | null {
+  protected parseGroup () : AllParamTypes | null {
     this.index++
     const node = this.parseExpression()
     this.parseSpaces()
@@ -544,7 +544,7 @@ export class ParamsParser extends AbstractTokenizer {
    * This function assumes that it needs to gobble the opening bracket
    * and then tries to gobble the expressions as arguments.
    */
-  private parseArray () : IArrayExpression {
+  protected parseArray () : IArrayExpression {
     this.index++
     return {
       type: ParamNames.ArrayExpression,
