@@ -21,7 +21,7 @@ describe('errors', () => {
       parse('<#foo foo(>')
       assert.fail('should fail')
     } catch (e) {
-      assert.strictEqual(e.message, 'Unclosed tag (', 'error message is invalid')
+      assert.strictEqual(e.message, 'Missing ) close char', 'error message is invalid')
     }
   })
   it('unclosed comment', () => {

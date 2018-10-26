@@ -27,21 +27,6 @@ export const binaryOps : IBinaryOperators = {
   '*': 10, '/': 10, '%': 10,
 }
 
-export function closeChar (ch : number) : ECharCodes {
-  switch (ch) {
-    case ECharCodes.DoubleQuote:
-      return ECharCodes.DoubleQuote
-    case ECharCodes.OpenParenthesis:
-      return ECharCodes.CloseParenthesis
-    case ECharCodes.OpenBrace:
-      return ECharCodes.CloseBrace
-    case ECharCodes.OpenBracket:
-      return ECharCodes.CloseBracket
-  }
-
-  throw new Error(`Unknow close tag ${ch}`)
-}
-
 export function isDecimalDigit (ch : number) : boolean {
   return ch >= ECharCodes._0 && ch <= ECharCodes._9 // 0...9
 }

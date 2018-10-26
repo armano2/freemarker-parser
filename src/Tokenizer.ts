@@ -4,7 +4,7 @@ import NodeError from './errors/NodeError'
 import ParamError from './errors/ParamError'
 import { ENodeType, ISymbol, symbols } from './Symbols'
 import { IToken } from './types/Tokens'
-import { closeChar, isLetter, isWhitespace } from './utils/Chars'
+import { isLetter, isWhitespace } from './utils/Chars'
 
 interface INextPos {
   pos : number
@@ -199,40 +199,46 @@ export class Tokenizer extends AbstractTokenizer {
     let paramText : string = ''
     const start = this.index
     const stack : number[] = []
-    let lastCode : number | undefined
+    let closeCode : number | undefined
 
     while (this.index <= this.length) {
       const ch = this.charCodeAt(this.index)
 
-      if (lastCode !== ECharCodes.DoubleQuote && lastCode !== ECharCodes.SingleQuote) {
+      if (closeCode !== ECharCodes.DoubleQuote && closeCode !== ECharCodes.SingleQuote) {
         switch (ch) {
           case ECharCodes.SingleQuote: // '
           case ECharCodes.DoubleQuote: // "
+            if (closeCode) { stack.push(closeCode) }
+            closeCode = ch
+            break
           case ECharCodes.OpenParenthesis: // (
+            if (closeCode) { stack.push(closeCode) }
+            closeCode = ECharCodes.CloseParenthesis
+            break
           case ECharCodes.OpenBracket: // [
-            if (lastCode) { stack.push(lastCode) }
-            lastCode = ch
+            if (closeCode) { stack.push(closeCode) }
+            closeCode = ECharCodes.CloseBracket
             break
           case ECharCodes.CloseBracket: // ]
           case ECharCodes.CloseParenthesis: // )
-            if (!lastCode || ch !== closeChar(lastCode)) {
+            if (!closeCode || ch !== closeCode) {
               throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.index})
             }
-            lastCode = stack.pop()
+            closeCode = stack.pop()
             break
         }
       } else {
         switch (ch) {
           case ECharCodes.SingleQuote: // '
           case ECharCodes.DoubleQuote: // "
-            if (lastCode === ch) {
-              lastCode = stack.pop()
+            if (closeCode === ch) {
+              closeCode = stack.pop()
             }
             break
         }
       }
 
-      if (!lastCode) {
+      if (!closeCode) {
         const nextPos = this.getNextPos(endTags)
         if (nextPos.pos !== -1 && this.index === nextPos.pos) {
           this.index += nextPos.text.length
@@ -246,8 +252,8 @@ export class Tokenizer extends AbstractTokenizer {
         ++this.index
       }
     }
-    if (lastCode) {
-      throw new NodeError(`Unclosed tag ${String.fromCharCode(lastCode)}`, { start, end: this.index})
+    if (closeCode) {
+      throw new NodeError(`Missing ${String.fromCharCode(closeCode)} close char`, { start, end: this.index})
     }
     throw new NodeError(`Unclosed directive or macro`, { start, end: this.index})
   }

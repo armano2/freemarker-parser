@@ -5,7 +5,7 @@
   "body": [],
   "errors": [
     {
-      "message": "Unclosed tag (",
+      "message": "Missing ) close char",
       "start": {
         "line": 0,
         "column": 6
