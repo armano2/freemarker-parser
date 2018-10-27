@@ -109,7 +109,7 @@ function createUnaryExpression (operator : string, argument : AllParamTypes | nu
   switch (operator) {
     case '++':
     case '--':
-      return { type: ParamNames.UpdateExpression, operator, prefix, argument }
+      return { type: ParamNames.UpdateExpression, operator, argument, prefix }
     default:
       return { type: ParamNames.UnaryExpression, operator, argument, prefix }
   }

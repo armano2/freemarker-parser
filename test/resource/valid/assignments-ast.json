@@ -251,20 +251,20 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "f"
-          }
+          },
+          "prefix": false
         },
         {
           "type": "UpdateExpression",
           "operator": "--",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "g"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -347,11 +347,11 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "x"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -613,11 +613,11 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "y"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -635,11 +635,11 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "x"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -657,11 +657,11 @@
         {
           "type": "UpdateExpression",
           "operator": "--",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "y"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -679,11 +679,11 @@
         {
           "type": "UpdateExpression",
           "operator": "--",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "x"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -876,11 +876,11 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "y"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -898,11 +898,11 @@
         {
           "type": "UpdateExpression",
           "operator": "++",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "x"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -920,11 +920,11 @@
         {
           "type": "UpdateExpression",
           "operator": "--",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "y"
-          }
+          },
+          "prefix": false
         }
       ]
     },
@@ -942,11 +942,11 @@
         {
           "type": "UpdateExpression",
           "operator": "--",
-          "prefix": false,
           "argument": {
             "type": "Identifier",
             "name": "x"
-          }
+          },
+          "prefix": false
         }
       ]
     },
