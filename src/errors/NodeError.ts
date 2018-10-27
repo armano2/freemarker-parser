@@ -1,11 +1,11 @@
 import { ILoc } from '../types/Tokens'
 
-export default class NodeError extends Error {
+export default class NodeError extends Error implements ILoc {
   public start : number
   public end : number
 
-  constructor (m : string, el : ILoc) {
-    super(m)
+  constructor (message : string, el : ILoc) {
+    super(message)
     this.start = el.start
     this.end = el.end
     // Set the prototype explicitly.

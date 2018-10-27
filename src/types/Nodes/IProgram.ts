@@ -19,21 +19,16 @@ export default class IProgram extends AbstractBodyNode {
     this.body = []
   }
 
-  public addError (e : Error, template : string) : void {
+  public addError (e : NodeError | ParamError, template : string) : void {
     if (!this.errors) {
       this.errors = []
     }
 
-    const error = { message: e.message } as IErrorMessage
-
     const line = new LinesAndColumns(template)
-    if (e instanceof ParamError) {
-      error.start = line.locationForIndex(e.start) || undefined
-    }
-
-    if (e instanceof NodeError) {
-      error.start = line.locationForIndex(e.start) || undefined
-      error.end = line.locationForIndex(e.end) || undefined
+    const error : IErrorMessage = {
+      message: e.message,
+      start: line.locationForIndex(e.start) || undefined,
+      end: line.locationForIndex(e.end) || undefined,
     }
 
     this.errors.push(error)

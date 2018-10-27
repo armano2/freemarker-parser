@@ -26,7 +26,7 @@ export default class ISwitch extends AbstractNode {
     if (child instanceof ISwitchCase || child instanceof ISwitchDefault) {
       this.cases.push(child)
     } else if (this.cases.length === 0) {
-      if (child.type === NodeNames.Text) { // TODO: accpet only whitespaces
+      if (child.type === NodeNames.Text) { // TODO: accept only whitespaces
         return
       }
     } else {
