@@ -1,6 +1,6 @@
 import NodeNames from '../../enum/NodeNames'
 import ParamNames from '../../enum/ParamNames'
-import NodeError from '../../errors/NodeError'
+import ParseError from '../../errors/ParseError'
 import {IAssignmentExpression} from '../Params'
 import { IToken } from '../Tokens'
 import AbstractAssign from './AbstractAssign'
@@ -19,6 +19,6 @@ export default class ISetting extends AbstractAssign {
         return
       }
     }
-    throw new NodeError(`Invalid parameters in ${this.type}`, token)
+    throw new ParseError(`Invalid parameters in ${this.type}`, token)
   }
 }

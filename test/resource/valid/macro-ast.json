@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 57,
+  "end": 56,
   "body": [
     {
       "type": "Macro",
@@ -42,7 +42,17 @@
           "end": 30,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 19
+        }
+      }
     },
     {
       "type": "Text",
@@ -67,5 +77,15 @@
       "end": 57,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 5,
+      "column": 16
+    }
+  }
 }

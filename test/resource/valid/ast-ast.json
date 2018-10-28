@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 354,
+  "end": 353,
   "body": [
     {
       "type": "Assign",
@@ -118,6 +118,16 @@
           "text": "bar"
         }
       ],
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 17
+        }
+      },
       "alternate": [
         {
           "type": "Interpolation",
@@ -195,7 +205,17 @@
             }
           ]
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
+      }
     },
     {
       "type": "Text",
@@ -255,7 +275,17 @@
             "raw": "1"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 20
+        }
+      }
     },
     {
       "type": "Text",
@@ -299,5 +329,15 @@
       "end": 354,
       "text": "\n\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 8,
+      "column": 1
+    }
+  }
 }

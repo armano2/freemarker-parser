@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 99,
+  "end": 98,
   "body": [
     {
       "type": "Interpolation",
@@ -218,5 +218,15 @@
       "end": 99,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 5,
+      "column": 30
+    }
+  }
 }

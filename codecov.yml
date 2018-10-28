@@ -1,9 +1,10 @@
 ignore:
-  - ".circleci"
   - ".nyc_output"
   - "scripts"
   - "typings"
   - "dist"
-  - "README.md"
-  - "LICENSE.md"
   - "test"
+  - "**/*.yml"
+  - "**/*.md"
+  - "**/*.json"
+

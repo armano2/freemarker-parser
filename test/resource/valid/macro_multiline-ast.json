@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 68,
+  "end": 67,
   "body": [
     {
       "type": "Macro",
@@ -42,7 +42,17 @@
           "end": 30,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 19
+        }
+      }
     },
     {
       "type": "Text",
@@ -67,7 +77,17 @@
           "end": 60,
           "text": "\ntest\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 14
+        }
+      }
     },
     {
       "type": "Text",
@@ -75,5 +95,15 @@
       "end": 68,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 7,
+      "column": 8
+    }
+  }
 }

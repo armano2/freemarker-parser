@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 185,
+  "end": 184,
   "body": [
     {
       "type": "Text",
@@ -144,6 +144,16 @@
           "text": "\n"
         }
       ],
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 28
+        }
+      },
       "fallback": [
         {
           "type": "Text",
@@ -159,5 +169,15 @@
       "end": 185,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 9,
+      "column": 9
+    }
+  }
 }

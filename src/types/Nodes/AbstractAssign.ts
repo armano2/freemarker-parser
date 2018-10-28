@@ -1,5 +1,5 @@
 import ParamNames from '../../enum/ParamNames'
-import NodeError from '../../errors/NodeError'
+import ParseError from '../../errors/ParseError'
 import { paramParser } from '../../utils/Params'
 import { AllParamTypes } from '../Params'
 import { IToken } from '../Tokens'
@@ -19,7 +19,7 @@ export default abstract class AbstractAssign extends AbstractBodyNode {
       }
       return result
     }
-    throw new NodeError(`${this.type} require params`, token)
+    throw new ParseError(`${this.type} require params`, token)
   }
 
   protected isAssignmentExpressionSingle (param : AllParamTypes, token : IToken) : AllParamTypes {
@@ -30,6 +30,6 @@ export default abstract class AbstractAssign extends AbstractBodyNode {
     if (param.type === ParamNames.AssignmentExpression) {
       return param
     }
-    throw new NodeError(`Invalid parameters in ${this.type}`, token)
+    throw new ParseError(`Invalid parameters in ${this.type}`, token)
   }
 }

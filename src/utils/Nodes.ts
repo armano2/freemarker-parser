@@ -1,5 +1,5 @@
 import NodeNames from '../enum/NodeNames'
-import NodeError from '../errors/NodeError'
+import ParseError from '../errors/ParseError'
 import AbstractNode from '../types/Nodes/AbstractNode'
 import IAssign from '../types/Nodes/IAssign'
 import IAttempt from '../types/Nodes/IAttempt'
@@ -43,7 +43,7 @@ const Nodes : INodes = {
       parent.fallback = []
       return parent
     }
-    throw new NodeError(`Error while creating node '${NodeNames.Else}' inside '${parent.type}'`, token)
+    throw new ParseError(`Error while creating node '${NodeNames.Else}' inside '${parent.type}'`, token)
   },
   [NodeNames.Condition] (token : IToken) : ICondition {
     return new ICondition(token)
@@ -53,7 +53,7 @@ const Nodes : INodes = {
       parent.alternate = []
       return new ICondition(token)
     }
-    throw new NodeError(`Error while creating node '${NodeNames.ConditionElse}' inside '${parent.type}'`, token)
+    throw new ParseError(`Error while creating node '${NodeNames.ConditionElse}' inside '${parent.type}'`, token)
   },
   [NodeNames.Recover] (token : IToken, parent : AbstractNode) : AbstractNode {
     if (parent instanceof IAttempt) {
@@ -62,21 +62,21 @@ const Nodes : INodes = {
         return parent
       }
     }
-    throw new NodeError(`Error while creating node '${NodeNames.Recover}' inside '${parent.type}'`, token)
+    throw new ParseError(`Error while creating node '${NodeNames.Recover}' inside '${parent.type}'`, token)
   },
   [NodeNames.SwitchCase] (token : IToken, parent : AbstractNode) : AbstractNode {
     if (parent instanceof ISwitch) {
       parent.cases.push(new ISwitchCase(token))
       return parent
     }
-    throw new NodeError(`Error while creating node '${NodeNames.SwitchCase}' inside '${parent.type}'`, token)
+    throw new ParseError(`Error while creating node '${NodeNames.SwitchCase}' inside '${parent.type}'`, token)
   },
   [NodeNames.SwitchDefault] (token : IToken, parent : AbstractNode) : AbstractNode {
     if (parent instanceof ISwitch) {
       parent.cases.push(new ISwitchDefault(token))
       return parent
     }
-    throw new NodeError(`Error while creating node '${NodeNames.SwitchDefault}' inside '${parent.type}'`, token)
+    throw new ParseError(`Error while creating node '${NodeNames.SwitchDefault}' inside '${parent.type}'`, token)
   },
   [NodeNames.Global] (token : IToken) : IGlobal {
     return new IGlobal(token)

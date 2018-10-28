@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 343,
+  "end": 342,
   "body": [
     {
       "type": "Text",
@@ -73,5 +73,15 @@
       "end": 343,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 9,
+      "column": 42
+    }
+  }
 }

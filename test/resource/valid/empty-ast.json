@@ -1,6 +1,16 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 0,
-  "body": []
+  "end": -1,
+  "body": [],
+  "loc": {
+    "start": {
+      "line": 0,
+      "column": 0
+    },
+    "end": {
+      "line": 0,
+      "column": 0
+    }
+  }
 }

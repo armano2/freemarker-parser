@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 237,
+  "end": 236,
   "body": [
     {
       "type": "Function",
@@ -112,7 +112,17 @@
               "end": 100,
               "text": "\n  "
             }
-          ]
+          ],
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          }
         },
         {
           "type": "Text",
@@ -195,7 +205,17 @@
               "end": 164,
               "text": "\n  "
             }
-          ]
+          ],
+          "loc": {
+            "start": {
+              "line": 6,
+              "column": 3
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
         },
         {
           "type": "Text",
@@ -203,7 +223,17 @@
           "end": 171,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      }
     },
     {
       "type": "Text",
@@ -315,5 +345,15 @@
       "end": 237,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 12,
+      "column": 15
+    }
+  }
 }

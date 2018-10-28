@@ -1,4 +1,4 @@
-import NodeError from './errors/NodeError'
+import ParseError from './errors/ParseError'
 
 import { ENodeType } from './Symbols'
 import { ITokenizerOptions, Tokenizer } from './Tokenizer'
@@ -9,6 +9,7 @@ import IProgram from './types/Nodes/IProgram'
 import directives from './utils/Directives'
 
 import NodeNames from './enum/NodeNames'
+import {ParserLocation} from './ParserLocation'
 import Nodes from './utils/Nodes'
 
 export interface IParserReturn {
@@ -16,12 +17,24 @@ export interface IParserReturn {
   tokens : IToken[]
 }
 
-export class Parser {
-  public parse (template : string, options? : ITokenizerOptions) : IParserReturn {
-    const ast = new IProgram(0, template.length)
+export class Parser extends ParserLocation {
+
+  public parse (template : string, options : ITokenizerOptions = {}) : IParserReturn {
+    super.parse(template)
+    const ast = new IProgram(0, template.length - 1)
     const stack : AbstractNode[] = []
     let parent : AbstractNode = ast
     let tokens : IToken[] = []
+
+    options = {
+      useSquareTags : false,
+      parseLocation : true,
+      ...options,
+    }
+
+    if (options.parseLocation) {
+      this.addLocation(parent)
+    }
 
     try {
       const tokenizer = new Tokenizer(options)
@@ -36,12 +49,16 @@ export class Parser {
 
         if (token.isClose) {
           if (token.params) {
-            throw new NodeError(`Close tag '${tokenType}' should not have params`, token)
+            throw new ParseError(`Close tag '${tokenType}' should not have params`, token)
           }
           if (parent.type !== tokenType) {
-            throw new NodeError(`Unexpected close tag '${tokenType}'`, token)
+            throw new ParseError(`Unexpected close tag '${tokenType}'`, token)
           }
           parent = stack.pop() as AbstractNode // its always
+
+          if (options.parseLocation) {
+            this.addLocation(parent)
+          }
         } else {
           const node = this.addNodeChild(parent, token)
           if (node !== parent && node.hasBody) {
@@ -49,16 +66,26 @@ export class Parser {
               stack.push(parent)
             }
             parent = node
+            if (options.parseLocation) {
+              this.addLocation(parent)
+            }
           }
         }
       }
 
       if (stack.length > 0) {
         const el = stack.pop() as AbstractNode
-        throw new NodeError(`Unclosed tag '${el.type}'`, el)
+        throw new ParseError(`Unclosed tag '${el.type}'`, el)
       }
-    } catch (e) {
-      ast.addError(e, template)
+    } catch (error) {
+      if (error instanceof ParseError) {
+        if (options.parseLocation) {
+          this.addLocation(error)
+        }
+        ast.addError(error)
+      } else {
+        throw error
+      }
     }
 
     return { ast, tokens }
@@ -74,7 +101,7 @@ export class Parser {
       return node
     }
 
-    throw new NodeError(`Unknown '${tokenType}'`, token)
+    throw new ParseError(`Unknown '${tokenType}'`, token)
   }
 
   protected isPartial (type : NodeNames, parentType : NodeNames) : boolean {
@@ -96,7 +123,7 @@ export class Parser {
         if (token.text in directives) {
           return directives[token.text]
         }
-        throw new NodeError(`Directive \`${token.text}\` is not supported`, token)
+        throw new ParseError(`Directive \`${token.text}\` is not supported`, token)
       case ENodeType.Interpolation:
         return NodeNames.Interpolation
       case ENodeType.Text:
@@ -106,6 +133,6 @@ export class Parser {
       case ENodeType.Comment:
         return NodeNames.Comment
     }
-    throw new NodeError(`Unknow token \`${token.type}\` - \`${token.text}\``, token)
+    throw new ParseError(`Unknow token \`${token.type}\` - \`${token.text}\``, token)
   }
 }

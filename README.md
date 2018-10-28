@@ -55,7 +55,8 @@ const freemarker = require("freemarker-parser")
 
 const parser = new freemarker.Parser()
 const data = parser.parse(template, {
-  useSquareTags: true
+  useSquareTags: true,
+  parseLocation : true,
 })
 
 console.log(data.ast)

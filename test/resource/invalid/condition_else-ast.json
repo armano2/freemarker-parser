@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 37,
+  "end": 36,
   "body": [
     {
       "type": "Condition",
@@ -19,6 +19,16 @@
           "text": "\n"
         }
       ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 10
+        }
+      },
       "alternate": [
         {
           "type": "Text",
@@ -29,16 +39,30 @@
       ]
     }
   ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 4,
+      "column": 7
+    }
+  },
   "errors": [
     {
       "message": "Error while creating node 'ConditionElse' inside 'Condition'",
-      "start": {
-        "line": 2,
-        "column": 2
-      },
-      "end": {
-        "line": 2,
-        "column": 11
+      "start": 20,
+      "end": 29,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
       }
     }
   ]

@@ -1,18 +1,32 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 13,
+  "end": 12,
   "body": [],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 1,
+      "column": 13
+    }
+  },
   "errors": [
     {
       "message": "Missing argument in before '--'",
-      "start": {
-        "line": 0,
-        "column": 0
-      },
-      "end": {
-        "line": 0,
-        "column": 12
+      "start": 0,
+      "end": 12,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 13
+        }
       }
     }
   ]

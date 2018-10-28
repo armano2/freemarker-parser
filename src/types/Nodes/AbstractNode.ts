@@ -1,5 +1,5 @@
 import NodeNames from '../../enum/NodeNames'
-import NodeError from '../../errors/NodeError'
+import ParseError from '../../errors/ParseError'
 import { ILoc } from '../Tokens'
 
 export default abstract class AbstractNode implements ILoc {
@@ -18,6 +18,6 @@ export default abstract class AbstractNode implements ILoc {
   }
 
   public addToNode (child : AbstractNode) : void {
-    throw new NodeError(`Node ${this.type} can't contain ${child.type}`, child)
+    throw new ParseError(`Node ${this.type} can't contain ${child.type}`, child)
   }
 }

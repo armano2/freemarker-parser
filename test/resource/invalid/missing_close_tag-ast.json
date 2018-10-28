@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 22,
+  "end": 21,
   "body": [
     {
       "type": "Condition",
@@ -33,21 +33,55 @@
               "end": 22,
               "text": "\n"
             }
-          ]
+          ],
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 3
+            },
+            "end": {
+              "line": 2,
+              "column": 12
+            }
+          }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 10
+        }
+      }
     }
   ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 2,
+      "column": 12
+    }
+  },
   "errors": [
     {
       "message": "Unclosed tag 'Condition'",
-      "start": {
-        "line": 0,
-        "column": 0
-      },
-      "end": {
-        "line": 0,
-        "column": 9
+      "start": 0,
+      "end": 9,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 10
+        }
       }
     }
   ]

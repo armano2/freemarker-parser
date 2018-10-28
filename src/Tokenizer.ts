@@ -1,7 +1,6 @@
 import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
-import NodeError from './errors/NodeError'
-import ParamError from './errors/ParamError'
+import ParseError from './errors/ParseError'
 import { ENodeType, ISymbol } from './Symbols'
 import { IToken } from './types/Tokens'
 import { isLetter, isWhitespace } from './utils/Chars'
@@ -17,7 +16,8 @@ interface IParams {
 }
 
 export interface ITokenizerOptions {
-  useSquareTags : boolean
+  useSquareTags? : boolean
+  parseLocation? : boolean
 }
 
 export class Tokenizer extends AbstractTokenizer {
@@ -33,7 +33,7 @@ export class Tokenizer extends AbstractTokenizer {
     return this.options.useSquareTags ? ECharCodes.CloseBracket : ECharCodes.Greater
   }
 
-  constructor (options? : ITokenizerOptions) {
+  constructor (options : ITokenizerOptions = {}) {
     super()
 
     this.options = {
@@ -95,7 +95,7 @@ export class Tokenizer extends AbstractTokenizer {
         text += this.charAt(this.index)
         ch = this.charCodeAt(++this.index)
       } else {
-        throw new ParamError(`Invalid \`${this.charAt(this.index)}\``, this.index)
+        throw new ParseError(`Invalid \`${this.charAt(this.index)}\``, { start: this.index, end: this.index })
       }
     }
     return text
@@ -182,7 +182,7 @@ export class Tokenizer extends AbstractTokenizer {
   protected parseMacro (symbol : ISymbol, start : number, isClose : boolean) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
-      throw new ParamError('Macro name cannot be empty', this.index)
+      throw new ParseError('Macro name cannot be empty', { start: this.index, end: this.index })
     }
 
     const params = this.parseParams(symbol.endToken)
@@ -192,7 +192,7 @@ export class Tokenizer extends AbstractTokenizer {
   protected parseDirective (symbol : ISymbol, start : number, isClose : boolean) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
-      throw new ParamError('Directive name cannot be empty', this.index)
+      throw new ParseError('Directive name cannot be empty', { start: this.index, end: this.index })
     }
 
     const params = this.parseParams(symbol.endToken)
@@ -231,7 +231,7 @@ export class Tokenizer extends AbstractTokenizer {
           case ECharCodes.CloseBracket: // ]
           case ECharCodes.CloseParenthesis: // )
             if (!closeCode || ch !== closeCode) {
-              throw new NodeError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.index})
+              throw new ParseError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.index})
             }
             closeCode = stack.pop()
             break
@@ -262,8 +262,8 @@ export class Tokenizer extends AbstractTokenizer {
       }
     }
     if (closeCode) {
-      throw new NodeError(`Missing ${String.fromCharCode(closeCode)} close char`, { start, end: this.index})
+      throw new ParseError(`Missing ${String.fromCharCode(closeCode)} close char`, { start, end: this.index})
     }
-    throw new NodeError(`Unclosed directive or macro`, { start, end: this.index})
+    throw new ParseError(`Unclosed directive or macro`, { start, end: this.index})
   }
 }

@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 10,
+  "end": 9,
   "body": [
     {
       "type": "Flush",
@@ -14,5 +14,15 @@
       "end": 10,
       "text": "\n\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 2,
+      "column": 1
+    }
+  }
 }

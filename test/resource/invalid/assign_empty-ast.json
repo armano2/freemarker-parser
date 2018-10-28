@@ -1,18 +1,32 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 12,
+  "end": 11,
   "body": [],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 1,
+      "column": 12
+    }
+  },
   "errors": [
     {
       "message": "Unexpected \",\"",
-      "start": {
-        "line": 0,
-        "column": 0
-      },
-      "end": {
-        "line": 0,
-        "column": 11
+      "start": 0,
+      "end": 11,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
       }
     }
   ]

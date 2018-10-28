@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 205,
+  "end": 204,
   "body": [
     {
       "type": "Assign",
@@ -96,6 +96,16 @@
           "text": ")\n"
         }
       ],
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 17
+        }
+      },
       "alternate": [
         {
           "type": "Condition",
@@ -167,6 +177,16 @@
               "text": ")\n"
             }
           ],
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 36
+            }
+          },
           "alternate": [
             {
               "type": "Text",
@@ -214,5 +234,15 @@
       "end": 205,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 9,
+      "column": 7
+    }
+  }
 }

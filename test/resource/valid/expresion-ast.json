@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 86,
+  "end": 85,
   "body": [
     {
       "type": "Assign",
@@ -54,7 +54,17 @@
           "end": 45,
           "text": "\n  foo = 1\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 17
+        }
+      }
     },
     {
       "type": "Text",
@@ -87,7 +97,17 @@
           "end": 79,
           "text": "\n  foo = 1\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 17
+        }
+      }
     },
     {
       "type": "Text",
@@ -95,5 +115,15 @@
       "end": 86,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 7,
+      "column": 7
+    }
+  }
 }

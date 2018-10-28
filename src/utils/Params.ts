@@ -1,4 +1,4 @@
-import NodeError from '../errors/NodeError'
+import ParseError from '../errors/ParseError'
 import { ParamsParser } from '../ParamsParser'
 import { AllParamTypes } from '../types/Params'
 
@@ -8,7 +8,7 @@ export function paramParser (start : number, end : number, params? : string) : A
     try {
     return parser.parse(params)
     } catch (e) {
-      throw new NodeError(e.message, { start: start + e.start, end })
+      throw new ParseError(e.message, { start: start + e.start, end })
     }
   } else {
     return undefined

@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 730,
+  "end": 729,
   "body": [
     {
       "type": "Comment",
@@ -441,7 +441,17 @@
           "end": 303,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 11,
+          "column": 11
+        }
+      }
     },
     {
       "type": "Text",
@@ -988,7 +998,17 @@
           "end": 649,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 1
+        },
+        "end": {
+          "line": 37,
+          "column": 12
+        }
+      }
     },
     {
       "type": "Text",
@@ -1028,7 +1048,17 @@
           "end": 684,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 1
+        },
+        "end": {
+          "line": 40,
+          "column": 11
+        }
+      }
     },
     {
       "type": "Text",
@@ -1068,7 +1098,17 @@
           "end": 719,
           "text": "\n"
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 1
+        },
+        "end": {
+          "line": 43,
+          "column": 12
+        }
+      }
     },
     {
       "type": "Text",
@@ -1076,5 +1116,15 @@
       "end": 730,
       "text": "\n"
     }
-  ]
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 45,
+      "column": 11
+    }
+  }
 }

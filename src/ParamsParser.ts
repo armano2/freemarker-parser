@@ -1,7 +1,7 @@
 import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
 import ParamNames from './enum/ParamNames'
-import ParamError from './errors/ParamError'
+import ParseError from './errors/ParseError'
 import {
   AllParamTypes,
   IArrayExpression,
@@ -104,7 +104,7 @@ function createBinaryExpression (operator : string, left : AllParamTypes, right 
 
 function createUnaryExpression (operator : string, argument : AllParamTypes | null, prefix : boolean = true) : IUnaryExpression | IUpdateExpression {
   if (!argument) {
-    throw new ParamError(`Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`, 0)
+    throw new ParseError(`Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`, { start: 0, end: 0 })
   }
   switch (operator) {
     case '++':
@@ -133,7 +133,7 @@ export class ParamsParser extends AbstractTokenizer {
           ++this.index
         }
       } else if (this.index < this.length) {
-        throw new ParamError(`Unexpected "${this.charAt(this.index)}"`, this.index)
+        throw new ParseError(`Unexpected "${this.charAt(this.index)}"`, { start: this.index, end: this.index })
       }
     }
 
@@ -226,7 +226,7 @@ export class ParamsParser extends AbstractTokenizer {
 
     right = this.parseToken()
     if (!right || !left) {
-      throw new ParamError(`Expected expression after ${biop}`, this.index)
+      throw new ParseError(`Expected expression after ${biop}`, { start: this.index, end: this.index })
     }
     stack = [left, biopInfo, right]
 
@@ -265,7 +265,7 @@ export class ParamsParser extends AbstractTokenizer {
 
       node = this.parseToken()
       if (!node) {
-        throw new ParamError(`Expected expression after ${biop}`, this.index)
+        throw new ParseError(`Expected expression after ${biop}`, { start: this.index, end: this.index })
       }
       stack.push(biopInfo, node)
     }
@@ -276,13 +276,13 @@ export class ParamsParser extends AbstractTokenizer {
       fbiop = stack[i - 1]
       left = stack[i - 2]
       if (!isIBiopInfo(fbiop) || !isAllParamTypes(left) || !isAllParamTypes(node)) {
-        throw new ParamError(`Expected expression`, this.index)
+        throw new ParseError(`Expected expression`, { start: this.index, end: this.index })
       }
       node = createBinaryExpression(fbiop.value, left, node)
       i -= 2
     }
     if (!isAllParamTypes(node)) {
-      throw new ParamError(`Expected expression`, this.index)
+      throw new ParseError(`Expected expression`, { start: this.index, end: this.index })
     }
     return node
   }
@@ -345,9 +345,9 @@ export class ParamsParser extends AbstractTokenizer {
     chCode = this.charCodeAt(this.index)
     // Check to make sure this isn't a variable name that start with a number (123abc)
     if (isIdentifierStart(chCode)) {
-      throw new ParamError(`Variable names cannot start with a number (${rawName}${this.charAt(this.index)})`, this.index)
+      throw new ParseError(`Variable names cannot start with a number (${rawName}${this.charAt(this.index)})`, { start: this.index, end: this.index })
     } else if (chCode === ECharCodes.Period) {
-      throw new ParamError('Unexpected period', this.index)
+      throw new ParseError('Unexpected period', { start: this.index, end: this.index })
     }
 
     return {
@@ -382,7 +382,7 @@ export class ParamsParser extends AbstractTokenizer {
     }
 
     if (!closed) {
-      throw new ParamError(`Unclosed quote after "${str}"`, this.index)
+      throw new ParseError(`Unclosed quote after "${str}"`, { start: this.index, end: this.index })
     }
 
     return {
@@ -406,7 +406,7 @@ export class ParamsParser extends AbstractTokenizer {
     if (isIdentifierStart(ch)) {
       this.index++
     } else {
-      throw new ParamError(`Unexpected ${this.charAt(this.index)}`, this.index)
+      throw new ParseError(`Unexpected ${this.charAt(this.index)}`, { start: this.index, end: this.index })
     }
 
     while (this.index < this.length) {
@@ -457,13 +457,13 @@ export class ParamsParser extends AbstractTokenizer {
       } else {
         node = this.parseExpression()
         if (!node || node.type === ParamNames.Compound) {
-          throw new ParamError('Expected comma', this.index)
+          throw new ParseError('Expected comma', { start: this.index, end: this.index })
         }
         args.push(node)
       }
     }
     if (!closed) {
-      throw new ParamError(`Expected ${String.fromCharCode(termination)}`, this.index)
+      throw new ParseError(`Expected ${String.fromCharCode(termination)}`, { start: this.index, end: this.index })
     }
     return args
   }
@@ -503,7 +503,7 @@ export class ParamsParser extends AbstractTokenizer {
         this.parseSpaces()
         chI = this.charCodeAt(this.index)
         if (chI !== ECharCodes.CloseBracket) {
-          throw new ParamError('Unclosed [', this.index)
+          throw new ParseError('Unclosed [', { start: this.index, end: this.index })
         }
         this.index++
       } else if (chI === ECharCodes.OpenParenthesis) {
@@ -535,7 +535,7 @@ export class ParamsParser extends AbstractTokenizer {
       this.index++
       return node
     } else {
-      throw new ParamError('Unclosed (', this.index)
+      throw new ParseError('Unclosed (', { start: this.index, end: this.index })
     }
   }
 
