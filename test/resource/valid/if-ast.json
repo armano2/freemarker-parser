@@ -1,0 +1,3178 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 2346,
+  "body": [
+    {
+      "type": "Assign",
+      "start": 0,
+      "end": 15,
+      "params": [
+        {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "x"
+          },
+          "right": {
+            "type": "Literal",
+            "value": 1,
+            "raw": "1"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 15,
+      "end": 21,
+      "text": "\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 21,
+      "end": 33,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 33,
+          "end": 37,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 43,
+      "end": 47,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 47,
+      "end": 59,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [],
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 65,
+      "end": 73,
+      "text": "good\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 73,
+      "end": 85,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 85,
+          "end": 88,
+          "text": "goo"
+        },
+        {
+          "type": "Interpolation",
+          "start": 88,
+          "end": 102,
+          "params": {
+            "type": "Compound",
+            "body": [
+              {
+                "type": "Identifier",
+                "name": "missing"
+              },
+              {
+                "type": "UnaryExpression",
+                "operator": "!",
+                "argument": {
+                  "type": "Literal",
+                  "value": "d",
+                  "raw": "'d'"
+                },
+                "prefix": true
+              }
+            ]
+          }
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 108,
+      "end": 112,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 112,
+      "end": 124,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 124,
+          "end": 129,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 135,
+      "end": 145,
+      "text": "good\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 145,
+      "end": 157,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 157,
+          "end": 161,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 3
+        },
+        "end": {
+          "line": 8,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 168,
+          "end": 173,
+          "text": "wrong"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 179,
+      "end": 183,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 183,
+      "end": 195,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 195,
+          "end": 200,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 3
+        },
+        "end": {
+          "line": 9,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 207,
+          "end": 211,
+          "text": "good"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 217,
+      "end": 223,
+      "text": "\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 223,
+      "end": 235,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 235,
+          "end": 239,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 3
+        },
+        "end": {
+          "line": 11,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 239,
+          "end": 255,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 255,
+              "end": 260,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 19
+            },
+            "end": {
+              "line": 11,
+              "column": 35
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 267,
+              "end": 272,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 278,
+      "end": 282,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 282,
+      "end": 294,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 294,
+          "end": 298,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 298,
+          "end": 314,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 314,
+              "end": 319,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 12,
+              "column": 19
+            },
+            "end": {
+              "line": 12,
+              "column": 35
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 326,
+              "end": 331,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 337,
+      "end": 341,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 341,
+      "end": 353,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 353,
+          "end": 358,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 3
+        },
+        "end": {
+          "line": 13,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 358,
+          "end": 374,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 374,
+              "end": 378,
+              "text": "good"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 20
+            },
+            "end": {
+              "line": 13,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 385,
+              "end": 390,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 396,
+      "end": 400,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 400,
+      "end": 412,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 412,
+          "end": 417,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 3
+        },
+        "end": {
+          "line": 14,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 417,
+          "end": 433,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 433,
+              "end": 438,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 14,
+              "column": 20
+            },
+            "end": {
+              "line": 14,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 445,
+              "end": 449,
+              "text": "good"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 455,
+      "end": 461,
+      "text": "\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 461,
+      "end": 473,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 473,
+          "end": 477,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 477,
+          "end": 493,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 493,
+              "end": 498,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 16,
+              "column": 19
+            },
+            "end": {
+              "line": 16,
+              "column": 35
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 504,
+      "end": 508,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 508,
+      "end": 520,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 520,
+          "end": 525,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 3
+        },
+        "end": {
+          "line": 17,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 525,
+          "end": 541,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 541,
+              "end": 545,
+              "text": "good"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 17,
+              "column": 20
+            },
+            "end": {
+              "line": 17,
+              "column": 36
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 551,
+      "end": 555,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 555,
+      "end": 567,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 567,
+          "end": 572,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 3
+        },
+        "end": {
+          "line": 18,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 572,
+          "end": 588,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 588,
+              "end": 593,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 18,
+              "column": 20
+            },
+            "end": {
+              "line": 18,
+              "column": 36
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 599,
+      "end": 607,
+      "text": "good\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 607,
+      "end": 619,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 619,
+          "end": 624,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 3
+        },
+        "end": {
+          "line": 19,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 624,
+          "end": 640,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [],
+          "loc": {
+            "start": {
+              "line": 19,
+              "column": 20
+            },
+            "end": {
+              "line": 19,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 647,
+              "end": 652,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 658,
+      "end": 666,
+      "text": "good\r\n\r\n"
+    },
+    {
+      "type": "Comment",
+      "start": 666,
+      "end": 764,
+      "text": " Same with pre-calculable results, just in case later the dead code will be optimized out: "
+    },
+    {
+      "type": "Text",
+      "start": 764,
+      "end": 768,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 768,
+      "end": 780,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 780,
+          "end": 784,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 3
+        },
+        "end": {
+          "line": 22,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 790,
+      "end": 794,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 794,
+      "end": 806,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 806,
+          "end": 811,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 3
+        },
+        "end": {
+          "line": 23,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 817,
+      "end": 825,
+      "text": "good\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 825,
+      "end": 837,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 837,
+          "end": 840,
+          "text": "goo"
+        },
+        {
+          "type": "Interpolation",
+          "start": 840,
+          "end": 854,
+          "params": {
+            "type": "Compound",
+            "body": [
+              {
+                "type": "Identifier",
+                "name": "missing"
+              },
+              {
+                "type": "UnaryExpression",
+                "operator": "!",
+                "argument": {
+                  "type": "Literal",
+                  "value": "d",
+                  "raw": "'d'"
+                },
+                "prefix": true
+              }
+            ]
+          }
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 3
+        },
+        "end": {
+          "line": 24,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 860,
+      "end": 864,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 864,
+      "end": 876,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 876,
+          "end": 881,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 3
+        },
+        "end": {
+          "line": 25,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 887,
+      "end": 897,
+      "text": "good\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 897,
+      "end": 909,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 909,
+          "end": 913,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 3
+        },
+        "end": {
+          "line": 27,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 920,
+          "end": 925,
+          "text": "wrong"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 931,
+      "end": 935,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 935,
+      "end": 947,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 947,
+          "end": 952,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 3
+        },
+        "end": {
+          "line": 28,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Text",
+          "start": 959,
+          "end": 963,
+          "text": "good"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 969,
+      "end": 975,
+      "text": "\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 975,
+      "end": 987,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 987,
+          "end": 991,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 3
+        },
+        "end": {
+          "line": 30,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 991,
+          "end": 1007,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1007,
+              "end": 1012,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 30,
+              "column": 19
+            },
+            "end": {
+              "line": 30,
+              "column": 35
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1019,
+              "end": 1024,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1030,
+      "end": 1034,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1034,
+      "end": 1046,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1046,
+          "end": 1050,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 3
+        },
+        "end": {
+          "line": 31,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1050,
+          "end": 1066,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1066,
+              "end": 1071,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 31,
+              "column": 19
+            },
+            "end": {
+              "line": 31,
+              "column": 35
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1078,
+              "end": 1083,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1089,
+      "end": 1093,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1093,
+      "end": 1105,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1105,
+          "end": 1110,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 3
+        },
+        "end": {
+          "line": 32,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1110,
+          "end": 1126,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1126,
+              "end": 1130,
+              "text": "good"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 32,
+              "column": 20
+            },
+            "end": {
+              "line": 32,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1137,
+              "end": 1142,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1148,
+      "end": 1152,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1152,
+      "end": 1164,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1164,
+          "end": 1169,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 3
+        },
+        "end": {
+          "line": 33,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1169,
+          "end": 1185,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1185,
+              "end": 1190,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 33,
+              "column": 20
+            },
+            "end": {
+              "line": 33,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1197,
+              "end": 1201,
+              "text": "good"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1207,
+      "end": 1213,
+      "text": "\r\n\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1213,
+      "end": 1225,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1225,
+          "end": 1229,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 3
+        },
+        "end": {
+          "line": 35,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1229,
+          "end": 1245,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1245,
+              "end": 1250,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 35,
+              "column": 19
+            },
+            "end": {
+              "line": 35,
+              "column": 35
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1256,
+      "end": 1260,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1260,
+      "end": 1272,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1272,
+          "end": 1277,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 3
+        },
+        "end": {
+          "line": 36,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1277,
+          "end": 1293,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1293,
+              "end": 1297,
+              "text": "good"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 36,
+              "column": 20
+            },
+            "end": {
+              "line": 36,
+              "column": 36
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1303,
+      "end": 1307,
+      "text": "\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1307,
+      "end": 1319,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1319,
+          "end": 1324,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 3
+        },
+        "end": {
+          "line": 37,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1324,
+          "end": 1340,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1340,
+              "end": 1345,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 37,
+              "column": 20
+            },
+            "end": {
+              "line": 37,
+              "column": 36
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1351,
+      "end": 1359,
+      "text": "good\r\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 1359,
+      "end": 1371,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1371,
+          "end": 1376,
+          "text": "wrong"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 3
+        },
+        "end": {
+          "line": 38,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1376,
+          "end": 1392,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [],
+          "loc": {
+            "start": {
+              "line": 38,
+              "column": 20
+            },
+            "end": {
+              "line": 38,
+              "column": 36
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1399,
+              "end": 1404,
+              "text": "wrong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1410,
+      "end": 1418,
+      "text": "good\r\n\r\n"
+    },
+    {
+      "type": "Comment",
+      "start": 1418,
+      "end": 1471,
+      "text": " Varying branch choice of the same AST nodes: "
+    },
+    {
+      "type": "Text",
+      "start": 1471,
+      "end": 1473,
+      "text": "\r\n"
+    },
+    {
+      "type": "List",
+      "start": 1473,
+      "end": 1498,
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "ArrayExpression",
+            "elements": [
+              {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+              },
+              {
+                "type": "Literal",
+                "value": 2,
+                "raw": "2"
+              },
+              {
+                "type": "Literal",
+                "value": 3,
+                "raw": "3"
+              },
+              {
+                "type": "Literal",
+                "value": 4,
+                "raw": "4"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "as"
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ]
+      },
+      "body": [
+        {
+          "type": "Text",
+          "start": 1498,
+          "end": 1502,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1502,
+          "end": 1514,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1514,
+              "end": 1515,
+              "text": "1"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 42,
+              "column": 3
+            },
+            "end": {
+              "line": 42,
+              "column": 15
+            }
+          }
+        },
+        {
+          "type": "Text",
+          "start": 1521,
+          "end": 1525,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1525,
+          "end": 1537,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1537,
+              "end": 1538,
+              "text": "2"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 43,
+              "column": 3
+            },
+            "end": {
+              "line": 43,
+              "column": 15
+            }
+          }
+        },
+        {
+          "type": "Text",
+          "start": 1544,
+          "end": 1548,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1548,
+          "end": 1560,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 3,
+              "raw": "3"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1560,
+              "end": 1561,
+              "text": "3"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 44,
+              "column": 3
+            },
+            "end": {
+              "line": 44,
+              "column": 15
+            }
+          }
+        },
+        {
+          "type": "Text",
+          "start": 1567,
+          "end": 1571,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1571,
+          "end": 1583,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1583,
+              "end": 1587,
+              "text": "is 1"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 45,
+              "column": 3
+            },
+            "end": {
+              "line": 45,
+              "column": 15
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1594,
+              "end": 1601,
+              "text": "isn't 1"
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 1607,
+          "end": 1611,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1611,
+          "end": 1623,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1623,
+              "end": 1627,
+              "text": "is 2"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 46,
+              "column": 3
+            },
+            "end": {
+              "line": 46,
+              "column": 15
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1634,
+              "end": 1641,
+              "text": "isn't 2"
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 1647,
+          "end": 1651,
+          "text": "\r\n- "
+        },
+        {
+          "type": "Condition",
+          "start": 1651,
+          "end": 1663,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 3,
+              "raw": "3"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1663,
+              "end": 1667,
+              "text": "is 3"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 47,
+              "column": 3
+            },
+            "end": {
+              "line": 47,
+              "column": 15
+            }
+          },
+          "alternate": [
+            {
+              "type": "Text",
+              "start": 1674,
+              "end": 1681,
+              "text": "isn't 3"
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 1687,
+          "end": 1706,
+          "text": "\r\n- Finally, it's: "
+        },
+        {
+          "type": "Condition",
+          "start": 1706,
+          "end": 1718,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1718,
+              "end": 1719,
+              "text": "1"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 48,
+              "column": 18
+            },
+            "end": {
+              "line": 48,
+              "column": 30
+            }
+          },
+          "alternate": [
+            {
+              "type": "Condition",
+              "start": 1719,
+              "end": 1735,
+              "params": {
+                "type": "BinaryExpression",
+                "operator": "==",
+                "left": {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                "right": {
+                  "type": "Literal",
+                  "value": 2,
+                  "raw": "2"
+                }
+              },
+              "consequent": [
+                {
+                  "type": "Text",
+                  "start": 1735,
+                  "end": 1736,
+                  "text": "2"
+                }
+              ],
+              "loc": {
+                "start": {
+                  "line": 48,
+                  "column": 31
+                },
+                "end": {
+                  "line": 48,
+                  "column": 47
+                }
+              },
+              "alternate": [
+                {
+                  "type": "Condition",
+                  "start": 1736,
+                  "end": 1752,
+                  "params": {
+                    "type": "BinaryExpression",
+                    "operator": "==",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
+                      "type": "Literal",
+                      "value": 3,
+                      "raw": "3"
+                    }
+                  },
+                  "consequent": [
+                    {
+                      "type": "Text",
+                      "start": 1752,
+                      "end": 1753,
+                      "text": "3"
+                    }
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 48,
+                      "column": 48
+                    },
+                    "end": {
+                      "line": 48,
+                      "column": 64
+                    }
+                  },
+                  "alternate": [
+                    {
+                      "type": "Text",
+                      "start": 1760,
+                      "end": 1761,
+                      "text": "4"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Text",
+          "start": 1767,
+          "end": 1769,
+          "text": "\r\n"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 1
+        },
+        "end": {
+          "line": 41,
+          "column": 26
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 1777,
+      "end": 1781,
+      "text": "\r\n\r\n"
+    },
+    {
+      "type": "Comment",
+      "start": 1781,
+      "end": 1796,
+      "text": " nested "
+    },
+    {
+      "type": "Text",
+      "start": 1796,
+      "end": 1798,
+      "text": "\r\n"
+    },
+    {
+      "type": "List",
+      "start": 1798,
+      "end": 1820,
+      "params": {
+        "type": "Compound",
+        "body": [
+          {
+            "type": "ArrayExpression",
+            "elements": [
+              {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+              },
+              {
+                "type": "Literal",
+                "value": 2,
+                "raw": "2"
+              },
+              {
+                "type": "Literal",
+                "value": 3,
+                "raw": "3"
+              }
+            ]
+          },
+          {
+            "type": "Identifier",
+            "name": "as"
+          },
+          {
+            "type": "Identifier",
+            "name": "x"
+          }
+        ]
+      },
+      "body": [
+        {
+          "type": "List",
+          "start": 1820,
+          "end": 1842,
+          "params": {
+            "type": "Compound",
+            "body": [
+              {
+                "type": "ArrayExpression",
+                "elements": [
+                  {
+                    "type": "Literal",
+                    "value": 1,
+                    "raw": "1"
+                  },
+                  {
+                    "type": "Literal",
+                    "value": 2,
+                    "raw": "2"
+                  },
+                  {
+                    "type": "Literal",
+                    "value": 3,
+                    "raw": "3"
+                  }
+                ]
+              },
+              {
+                "type": "Identifier",
+                "name": "as"
+              },
+              {
+                "type": "Identifier",
+                "name": "y"
+              }
+            ]
+          },
+          "body": [
+            {
+              "type": "Text",
+              "start": 1842,
+              "end": 1846,
+              "text": "\r\n  "
+            },
+            {
+              "type": "Assign",
+              "start": 1846,
+              "end": 1865,
+              "params": [
+                {
+                  "type": "AssignmentExpression",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "y"
+                  },
+                  "right": {
+                    "type": "BinaryExpression",
+                    "operator": "*",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "x"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Text",
+              "start": 1865,
+              "end": 1869,
+              "text": "\r\n  "
+            },
+            {
+              "type": "Condition",
+              "start": 1869,
+              "end": 1881,
+              "params": {
+                "type": "BinaryExpression",
+                "operator": "==",
+                "left": {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                "right": {
+                  "type": "Literal",
+                  "value": 1,
+                  "raw": "1"
+                }
+              },
+              "consequent": [
+                {
+                  "type": "Text",
+                  "start": 1881,
+                  "end": 1895,
+                  "text": "\r\n    1:\r\n    "
+                },
+                {
+                  "type": "Condition",
+                  "start": 1895,
+                  "end": 1908,
+                  "params": {
+                    "type": "BinaryExpression",
+                    "operator": ">",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "y"
+                    }
+                  },
+                  "consequent": [
+                    {
+                      "type": "Text",
+                      "start": 1908,
+                      "end": 1918,
+                      "text": "\r\n      > "
+                    },
+                    {
+                      "type": "Interpolation",
+                      "start": 1918,
+                      "end": 1922,
+                      "params": {
+                        "type": "Identifier",
+                        "name": "y"
+                      }
+                    },
+                    {
+                      "type": "Text",
+                      "start": 1922,
+                      "end": 1928,
+                      "text": "\r\n    "
+                    }
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 56,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 56,
+                      "column": 18
+                    }
+                  },
+                  "alternate": [
+                    {
+                      "type": "Condition",
+                      "start": 1928,
+                      "end": 1944,
+                      "params": {
+                        "type": "BinaryExpression",
+                        "operator": "==",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "x"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "y"
+                        }
+                      },
+                      "consequent": [
+                        {
+                          "type": "Text",
+                          "start": 1944,
+                          "end": 1955,
+                          "text": "\r\n      == "
+                        },
+                        {
+                          "type": "Interpolation",
+                          "start": 1955,
+                          "end": 1959,
+                          "params": {
+                            "type": "Identifier",
+                            "name": "y"
+                          }
+                        },
+                        {
+                          "type": "Text",
+                          "start": 1959,
+                          "end": 1965,
+                          "text": "\r\n    "
+                        }
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 58,
+                          "column": 5
+                        },
+                        "end": {
+                          "line": 58,
+                          "column": 21
+                        }
+                      },
+                      "alternate": [
+                        {
+                          "type": "Text",
+                          "start": 1972,
+                          "end": 1983,
+                          "text": "\r\n      <= "
+                        },
+                        {
+                          "type": "Interpolation",
+                          "start": 1983,
+                          "end": 1987,
+                          "params": {
+                            "type": "Identifier",
+                            "name": "y"
+                          }
+                        },
+                        {
+                          "type": "Text",
+                          "start": 1987,
+                          "end": 1993,
+                          "text": "\r\n    "
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "start": 1999,
+                  "end": 2003,
+                  "text": "\r\n  "
+                }
+              ],
+              "loc": {
+                "start": {
+                  "line": 54,
+                  "column": 3
+                },
+                "end": {
+                  "line": 54,
+                  "column": 15
+                }
+              },
+              "alternate": [
+                {
+                  "type": "Condition",
+                  "start": 2003,
+                  "end": 2019,
+                  "params": {
+                    "type": "BinaryExpression",
+                    "operator": "==",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
+                      "type": "Literal",
+                      "value": 2,
+                      "raw": "2"
+                    }
+                  },
+                  "consequent": [
+                    {
+                      "type": "Text",
+                      "start": 2019,
+                      "end": 2033,
+                      "text": "\r\n    2:\r\n    "
+                    },
+                    {
+                      "type": "Condition",
+                      "start": 2033,
+                      "end": 2046,
+                      "params": {
+                        "type": "BinaryExpression",
+                        "operator": ">",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "x"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "y"
+                        }
+                      },
+                      "consequent": [
+                        {
+                          "type": "Text",
+                          "start": 2046,
+                          "end": 2056,
+                          "text": "\r\n      > "
+                        },
+                        {
+                          "type": "Interpolation",
+                          "start": 2056,
+                          "end": 2060,
+                          "params": {
+                            "type": "Identifier",
+                            "name": "y"
+                          }
+                        },
+                        {
+                          "type": "Text",
+                          "start": 2060,
+                          "end": 2066,
+                          "text": "\r\n    "
+                        }
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 65,
+                          "column": 5
+                        },
+                        "end": {
+                          "line": 65,
+                          "column": 18
+                        }
+                      },
+                      "alternate": [
+                        {
+                          "type": "Condition",
+                          "start": 2066,
+                          "end": 2082,
+                          "params": {
+                            "type": "BinaryExpression",
+                            "operator": "==",
+                            "left": {
+                              "type": "Identifier",
+                              "name": "x"
+                            },
+                            "right": {
+                              "type": "Identifier",
+                              "name": "y"
+                            }
+                          },
+                          "consequent": [
+                            {
+                              "type": "Text",
+                              "start": 2082,
+                              "end": 2093,
+                              "text": "\r\n      == "
+                            },
+                            {
+                              "type": "Interpolation",
+                              "start": 2093,
+                              "end": 2097,
+                              "params": {
+                                "type": "Identifier",
+                                "name": "y"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "start": 2097,
+                              "end": 2103,
+                              "text": "\r\n    "
+                            }
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 67,
+                              "column": 5
+                            },
+                            "end": {
+                              "line": 67,
+                              "column": 21
+                            }
+                          },
+                          "alternate": [
+                            {
+                              "type": "Text",
+                              "start": 2110,
+                              "end": 2121,
+                              "text": "\r\n      <= "
+                            },
+                            {
+                              "type": "Interpolation",
+                              "start": 2121,
+                              "end": 2125,
+                              "params": {
+                                "type": "Identifier",
+                                "name": "y"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "start": 2125,
+                              "end": 2131,
+                              "text": "\r\n    "
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Text",
+                      "start": 2137,
+                      "end": 2141,
+                      "text": "\r\n  "
+                    }
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 63,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 63,
+                      "column": 19
+                    }
+                  },
+                  "alternate": [
+                    {
+                      "type": "Text",
+                      "start": 2148,
+                      "end": 2162,
+                      "text": "\r\n    3:\r\n    "
+                    },
+                    {
+                      "type": "Condition",
+                      "start": 2162,
+                      "end": 2175,
+                      "params": {
+                        "type": "BinaryExpression",
+                        "operator": ">",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "x"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "y"
+                        }
+                      },
+                      "consequent": [
+                        {
+                          "type": "Text",
+                          "start": 2175,
+                          "end": 2185,
+                          "text": "\r\n      > "
+                        },
+                        {
+                          "type": "Interpolation",
+                          "start": 2185,
+                          "end": 2189,
+                          "params": {
+                            "type": "Identifier",
+                            "name": "y"
+                          }
+                        },
+                        {
+                          "type": "Text",
+                          "start": 2189,
+                          "end": 2195,
+                          "text": "\r\n    "
+                        }
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 74,
+                          "column": 5
+                        },
+                        "end": {
+                          "line": 74,
+                          "column": 18
+                        }
+                      },
+                      "alternate": [
+                        {
+                          "type": "Condition",
+                          "start": 2195,
+                          "end": 2211,
+                          "params": {
+                            "type": "BinaryExpression",
+                            "operator": "==",
+                            "left": {
+                              "type": "Identifier",
+                              "name": "x"
+                            },
+                            "right": {
+                              "type": "Identifier",
+                              "name": "y"
+                            }
+                          },
+                          "consequent": [
+                            {
+                              "type": "Text",
+                              "start": 2211,
+                              "end": 2222,
+                              "text": "\r\n      == "
+                            },
+                            {
+                              "type": "Interpolation",
+                              "start": 2222,
+                              "end": 2226,
+                              "params": {
+                                "type": "Identifier",
+                                "name": "y"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "start": 2226,
+                              "end": 2232,
+                              "text": "\r\n    "
+                            }
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 76,
+                              "column": 5
+                            },
+                            "end": {
+                              "line": 76,
+                              "column": 21
+                            }
+                          },
+                          "alternate": [
+                            {
+                              "type": "Text",
+                              "start": 2239,
+                              "end": 2250,
+                              "text": "\r\n      <= "
+                            },
+                            {
+                              "type": "Interpolation",
+                              "start": 2250,
+                              "end": 2254,
+                              "params": {
+                                "type": "Identifier",
+                                "name": "y"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "start": 2254,
+                              "end": 2260,
+                              "text": "\r\n    "
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Text",
+                      "start": 2266,
+                      "end": 2272,
+                      "text": "\r\n    "
+                    },
+                    {
+                      "type": "Condition",
+                      "start": 2272,
+                      "end": 2294,
+                      "params": {
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                          "type": "BinaryExpression",
+                          "operator": "==",
+                          "left": {
+                            "type": "Identifier",
+                            "name": "x"
+                          },
+                          "right": {
+                            "type": "Literal",
+                            "value": 3,
+                            "raw": "3"
+                          }
+                        },
+                        "right": {
+                          "type": "BinaryExpression",
+                          "operator": "==",
+                          "left": {
+                            "type": "Identifier",
+                            "name": "y"
+                          },
+                          "right": {
+                            "type": "Literal",
+                            "value": 3,
+                            "raw": "3"
+                          }
+                        }
+                      },
+                      "consequent": [
+                        {
+                          "type": "Text",
+                          "start": 2294,
+                          "end": 2311,
+                          "text": "\r\n      End\r\n    "
+                        }
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 81,
+                          "column": 5
+                        },
+                        "end": {
+                          "line": 81,
+                          "column": 27
+                        }
+                      }
+                    },
+                    {
+                      "type": "Text",
+                      "start": 2317,
+                      "end": 2321,
+                      "text": "\r\n  "
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Text",
+              "start": 2327,
+              "end": 2329,
+              "text": "\r\n"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 52,
+              "column": 23
+            },
+            "end": {
+              "line": 52,
+              "column": 45
+            }
+          }
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 52,
+          "column": 1
+        },
+        "end": {
+          "line": 52,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 2345,
+      "end": 2347,
+      "text": "\r\n"
+    }
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 85,
+      "column": 18
+    }
+  }
+}

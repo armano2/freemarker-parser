@@ -1,0 +1,2367 @@
+[
+  {
+    "type": "Directive",
+    "start": 0,
+    "end": 15,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "assign",
+    "params": "x = 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 15,
+    "end": 21,
+    "text": "\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 21,
+    "end": 33,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 33,
+    "end": 37,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 37,
+    "end": 43,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 43,
+    "end": 47,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 47,
+    "end": 59,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 59,
+    "end": 65,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 65,
+    "end": 73,
+    "text": "good\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 73,
+    "end": 85,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 85,
+    "end": 88,
+    "text": "goo",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 88,
+    "end": 102,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "missing!'d'",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 102,
+    "end": 108,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 108,
+    "end": 112,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 112,
+    "end": 124,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 124,
+    "end": 129,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 129,
+    "end": 135,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 135,
+    "end": 145,
+    "text": "good\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 145,
+    "end": 157,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 157,
+    "end": 161,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 161,
+    "end": 168,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 168,
+    "end": 173,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 173,
+    "end": 179,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 179,
+    "end": 183,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 183,
+    "end": 195,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 195,
+    "end": 200,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 200,
+    "end": 207,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 207,
+    "end": 211,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 211,
+    "end": 217,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 217,
+    "end": 223,
+    "text": "\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 223,
+    "end": 235,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 235,
+    "end": 239,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 239,
+    "end": 255,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 255,
+    "end": 260,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 260,
+    "end": 267,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 267,
+    "end": 272,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 272,
+    "end": 278,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 278,
+    "end": 282,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 282,
+    "end": 294,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 294,
+    "end": 298,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 298,
+    "end": 314,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 314,
+    "end": 319,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 319,
+    "end": 326,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 326,
+    "end": 331,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 331,
+    "end": 337,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 337,
+    "end": 341,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 341,
+    "end": 353,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 353,
+    "end": 358,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 358,
+    "end": 374,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 374,
+    "end": 378,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 378,
+    "end": 385,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 385,
+    "end": 390,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 390,
+    "end": 396,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 396,
+    "end": 400,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 400,
+    "end": 412,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 412,
+    "end": 417,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 417,
+    "end": 433,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 433,
+    "end": 438,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 438,
+    "end": 445,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 445,
+    "end": 449,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 449,
+    "end": 455,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 455,
+    "end": 461,
+    "text": "\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 461,
+    "end": 473,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 473,
+    "end": 477,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 477,
+    "end": 493,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 493,
+    "end": 498,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 498,
+    "end": 504,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 504,
+    "end": 508,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 508,
+    "end": 520,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 520,
+    "end": 525,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 525,
+    "end": 541,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 541,
+    "end": 545,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 545,
+    "end": 551,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 551,
+    "end": 555,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 555,
+    "end": 567,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 567,
+    "end": 572,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 572,
+    "end": 588,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 588,
+    "end": 593,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 593,
+    "end": 599,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 599,
+    "end": 607,
+    "text": "good\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 607,
+    "end": 619,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 619,
+    "end": 624,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 624,
+    "end": 640,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 640,
+    "end": 647,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 647,
+    "end": 652,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 652,
+    "end": 658,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 658,
+    "end": 666,
+    "text": "good\r\n\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Comment",
+    "start": 666,
+    "end": 764,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": " Same with pre-calculable results, just in case later the dead code will be optimized out: ",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 764,
+    "end": 768,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 768,
+    "end": 780,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 780,
+    "end": 784,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 784,
+    "end": 790,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 790,
+    "end": 794,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 794,
+    "end": 806,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 806,
+    "end": 811,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 811,
+    "end": 817,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 817,
+    "end": 825,
+    "text": "good\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 825,
+    "end": 837,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 837,
+    "end": 840,
+    "text": "goo",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 840,
+    "end": 854,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "missing!'d'",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 854,
+    "end": 860,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 860,
+    "end": 864,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 864,
+    "end": 876,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 876,
+    "end": 881,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 881,
+    "end": 887,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 887,
+    "end": 897,
+    "text": "good\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 897,
+    "end": 909,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 909,
+    "end": 913,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 913,
+    "end": 920,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 920,
+    "end": 925,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 925,
+    "end": 931,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 931,
+    "end": 935,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 935,
+    "end": 947,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 947,
+    "end": 952,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 952,
+    "end": 959,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 959,
+    "end": 963,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 963,
+    "end": 969,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 969,
+    "end": 975,
+    "text": "\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 975,
+    "end": 987,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 987,
+    "end": 991,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 991,
+    "end": 1007,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1007,
+    "end": 1012,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1012,
+    "end": 1019,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1019,
+    "end": 1024,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1024,
+    "end": 1030,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1030,
+    "end": 1034,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1034,
+    "end": 1046,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1046,
+    "end": 1050,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1050,
+    "end": 1066,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1066,
+    "end": 1071,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1071,
+    "end": 1078,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1078,
+    "end": 1083,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1083,
+    "end": 1089,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1089,
+    "end": 1093,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1093,
+    "end": 1105,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1105,
+    "end": 1110,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1110,
+    "end": 1126,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1126,
+    "end": 1130,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1130,
+    "end": 1137,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1137,
+    "end": 1142,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1142,
+    "end": 1148,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1148,
+    "end": 1152,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1152,
+    "end": 1164,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1164,
+    "end": 1169,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1169,
+    "end": 1185,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1185,
+    "end": 1190,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1190,
+    "end": 1197,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1197,
+    "end": 1201,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1201,
+    "end": 1207,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1207,
+    "end": 1213,
+    "text": "\r\n\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1213,
+    "end": 1225,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1225,
+    "end": 1229,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1229,
+    "end": 1245,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1245,
+    "end": 1250,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1250,
+    "end": 1256,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1256,
+    "end": 1260,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1260,
+    "end": 1272,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1272,
+    "end": 1277,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1277,
+    "end": 1293,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1293,
+    "end": 1297,
+    "text": "good",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1297,
+    "end": 1303,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1303,
+    "end": 1307,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1307,
+    "end": 1319,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1319,
+    "end": 1324,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1324,
+    "end": 1340,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1340,
+    "end": 1345,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1345,
+    "end": 1351,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1351,
+    "end": 1359,
+    "text": "good\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1359,
+    "end": 1371,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "1 == 0",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1371,
+    "end": 1376,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1376,
+    "end": 1392,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "1 == 1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1392,
+    "end": 1399,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1399,
+    "end": 1404,
+    "text": "wrong",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1404,
+    "end": 1410,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1410,
+    "end": 1418,
+    "text": "good\r\n\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Comment",
+    "start": 1418,
+    "end": 1471,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": " Varying branch choice of the same AST nodes: ",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1471,
+    "end": 1473,
+    "text": "\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1473,
+    "end": 1498,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "list",
+    "params": "[1, 2, 3, 4] as x",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1498,
+    "end": 1502,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1502,
+    "end": 1514,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1514,
+    "end": 1515,
+    "text": "1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1515,
+    "end": 1521,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1521,
+    "end": 1525,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1525,
+    "end": 1537,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1537,
+    "end": 1538,
+    "text": "2",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1538,
+    "end": 1544,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1544,
+    "end": 1548,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1548,
+    "end": 1560,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 3",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1560,
+    "end": 1561,
+    "text": "3",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1561,
+    "end": 1567,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1567,
+    "end": 1571,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1571,
+    "end": 1583,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1583,
+    "end": 1587,
+    "text": "is 1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1587,
+    "end": 1594,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1594,
+    "end": 1601,
+    "text": "isn't 1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1601,
+    "end": 1607,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1607,
+    "end": 1611,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1611,
+    "end": 1623,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1623,
+    "end": 1627,
+    "text": "is 2",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1627,
+    "end": 1634,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1634,
+    "end": 1641,
+    "text": "isn't 2",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1641,
+    "end": 1647,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1647,
+    "end": 1651,
+    "text": "\r\n- ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1651,
+    "end": 1663,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 3",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1663,
+    "end": 1667,
+    "text": "is 3",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1667,
+    "end": 1674,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1674,
+    "end": 1681,
+    "text": "isn't 3",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1681,
+    "end": 1687,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1687,
+    "end": 1706,
+    "text": "\r\n- Finally, it's: ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1706,
+    "end": 1718,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1718,
+    "end": 1719,
+    "text": "1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1719,
+    "end": 1735,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1735,
+    "end": 1736,
+    "text": "2",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1736,
+    "end": 1752,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 3",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1752,
+    "end": 1753,
+    "text": "3",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1753,
+    "end": 1760,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1760,
+    "end": 1761,
+    "text": "4",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1761,
+    "end": 1767,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1767,
+    "end": 1769,
+    "text": "\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1769,
+    "end": 1777,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "list",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1777,
+    "end": 1781,
+    "text": "\r\n\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Comment",
+    "start": 1781,
+    "end": 1796,
+    "startTag": "<#--",
+    "endTag": "-->",
+    "text": " nested ",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1796,
+    "end": 1798,
+    "text": "\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1798,
+    "end": 1820,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "list",
+    "params": "[1, 2, 3] as x",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1820,
+    "end": 1842,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "list",
+    "params": "[1, 2, 3] as y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1842,
+    "end": 1846,
+    "text": "\r\n  ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1846,
+    "end": 1865,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "assign",
+    "params": "y = x * x",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1865,
+    "end": 1869,
+    "text": "\r\n  ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1869,
+    "end": 1881,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 1",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1881,
+    "end": 1895,
+    "text": "\r\n    1:\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1895,
+    "end": 1908,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "(x > y)",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1908,
+    "end": 1918,
+    "text": "\r\n      > ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1918,
+    "end": 1922,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1922,
+    "end": 1928,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1928,
+    "end": 1944,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1944,
+    "end": 1955,
+    "text": "\r\n      == ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1955,
+    "end": 1959,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1959,
+    "end": 1965,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1965,
+    "end": 1972,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1972,
+    "end": 1983,
+    "text": "\r\n      <= ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 1983,
+    "end": 1987,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 1987,
+    "end": 1993,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 1993,
+    "end": 1999,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 1999,
+    "end": 2003,
+    "text": "\r\n  ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2003,
+    "end": 2019,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == 2",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2019,
+    "end": 2033,
+    "text": "\r\n    2:\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2033,
+    "end": 2046,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "(x > y)",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2046,
+    "end": 2056,
+    "text": "\r\n      > ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2056,
+    "end": 2060,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2060,
+    "end": 2066,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2066,
+    "end": 2082,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2082,
+    "end": 2093,
+    "text": "\r\n      == ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2093,
+    "end": 2097,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2097,
+    "end": 2103,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2103,
+    "end": 2110,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2110,
+    "end": 2121,
+    "text": "\r\n      <= ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2121,
+    "end": 2125,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2125,
+    "end": 2131,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2131,
+    "end": 2137,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 2137,
+    "end": 2141,
+    "text": "\r\n  ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2141,
+    "end": 2148,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2148,
+    "end": 2162,
+    "text": "\r\n    3:\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2162,
+    "end": 2175,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "(x > y)",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2175,
+    "end": 2185,
+    "text": "\r\n      > ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2185,
+    "end": 2189,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2189,
+    "end": 2195,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2195,
+    "end": 2211,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "elseif",
+    "params": "x == y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2211,
+    "end": 2222,
+    "text": "\r\n      == ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2222,
+    "end": 2226,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2226,
+    "end": 2232,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2232,
+    "end": 2239,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "else",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2239,
+    "end": 2250,
+    "text": "\r\n      <= ",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 2250,
+    "end": 2254,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "y",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2254,
+    "end": 2260,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2260,
+    "end": 2266,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 2266,
+    "end": 2272,
+    "text": "\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2272,
+    "end": 2294,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "if",
+    "params": "x == 3 && y == 3",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 2294,
+    "end": 2311,
+    "text": "\r\n      End\r\n    ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2311,
+    "end": 2317,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 2317,
+    "end": 2321,
+    "text": "\r\n  ",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2321,
+    "end": 2327,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "if",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 2327,
+    "end": 2329,
+    "text": "\r\n",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 2329,
+    "end": 2337,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "list",
+    "isClose": true
+  },
+  {
+    "type": "Directive",
+    "start": 2337,
+    "end": 2345,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "list",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 2345,
+    "end": 2347,
+    "text": "\r\n",
+    "isClose": false
+  }
+]
