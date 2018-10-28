@@ -103,9 +103,9 @@ console.log(data.tokens)
     - `?capitalize`
     - `?length`
     - `?string("yes", "no")`
+  - support default values, i.e. `${user!"Anonymous"}`
 
 ## TODO:
-  - support default values, i.e. `${user!"Anonymous"}`
   - directives:
     - `#escape`
       - `#noescape`

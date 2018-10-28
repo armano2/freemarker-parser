@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 2346,
+  "end": 2262,
   "body": [
     {
       "type": "Assign",
@@ -26,13 +26,13 @@
     {
       "type": "Text",
       "start": 15,
-      "end": 21,
-      "text": "\r\n\r\n- "
+      "end": 19,
+      "text": "\n\n- "
     },
     {
       "type": "Condition",
-      "start": 21,
-      "end": 33,
+      "start": 19,
+      "end": 31,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -49,8 +49,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 33,
-          "end": 37,
+          "start": 31,
+          "end": 35,
           "text": "good"
         }
       ],
@@ -67,14 +67,14 @@
     },
     {
       "type": "Text",
-      "start": 43,
-      "end": 47,
-      "text": "\r\n- "
+      "start": 41,
+      "end": 44,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 47,
-      "end": 59,
+      "start": 44,
+      "end": 56,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -102,14 +102,14 @@
     },
     {
       "type": "Text",
-      "start": 65,
-      "end": 73,
-      "text": "good\r\n- "
+      "start": 62,
+      "end": 69,
+      "text": "good\n- "
     },
     {
       "type": "Condition",
-      "start": 73,
-      "end": 85,
+      "start": 69,
+      "end": 81,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -126,14 +126,14 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 85,
-          "end": 88,
+          "start": 81,
+          "end": 84,
           "text": "goo"
         },
         {
           "type": "Interpolation",
-          "start": 88,
-          "end": 102,
+          "start": 84,
+          "end": 98,
           "params": {
             "type": "Compound",
             "body": [
@@ -168,14 +168,14 @@
     },
     {
       "type": "Text",
-      "start": 108,
-      "end": 112,
-      "text": "\r\n- "
+      "start": 104,
+      "end": 107,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 112,
-      "end": 124,
+      "start": 107,
+      "end": 119,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -192,8 +192,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 124,
-          "end": 129,
+          "start": 119,
+          "end": 124,
           "text": "wrong"
         }
       ],
@@ -210,14 +210,14 @@
     },
     {
       "type": "Text",
-      "start": 135,
-      "end": 145,
-      "text": "good\r\n\r\n- "
+      "start": 130,
+      "end": 138,
+      "text": "good\n\n- "
     },
     {
       "type": "Condition",
-      "start": 145,
-      "end": 157,
+      "start": 138,
+      "end": 150,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -234,8 +234,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 157,
-          "end": 161,
+          "start": 150,
+          "end": 154,
           "text": "good"
         }
       ],
@@ -252,22 +252,22 @@
       "alternate": [
         {
           "type": "Text",
-          "start": 168,
-          "end": 173,
+          "start": 161,
+          "end": 166,
           "text": "wrong"
         }
       ]
     },
     {
       "type": "Text",
-      "start": 179,
-      "end": 183,
-      "text": "\r\n- "
+      "start": 172,
+      "end": 175,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 183,
-      "end": 195,
+      "start": 175,
+      "end": 187,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -284,8 +284,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 195,
-          "end": 200,
+          "start": 187,
+          "end": 192,
           "text": "wrong"
         }
       ],
@@ -302,22 +302,22 @@
       "alternate": [
         {
           "type": "Text",
-          "start": 207,
-          "end": 211,
+          "start": 199,
+          "end": 203,
           "text": "good"
         }
       ]
     },
     {
       "type": "Text",
-      "start": 217,
-      "end": 223,
-      "text": "\r\n\r\n- "
+      "start": 209,
+      "end": 213,
+      "text": "\n\n- "
     },
     {
       "type": "Condition",
-      "start": 223,
-      "end": 235,
+      "start": 213,
+      "end": 225,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -334,8 +334,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 235,
-          "end": 239,
+          "start": 225,
+          "end": 229,
           "text": "good"
         }
       ],
@@ -352,8 +352,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 239,
-          "end": 255,
+          "start": 229,
+          "end": 245,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -370,8 +370,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 255,
-              "end": 260,
+              "start": 245,
+              "end": 250,
               "text": "wrong"
             }
           ],
@@ -388,8 +388,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 267,
-              "end": 272,
+              "start": 257,
+              "end": 262,
               "text": "wrong"
             }
           ]
@@ -398,14 +398,14 @@
     },
     {
       "type": "Text",
-      "start": 278,
-      "end": 282,
-      "text": "\r\n- "
+      "start": 268,
+      "end": 271,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 282,
-      "end": 294,
+      "start": 271,
+      "end": 283,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -422,8 +422,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 294,
-          "end": 298,
+          "start": 283,
+          "end": 287,
           "text": "good"
         }
       ],
@@ -440,8 +440,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 298,
-          "end": 314,
+          "start": 287,
+          "end": 303,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -458,8 +458,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 314,
-              "end": 319,
+              "start": 303,
+              "end": 308,
               "text": "wrong"
             }
           ],
@@ -476,8 +476,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 326,
-              "end": 331,
+              "start": 315,
+              "end": 320,
               "text": "wrong"
             }
           ]
@@ -486,14 +486,14 @@
     },
     {
       "type": "Text",
-      "start": 337,
+      "start": 326,
+      "end": 329,
+      "text": "\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 329,
       "end": 341,
-      "text": "\r\n- "
-    },
-    {
-      "type": "Condition",
-      "start": 341,
-      "end": 353,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -510,8 +510,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 353,
-          "end": 358,
+          "start": 341,
+          "end": 346,
           "text": "wrong"
         }
       ],
@@ -528,8 +528,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 358,
-          "end": 374,
+          "start": 346,
+          "end": 362,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -546,8 +546,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 374,
-              "end": 378,
+              "start": 362,
+              "end": 366,
               "text": "good"
             }
           ],
@@ -564,8 +564,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 385,
-              "end": 390,
+              "start": 373,
+              "end": 378,
               "text": "wrong"
             }
           ]
@@ -574,14 +574,14 @@
     },
     {
       "type": "Text",
-      "start": 396,
-      "end": 400,
-      "text": "\r\n- "
+      "start": 384,
+      "end": 387,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 400,
-      "end": 412,
+      "start": 387,
+      "end": 399,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -598,8 +598,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 412,
-          "end": 417,
+          "start": 399,
+          "end": 404,
           "text": "wrong"
         }
       ],
@@ -616,8 +616,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 417,
-          "end": 433,
+          "start": 404,
+          "end": 420,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -634,8 +634,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 433,
-              "end": 438,
+              "start": 420,
+              "end": 425,
               "text": "wrong"
             }
           ],
@@ -652,8 +652,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 445,
-              "end": 449,
+              "start": 432,
+              "end": 436,
               "text": "good"
             }
           ]
@@ -662,14 +662,14 @@
     },
     {
       "type": "Text",
-      "start": 455,
-      "end": 461,
-      "text": "\r\n\r\n- "
+      "start": 442,
+      "end": 446,
+      "text": "\n\n- "
     },
     {
       "type": "Condition",
-      "start": 461,
-      "end": 473,
+      "start": 446,
+      "end": 458,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -686,8 +686,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 473,
-          "end": 477,
+          "start": 458,
+          "end": 462,
           "text": "good"
         }
       ],
@@ -704,8 +704,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 477,
-          "end": 493,
+          "start": 462,
+          "end": 478,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -722,8 +722,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 493,
-              "end": 498,
+              "start": 478,
+              "end": 483,
               "text": "wrong"
             }
           ],
@@ -742,14 +742,14 @@
     },
     {
       "type": "Text",
-      "start": 504,
-      "end": 508,
-      "text": "\r\n- "
+      "start": 489,
+      "end": 492,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 508,
-      "end": 520,
+      "start": 492,
+      "end": 504,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -766,8 +766,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 520,
-          "end": 525,
+          "start": 504,
+          "end": 509,
           "text": "wrong"
         }
       ],
@@ -784,8 +784,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 525,
-          "end": 541,
+          "start": 509,
+          "end": 525,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -802,8 +802,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 541,
-              "end": 545,
+              "start": 525,
+              "end": 529,
               "text": "good"
             }
           ],
@@ -822,14 +822,14 @@
     },
     {
       "type": "Text",
-      "start": 551,
-      "end": 555,
-      "text": "\r\n- "
+      "start": 535,
+      "end": 538,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 555,
-      "end": 567,
+      "start": 538,
+      "end": 550,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -846,8 +846,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 567,
-          "end": 572,
+          "start": 550,
+          "end": 555,
           "text": "wrong"
         }
       ],
@@ -864,8 +864,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 572,
-          "end": 588,
+          "start": 555,
+          "end": 571,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -882,8 +882,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 588,
-              "end": 593,
+              "start": 571,
+              "end": 576,
               "text": "wrong"
             }
           ],
@@ -902,14 +902,14 @@
     },
     {
       "type": "Text",
-      "start": 599,
-      "end": 607,
-      "text": "good\r\n- "
+      "start": 582,
+      "end": 589,
+      "text": "good\n- "
     },
     {
       "type": "Condition",
-      "start": 607,
-      "end": 619,
+      "start": 589,
+      "end": 601,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -926,8 +926,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 619,
-          "end": 624,
+          "start": 601,
+          "end": 606,
           "text": "wrong"
         }
       ],
@@ -944,8 +944,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 624,
-          "end": 640,
+          "start": 606,
+          "end": 622,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -973,8 +973,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 647,
-              "end": 652,
+              "start": 629,
+              "end": 634,
               "text": "wrong"
             }
           ]
@@ -983,26 +983,26 @@
     },
     {
       "type": "Text",
-      "start": 658,
-      "end": 666,
-      "text": "good\r\n\r\n"
+      "start": 640,
+      "end": 646,
+      "text": "good\n\n"
     },
     {
       "type": "Comment",
-      "start": 666,
-      "end": 764,
+      "start": 646,
+      "end": 744,
       "text": " Same with pre-calculable results, just in case later the dead code will be optimized out: "
     },
     {
       "type": "Text",
-      "start": 764,
-      "end": 768,
-      "text": "\r\n- "
+      "start": 744,
+      "end": 747,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 768,
-      "end": 780,
+      "start": 747,
+      "end": 759,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1020,8 +1020,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 780,
-          "end": 784,
+          "start": 759,
+          "end": 763,
           "text": "good"
         }
       ],
@@ -1038,14 +1038,14 @@
     },
     {
       "type": "Text",
-      "start": 790,
-      "end": 794,
-      "text": "\r\n- "
+      "start": 769,
+      "end": 772,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 794,
-      "end": 806,
+      "start": 772,
+      "end": 784,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1063,8 +1063,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 806,
-          "end": 811,
+          "start": 784,
+          "end": 789,
           "text": "wrong"
         }
       ],
@@ -1081,14 +1081,14 @@
     },
     {
       "type": "Text",
-      "start": 817,
-      "end": 825,
-      "text": "good\r\n- "
+      "start": 795,
+      "end": 802,
+      "text": "good\n- "
     },
     {
       "type": "Condition",
-      "start": 825,
-      "end": 837,
+      "start": 802,
+      "end": 814,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1106,14 +1106,14 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 837,
-          "end": 840,
+          "start": 814,
+          "end": 817,
           "text": "goo"
         },
         {
           "type": "Interpolation",
-          "start": 840,
-          "end": 854,
+          "start": 817,
+          "end": 831,
           "params": {
             "type": "Compound",
             "body": [
@@ -1148,14 +1148,14 @@
     },
     {
       "type": "Text",
-      "start": 860,
-      "end": 864,
-      "text": "\r\n- "
+      "start": 837,
+      "end": 840,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 864,
-      "end": 876,
+      "start": 840,
+      "end": 852,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1173,8 +1173,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 876,
-          "end": 881,
+          "start": 852,
+          "end": 857,
           "text": "wrong"
         }
       ],
@@ -1191,14 +1191,14 @@
     },
     {
       "type": "Text",
-      "start": 887,
-      "end": 897,
-      "text": "good\r\n\r\n- "
+      "start": 863,
+      "end": 871,
+      "text": "good\n\n- "
     },
     {
       "type": "Condition",
-      "start": 897,
-      "end": 909,
+      "start": 871,
+      "end": 883,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1216,8 +1216,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 909,
-          "end": 913,
+          "start": 883,
+          "end": 887,
           "text": "good"
         }
       ],
@@ -1232,45 +1232,45 @@
         }
       },
       "alternate": [
+        {
+          "type": "Text",
+          "start": 894,
+          "end": 899,
+          "text": "wrong"
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 905,
+      "end": 908,
+      "text": "\n- "
+    },
+    {
+      "type": "Condition",
+      "start": 908,
+      "end": 920,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 0,
+          "raw": "0"
+        }
+      },
+      "consequent": [
         {
           "type": "Text",
           "start": 920,
           "end": 925,
           "text": "wrong"
         }
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 931,
-      "end": 935,
-      "text": "\r\n- "
-    },
-    {
-      "type": "Condition",
-      "start": 935,
-      "end": 947,
-      "params": {
-        "type": "BinaryExpression",
-        "operator": "==",
-        "left": {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        },
-        "right": {
-          "type": "Literal",
-          "value": 0,
-          "raw": "0"
-        }
-      },
-      "consequent": [
-        {
-          "type": "Text",
-          "start": 947,
-          "end": 952,
-          "text": "wrong"
-        }
       ],
       "loc": {
         "start": {
@@ -1285,22 +1285,22 @@
       "alternate": [
         {
           "type": "Text",
-          "start": 959,
-          "end": 963,
+          "start": 932,
+          "end": 936,
           "text": "good"
         }
       ]
     },
     {
       "type": "Text",
-      "start": 969,
-      "end": 975,
-      "text": "\r\n\r\n- "
+      "start": 942,
+      "end": 946,
+      "text": "\n\n- "
     },
     {
       "type": "Condition",
-      "start": 975,
-      "end": 987,
+      "start": 946,
+      "end": 958,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1318,8 +1318,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 987,
-          "end": 991,
+          "start": 958,
+          "end": 962,
           "text": "good"
         }
       ],
@@ -1336,8 +1336,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 991,
-          "end": 1007,
+          "start": 962,
+          "end": 978,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1355,8 +1355,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1007,
-              "end": 1012,
+              "start": 978,
+              "end": 983,
               "text": "wrong"
             }
           ],
@@ -1373,8 +1373,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1019,
-              "end": 1024,
+              "start": 990,
+              "end": 995,
               "text": "wrong"
             }
           ]
@@ -1383,14 +1383,14 @@
     },
     {
       "type": "Text",
-      "start": 1030,
-      "end": 1034,
-      "text": "\r\n- "
+      "start": 1001,
+      "end": 1004,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 1034,
-      "end": 1046,
+      "start": 1004,
+      "end": 1016,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1408,8 +1408,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1046,
-          "end": 1050,
+          "start": 1016,
+          "end": 1020,
           "text": "good"
         }
       ],
@@ -1426,8 +1426,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1050,
-          "end": 1066,
+          "start": 1020,
+          "end": 1036,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1445,8 +1445,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1066,
-              "end": 1071,
+              "start": 1036,
+              "end": 1041,
               "text": "wrong"
             }
           ],
@@ -1463,8 +1463,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1078,
-              "end": 1083,
+              "start": 1048,
+              "end": 1053,
               "text": "wrong"
             }
           ]
@@ -1473,14 +1473,14 @@
     },
     {
       "type": "Text",
-      "start": 1089,
-      "end": 1093,
-      "text": "\r\n- "
+      "start": 1059,
+      "end": 1062,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 1093,
-      "end": 1105,
+      "start": 1062,
+      "end": 1074,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1498,8 +1498,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1105,
-          "end": 1110,
+          "start": 1074,
+          "end": 1079,
           "text": "wrong"
         }
       ],
@@ -1516,8 +1516,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1110,
-          "end": 1126,
+          "start": 1079,
+          "end": 1095,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1535,8 +1535,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1126,
-              "end": 1130,
+              "start": 1095,
+              "end": 1099,
               "text": "good"
             }
           ],
@@ -1553,8 +1553,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1137,
-              "end": 1142,
+              "start": 1106,
+              "end": 1111,
               "text": "wrong"
             }
           ]
@@ -1563,14 +1563,14 @@
     },
     {
       "type": "Text",
-      "start": 1148,
-      "end": 1152,
-      "text": "\r\n- "
+      "start": 1117,
+      "end": 1120,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 1152,
-      "end": 1164,
+      "start": 1120,
+      "end": 1132,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1588,8 +1588,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1164,
-          "end": 1169,
+          "start": 1132,
+          "end": 1137,
           "text": "wrong"
         }
       ],
@@ -1606,8 +1606,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1169,
-          "end": 1185,
+          "start": 1137,
+          "end": 1153,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1625,8 +1625,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1185,
-              "end": 1190,
+              "start": 1153,
+              "end": 1158,
               "text": "wrong"
             }
           ],
@@ -1643,8 +1643,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1197,
-              "end": 1201,
+              "start": 1165,
+              "end": 1169,
               "text": "good"
             }
           ]
@@ -1653,96 +1653,96 @@
     },
     {
       "type": "Text",
-      "start": 1207,
-      "end": 1213,
-      "text": "\r\n\r\n- "
+      "start": 1175,
+      "end": 1179,
+      "text": "\n\n- "
     },
     {
       "type": "Condition",
-      "start": 1213,
+      "start": 1179,
+      "end": 1191,
+      "params": {
+        "type": "BinaryExpression",
+        "operator": "==",
+        "left": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 1,
+          "raw": "1"
+        }
+      },
+      "consequent": [
+        {
+          "type": "Text",
+          "start": 1191,
+          "end": 1195,
+          "text": "good"
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 3
+        },
+        "end": {
+          "line": 35,
+          "column": 15
+        }
+      },
+      "alternate": [
+        {
+          "type": "Condition",
+          "start": 1195,
+          "end": 1211,
+          "params": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          },
+          "consequent": [
+            {
+              "type": "Text",
+              "start": 1211,
+              "end": 1216,
+              "text": "wrong"
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 35,
+              "column": 19
+            },
+            "end": {
+              "line": 35,
+              "column": 35
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Text",
+      "start": 1222,
       "end": 1225,
-      "params": {
-        "type": "BinaryExpression",
-        "operator": "==",
-        "left": {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        },
-        "right": {
-          "type": "Literal",
-          "value": 1,
-          "raw": "1"
-        }
-      },
-      "consequent": [
-        {
-          "type": "Text",
-          "start": 1225,
-          "end": 1229,
-          "text": "good"
-        }
-      ],
-      "loc": {
-        "start": {
-          "line": 35,
-          "column": 3
-        },
-        "end": {
-          "line": 35,
-          "column": 15
-        }
-      },
-      "alternate": [
-        {
-          "type": "Condition",
-          "start": 1229,
-          "end": 1245,
-          "params": {
-            "type": "BinaryExpression",
-            "operator": "==",
-            "left": {
-              "type": "Literal",
-              "value": 1,
-              "raw": "1"
-            },
-            "right": {
-              "type": "Literal",
-              "value": 1,
-              "raw": "1"
-            }
-          },
-          "consequent": [
-            {
-              "type": "Text",
-              "start": 1245,
-              "end": 1250,
-              "text": "wrong"
-            }
-          ],
-          "loc": {
-            "start": {
-              "line": 35,
-              "column": 19
-            },
-            "end": {
-              "line": 35,
-              "column": 35
-            }
-          }
-        }
-      ]
-    },
-    {
-      "type": "Text",
-      "start": 1256,
-      "end": 1260,
-      "text": "\r\n- "
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 1260,
-      "end": 1272,
+      "start": 1225,
+      "end": 1237,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1760,8 +1760,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1272,
-          "end": 1277,
+          "start": 1237,
+          "end": 1242,
           "text": "wrong"
         }
       ],
@@ -1778,8 +1778,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1277,
-          "end": 1293,
+          "start": 1242,
+          "end": 1258,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1797,8 +1797,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1293,
-              "end": 1297,
+              "start": 1258,
+              "end": 1262,
               "text": "good"
             }
           ],
@@ -1817,14 +1817,14 @@
     },
     {
       "type": "Text",
-      "start": 1303,
-      "end": 1307,
-      "text": "\r\n- "
+      "start": 1268,
+      "end": 1271,
+      "text": "\n- "
     },
     {
       "type": "Condition",
-      "start": 1307,
-      "end": 1319,
+      "start": 1271,
+      "end": 1283,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1842,8 +1842,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1319,
-          "end": 1324,
+          "start": 1283,
+          "end": 1288,
           "text": "wrong"
         }
       ],
@@ -1860,8 +1860,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1324,
-          "end": 1340,
+          "start": 1288,
+          "end": 1304,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1879,8 +1879,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1340,
-              "end": 1345,
+              "start": 1304,
+              "end": 1309,
               "text": "wrong"
             }
           ],
@@ -1899,14 +1899,14 @@
     },
     {
       "type": "Text",
-      "start": 1351,
-      "end": 1359,
-      "text": "good\r\n- "
+      "start": 1315,
+      "end": 1322,
+      "text": "good\n- "
     },
     {
       "type": "Condition",
-      "start": 1359,
-      "end": 1371,
+      "start": 1322,
+      "end": 1334,
       "params": {
         "type": "BinaryExpression",
         "operator": "==",
@@ -1924,8 +1924,8 @@
       "consequent": [
         {
           "type": "Text",
-          "start": 1371,
-          "end": 1376,
+          "start": 1334,
+          "end": 1339,
           "text": "wrong"
         }
       ],
@@ -1942,8 +1942,8 @@
       "alternate": [
         {
           "type": "Condition",
-          "start": 1376,
-          "end": 1392,
+          "start": 1339,
+          "end": 1355,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -1972,8 +1972,8 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1399,
-              "end": 1404,
+              "start": 1362,
+              "end": 1367,
               "text": "wrong"
             }
           ]
@@ -1982,26 +1982,26 @@
     },
     {
       "type": "Text",
-      "start": 1410,
-      "end": 1418,
-      "text": "good\r\n\r\n"
+      "start": 1373,
+      "end": 1379,
+      "text": "good\n\n"
     },
     {
       "type": "Comment",
-      "start": 1418,
-      "end": 1471,
+      "start": 1379,
+      "end": 1432,
       "text": " Varying branch choice of the same AST nodes: "
     },
     {
       "type": "Text",
-      "start": 1471,
-      "end": 1473,
-      "text": "\r\n"
+      "start": 1432,
+      "end": 1433,
+      "text": "\n"
     },
     {
       "type": "List",
-      "start": 1473,
-      "end": 1498,
+      "start": 1433,
+      "end": 1458,
       "params": {
         "type": "Compound",
         "body": [
@@ -2043,14 +2043,14 @@
       "body": [
         {
           "type": "Text",
-          "start": 1498,
-          "end": 1502,
-          "text": "\r\n- "
+          "start": 1458,
+          "end": 1461,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1502,
-          "end": 1514,
+          "start": 1461,
+          "end": 1473,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2067,8 +2067,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1514,
-              "end": 1515,
+              "start": 1473,
+              "end": 1474,
               "text": "1"
             }
           ],
@@ -2085,14 +2085,14 @@
         },
         {
           "type": "Text",
-          "start": 1521,
-          "end": 1525,
-          "text": "\r\n- "
+          "start": 1480,
+          "end": 1483,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1525,
-          "end": 1537,
+          "start": 1483,
+          "end": 1495,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2109,8 +2109,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1537,
-              "end": 1538,
+              "start": 1495,
+              "end": 1496,
               "text": "2"
             }
           ],
@@ -2127,14 +2127,14 @@
         },
         {
           "type": "Text",
-          "start": 1544,
-          "end": 1548,
-          "text": "\r\n- "
+          "start": 1502,
+          "end": 1505,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1548,
-          "end": 1560,
+          "start": 1505,
+          "end": 1517,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2151,8 +2151,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1560,
-              "end": 1561,
+              "start": 1517,
+              "end": 1518,
               "text": "3"
             }
           ],
@@ -2169,14 +2169,14 @@
         },
         {
           "type": "Text",
-          "start": 1567,
-          "end": 1571,
-          "text": "\r\n- "
+          "start": 1524,
+          "end": 1527,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1571,
-          "end": 1583,
+          "start": 1527,
+          "end": 1539,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2193,8 +2193,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1583,
-              "end": 1587,
+              "start": 1539,
+              "end": 1543,
               "text": "is 1"
             }
           ],
@@ -2211,22 +2211,22 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1594,
-              "end": 1601,
+              "start": 1550,
+              "end": 1557,
               "text": "isn't 1"
             }
           ]
         },
         {
           "type": "Text",
-          "start": 1607,
-          "end": 1611,
-          "text": "\r\n- "
+          "start": 1563,
+          "end": 1566,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1611,
-          "end": 1623,
+          "start": 1566,
+          "end": 1578,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2243,8 +2243,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1623,
-              "end": 1627,
+              "start": 1578,
+              "end": 1582,
               "text": "is 2"
             }
           ],
@@ -2261,22 +2261,22 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1634,
-              "end": 1641,
+              "start": 1589,
+              "end": 1596,
               "text": "isn't 2"
             }
           ]
         },
         {
           "type": "Text",
-          "start": 1647,
-          "end": 1651,
-          "text": "\r\n- "
+          "start": 1602,
+          "end": 1605,
+          "text": "\n- "
         },
         {
           "type": "Condition",
-          "start": 1651,
-          "end": 1663,
+          "start": 1605,
+          "end": 1617,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2293,8 +2293,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1663,
-              "end": 1667,
+              "start": 1617,
+              "end": 1621,
               "text": "is 3"
             }
           ],
@@ -2311,22 +2311,22 @@
           "alternate": [
             {
               "type": "Text",
-              "start": 1674,
-              "end": 1681,
+              "start": 1628,
+              "end": 1635,
               "text": "isn't 3"
             }
           ]
         },
         {
           "type": "Text",
-          "start": 1687,
-          "end": 1706,
-          "text": "\r\n- Finally, it's: "
+          "start": 1641,
+          "end": 1659,
+          "text": "\n- Finally, it's: "
         },
         {
           "type": "Condition",
-          "start": 1706,
-          "end": 1718,
+          "start": 1659,
+          "end": 1671,
           "params": {
             "type": "BinaryExpression",
             "operator": "==",
@@ -2343,8 +2343,8 @@
           "consequent": [
             {
               "type": "Text",
-              "start": 1718,
-              "end": 1719,
+              "start": 1671,
+              "end": 1672,
               "text": "1"
             }
           ],
@@ -2361,8 +2361,8 @@
           "alternate": [
             {
               "type": "Condition",
-              "start": 1719,
-              "end": 1735,
+              "start": 1672,
+              "end": 1688,
               "params": {
                 "type": "BinaryExpression",
                 "operator": "==",
@@ -2379,8 +2379,8 @@
               "consequent": [
                 {
                   "type": "Text",
-                  "start": 1735,
-                  "end": 1736,
+                  "start": 1688,
+                  "end": 1689,
                   "text": "2"
                 }
               ],
@@ -2397,8 +2397,8 @@
               "alternate": [
                 {
                   "type": "Condition",
-                  "start": 1736,
-                  "end": 1752,
+                  "start": 1689,
+                  "end": 1705,
                   "params": {
                     "type": "BinaryExpression",
                     "operator": "==",
@@ -2415,8 +2415,8 @@
                   "consequent": [
                     {
                       "type": "Text",
-                      "start": 1752,
-                      "end": 1753,
+                      "start": 1705,
+                      "end": 1706,
                       "text": "3"
                     }
                   ],
@@ -2433,8 +2433,8 @@
                   "alternate": [
                     {
                       "type": "Text",
-                      "start": 1760,
-                      "end": 1761,
+                      "start": 1713,
+                      "end": 1714,
                       "text": "4"
                     }
                   ]
@@ -2445,9 +2445,9 @@
         },
         {
           "type": "Text",
-          "start": 1767,
-          "end": 1769,
-          "text": "\r\n"
+          "start": 1720,
+          "end": 1721,
+          "text": "\n"
         }
       ],
       "loc": {
@@ -2463,26 +2463,26 @@
     },
     {
       "type": "Text",
-      "start": 1777,
-      "end": 1781,
-      "text": "\r\n\r\n"
+      "start": 1729,
+      "end": 1731,
+      "text": "\n\n"
     },
     {
       "type": "Comment",
-      "start": 1781,
-      "end": 1796,
+      "start": 1731,
+      "end": 1746,
       "text": " nested "
     },
     {
       "type": "Text",
-      "start": 1796,
-      "end": 1798,
-      "text": "\r\n"
+      "start": 1746,
+      "end": 1747,
+      "text": "\n"
     },
     {
       "type": "List",
-      "start": 1798,
-      "end": 1820,
+      "start": 1747,
+      "end": 1769,
       "params": {
         "type": "Compound",
         "body": [
@@ -2519,8 +2519,8 @@
       "body": [
         {
           "type": "List",
-          "start": 1820,
-          "end": 1842,
+          "start": 1769,
+          "end": 1791,
           "params": {
             "type": "Compound",
             "body": [
@@ -2557,14 +2557,14 @@
           "body": [
             {
               "type": "Text",
-              "start": 1842,
-              "end": 1846,
-              "text": "\r\n  "
+              "start": 1791,
+              "end": 1794,
+              "text": "\n  "
             },
             {
               "type": "Assign",
-              "start": 1846,
-              "end": 1865,
+              "start": 1794,
+              "end": 1813,
               "params": [
                 {
                   "type": "AssignmentExpression",
@@ -2590,14 +2590,14 @@
             },
             {
               "type": "Text",
-              "start": 1865,
-              "end": 1869,
-              "text": "\r\n  "
+              "start": 1813,
+              "end": 1816,
+              "text": "\n  "
             },
             {
               "type": "Condition",
-              "start": 1869,
-              "end": 1881,
+              "start": 1816,
+              "end": 1828,
               "params": {
                 "type": "BinaryExpression",
                 "operator": "==",
@@ -2614,14 +2614,14 @@
               "consequent": [
                 {
                   "type": "Text",
-                  "start": 1881,
-                  "end": 1895,
-                  "text": "\r\n    1:\r\n    "
+                  "start": 1828,
+                  "end": 1840,
+                  "text": "\n    1:\n    "
                 },
                 {
                   "type": "Condition",
-                  "start": 1895,
-                  "end": 1908,
+                  "start": 1840,
+                  "end": 1853,
                   "params": {
                     "type": "BinaryExpression",
                     "operator": ">",
@@ -2637,14 +2637,14 @@
                   "consequent": [
                     {
                       "type": "Text",
-                      "start": 1908,
-                      "end": 1918,
-                      "text": "\r\n      > "
+                      "start": 1853,
+                      "end": 1862,
+                      "text": "\n      > "
                     },
                     {
                       "type": "Interpolation",
-                      "start": 1918,
-                      "end": 1922,
+                      "start": 1862,
+                      "end": 1866,
                       "params": {
                         "type": "Identifier",
                         "name": "y"
@@ -2652,9 +2652,9 @@
                     },
                     {
                       "type": "Text",
-                      "start": 1922,
-                      "end": 1928,
-                      "text": "\r\n    "
+                      "start": 1866,
+                      "end": 1871,
+                      "text": "\n    "
                     }
                   ],
                   "loc": {
@@ -2670,8 +2670,8 @@
                   "alternate": [
                     {
                       "type": "Condition",
-                      "start": 1928,
-                      "end": 1944,
+                      "start": 1871,
+                      "end": 1887,
                       "params": {
                         "type": "BinaryExpression",
                         "operator": "==",
@@ -2687,14 +2687,14 @@
                       "consequent": [
                         {
                           "type": "Text",
-                          "start": 1944,
-                          "end": 1955,
-                          "text": "\r\n      == "
+                          "start": 1887,
+                          "end": 1897,
+                          "text": "\n      == "
                         },
                         {
                           "type": "Interpolation",
-                          "start": 1955,
-                          "end": 1959,
+                          "start": 1897,
+                          "end": 1901,
                           "params": {
                             "type": "Identifier",
                             "name": "y"
@@ -2702,9 +2702,9 @@
                         },
                         {
                           "type": "Text",
-                          "start": 1959,
-                          "end": 1965,
-                          "text": "\r\n    "
+                          "start": 1901,
+                          "end": 1906,
+                          "text": "\n    "
                         }
                       ],
                       "loc": {
@@ -2720,14 +2720,14 @@
                       "alternate": [
                         {
                           "type": "Text",
-                          "start": 1972,
-                          "end": 1983,
-                          "text": "\r\n      <= "
+                          "start": 1913,
+                          "end": 1923,
+                          "text": "\n      <= "
                         },
                         {
                           "type": "Interpolation",
-                          "start": 1983,
-                          "end": 1987,
+                          "start": 1923,
+                          "end": 1927,
                           "params": {
                             "type": "Identifier",
                             "name": "y"
@@ -2735,9 +2735,9 @@
                         },
                         {
                           "type": "Text",
-                          "start": 1987,
-                          "end": 1993,
-                          "text": "\r\n    "
+                          "start": 1927,
+                          "end": 1932,
+                          "text": "\n    "
                         }
                       ]
                     }
@@ -2745,9 +2745,9 @@
                 },
                 {
                   "type": "Text",
-                  "start": 1999,
-                  "end": 2003,
-                  "text": "\r\n  "
+                  "start": 1938,
+                  "end": 1941,
+                  "text": "\n  "
                 }
               ],
               "loc": {
@@ -2763,8 +2763,8 @@
               "alternate": [
                 {
                   "type": "Condition",
-                  "start": 2003,
-                  "end": 2019,
+                  "start": 1941,
+                  "end": 1957,
                   "params": {
                     "type": "BinaryExpression",
                     "operator": "==",
@@ -2781,14 +2781,14 @@
                   "consequent": [
                     {
                       "type": "Text",
-                      "start": 2019,
-                      "end": 2033,
-                      "text": "\r\n    2:\r\n    "
+                      "start": 1957,
+                      "end": 1969,
+                      "text": "\n    2:\n    "
                     },
                     {
                       "type": "Condition",
-                      "start": 2033,
-                      "end": 2046,
+                      "start": 1969,
+                      "end": 1982,
                       "params": {
                         "type": "BinaryExpression",
                         "operator": ">",
@@ -2804,14 +2804,14 @@
                       "consequent": [
                         {
                           "type": "Text",
-                          "start": 2046,
-                          "end": 2056,
-                          "text": "\r\n      > "
+                          "start": 1982,
+                          "end": 1991,
+                          "text": "\n      > "
                         },
                         {
                           "type": "Interpolation",
-                          "start": 2056,
-                          "end": 2060,
+                          "start": 1991,
+                          "end": 1995,
                           "params": {
                             "type": "Identifier",
                             "name": "y"
@@ -2819,9 +2819,9 @@
                         },
                         {
                           "type": "Text",
-                          "start": 2060,
-                          "end": 2066,
-                          "text": "\r\n    "
+                          "start": 1995,
+                          "end": 2000,
+                          "text": "\n    "
                         }
                       ],
                       "loc": {
@@ -2837,8 +2837,8 @@
                       "alternate": [
                         {
                           "type": "Condition",
-                          "start": 2066,
-                          "end": 2082,
+                          "start": 2000,
+                          "end": 2016,
                           "params": {
                             "type": "BinaryExpression",
                             "operator": "==",
@@ -2854,14 +2854,14 @@
                           "consequent": [
                             {
                               "type": "Text",
-                              "start": 2082,
-                              "end": 2093,
-                              "text": "\r\n      == "
+                              "start": 2016,
+                              "end": 2026,
+                              "text": "\n      == "
                             },
                             {
                               "type": "Interpolation",
-                              "start": 2093,
-                              "end": 2097,
+                              "start": 2026,
+                              "end": 2030,
                               "params": {
                                 "type": "Identifier",
                                 "name": "y"
@@ -2869,9 +2869,9 @@
                             },
                             {
                               "type": "Text",
-                              "start": 2097,
-                              "end": 2103,
-                              "text": "\r\n    "
+                              "start": 2030,
+                              "end": 2035,
+                              "text": "\n    "
                             }
                           ],
                           "loc": {
@@ -2887,14 +2887,14 @@
                           "alternate": [
                             {
                               "type": "Text",
-                              "start": 2110,
-                              "end": 2121,
-                              "text": "\r\n      <= "
+                              "start": 2042,
+                              "end": 2052,
+                              "text": "\n      <= "
                             },
                             {
                               "type": "Interpolation",
-                              "start": 2121,
-                              "end": 2125,
+                              "start": 2052,
+                              "end": 2056,
                               "params": {
                                 "type": "Identifier",
                                 "name": "y"
@@ -2902,9 +2902,9 @@
                             },
                             {
                               "type": "Text",
-                              "start": 2125,
-                              "end": 2131,
-                              "text": "\r\n    "
+                              "start": 2056,
+                              "end": 2061,
+                              "text": "\n    "
                             }
                           ]
                         }
@@ -2912,9 +2912,9 @@
                     },
                     {
                       "type": "Text",
-                      "start": 2137,
-                      "end": 2141,
-                      "text": "\r\n  "
+                      "start": 2067,
+                      "end": 2070,
+                      "text": "\n  "
                     }
                   ],
                   "loc": {
@@ -2930,14 +2930,14 @@
                   "alternate": [
                     {
                       "type": "Text",
-                      "start": 2148,
-                      "end": 2162,
-                      "text": "\r\n    3:\r\n    "
+                      "start": 2077,
+                      "end": 2089,
+                      "text": "\n    3:\n    "
                     },
                     {
                       "type": "Condition",
-                      "start": 2162,
-                      "end": 2175,
+                      "start": 2089,
+                      "end": 2102,
                       "params": {
                         "type": "BinaryExpression",
                         "operator": ">",
@@ -2953,14 +2953,14 @@
                       "consequent": [
                         {
                           "type": "Text",
-                          "start": 2175,
-                          "end": 2185,
-                          "text": "\r\n      > "
+                          "start": 2102,
+                          "end": 2111,
+                          "text": "\n      > "
                         },
                         {
                           "type": "Interpolation",
-                          "start": 2185,
-                          "end": 2189,
+                          "start": 2111,
+                          "end": 2115,
                           "params": {
                             "type": "Identifier",
                             "name": "y"
@@ -2968,9 +2968,9 @@
                         },
                         {
                           "type": "Text",
-                          "start": 2189,
-                          "end": 2195,
-                          "text": "\r\n    "
+                          "start": 2115,
+                          "end": 2120,
+                          "text": "\n    "
                         }
                       ],
                       "loc": {
@@ -2986,8 +2986,8 @@
                       "alternate": [
                         {
                           "type": "Condition",
-                          "start": 2195,
-                          "end": 2211,
+                          "start": 2120,
+                          "end": 2136,
                           "params": {
                             "type": "BinaryExpression",
                             "operator": "==",
@@ -3003,14 +3003,14 @@
                           "consequent": [
                             {
                               "type": "Text",
-                              "start": 2211,
-                              "end": 2222,
-                              "text": "\r\n      == "
+                              "start": 2136,
+                              "end": 2146,
+                              "text": "\n      == "
                             },
                             {
                               "type": "Interpolation",
-                              "start": 2222,
-                              "end": 2226,
+                              "start": 2146,
+                              "end": 2150,
                               "params": {
                                 "type": "Identifier",
                                 "name": "y"
@@ -3018,9 +3018,9 @@
                             },
                             {
                               "type": "Text",
-                              "start": 2226,
-                              "end": 2232,
-                              "text": "\r\n    "
+                              "start": 2150,
+                              "end": 2155,
+                              "text": "\n    "
                             }
                           ],
                           "loc": {
@@ -3036,14 +3036,14 @@
                           "alternate": [
                             {
                               "type": "Text",
-                              "start": 2239,
-                              "end": 2250,
-                              "text": "\r\n      <= "
+                              "start": 2162,
+                              "end": 2172,
+                              "text": "\n      <= "
                             },
                             {
                               "type": "Interpolation",
-                              "start": 2250,
-                              "end": 2254,
+                              "start": 2172,
+                              "end": 2176,
                               "params": {
                                 "type": "Identifier",
                                 "name": "y"
@@ -3051,9 +3051,9 @@
                             },
                             {
                               "type": "Text",
-                              "start": 2254,
-                              "end": 2260,
-                              "text": "\r\n    "
+                              "start": 2176,
+                              "end": 2181,
+                              "text": "\n    "
                             }
                           ]
                         }
@@ -3061,14 +3061,14 @@
                     },
                     {
                       "type": "Text",
-                      "start": 2266,
-                      "end": 2272,
-                      "text": "\r\n    "
+                      "start": 2187,
+                      "end": 2192,
+                      "text": "\n    "
                     },
                     {
                       "type": "Condition",
-                      "start": 2272,
-                      "end": 2294,
+                      "start": 2192,
+                      "end": 2214,
                       "params": {
                         "type": "LogicalExpression",
                         "operator": "&&",
@@ -3102,9 +3102,9 @@
                       "consequent": [
                         {
                           "type": "Text",
-                          "start": 2294,
-                          "end": 2311,
-                          "text": "\r\n      End\r\n    "
+                          "start": 2214,
+                          "end": 2229,
+                          "text": "\n      End\n    "
                         }
                       ],
                       "loc": {
@@ -3120,9 +3120,9 @@
                     },
                     {
                       "type": "Text",
-                      "start": 2317,
-                      "end": 2321,
-                      "text": "\r\n  "
+                      "start": 2235,
+                      "end": 2238,
+                      "text": "\n  "
                     }
                   ]
                 }
@@ -3130,9 +3130,9 @@
             },
             {
               "type": "Text",
-              "start": 2327,
-              "end": 2329,
-              "text": "\r\n"
+              "start": 2244,
+              "end": 2245,
+              "text": "\n"
             }
           ],
           "loc": {
@@ -3160,9 +3160,9 @@
     },
     {
       "type": "Text",
-      "start": 2345,
-      "end": 2347,
-      "text": "\r\n"
+      "start": 2261,
+      "end": 2263,
+      "text": "\n\n"
     }
   ],
   "loc": {
@@ -3171,8 +3171,8 @@
       "column": 1
     },
     "end": {
-      "line": 85,
-      "column": 18
+      "line": 86,
+      "column": 1
     }
   }
 }
