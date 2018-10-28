@@ -29,7 +29,7 @@ glob('./**/*.ftl', { cwd: testsPath, nodir: true, absolute: true }, (e : Error |
       it('should have no errors', () => {
         if (data.ast.errors) {
           for (const error of data.ast.errors) {
-            assert.fail(`${error.message}\n\tfile:.\\${path.relative(baseDir, file)}:${error.start ? `${error.start.line}:${error.start.column}` : '0:0'}`)
+            assert.fail(`${error.message}\n\tfile:.\\${path.relative(baseDir, file)}:${error.loc ? `${error.loc.start.column}:${error.loc.start.line}` : '0:0'}`)
           }
         }
       })
