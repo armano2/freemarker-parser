@@ -6,7 +6,7 @@
 [![Greenkeeper](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/freemarker-parser.svg)](https://www.npmjs.com/package/freemarker-parser)
 
-Freemarker Parser is a javascript implementation of the Freemarker (http://freemarker.sourceforge.com).
+Freemarker Parser is a javascript implementation of the Freemarker (https://freemarker.apache.org).
 
 This project contains **experimental version** of parser ftl to ast tree
 
@@ -67,37 +67,41 @@ console.log(data.tokens)
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
   - executing macro
-  - directives: https://freemarker.apache.org/
-    - `#attempt`
-      - `#recover`
-    - `#assign`
-    - `#global`
-    - `#local`
-    - `#if`
+  - directives https://freemarker.apache.org/docs/ref_directives.html:
+    - [`#attempt`](https://freemarker.apache.org/docs/ref_directive_attempt.html)
+      - [`#recover`](https://freemarker.apache.org/docs/ref_directive_recover.html)
+    - [`#assign`](https://freemarker.apache.org/docs/ref_directive_assign.html)
+    - [`#global`](https://freemarker.apache.org/docs/ref_directive_global.html)
+    - [`#local`](https://freemarker.apache.org/docs/ref_directive_local.html)
+    - [`#if`](https://freemarker.apache.org/docs/ref_directive_if.html)
       - `#elseif`
       - `#else`
-    - `#list`
+    - [`#list`](https://freemarker.apache.org/docs/ref_directive_list.html)
       - `#else`
-    - `#include`
-    - `#import`
-    - `#macro`
-    - `#switch`
+      - `#break`
+      - `#continue`
+    - [`#include`](https://freemarker.apache.org/docs/ref_directive_include.html)
+    - [`#import`](https://freemarker.apache.org/docs/ref_directive_import.html)
+    - [`#macro`](https://freemarker.apache.org/docs/ref_directive_macro.html)
+    - [`#switch`](https://freemarker.apache.org/docs/ref_directive_switch.html)
       - `#case`
       - `#default`
-    - `#break`
-    - `#compress`
-    - `#function`
-      - `#return`
-    - `#noparse`, `#noParse`
-    - `#stop`
-    - `#setting`
-    - `#lt`
-    - `#t`
-    - `#nt`
-    - `#rt`
-    - `#flush`
-    - `#escape`
-      - `#noescape`
+      - `#break`
+    - [`#break`](https://freemarker.apache.org/docs/ref_directive_break.html)
+    - [`#compress`](https://freemarker.apache.org/docs/ref_directive_compress.html)
+    - [`#function`](https://freemarker.apache.org/docs/ref_directive_function.html)
+      - [`#return`](https://freemarker.apache.org/docs/ref_directive_return.html)
+    - [`#parse`](https://freemarker.apache.org/docs/ref_directive_parse.html)
+		- [`#noparse`](https://freemarker.apache.org/docs/ref_directive_noparse.html)
+    - [`#stop`](https://freemarker.apache.org/docs/ref_directive_stop.html)
+    - [`#setting`](https://freemarker.apache.org/docs/ref_directive_setting.html)
+    - [`#lt`](https://freemarker.apache.org/docs/ref_directive_lt.html)
+    - [`#t`](https://freemarker.apache.org/docs/ref_directive_t.html)
+    - [`#nt`](https://freemarker.apache.org/docs/ref_directive_nt.html)
+    - [`#rt`](https://freemarker.apache.org/docs/ref_directive_rt.html)
+    - [`#flush`](https://freemarker.apache.org/docs/ref_directive_flush.html)
+    - [`#escape`](https://freemarker.apache.org/docs/ref_directive_escape.html)
+      - [`#noescape`](https://freemarker.apache.org/docs/ref_directive_noescape.html)
   - comments `<#-- -->`
   - built-ins:
     - `?toUpperCase`
@@ -113,3 +117,4 @@ console.log(data.tokens)
     - `#nested`
     - `#recurse`
     - `#visit`
+    - `#items`
