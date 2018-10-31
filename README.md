@@ -96,6 +96,8 @@ console.log(data.tokens)
     - `#nt`
     - `#rt`
     - `#flush`
+    - `#escape`
+      - `#noescape`
   - comments `<#-- -->`
   - built-ins:
     - `?toUpperCase`
@@ -103,8 +105,6 @@ console.log(data.tokens)
     - `?capitalize`
     - `?length`
     - `?string("yes", "no")`
-    - `#escape`
-      - `#noescape`
   - support default values, i.e. `${user!"Anonymous"}`
 
 ## TODO:

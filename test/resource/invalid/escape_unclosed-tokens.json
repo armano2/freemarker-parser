@@ -1,0 +1,19 @@
+[
+  {
+    "type": "Directive",
+    "start": 0,
+    "end": 19,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "escape",
+    "params": "test as a",
+    "isClose": false
+  },
+  {
+    "type": "Text",
+    "start": 19,
+    "end": 20,
+    "text": "\n",
+    "isClose": false
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "type": "Directive",
+    "start": 0,
+    "end": 23,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "escape",
+    "params": "test as {\"a\"}",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 23,
+    "end": 27,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 27,
+    "end": 37,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "escape",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 37,
+    "end": 38,
+    "text": "\n",
+    "isClose": false
+  }
+]

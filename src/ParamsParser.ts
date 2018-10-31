@@ -561,6 +561,7 @@ export class ParamsParser extends AbstractTokenizer {
    */
   protected parseMap () : IMapExpression {
     let ch : number
+    let closed = false
     const elements : IMapExpressionValues[] = []
     ++this.index
     while (this.index < this.length) {
@@ -570,6 +571,7 @@ export class ParamsParser extends AbstractTokenizer {
 
       if (ch === ECharCodes.CloseBrace) {
         ++this.index
+        closed = true
         break
       }
 
@@ -601,6 +603,11 @@ export class ParamsParser extends AbstractTokenizer {
         key,
         value,
       })
+    }
+
+    if (!closed) {
+      ch = this.charCodeAt(this.index)
+      throw new ParseError('Unclosed {', { start: this.index, end: this.index })
     }
 
     return {

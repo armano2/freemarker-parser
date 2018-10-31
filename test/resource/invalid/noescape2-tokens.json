@@ -1,0 +1,28 @@
+[
+  {
+    "type": "Directive",
+    "start": 0,
+    "end": 17,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "noescape",
+    "params": "a=\"b\"",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 17,
+    "end": 29,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "noescape",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 29,
+    "end": 30,
+    "text": "\n",
+    "isClose": false
+  }
+]

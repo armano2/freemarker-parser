@@ -1,0 +1,37 @@
+[
+  {
+    "type": "Directive",
+    "start": 0,
+    "end": 11,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "noescape",
+    "isClose": false
+  },
+  {
+    "type": "Interpolation",
+    "start": 11,
+    "end": 15,
+    "startTag": "${",
+    "endTag": "}",
+    "text": "",
+    "params": "1",
+    "isClose": false
+  },
+  {
+    "type": "Directive",
+    "start": 15,
+    "end": 27,
+    "startTag": "</#",
+    "endTag": ">",
+    "text": "noescape",
+    "isClose": true
+  },
+  {
+    "type": "Text",
+    "start": 27,
+    "end": 28,
+    "text": "\n",
+    "isClose": false
+  }
+]
