@@ -1,53 +1,47 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 19,
     "startTag": "<#",
     "endTag": ">",
     "text": "function",
-    "params": "avg x y",
-    "isClose": false
+    "params": "avg x y"
   },
   {
     "type": "Text",
     "start": 19,
     "end": 22,
-    "text": "\n  ",
-    "isClose": false
+    "text": "\n  "
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 22,
     "end": 43,
     "startTag": "<#",
     "endTag": ">",
     "text": "return",
-    "params": "(x + y) / 2",
-    "isClose": false
+    "params": "(x + y) / 2"
   },
   {
     "type": "Text",
     "start": 43,
     "end": 44,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 44,
     "end": 56,
     "startTag": "</#",
     "endTag": ">",
-    "text": "function",
-    "isClose": true
+    "text": "function"
   },
   {
     "type": "Text",
     "start": 56,
     "end": 57,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Interpolation",
@@ -56,14 +50,12 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "avg(10, 20)",
-    "isClose": false
+    "params": "avg(10, 20)"
   },
   {
     "type": "Text",
     "start": 71,
     "end": 72,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

@@ -1,7 +1,9 @@
 export enum ENodeType {
   Program = 'Program',
-  Directive = 'Directive',
-  Macro = 'Macro',
+  OpenDirective = 'OpenDirective',
+  CloseDirective = 'CloseDirective',
+  OpenMacro = 'OpenMacro',
+  CloseMacro = 'CloseMacro',
   Text = 'Text',
   Interpolation = 'Interpolation',
   Comment = 'Comment',
@@ -11,5 +13,4 @@ export interface ISymbol {
   startToken : string
   endToken : string[]
   type : ENodeType
-  end : boolean
 }

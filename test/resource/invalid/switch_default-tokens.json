@@ -1,18 +1,16 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 10,
     "startTag": "<#",
     "endTag": ">",
-    "text": "default",
-    "isClose": false
+    "text": "default"
   },
   {
     "type": "Text",
     "start": 10,
     "end": 11,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

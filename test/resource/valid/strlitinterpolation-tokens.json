@@ -1,19 +1,17 @@
 [
   {
-    "type": "Macro",
+    "type": "OpenMacro",
     "start": 0,
     "end": 24,
     "startTag": "<@",
     "endTag": "/>",
     "text": "m",
-    "params": "'${e1}' '$\\\\{e2}' ",
-    "isClose": false
+    "params": "'${e1}' '$\\\\{e2}' "
   },
   {
     "type": "Text",
     "start": 24,
     "end": 25,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

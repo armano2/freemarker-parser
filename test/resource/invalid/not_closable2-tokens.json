@@ -1,19 +1,17 @@
 [
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 0,
     "end": 15,
     "startTag": "</#",
     "endTag": ">",
     "text": "include",
-    "params": "foo",
-    "isClose": true
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 15,
     "end": 16,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

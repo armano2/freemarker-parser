@@ -1,36 +1,32 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 11,
     "startTag": "<#",
     "endTag": ">",
     "text": "list",
-    "params": "foo",
-    "isClose": false
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 11,
     "end": 13,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 13,
     "end": 28,
     "startTag": "</#",
     "endTag": ">",
     "text": "list",
-    "params": "id=\"2\"",
-    "isClose": true
+    "params": "id=\"2\""
   },
   {
     "type": "Text",
     "start": 28,
     "end": 29,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

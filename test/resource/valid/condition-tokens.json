@@ -1,37 +1,33 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 22,
     "startTag": "<#",
     "endTag": ">",
     "text": "assign",
-    "params": "foo=2, bar=3",
-    "isClose": false
+    "params": "foo=2, bar=3"
   },
   {
     "type": "Text",
     "start": 22,
     "end": 24,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 24,
     "end": 40,
     "startTag": "<#",
     "endTag": ">",
     "text": "if",
-    "params": "foo gt bar",
-    "isClose": false
+    "params": "foo gt bar"
   },
   {
     "type": "Text",
     "start": 40,
     "end": 47,
-    "text": "\n  foo(",
-    "isClose": false
+    "text": "\n  foo("
   },
   {
     "type": "Interpolation",
@@ -40,15 +36,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo",
-    "isClose": false
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 53,
     "end": 72,
-    "text": ") is more than bar(",
-    "isClose": false
+    "text": ") is more than bar("
   },
   {
     "type": "Interpolation",
@@ -57,32 +51,28 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "bar",
-    "isClose": false
+    "params": "bar"
   },
   {
     "type": "Text",
     "start": 78,
     "end": 80,
-    "text": ")\n",
-    "isClose": false
+    "text": ")\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 80,
     "end": 115,
     "startTag": "<#",
     "endTag": ">",
     "text": "elseif",
-    "params": "((foo lt a) || (foo > b))",
-    "isClose": false
+    "params": "((foo lt a) || (foo > b))"
   },
   {
     "type": "Text",
     "start": 115,
     "end": 122,
-    "text": "\n  foo(",
-    "isClose": false
+    "text": "\n  foo("
   },
   {
     "type": "Interpolation",
@@ -91,15 +81,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo",
-    "isClose": false
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 128,
     "end": 147,
-    "text": ") is less than bar(",
-    "isClose": false
+    "text": ") is less than bar("
   },
   {
     "type": "Interpolation",
@@ -108,31 +96,27 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "bar",
-    "isClose": false
+    "params": "bar"
   },
   {
     "type": "Text",
     "start": 153,
     "end": 155,
-    "text": ")\n",
-    "isClose": false
+    "text": ")\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 155,
     "end": 162,
     "startTag": "<#",
     "endTag": ">",
-    "text": "else",
-    "isClose": false
+    "text": "else"
   },
   {
     "type": "Text",
     "start": 162,
     "end": 169,
-    "text": "\n  foo(",
-    "isClose": false
+    "text": "\n  foo("
   },
   {
     "type": "Interpolation",
@@ -141,15 +125,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo",
-    "isClose": false
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 175,
     "end": 190,
-    "text": ") is equal bar(",
-    "isClose": false
+    "text": ") is equal bar("
   },
   {
     "type": "Interpolation",
@@ -158,30 +140,26 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "bar",
-    "isClose": false
+    "params": "bar"
   },
   {
     "type": "Text",
     "start": 196,
     "end": 198,
-    "text": ")\n",
-    "isClose": false
+    "text": ")\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 198,
     "end": 204,
     "startTag": "</#",
     "endTag": ">",
-    "text": "if",
-    "isClose": true
+    "text": "if"
   },
   {
     "type": "Text",
     "start": 204,
     "end": 205,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

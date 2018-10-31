@@ -46,7 +46,7 @@ export class Parser extends ParserLocation {
       for (token of tokens) {
         const tokenType = this.tokenToNodeType(token)
 
-        if (token.isClose) {
+        if (token.type === ENodeType.CloseDirective || token.type === ENodeType.CloseMacro) {
           if (token.params) {
             throw new ParseError(`Close tag '${tokenType}' should not have params`, token)
           }
@@ -115,7 +115,8 @@ export class Parser extends ParserLocation {
 
   protected tokenToNodeType (token : IToken) : NodeNames {
     switch (token.type) {
-      case ENodeType.Directive:
+      case ENodeType.CloseDirective:
+      case ENodeType.OpenDirective:
         if (token.text in Directives) {
           return Directives[token.text as any] as NodeNames
         }
@@ -124,7 +125,8 @@ export class Parser extends ParserLocation {
         return NodeNames.Interpolation
       case ENodeType.Text:
         return NodeNames.Text
-      case ENodeType.Macro:
+      case ENodeType.CloseMacro:
+      case ENodeType.OpenMacro:
         return NodeNames.MacroCall
       case ENodeType.Comment:
         return NodeNames.Comment

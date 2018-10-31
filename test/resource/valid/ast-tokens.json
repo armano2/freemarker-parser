@@ -1,57 +1,51 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 17,
     "startTag": "<#",
     "endTag": ">",
     "text": "assign",
-    "params": "x = 123",
-    "isClose": false
+    "params": "x = 123"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 17,
     "end": 34,
     "startTag": "<#",
     "endTag": ">",
     "text": "assign",
-    "params": "x = 123",
-    "isClose": false
+    "params": "x = 123"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 34,
     "end": 51,
     "startTag": "<#",
     "endTag": ">",
     "text": "global",
-    "params": "x = 123",
-    "isClose": false
+    "params": "x = 123"
   },
   {
     "type": "Text",
     "start": 51,
     "end": 52,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 52,
     "end": 68,
     "startTag": "<#",
     "endTag": ">",
     "text": "if",
-    "params": "x + 1 == 0",
-    "isClose": false
+    "params": "x + 1 == 0"
   },
   {
     "type": "Text",
     "start": 68,
     "end": 71,
-    "text": "foo",
-    "isClose": false
+    "text": "foo"
   },
   {
     "type": "Interpolation",
@@ -60,24 +54,21 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "y",
-    "isClose": false
+    "params": "y"
   },
   {
     "type": "Text",
     "start": 75,
     "end": 78,
-    "text": "bar",
-    "isClose": false
+    "text": "bar"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 78,
     "end": 85,
     "startTag": "<#",
     "endTag": ">",
-    "text": "else",
-    "isClose": false
+    "text": "else"
   },
   {
     "type": "Interpolation",
@@ -86,146 +77,129 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "\"static\"",
-    "isClose": false
+    "params": "\"static\""
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 96,
     "end": 102,
     "startTag": "</#",
     "endTag": ">",
-    "text": "if",
-    "isClose": true
+    "text": "if"
   },
   {
     "type": "Text",
     "start": 102,
     "end": 103,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 103,
     "end": 114,
     "startTag": "<#",
     "endTag": ">",
     "text": "switch",
-    "params": "x",
-    "isClose": false
+    "params": "x"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 114,
     "end": 123,
     "startTag": "<#",
     "endTag": ">",
     "text": "case",
-    "params": "1",
-    "isClose": false
+    "params": "1"
   },
   {
     "type": "Text",
     "start": 123,
     "end": 126,
-    "text": "one",
-    "isClose": false
+    "text": "one"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 126,
     "end": 135,
     "startTag": "<#",
     "endTag": ">",
     "text": "case",
-    "params": "2",
-    "isClose": false
+    "params": "2"
   },
   {
     "type": "Text",
     "start": 135,
     "end": 138,
-    "text": "two",
-    "isClose": false
+    "text": "two"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 138,
     "end": 148,
     "startTag": "<#",
     "endTag": ">",
-    "text": "default",
-    "isClose": false
+    "text": "default"
   },
   {
     "type": "Text",
     "start": 148,
     "end": 152,
-    "text": "more",
-    "isClose": false
+    "text": "more"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 152,
     "end": 162,
     "startTag": "</#",
     "endTag": ">",
-    "text": "switch",
-    "isClose": true
+    "text": "switch"
   },
   {
     "type": "Text",
     "start": 162,
     "end": 163,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 163,
     "end": 182,
     "startTag": "<#",
     "endTag": ">",
     "text": "function",
-    "params": "foo x y",
-    "isClose": false
+    "params": "foo x y"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 182,
     "end": 198,
     "startTag": "<#",
     "endTag": ">",
     "text": "local",
-    "params": "x = 123",
-    "isClose": false
+    "params": "x = 123"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 198,
     "end": 209,
     "startTag": "<#",
     "endTag": ">",
     "text": "return",
-    "params": "1",
-    "isClose": false
+    "params": "1"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 209,
     "end": 221,
     "startTag": "</#",
     "endTag": ">",
-    "text": "function",
-    "isClose": true
+    "text": "function"
   },
   {
     "type": "Text",
     "start": 221,
     "end": 222,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Comment",
@@ -233,15 +207,13 @@
     "end": 256,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": "  <#list xs as x></#list>  ",
-    "isClose": false
+    "text": "  <#list xs as x></#list>  "
   },
   {
     "type": "Text",
     "start": 256,
     "end": 257,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Comment",
@@ -249,15 +221,13 @@
     "end": 333,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": "  <#list xs>[<#items as x>${x}<#sep>, </#items>]<#else>None</#list>  ",
-    "isClose": false
+    "text": "  <#list xs>[<#items as x>${x}<#sep>, </#items>]<#else>None</#list>  "
   },
   {
     "type": "Text",
     "start": 333,
     "end": 334,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Comment",
@@ -265,14 +235,12 @@
     "end": 352,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": " A comment ",
-    "isClose": false
+    "text": " A comment "
   },
   {
     "type": "Text",
     "start": 352,
     "end": 354,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   }
 ]

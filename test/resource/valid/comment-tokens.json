@@ -5,15 +5,13 @@
     "end": 20,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": " Bar comment ",
-    "isClose": false
+    "text": " Bar comment "
   },
   {
     "type": "Text",
     "start": 20,
     "end": 25,
-    "text": "fo0o\n",
-    "isClose": false
+    "text": "fo0o\n"
   },
   {
     "type": "Comment",
@@ -21,15 +19,13 @@
     "end": 43,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": "Foo comment",
-    "isClose": false
+    "text": "Foo comment"
   },
   {
     "type": "Text",
     "start": 43,
     "end": 44,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Comment",
@@ -37,32 +33,28 @@
     "end": 77,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": "\n${foo} c\n<#list>\n<@/foo>\n",
-    "isClose": false
+    "text": "\n${foo} c\n<#list>\n<@/foo>\n"
   },
   {
     "type": "Text",
     "start": 77,
     "end": 78,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 78,
     "end": 97,
     "startTag": "<#",
     "endTag": ">",
     "text": "assign",
-    "params": "var=value",
-    "isClose": false
+    "params": "var=value"
   },
   {
     "type": "Text",
     "start": 97,
     "end": 98,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
     "type": "Comment",
@@ -70,14 +62,12 @@
     "end": 129,
     "startTag": "<#--",
     "endTag": "-->",
-    "text": "\nTest comment\nmultiline\n",
-    "isClose": false
+    "text": "\nTest comment\nmultiline\n"
   },
   {
     "type": "Text",
     "start": 129,
     "end": 130,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

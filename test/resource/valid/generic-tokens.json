@@ -6,66 +6,58 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo",
-    "isClose": false
+    "params": "foo"
   },
   {
     "type": "Text",
     "start": 6,
     "end": 8,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 8,
     "end": 47,
     "startTag": "<#",
     "endTag": ">",
     "text": "include",
-    "params": "\"./include/test_include.ftl\"",
-    "isClose": false
+    "params": "\"./include/test_include.ftl\""
   },
   {
     "type": "Text",
     "start": 47,
     "end": 49,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 49,
     "end": 64,
     "startTag": "<#",
     "endTag": ">",
     "text": "if",
-    "params": "(foo > 1)",
-    "isClose": false
+    "params": "(foo > 1)"
   },
   {
     "type": "Text",
     "start": 64,
     "end": 67,
-    "text": "\n  ",
-    "isClose": false
+    "text": "\n  "
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 67,
     "end": 81,
     "startTag": "<#",
     "endTag": ">",
     "text": "if",
-    "params": "foo gt a",
-    "isClose": false
+    "params": "foo gt a"
   },
   {
     "type": "Text",
     "start": 81,
     "end": 86,
-    "text": "\n    ",
-    "isClose": false
+    "text": "\n    "
   },
   {
     "type": "Interpolation",
@@ -74,31 +66,27 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo.bar",
-    "isClose": false
+    "params": "foo.bar"
   },
   {
     "type": "Text",
     "start": 96,
     "end": 99,
-    "text": "\n  ",
-    "isClose": false
+    "text": "\n  "
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 99,
     "end": 105,
     "startTag": "</#",
     "endTag": ">",
-    "text": "if",
-    "isClose": true
+    "text": "if"
   },
   {
     "type": "Text",
     "start": 105,
     "end": 108,
-    "text": "\n  ",
-    "isClose": false
+    "text": "\n  "
   },
   {
     "type": "Interpolation",
@@ -107,47 +95,41 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "foo.bar?toString",
-    "isClose": false
+    "params": "foo.bar?toString"
   },
   {
     "type": "Text",
     "start": 127,
     "end": 128,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 128,
     "end": 134,
     "startTag": "</#",
     "endTag": ">",
-    "text": "if",
-    "isClose": true
+    "text": "if"
   },
   {
     "type": "Text",
     "start": 134,
     "end": 136,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Macro",
+    "type": "OpenMacro",
     "start": 136,
     "end": 179,
     "startTag": "<@",
     "endTag": "/>",
     "text": "macro",
-    "params": "foo \"./include/test_include.ftl\" ",
-    "isClose": false
+    "params": "foo \"./include/test_include.ftl\" "
   },
   {
     "type": "Text",
     "start": 179,
     "end": 180,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

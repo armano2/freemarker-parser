@@ -1,35 +1,31 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 17,
     "startTag": "<#",
     "endTag": ">",
     "text": "assign",
-    "params": "foo bar",
-    "isClose": false
+    "params": "foo bar"
   },
   {
     "type": "Text",
     "start": 17,
     "end": 19,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 19,
     "end": 29,
     "startTag": "</#",
     "endTag": ">",
-    "text": "assign",
-    "isClose": true
+    "text": "assign"
   },
   {
     "type": "Text",
     "start": 29,
     "end": 30,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

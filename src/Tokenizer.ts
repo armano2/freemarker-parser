@@ -45,13 +45,13 @@ export class Tokenizer extends AbstractTokenizer {
     const closeTag = String.fromCharCode(this.closeTag)
 
     this.symbols = [
-      { startToken: `${openTag}#--`, endToken: [`--${closeTag}`], type: ENodeType.Comment, end: false },
-      { startToken: `${openTag}/#`, endToken: [`${closeTag}`], type: ENodeType.Directive, end: true },
-      { startToken: `${openTag}#`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.Directive, end: false },
-      { startToken: `${openTag}/@`, endToken: [`${closeTag}`], type: ENodeType.Macro, end: true },
-      { startToken: `${openTag}@`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.Macro, end: false },
+      { startToken: `${openTag}#--`, endToken: [`--${closeTag}`], type: ENodeType.Comment },
+      { startToken: `${openTag}/#`, endToken: [`${closeTag}`], type: ENodeType.CloseDirective },
+      { startToken: `${openTag}#`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.OpenDirective },
+      { startToken: `${openTag}/@`, endToken: [`${closeTag}`], type: ENodeType.CloseMacro },
+      { startToken: `${openTag}@`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.OpenMacro },
       // tslint:disable-next-line:no-invalid-template-strings
-      { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation, end: false },
+      { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation },
     ]
   }
 
@@ -134,10 +134,12 @@ export class Tokenizer extends AbstractTokenizer {
           switch (token.type) {
             case ENodeType.Comment:
               return this.parseComment(token, start)
-            case ENodeType.Directive:
-              return this.parseDirective(token, start, Boolean(token.end))
-            case ENodeType.Macro:
-              return this.parseMacro(token, start, Boolean(token.end))
+            case ENodeType.OpenDirective:
+            case ENodeType.OpenMacro:
+              return this.parseOpenDirectiveOrMacro(token, start)
+              case ENodeType.CloseDirective:
+            case ENodeType.CloseMacro:
+              return this.parseCloseDirectiveOrMacro(token, start)
             case ENodeType.Interpolation:
               return this.parseInterpolation(token, start)
           }
@@ -150,7 +152,7 @@ export class Tokenizer extends AbstractTokenizer {
     return this.addToken(ENodeType.Text, startPos, this.index, text)
   }
 
-  protected addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string, isClose : boolean = false) {
+  protected addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string) {
     this.tokens.push({
       type,
       start,
@@ -159,7 +161,6 @@ export class Tokenizer extends AbstractTokenizer {
       endTag,
       text,
       params: params || undefined,
-      isClose,
     })
   }
 
@@ -179,25 +180,24 @@ export class Tokenizer extends AbstractTokenizer {
     this.addToken(symbol.type, start, this.index, '', symbol.startToken, params.endToken, params.paramText)
   }
 
-  protected parseMacro (symbol : ISymbol, start : number, isClose : boolean) {
+  protected parseOpenDirectiveOrMacro (symbol : ISymbol, start : number) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
-      throw new ParseError('Macro name cannot be empty', { start: this.index, end: this.index })
+      throw new ParseError(`${symbol.type} name cannot be empty`, { start: this.index, end: this.index })
     }
 
     const params = this.parseParams(symbol.endToken)
-    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText, isClose)
+    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText)
   }
 
-  protected parseDirective (symbol : ISymbol, start : number, isClose : boolean) {
+  protected parseCloseDirectiveOrMacro (symbol : ISymbol, start : number) {
     const typeString = this.parseTagName()
     if (typeString.length === 0) {
-      throw new ParseError('Directive name cannot be empty', { start: this.index, end: this.index })
+      throw new ParseError(`${symbol.type} name cannot be empty`, { start: this.index, end: this.index })
     }
 
     const params = this.parseParams(symbol.endToken)
-
-    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText, isClose)
+    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText)
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,

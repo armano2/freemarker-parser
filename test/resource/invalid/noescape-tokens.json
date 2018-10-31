@@ -1,12 +1,11 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 11,
     "startTag": "<#",
     "endTag": ">",
-    "text": "noescape",
-    "isClose": false
+    "text": "noescape"
   },
   {
     "type": "Interpolation",
@@ -15,23 +14,20 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "1",
-    "isClose": false
+    "params": "1"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 15,
     "end": 27,
     "startTag": "</#",
     "endTag": ">",
-    "text": "noescape",
-    "isClose": true
+    "text": "noescape"
   },
   {
     "type": "Text",
     "start": 27,
     "end": 28,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

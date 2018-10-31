@@ -37,7 +37,7 @@ describe('errors', () => {
       parse('<#')
       assert.fail('should fail')
     } catch (e) {
-      assert.strictEqual(e.message, 'Directive name cannot be empty', 'error message is invalid')
+      assert.strictEqual(e.message, 'OpenDirective name cannot be empty', 'error message is invalid')
       assert.strictEqual(e.start, 2, 'start pos is invalid')
     }
   })
@@ -46,7 +46,7 @@ describe('errors', () => {
       parse('<@')
       assert.fail('should fail')
     } catch (e) {
-      assert.strictEqual(e.message, 'Macro name cannot be empty', 'error message is invalid')
+      assert.strictEqual(e.message, 'OpenMacro name cannot be empty', 'error message is invalid')
       assert.strictEqual(e.start, 2, 'start pos is invalid')
     }
   })

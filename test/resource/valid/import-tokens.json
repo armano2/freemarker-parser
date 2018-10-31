@@ -1,36 +1,32 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 24,
     "startTag": "<#",
     "endTag": ">",
     "text": "import",
-    "params": "\"n1.ftl\" as n1",
-    "isClose": false
+    "params": "\"n1.ftl\" as n1"
   },
   {
     "type": "Text",
     "start": 24,
     "end": 25,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 25,
     "end": 49,
     "startTag": "<#",
     "endTag": ">",
     "text": "import",
-    "params": "\"n2.ftl\" as n2",
-    "isClose": false
+    "params": "\"n2.ftl\" as n2"
   },
   {
     "type": "Text",
     "start": 49,
     "end": 50,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

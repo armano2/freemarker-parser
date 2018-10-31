@@ -3,75 +3,66 @@
     "type": "Text",
     "start": 0,
     "end": 79,
-    "text": "<p>This is include-subdir.ftl</p>\n<p>Testing including from same directory</p>\n",
-    "isClose": false
+    "text": "<p>This is include-subdir.ftl</p>\n<p>Testing including from same directory</p>\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 79,
     "end": 111,
     "startTag": "<#",
     "endTag": ">",
     "text": "include",
-    "params": "\"include-subdir2.ftl\"",
-    "isClose": false
+    "params": "\"include-subdir2.ftl\""
   },
   {
     "type": "Text",
     "start": 111,
     "end": 158,
-    "text": "\n<p>Testing including from relative parent</p>\n",
-    "isClose": false
+    "text": "\n<p>Testing including from relative parent</p>\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 158,
     "end": 186,
     "startTag": "<#",
     "endTag": ">",
     "text": "include",
-    "params": "\"../included.ftl\"",
-    "isClose": false
+    "params": "\"../included.ftl\""
   },
   {
     "type": "Text",
     "start": 186,
     "end": 229,
-    "text": "\n<p>Testing including from loader root</p>\n",
-    "isClose": false
+    "text": "\n<p>Testing including from loader root</p>\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 229,
     "end": 255,
     "startTag": "<#",
     "endTag": ">",
     "text": "include",
-    "params": "\"/included.ftl\"",
-    "isClose": false
+    "params": "\"/included.ftl\""
   },
   {
     "type": "Text",
     "start": 255,
     "end": 301,
-    "text": "\n<p>Testing including through acquisition</p>\n",
-    "isClose": false
+    "text": "\n<p>Testing including through acquisition</p>\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 301,
     "end": 342,
     "startTag": "<#",
     "endTag": ">",
     "text": "include",
-    "params": "\"*/subdir/include-subdir2.ftl\"",
-    "isClose": false
+    "params": "\"*/subdir/include-subdir2.ftl\""
   },
   {
     "type": "Text",
     "start": 342,
     "end": 343,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

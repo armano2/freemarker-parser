@@ -3,25 +3,22 @@
     "type": "Text",
     "start": 0,
     "end": 21,
-    "text": "Inner plannets data:\n",
-    "isClose": false
+    "text": "Inner plannets data:\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 21,
     "end": 48,
     "startTag": "<#",
     "endTag": ">",
     "text": "list",
-    "params": "planet_data as data",
-    "isClose": false
+    "params": "planet_data as data"
   },
   {
     "type": "Text",
     "start": 48,
     "end": 59,
-    "text": "\n  Name:   ",
-    "isClose": false
+    "text": "\n  Name:   "
   },
   {
     "type": "Interpolation",
@@ -30,15 +27,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "data.name?lower_case",
-    "isClose": false
+    "params": "data.name?lower_case"
   },
   {
     "type": "Text",
     "start": 82,
     "end": 93,
-    "text": "\n  Radius: ",
-    "isClose": false
+    "text": "\n  Radius: "
   },
   {
     "type": "Interpolation",
@@ -47,15 +42,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "data.radius",
-    "isClose": false
+    "params": "data.radius"
   },
   {
     "type": "Text",
     "start": 107,
     "end": 118,
-    "text": "\n  Mass:   ",
-    "isClose": false
+    "text": "\n  Mass:   "
   },
   {
     "type": "Interpolation",
@@ -64,15 +57,13 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "data.mass",
-    "isClose": false
+    "params": "data.mass"
   },
   {
     "type": "Text",
     "start": 130,
     "end": 141,
-    "text": "\n  Volume: ",
-    "isClose": false
+    "text": "\n  Volume: "
   },
   {
     "type": "Interpolation",
@@ -81,46 +72,40 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "data.volume",
-    "isClose": false
+    "params": "data.volume"
   },
   {
     "type": "Text",
     "start": 155,
     "end": 156,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 156,
     "end": 163,
     "startTag": "<#",
     "endTag": ">",
-    "text": "else",
-    "isClose": false
+    "text": "else"
   },
   {
     "type": "Text",
     "start": 163,
     "end": 176,
-    "text": "\n  Not found\n",
-    "isClose": false
+    "text": "\n  Not found\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 176,
     "end": 184,
     "startTag": "</#",
     "endTag": ">",
-    "text": "list",
-    "isClose": true
+    "text": "list"
   },
   {
     "type": "Text",
     "start": 184,
     "end": 185,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

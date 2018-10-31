@@ -1,50 +1,44 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 9,
     "startTag": "<#",
     "endTag": "/>",
-    "text": "stop",
-    "isClose": false
+    "text": "stop"
   },
   {
     "type": "Text",
     "start": 9,
     "end": 10,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   },
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 10,
     "end": 17,
     "startTag": "<#",
     "endTag": ">",
-    "text": "stop",
-    "isClose": false
+    "text": "stop"
   },
   {
     "type": "Text",
     "start": 17,
     "end": 19,
-    "text": "\n\n",
-    "isClose": false
+    "text": "\n\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 19,
     "end": 27,
     "startTag": "</#",
     "endTag": ">",
-    "text": "stop",
-    "isClose": true
+    "text": "stop"
   },
   {
     "type": "Text",
     "start": 27,
     "end": 28,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

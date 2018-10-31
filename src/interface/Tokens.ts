@@ -16,5 +16,4 @@ export interface IToken extends ILoc {
   endTag? : string
   params? : string
   text : string
-  isClose : boolean
 }

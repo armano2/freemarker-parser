@@ -1,19 +1,17 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 11,
     "startTag": "<#",
     "endTag": ">",
-    "text": "compress",
-    "isClose": false
+    "text": "compress"
   },
   {
     "type": "Text",
     "start": 11,
     "end": 32,
-    "text": "\n  1 2  3   4    5\n  ",
-    "isClose": false
+    "text": "\n  1 2  3   4    5\n  "
   },
   {
     "type": "Interpolation",
@@ -22,30 +20,26 @@
     "startTag": "${",
     "endTag": "}",
     "text": "",
-    "params": "moo",
-    "isClose": false
+    "params": "moo"
   },
   {
     "type": "Text",
     "start": 38,
     "end": 73,
-    "text": "\n  test only\n\n  I said, test only\n\n",
-    "isClose": false
+    "text": "\n  test only\n\n  I said, test only\n\n"
   },
   {
-    "type": "Directive",
+    "type": "CloseDirective",
     "start": 73,
     "end": 85,
     "startTag": "</#",
     "endTag": ">",
-    "text": "compress",
-    "isClose": true
+    "text": "compress"
   },
   {
     "type": "Text",
     "start": 85,
     "end": 86,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]

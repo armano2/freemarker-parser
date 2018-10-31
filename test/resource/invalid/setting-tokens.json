@@ -1,19 +1,17 @@
 [
   {
-    "type": "Directive",
+    "type": "OpenDirective",
     "start": 0,
     "end": 40,
     "startTag": "<#",
     "endTag": ">",
     "text": "setting",
-    "params": "locale=\"en_US\" locale=\"en_US\"",
-    "isClose": false
+    "params": "locale=\"en_US\" locale=\"en_US\""
   },
   {
     "type": "Text",
     "start": 40,
     "end": 41,
-    "text": "\n",
-    "isClose": false
+    "text": "\n"
   }
 ]
