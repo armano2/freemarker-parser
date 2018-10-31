@@ -1,8 +1,8 @@
 import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
 import ParseError from './errors/ParseError'
+import { IToken } from './interface/Tokens'
 import { ENodeType, ISymbol } from './Symbols'
-import { IToken } from './types/Tokens'
 import { isLetter, isWhitespace } from './utils/Chars'
 
 interface INextPos {

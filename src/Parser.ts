@@ -1,26 +1,26 @@
 import ParseError from './errors/ParseError'
 
+import { IToken } from './interface/Tokens'
 import { ENodeType } from './Symbols'
 import { ITokenizerOptions, Tokenizer } from './Tokenizer'
-import { IToken } from './types/Tokens'
 
 import { Directives } from './enum/Directives'
-import AbstractNode from './types/Nodes/AbstractNode'
-import IProgram from './types/Nodes/IProgram'
+import AbstractNode from './nodes/abstract/AbstractNode'
+import ProgramNode from './nodes/ProgramNode'
 
 import NodeNames from './enum/NodeNames'
 import {ParserLocation} from './ParserLocation'
 import Nodes from './utils/Nodes'
 
 export interface IParserReturn {
-  ast : IProgram
+  ast : ProgramNode
   tokens : IToken[]
 }
 
 export class Parser extends ParserLocation {
   public parse (template : string, options : ITokenizerOptions = {}) : IParserReturn {
     super.parse(template)
-    const ast = new IProgram(0, template.length - 1)
+    const ast = new ProgramNode(0, template.length - 1)
     const stack : AbstractNode[] = []
     let parent : AbstractNode = ast
     let tokens : IToken[] = []

@@ -1,6 +1,6 @@
 import ECharCodes from './enum/CharCodes'
-import { ISourceLocation } from './types/ISourceLocation'
-import { ILoc } from './types/Tokens'
+import { ISourceLocation } from './interface/ISourceLocation'
+import { ILoc } from './interface/Tokens'
 
 export abstract class ParserLocation {
   protected offsets : number[] = [0]

@@ -1,6 +1,6 @@
 import ParseError from '../errors/ParseError'
+import { AllParamTypes } from '../interface/Params'
 import { ParamsParser } from '../ParamsParser'
-import { AllParamTypes } from '../types/Params'
 
 export function paramParser (start : number, end : number, params? : string) : AllParamTypes | undefined {
   if (params) {

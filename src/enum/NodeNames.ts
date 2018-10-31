@@ -30,6 +30,7 @@ enum NodeNames {
   Rt = 'Rt',
   T = 'T',
   Flush = 'Flush',
+  Ftl = 'Ftl',
   Escape = 'Escape',
   NoEscape = 'NoEscape',
   Visit = 'visit',

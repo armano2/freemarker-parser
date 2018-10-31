@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 
 import { Tokenizer } from '../src'
-import { IToken } from '../src/types/Tokens'
+import { IToken } from '../src/interface/Tokens'
 
 const tokenizer = new Tokenizer()
 

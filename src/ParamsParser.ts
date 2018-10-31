@@ -14,7 +14,7 @@ import {
   IMemberExpression,
   IUnaryExpression,
   IUpdateExpression,
-} from './types/Params'
+} from './interface/Params'
 import {
   binaryOps,
   isDecimalDigit,

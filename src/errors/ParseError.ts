@@ -1,5 +1,5 @@
-import { ISourceLocation } from '../types/ISourceLocation'
-import { ILoc } from '../types/Tokens'
+import { ISourceLocation } from '../interface/ISourceLocation'
+import { ILoc } from '../interface/Tokens'
 
 export default class ParseError implements ILoc {
   public message : string

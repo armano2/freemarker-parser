@@ -84,9 +84,9 @@ console.log(data.tokens)
     - [`#import`](https://freemarker.apache.org/docs/ref_directive_import.html)
     - [`#macro`](https://freemarker.apache.org/docs/ref_directive_macro.html)
     - [`#switch`](https://freemarker.apache.org/docs/ref_directive_switch.html)
-      - `#case`
-      - `#default`
-      - `#break`
+      * `#case`
+      * `#default`
+      * `#break`
     - [`#compress`](https://freemarker.apache.org/docs/ref_directive_compress.html)
     - [`#function`](https://freemarker.apache.org/docs/ref_directive_function.html)
       - `#return`
@@ -101,6 +101,7 @@ console.log(data.tokens)
     - [`#flush`](https://freemarker.apache.org/docs/ref_directive_flush.html)
     - [`#escape`](https://freemarker.apache.org/docs/ref_directive_escape.html)
       - [`#noescape`](https://freemarker.apache.org/docs/ref_directive_noescape.html)
+    - [`#ftl`](https://freemarker.apache.org/docs/ref_directive_ftl.html)
   - comments `<#-- -->`
   - built-ins:
     - `?toUpperCase`

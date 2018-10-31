@@ -14,6 +14,7 @@ export enum Directives {
   // fallback = NodeNames.Fallback, // TODO: unsupported
   function = NodeNames.Function,
   flush = NodeNames.Flush,
+  ftl = NodeNames.Ftl,
   global = NodeNames.Global,
   import = NodeNames.Import,
   local = NodeNames.Local,

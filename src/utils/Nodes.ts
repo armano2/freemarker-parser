@@ -1,37 +1,38 @@
 import NodeNames from '../enum/NodeNames'
 import ParseError from '../errors/ParseError'
-import { IToken } from '../types/Tokens'
+import { IToken } from '../interface/Tokens'
 
-import AbstractNode from '../types/Nodes/AbstractNode'
-import IAssign from '../types/Nodes/IAssign'
-import IAttempt from '../types/Nodes/IAttempt'
-import IBreak from '../types/Nodes/IBreak'
-import IComment from '../types/Nodes/IComment'
-import ICompress from '../types/Nodes/ICompress'
-import ICondition from '../types/Nodes/ICondition'
-import IEscape from '../types/Nodes/IEscape'
-import IFlush from '../types/Nodes/IFlush'
-import IFunction from '../types/Nodes/IFunction'
-import IGlobal from '../types/Nodes/IGlobal'
-import IImport from '../types/Nodes/IImport'
-import IInclude from '../types/Nodes/IInclude'
-import IInterpolation from '../types/Nodes/IInterpolation'
-import IList from '../types/Nodes/IList'
-import ILocal from '../types/Nodes/ILocal'
-import ILt from '../types/Nodes/ILt'
-import IMacro from '../types/Nodes/IMacro'
-import IMacroCall from '../types/Nodes/IMacroCall'
-import INoEscape from '../types/Nodes/INoEscape'
-import INt from '../types/Nodes/INt'
-import IReturn from '../types/Nodes/IReturn'
-import IRt from '../types/Nodes/IRt'
-import ISetting from '../types/Nodes/ISetting'
-import IStop from '../types/Nodes/IStop'
-import ISwitch from '../types/Nodes/ISwitch'
-import ISwitchCase from '../types/Nodes/ISwitchCase'
-import ISwitchDefault from '../types/Nodes/ISwitchDefault'
-import IT from '../types/Nodes/IT'
-import IText from '../types/Nodes/IText'
+import AbstractNode from '../nodes/abstract/AbstractNode'
+import AssignNode from '../nodes/AssignNode'
+import AttemptNode from '../nodes/AttemptNode'
+import BreakNode from '../nodes/BreakNode'
+import CommentNode from '../nodes/CommentNode'
+import CompressNode from '../nodes/CompressNode'
+import ConditionNode from '../nodes/ConditionNode'
+import EscapeNode from '../nodes/EscapeNode'
+import FlushNode from '../nodes/FlushNode'
+import FtlNode from '../nodes/FtlNode'
+import FunctionNode from '../nodes/FunctionNode'
+import GlobalNode from '../nodes/GlobalNode'
+import ImportNode from '../nodes/ImportNode'
+import IncludeNode from '../nodes/IncludeNode'
+import InterpolationNode from '../nodes/InterpolationNode'
+import ListNode from '../nodes/ListNode'
+import LocalNode from '../nodes/LocalNode'
+import LtNode from '../nodes/LtNode'
+import MacroCallNode from '../nodes/MacroCallNode'
+import MacroNode from '../nodes/MacroNode'
+import NoEscapeNode from '../nodes/NoEscapeNode'
+import NtNode from '../nodes/NtNode'
+import ReturnNode from '../nodes/ReturnNode'
+import RtNode from '../nodes/RtNode'
+import SettingNode from '../nodes/SettingNode'
+import StopNode from '../nodes/StopNode'
+import SwitchCaseNode from '../nodes/SwitchCaseNode'
+import SwitchDefaultNode from '../nodes/SwitchDefaultNode'
+import SwitchNode from '../nodes/SwitchNode'
+import TextNode from '../nodes/TextNode'
+import TNode from '../nodes/TNode'
 
 export interface INodes {
   [n : string] : (token : IToken, parent : AbstractNode) => AbstractNode
@@ -39,27 +40,27 @@ export interface INodes {
 
 const Nodes : INodes = {
   [NodeNames.Else] (token : IToken, parent : AbstractNode) : AbstractNode {
-    if (parent instanceof ICondition && !parent.alternate) {
+    if (parent instanceof ConditionNode && !parent.alternate) {
       parent.alternate = []
       return parent
-    } else if (parent instanceof IList && !parent.fallback) {
+    } else if (parent instanceof ListNode && !parent.fallback) {
       parent.fallback = []
       return parent
     }
     throw new ParseError(`Error while creating node '${NodeNames.Else}' inside '${parent.type}'`, token)
   },
-  [NodeNames.Condition] (token : IToken) : ICondition {
-    return new ICondition(token)
+  [NodeNames.Condition] (token : IToken) : ConditionNode {
+    return new ConditionNode(token)
   },
-  [NodeNames.ConditionElse] (token : IToken, parent : AbstractNode) : ICondition {
-    if (parent instanceof ICondition && !parent.alternate) {
+  [NodeNames.ConditionElse] (token : IToken, parent : AbstractNode) : ConditionNode {
+    if (parent instanceof ConditionNode && !parent.alternate) {
       parent.alternate = []
-      return new ICondition(token)
+      return new ConditionNode(token)
     }
     throw new ParseError(`Error while creating node '${NodeNames.ConditionElse}' inside '${parent.type}'`, token)
   },
   [NodeNames.Recover] (token : IToken, parent : AbstractNode) : AbstractNode {
-    if (parent instanceof IAttempt) {
+    if (parent instanceof AttemptNode) {
       if (!parent.fallback) {
         parent.fallback = []
         return parent
@@ -68,99 +69,102 @@ const Nodes : INodes = {
     throw new ParseError(`Error while creating node '${NodeNames.Recover}' inside '${parent.type}'`, token)
   },
   [NodeNames.SwitchCase] (token : IToken, parent : AbstractNode) : AbstractNode {
-    if (parent instanceof ISwitch) {
-      parent.cases.push(new ISwitchCase(token))
+    if (parent instanceof SwitchNode) {
+      parent.cases.push(new SwitchCaseNode(token))
       return parent
     }
     throw new ParseError(`Error while creating node '${NodeNames.SwitchCase}' inside '${parent.type}'`, token)
   },
   [NodeNames.SwitchDefault] (token : IToken, parent : AbstractNode) : AbstractNode {
-    if (parent instanceof ISwitch) {
-      parent.cases.push(new ISwitchDefault(token))
+    if (parent instanceof SwitchNode) {
+      parent.cases.push(new SwitchDefaultNode(token))
       return parent
     }
     throw new ParseError(`Error while creating node '${NodeNames.SwitchDefault}' inside '${parent.type}'`, token)
   },
-  [NodeNames.Global] (token : IToken) : IGlobal {
-    return new IGlobal(token)
+  [NodeNames.Global] (token : IToken) : GlobalNode {
+    return new GlobalNode(token)
   },
-  [NodeNames.Local] (token : IToken) : ILocal {
-    return new ILocal(token)
+  [NodeNames.Local] (token : IToken) : LocalNode {
+    return new LocalNode(token)
   },
-  [NodeNames.Assign] (token : IToken) : IAssign {
-    return new IAssign(token)
+  [NodeNames.Assign] (token : IToken) : AssignNode {
+    return new AssignNode(token)
   },
-  [NodeNames.Function] (token : IToken) : IFunction {
-    return new IFunction(token)
+  [NodeNames.Function] (token : IToken) : FunctionNode {
+    return new FunctionNode(token)
   },
-  [NodeNames.Return] (token : IToken) : IReturn {
-    return new IReturn(token)
+  [NodeNames.Return] (token : IToken) : ReturnNode {
+    return new ReturnNode(token)
   },
-  [NodeNames.Attempt] (token : IToken) : IAttempt {
-    return new IAttempt(token)
+  [NodeNames.Attempt] (token : IToken) : AttemptNode {
+    return new AttemptNode(token)
   },
-  [NodeNames.List] (token : IToken) : IList {
-    return new IList(token)
+  [NodeNames.List] (token : IToken) : ListNode {
+    return new ListNode(token)
   },
-  [NodeNames.Macro] (token : IToken) : IMacro {
-    return new IMacro(token)
+  [NodeNames.Macro] (token : IToken) : MacroNode {
+    return new MacroNode(token)
   },
-  [NodeNames.Include] (token : IToken) : IInclude {
-    return new IInclude(token)
+  [NodeNames.Include] (token : IToken) : IncludeNode {
+    return new IncludeNode(token)
   },
-  [NodeNames.Interpolation] (token : IToken) : IInterpolation {
-    return new IInterpolation(token)
+  [NodeNames.Interpolation] (token : IToken) : InterpolationNode {
+    return new InterpolationNode(token)
   },
-  [NodeNames.Text] (token : IToken) : IText {
-    return new IText(token)
+  [NodeNames.Text] (token : IToken) : TextNode {
+    return new TextNode(token)
   },
-  [NodeNames.MacroCall] (token : IToken) : IMacroCall {
-    return new IMacroCall(token)
+  [NodeNames.MacroCall] (token : IToken) : MacroCallNode {
+    return new MacroCallNode(token)
   },
-  [NodeNames.Comment] (token : IToken) : IComment {
-    return new IComment(token)
+  [NodeNames.Comment] (token : IToken) : CommentNode {
+    return new CommentNode(token)
   },
-  [NodeNames.Switch] (token : IToken) : ISwitch {
-    return new ISwitch(token)
+  [NodeNames.Switch] (token : IToken) : SwitchNode {
+    return new SwitchNode(token)
   },
-  [NodeNames.Break] (token : IToken) : IBreak {
-    return new IBreak(token)
+  [NodeNames.Break] (token : IToken) : BreakNode {
+    return new BreakNode(token)
   },
-  [NodeNames.Compress] (token : IToken) : ICompress {
-    return new ICompress(token)
+  [NodeNames.Compress] (token : IToken) : CompressNode {
+    return new CompressNode(token)
   },
-  [NodeNames.Import] (token : IToken) : IImport {
-    return new IImport(token)
+  [NodeNames.Import] (token : IToken) : ImportNode {
+    return new ImportNode(token)
   },
-  [NodeNames.Stop] (token : IToken) : IStop {
-    return new IStop(token)
+  [NodeNames.Stop] (token : IToken) : StopNode {
+    return new StopNode(token)
   },
-  [NodeNames.Setting] (token : IToken) : ISetting {
-    return new ISetting(token)
+  [NodeNames.Setting] (token : IToken) : SettingNode {
+    return new SettingNode(token)
   },
-  [NodeNames.Rt] (token : IToken) : IRt {
-    return new IRt(token)
+  [NodeNames.Rt] (token : IToken) : RtNode {
+    return new RtNode(token)
   },
-  [NodeNames.Lt] (token : IToken) : ILt {
-    return new ILt(token)
+  [NodeNames.Lt] (token : IToken) : LtNode {
+    return new LtNode(token)
   },
-  [NodeNames.Nt] (token : IToken) : INt {
-    return new INt(token)
+  [NodeNames.Nt] (token : IToken) : NtNode {
+    return new NtNode(token)
   },
-  [NodeNames.T] (token : IToken) : IT {
-    return new IT(token)
+  [NodeNames.T] (token : IToken) : TNode {
+    return new TNode(token)
   },
-  [NodeNames.Flush] (token : IToken) : IFlush {
-    return new IFlush(token)
+  [NodeNames.Flush] (token : IToken) : FlushNode {
+    return new FlushNode(token)
   },
-  [NodeNames.Escape] (token : IToken) : IEscape {
-    return new IEscape(token)
+  [NodeNames.Escape] (token : IToken) : EscapeNode {
+    return new EscapeNode(token)
   },
-  [NodeNames.NoEscape] (token : IToken, parent : AbstractNode) : INoEscape {
-    if (parent instanceof IEscape || parent instanceof INoEscape) {
-      return new INoEscape(token)
+  [NodeNames.NoEscape] (token : IToken, parent : AbstractNode) : NoEscapeNode {
+    if (parent instanceof EscapeNode || parent instanceof NoEscapeNode) {
+      return new NoEscapeNode(token)
     }
     throw new ParseError(`Error while creating node '${NodeNames.NoEscape}' inside '${parent.type}'`, token)
+  },
+  [NodeNames.Ftl] (token : IToken) : FtlNode {
+    return new FtlNode(token)
   },
 }
 

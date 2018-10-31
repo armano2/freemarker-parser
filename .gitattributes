@@ -1,1 +1,3 @@
-* text=auto eol=lf
+* text=auto
+
+*.ts text=auto eol=lf

@@ -1,6 +1,6 @@
 import { Tokenizer } from '../src'
+import { IToken } from '../src/interface/Tokens'
 import { ENodeType } from '../src/Symbols'
-import { IToken } from '../src/types/Tokens'
 import Tester from './testers/TokenizerTester'
 
 const tokenizer = new Tokenizer()

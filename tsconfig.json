@@ -28,7 +28,7 @@
     "declarationDir": "./types/",
     "outDir": "./dist/",
     "sourceMap": true,
-    "sourceRoot": "src",
+    "sourceRoot": "./src/",
     "pretty": true,
     "removeComments": true,
     "strict": true,

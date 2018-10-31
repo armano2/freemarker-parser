@@ -1,6 +1,6 @@
 import * as assert from 'assert'
+import { IToken } from '../../src/interface/Tokens'
 import { ENodeType } from '../../src/Symbols'
-import { IToken } from '../../src/types/Tokens'
 
 export default class Tester {
   public static instance (tokens : IToken[]) {
