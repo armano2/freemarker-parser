@@ -10,7 +10,7 @@ import {
   ICallExpression,
   IIdentifier,
   ILiteral,
-  ILogicalExpression,
+  ILogicalExpression, IMapExpression, IMapExpressionValues,
   IMemberExpression,
   IUnaryExpression,
   IUpdateExpression,
@@ -309,6 +309,8 @@ export class ParamsParser extends AbstractTokenizer {
       return this.parseVariable()
     } else if (ch === ECharCodes.OpenBracket) {
       return this.parseArray()
+    } else if (ch === ECharCodes.OpenBrace) {
+      return this.parseMap()
     } else {
       toCheck = this.template.substr(this.index, maxUnopLen)
       tcLen = toCheck.length
@@ -549,6 +551,61 @@ export class ParamsParser extends AbstractTokenizer {
     return {
       type: ParamNames.ArrayExpression,
       elements: this.parseArguments(ECharCodes.CloseBracket),
+    }
+  }
+
+  /**
+   * Responsible for parsing Map literals `[a: 1, b: 2, c: 3]`
+   * This function assumes that it needs to gobble the opening brace
+   * and then tries to gobble the expressions as arguments.
+   */
+  protected parseMap () : IMapExpression {
+    let ch : number
+    const elements : IMapExpressionValues[] = []
+    ++this.index
+    while (this.index < this.length) {
+      this.parseSpaces()
+
+      ch = this.charCodeAt(this.index)
+
+      if (ch === ECharCodes.CloseBrace) {
+        ++this.index
+        break
+      }
+
+      if (ch !== ECharCodes.SingleQuote && ch !== ECharCodes.DoubleQuote) {
+        throw new ParseError(`Invalid character ${String.fromCharCode(ch)}`, { start: this.index, end: this.index })
+      }
+      const key = this.parseStringLiteral()
+
+      this.parseSpaces()
+
+      ch = this.charCodeAt(this.index)
+      if (ch !== ECharCodes.Colon) {
+        throw new ParseError(`Invalid character ${String.fromCharCode(ch)}`, { start: this.index, end: this.index })
+      }
+      ++this.index
+      this.parseSpaces()
+
+      const value = this.parseExpression()
+      if (!value) {
+        throw new ParseError(`Invalid character ${String.fromCharCode(ch)}`, { start: this.index, end: this.index })
+      }
+
+      ch = this.charCodeAt(this.index)
+      if (ch === ECharCodes.Comma) {
+        ++this.index
+      }
+
+      elements.push({
+        key,
+        value,
+      })
+    }
+
+    return {
+      type: ParamNames.MapExpression,
+      elements,
     }
   }
 }

@@ -10,6 +10,9 @@
       "property-declaration": "onespace",
       "variable-declaration": "onespace"
     }],
+    "no-debugger": {
+      "severity": "error"
+    },
     "no-object-literal-type-assertion": false,
     "space-before-function-paren": true,
     "quotemark": [true, "single"],

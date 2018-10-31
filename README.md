@@ -67,7 +67,7 @@ console.log(data.tokens)
   - interpolations `${foo}`
     - methods, i.e. `${avg(3, 5)}`
   - executing macro
-  - directives: http://freemarker.sourceforge.net/docs/ref_directives.html
+  - directives: https://freemarker.apache.org/
     - `#attempt`
       - `#recover`
     - `#assign`
@@ -103,12 +103,12 @@ console.log(data.tokens)
     - `?capitalize`
     - `?length`
     - `?string("yes", "no")`
+    - `#escape`
+      - `#noescape`
   - support default values, i.e. `${user!"Anonymous"}`
 
 ## TODO:
   - directives:
-    - `#escape`
-      - `#noescape`
     - `#fallback`
     - `#nested`
     - `#recurse`

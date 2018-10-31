@@ -13,9 +13,9 @@ const Directives : IDirectivesTypes = {
   assign: NodeNames.Assign,
   attempt: NodeNames.Attempt,
   compress: NodeNames.Compress,
-  // escape: NodeNames.Escape,
-  // noescape: NodeNames.NoEscape,
-  // fallback: NodeNames.Fallback,
+  escape: NodeNames.Escape,
+  noescape: NodeNames.NoEscape,
+  // fallback: NodeNames.Fallback, // TODO: unsupported
   function: NodeNames.Function,
   flush: NodeNames.Flush,
   global: NodeNames.Global,
@@ -23,10 +23,10 @@ const Directives : IDirectivesTypes = {
   local: NodeNames.Local,
   lt: NodeNames.Lt,
   macro: NodeNames.Macro,
-  // nested: NodeNames.Nested,
+  // nested: NodeNames.Nested, // TODO: unsupported
   nt: NodeNames.Nt,
   recover: NodeNames.Recover,
-  // recurse: NodeNames.Recurse,
+  // recurse: NodeNames.Recurse, // TODO: unsupported
   return: NodeNames.Return,
   rt: NodeNames.Rt,
   setting: NodeNames.Setting,
@@ -36,9 +36,8 @@ const Directives : IDirectivesTypes = {
   default: NodeNames.SwitchDefault,
   break: NodeNames.Break,
   t: NodeNames.T,
-  // visit: NodeNames.Visit,
+  // visit: NodeNames.Visit, // TODO: unsupported
   noparse: NodeNames.Text,
-  noParse: NodeNames.Text,
 }
 
 export default Directives

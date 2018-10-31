@@ -73,7 +73,17 @@ export interface IUpdateExpression extends IExpression {
   argument : AllParamTypes
 }
 
+export interface IMapExpressionValues {
+  key : ILiteral
+  value : AllParamTypes
+}
+
+export interface IMapExpression extends IExpression {
+  type : ParamNames.MapExpression
+  elements : IMapExpressionValues[]
+}
+
 export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier |
   IBinaryExpression | ILogicalExpression | IUnaryExpression |
   IMemberExpression | ICallExpression | ICompound |
-  IAssignmentExpression | IUpdateExpression
+  IAssignmentExpression | IUpdateExpression | IMapExpression

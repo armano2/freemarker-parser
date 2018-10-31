@@ -1,5 +1,7 @@
 import NodeNames from '../enum/NodeNames'
 import ParseError from '../errors/ParseError'
+import { IToken } from '../types/Tokens'
+
 import AbstractNode from '../types/Nodes/AbstractNode'
 import IAssign from '../types/Nodes/IAssign'
 import IAttempt from '../types/Nodes/IAttempt'
@@ -7,6 +9,7 @@ import IBreak from '../types/Nodes/IBreak'
 import IComment from '../types/Nodes/IComment'
 import ICompress from '../types/Nodes/ICompress'
 import ICondition from '../types/Nodes/ICondition'
+import IEscape from '../types/Nodes/IEscape'
 import IFlush from '../types/Nodes/IFlush'
 import IFunction from '../types/Nodes/IFunction'
 import IGlobal from '../types/Nodes/IGlobal'
@@ -18,6 +21,7 @@ import ILocal from '../types/Nodes/ILocal'
 import ILt from '../types/Nodes/ILt'
 import IMacro from '../types/Nodes/IMacro'
 import IMacroCall from '../types/Nodes/IMacroCall'
+import INoEscape from '../types/Nodes/INoEscape'
 import INt from '../types/Nodes/INt'
 import IReturn from '../types/Nodes/IReturn'
 import IRt from '../types/Nodes/IRt'
@@ -28,7 +32,6 @@ import ISwitchCase from '../types/Nodes/ISwitchCase'
 import ISwitchDefault from '../types/Nodes/ISwitchDefault'
 import IT from '../types/Nodes/IT'
 import IText from '../types/Nodes/IText'
-import { IToken } from '../types/Tokens'
 
 export interface INodes {
   [n : string] : (token : IToken, parent : AbstractNode) => AbstractNode
@@ -149,6 +152,15 @@ const Nodes : INodes = {
   },
   [NodeNames.Flush] (token : IToken) : IFlush {
     return new IFlush(token)
+  },
+  [NodeNames.Escape] (token : IToken) : IEscape {
+    return new IEscape(token)
+  },
+  [NodeNames.NoEscape] (token : IToken, parent : AbstractNode) : INoEscape {
+    if (parent instanceof IEscape || parent instanceof INoEscape) {
+      return new INoEscape(token)
+    }
+    throw new ParseError(`Error while creating node '${NodeNames.NoEscape}' inside '${parent.type}'`, token)
   },
 }
 

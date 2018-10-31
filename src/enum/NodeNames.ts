@@ -30,13 +30,12 @@ enum NodeNames {
   Rt = 'Rt',
   T = 'T',
   Flush = 'Flush',
-
-  // Not supported
-  // Escape = 'Escape',
-  // NoEscape = 'NoEscape',
-  // Visit = 'visit',
-  // Recurse = 'Recurse',
-  // Nested = 'Nested',
+  Escape = 'Escape',
+  NoEscape = 'NoEscape',
+  Visit = 'visit',
+  Recurse = 'Recurse',
+  Nested = 'Nested',
+  Fallback = 'Fallback',
 }
 
 export default NodeNames

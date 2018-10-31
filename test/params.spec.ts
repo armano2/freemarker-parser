@@ -103,6 +103,67 @@ describe('params parser', () => {
     }
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
+  it('array expression', () => {
+    const result = parser.parse('["","a"]')
+    const expected = {
+      type: ParamNames.ArrayExpression,
+      elements: [
+        {
+          type: ParamNames.Literal,
+          value: '',
+          raw: '""',
+        },
+        {
+          type: ParamNames.Literal,
+          value: 'a',
+          raw: '"a"',
+        },
+      ],
+    }
+    assert.deepStrictEqual(result, expected, 'value is not matching')
+  })
+  it('empty object expression', () => {
+    const result = parser.parse('{}')
+    const expected = {
+      type: ParamNames.MapExpression,
+      elements: [
+      ],
+    }
+    assert.deepStrictEqual(result, expected, 'value is not matching')
+  })
+  it('object expression', () => {
+    const result = parser.parse('{"x":1,"y":2}')
+    const expected = {
+      type: ParamNames.MapExpression,
+      elements: [
+        {
+          key: {
+            type: ParamNames.Literal,
+            value: 'x',
+            raw: '"x"',
+          },
+          value: {
+            type: ParamNames.Literal,
+            value: 1,
+            raw: '1',
+          },
+        },
+        {
+          key: {
+            type: ParamNames.Literal,
+            value: 'y',
+            raw: '"y"',
+          },
+          value: {
+            type: ParamNames.Literal,
+            value: 2,
+            raw: '2',
+          },
+        },
+      ],
+    }
+    assert.deepStrictEqual(result, expected, 'value is not matching')
+  })
   it('to string', () => {
     const result = parser.parse('foo?string("yes")')
     const expected = {

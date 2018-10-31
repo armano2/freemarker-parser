@@ -8,6 +8,7 @@ enum ParamNames {
   BinaryExpression = 'BinaryExpression',
   LogicalExpression = 'LogicalExpression',
   ArrayExpression = 'ArrayExpression',
+  MapExpression = 'MapExpression',
   AssignmentExpression = 'AssignmentExpression',
   UpdateExpression = 'UpdateExpression',
 }

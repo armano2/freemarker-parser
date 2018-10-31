@@ -6,7 +6,7 @@ import { IToken } from './types/Tokens'
 
 import AbstractNode from './types/Nodes/AbstractNode'
 import IProgram from './types/Nodes/IProgram'
-import directives from './utils/Directives'
+import Directives from './utils/Directives'
 
 import NodeNames from './enum/NodeNames'
 import {ParserLocation} from './ParserLocation'
@@ -18,7 +18,6 @@ export interface IParserReturn {
 }
 
 export class Parser extends ParserLocation {
-
   public parse (template : string, options : ITokenizerOptions = {}) : IParserReturn {
     super.parse(template)
     const ast = new IProgram(0, template.length - 1)
@@ -93,15 +92,12 @@ export class Parser extends ParserLocation {
 
   protected addNodeChild (parent : AbstractNode, token : IToken) : AbstractNode {
     const tokenType = this.tokenToNodeType(token)
-    if (tokenType in Nodes) {
-      const node : AbstractNode = Nodes[tokenType](token, parent)
-      if (parent !== node) {
-        parent.addToNode(node)
-      }
-      return node
-    }
 
-    throw new ParseError(`Unknown '${tokenType}'`, token)
+    const node : AbstractNode = Nodes[tokenType](token, parent)
+    if (parent !== node) {
+      parent.addToNode(node)
+    }
+    return node
   }
 
   protected isPartial (type : NodeNames, parentType : NodeNames) : boolean {
@@ -109,9 +105,9 @@ export class Parser extends ParserLocation {
       case NodeNames.ConditionElse:
         return NodeNames.Condition === parentType
       case NodeNames.Else:
-        return (NodeNames.Condition === parentType || NodeNames.List === parentType)
+        return NodeNames.Condition === parentType || NodeNames.List === parentType
       case NodeNames.Recover:
-        return (NodeNames.Attempt === parentType)
+        return NodeNames.Attempt === parentType
     }
 
     return false
@@ -120,10 +116,10 @@ export class Parser extends ParserLocation {
   protected tokenToNodeType (token : IToken) : NodeNames {
     switch (token.type) {
       case ENodeType.Directive:
-        if (token.text in directives) {
-          return directives[token.text]
+        if (token.text in Directives) {
+          return Directives[token.text]
         }
-        throw new ParseError(`Directive \`${token.text}\` is not supported`, token)
+        break
       case ENodeType.Interpolation:
         return NodeNames.Interpolation
       case ENodeType.Text:
@@ -133,6 +129,6 @@ export class Parser extends ParserLocation {
       case ENodeType.Comment:
         return NodeNames.Comment
     }
-    throw new ParseError(`Unknow token \`${token.type}\` - \`${token.text}\``, token)
+    throw new ParseError(`Unknown token \`${token.type}\` - \`${token.text}\``, token)
   }
 }
