@@ -25,12 +25,8 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist/",
-    "paths": {
-      "*": [
-        "typings/*.d.ts"
-      ]
-    },
+    "declarationDir": "./types/",
+    "outDir": "./dist/",
     "sourceMap": true,
     "sourceRoot": "src",
     "pretty": true,

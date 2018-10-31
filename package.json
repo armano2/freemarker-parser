@@ -10,10 +10,17 @@
     "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
     "lint": "tslint '**/*.ts'",
     "lint-fix": "tslint '**/*.ts' --fix",
-    "update-ast": "npm run build & node ./scripts/update-ast.js",
+    "update-ast": "ts-node ./scripts/update-ast.ts",
     "watch": "tsc --watch",
     "coverage": "nyc mocha \"test/*.ts\" && nyc report --reporter html"
   },
+  "typings": "types/index.d.ts",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/armano2/freemarker-parser.git"
@@ -33,11 +40,6 @@
   "bugs": {
     "url": "https://github.com/armano2/freemarker-parser/issues"
   },
-  "main": "dist/index.js",
-  "files": [
-    "dist/*.d.ts",
-    "dist/*.js"
-  ],
   "homepage": "https://github.com/armano2/freemarker-parser#readme",
   "devDependencies": {
     "@types/glob": "^7.1.1",
@@ -47,7 +49,6 @@
     "glob": "^7.1.3",
     "mocha": "^5.2.0",
     "mocha-junit-reporter": "^1.18.0",
-    "mocha-typescript": "^1.1.17",
     "nyc": "^13.1.0",
     "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",

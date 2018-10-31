@@ -1,4 +1,4 @@
-const enum ECharCodes {
+enum ECharCodes {
   // C0 control codes
   Null = 0,
   StartOfHeading = 1,

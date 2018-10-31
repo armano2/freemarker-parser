@@ -87,10 +87,9 @@ console.log(data.tokens)
       - `#case`
       - `#default`
       - `#break`
-    - [`#break`](https://freemarker.apache.org/docs/ref_directive_break.html)
     - [`#compress`](https://freemarker.apache.org/docs/ref_directive_compress.html)
     - [`#function`](https://freemarker.apache.org/docs/ref_directive_function.html)
-      - [`#return`](https://freemarker.apache.org/docs/ref_directive_return.html)
+      - `#return`
     - [`#parse`](https://freemarker.apache.org/docs/ref_directive_parse.html)
 		- [`#noparse`](https://freemarker.apache.org/docs/ref_directive_noparse.html)
     - [`#stop`](https://freemarker.apache.org/docs/ref_directive_stop.html)

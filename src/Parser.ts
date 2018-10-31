@@ -4,9 +4,9 @@ import { ENodeType } from './Symbols'
 import { ITokenizerOptions, Tokenizer } from './Tokenizer'
 import { IToken } from './types/Tokens'
 
+import { Directives } from './enum/Directives'
 import AbstractNode from './types/Nodes/AbstractNode'
 import IProgram from './types/Nodes/IProgram'
-import Directives from './utils/Directives'
 
 import NodeNames from './enum/NodeNames'
 import {ParserLocation} from './ParserLocation'
@@ -117,7 +117,7 @@ export class Parser extends ParserLocation {
     switch (token.type) {
       case ENodeType.Directive:
         if (token.text in Directives) {
-          return Directives[token.text]
+          return Directives[token.text as any] as NodeNames
         }
         break
       case ENodeType.Interpolation:
