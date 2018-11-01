@@ -50,11 +50,6 @@ export default class Tester {
     return this
   }
 
-  public isCloseTag (isClose : boolean) {
-    assert.strictEqual(this.token.isClose, isClose, `[${this.index}] should isClose = ${isClose}`)
-    return this
-  }
-
   public hasText (text : string) {
     assert.strictEqual(this.token.text, text, `[${this.index}] text do not match`)
     return this
