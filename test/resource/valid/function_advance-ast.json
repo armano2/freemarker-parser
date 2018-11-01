@@ -215,31 +215,25 @@
           "start": 111,
           "end": 131,
           "params": {
-            "type": "Compound",
-            "body": [
-              {
+            "type": "BinaryExpression",
+            "operator": "!=",
+            "left": {
+              "type": "BuiltInExpression",
+              "operator": "?",
+              "left": {
                 "type": "Identifier",
                 "name": "nums"
               },
-              {
-                "type": "BinaryExpression",
-                "operator": "!=",
-                "left": {
-                  "type": "UnaryExpression",
-                  "operator": "?",
-                  "argument": {
-                    "type": "Identifier",
-                    "name": "size"
-                  },
-                  "prefix": true
-                },
-                "right": {
-                  "type": "Literal",
-                  "value": 0,
-                  "raw": "0"
-                }
+              "right": {
+                "type": "Identifier",
+                "name": "size"
               }
-            ]
+            },
+            "right": {
+              "type": "Literal",
+              "value": 0,
+              "raw": "0"
+            }
           },
           "consequent": [
             {
@@ -263,30 +257,24 @@
               "start": 136,
               "end": 161,
               "params": {
-                "type": "Compound",
-                "body": [
-                  {
-                    "type": "BinaryExpression",
-                    "operator": "/",
-                    "left": {
-                      "type": "Identifier",
-                      "name": "sum"
-                    },
-                    "right": {
-                      "type": "Identifier",
-                      "name": "nums"
-                    }
+                "type": "BinaryExpression",
+                "operator": "/",
+                "left": {
+                  "type": "Identifier",
+                  "name": "sum"
+                },
+                "right": {
+                  "type": "BuiltInExpression",
+                  "operator": "?",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "nums"
                   },
-                  {
-                    "type": "UnaryExpression",
-                    "operator": "?",
-                    "argument": {
-                      "type": "Identifier",
-                      "name": "size"
-                    },
-                    "prefix": true
+                  "right": {
+                    "type": "Identifier",
+                    "name": "size"
                   }
-                ]
+                }
               },
               "loc": {
                 "start": {

@@ -66,6 +66,13 @@ export interface IAssignmentExpression extends IExpression {
   right : AllParamTypes
 }
 
+export interface IBuiltInExpression {
+  type : ParamNames.BuiltInExpression
+  operator : string
+  left : AllParamTypes
+  right : AllParamTypes
+}
+
 export interface IUpdateExpression extends IExpression {
   type : ParamNames.UpdateExpression
   operator : string
@@ -84,6 +91,6 @@ export interface IMapExpression extends IExpression {
 }
 
 export type AllParamTypes = ILiteral | IArrayExpression | IIdentifier |
-  IBinaryExpression | ILogicalExpression | IUnaryExpression |
+  IBinaryExpression | ILogicalExpression | IUnaryExpression | IBuiltInExpression |
   IMemberExpression | ICallExpression | ICompound |
   IAssignmentExpression | IUpdateExpression | IMapExpression

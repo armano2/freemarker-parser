@@ -794,17 +794,16 @@
             "name": "as"
           },
           {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
+            "type": "BuiltInExpression",
             "operator": "?",
-            "argument": {
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
               "type": "Identifier",
               "name": "html"
-            },
-            "prefix": true
+            }
           }
         ]
       },
@@ -877,17 +876,16 @@
                 "name": "as"
               },
               {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "UnaryExpression",
+                "type": "BuiltInExpression",
                 "operator": "?",
-                "argument": {
+                "left": {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                "right": {
                   "type": "Identifier",
                   "name": "xml"
-                },
-                "prefix": true
+                }
               }
             ]
           },
@@ -1133,17 +1131,16 @@
             "name": "as"
           },
           {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
+            "type": "BuiltInExpression",
             "operator": "?",
-            "argument": {
+            "left": {
+              "type": "Identifier",
+              "name": "x"
+            },
+            "right": {
               "type": "Identifier",
               "name": "upper_case"
-            },
-            "prefix": true
+            }
           }
         ]
       },
@@ -1215,17 +1212,16 @@
                 "name": "as"
               },
               {
-                "type": "Identifier",
-                "name": "x"
-              },
-              {
-                "type": "UnaryExpression",
+                "type": "BuiltInExpression",
                 "operator": "?",
-                "argument": {
+                "left": {
+                  "type": "Identifier",
+                  "name": "x"
+                },
+                "right": {
                   "type": "Identifier",
                   "name": "html"
-                },
-                "prefix": true
+                }
               }
             ]
           },
@@ -1535,17 +1531,16 @@
                     "name": "as"
                   },
                   {
-                    "type": "Identifier",
-                    "name": "x"
-                  },
-                  {
-                    "type": "UnaryExpression",
+                    "type": "BuiltInExpression",
                     "operator": "?",
-                    "argument": {
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
                       "type": "Identifier",
                       "name": "html"
-                    },
-                    "prefix": true
+                    }
                   }
                 ]
               },
@@ -1939,58 +1934,56 @@
             "type": "BinaryExpression",
             "operator": "+",
             "left": {
-              "type": "Literal",
-              "value": "<",
-              "raw": "'<'"
-            },
-            "right": {
-              "type": "Identifier",
-              "name": "x"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "operator": "+",
-            "left": {
-              "type": "BinaryExpression",
-              "operator": "+",
-              "left": {
-                "type": "UnaryExpression",
-                "operator": "?",
-                "argument": {
-                  "type": "Identifier",
-                  "name": "html"
-                },
-                "prefix": true
-              },
-              "right": {
-                "type": "Literal",
-                "value": ">[",
-                "raw": "'>['"
-              }
-            },
-            "right": {
-              "type": "Identifier",
-              "name": "x"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "operator": "+",
-            "left": {
               "type": "BinaryExpression",
               "operator": "+",
               "left": {
                 "type": "BinaryExpression",
                 "operator": "+",
                 "left": {
-                  "type": "UnaryExpression",
-                  "operator": "?",
-                  "argument": {
-                    "type": "Identifier",
-                    "name": "lower_case"
+                  "type": "BinaryExpression",
+                  "operator": "+",
+                  "left": {
+                    "type": "BinaryExpression",
+                    "operator": "+",
+                    "left": {
+                      "type": "BinaryExpression",
+                      "operator": "+",
+                      "left": {
+                        "type": "Literal",
+                        "value": "<",
+                        "raw": "'<'"
+                      },
+                      "right": {
+                        "type": "BuiltInExpression",
+                        "operator": "?",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "x"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "html"
+                        }
+                      }
+                    },
+                    "right": {
+                      "type": "Literal",
+                      "value": ">[",
+                      "raw": "'>['"
+                    }
                   },
-                  "prefix": true
+                  "right": {
+                    "type": "BuiltInExpression",
+                    "operator": "?",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "x"
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "lower_case"
+                    }
+                  }
                 },
                 "right": {
                   "type": "Literal",
@@ -2126,29 +2119,28 @@
                 "type": "BinaryExpression",
                 "operator": "+",
                 "left": {
-                  "type": "Literal",
-                  "value": "{",
-                  "raw": "'{'"
-                },
-                "right": {
-                  "type": "Identifier",
-                  "name": "x"
-                }
-              },
-              {
-                "type": "BinaryExpression",
-                "operator": "+",
-                "left": {
                   "type": "BinaryExpression",
                   "operator": "+",
                   "left": {
-                    "type": "UnaryExpression",
-                    "operator": "?",
-                    "argument": {
-                      "type": "Identifier",
-                      "name": "lower_case"
+                    "type": "BinaryExpression",
+                    "operator": "+",
+                    "left": {
+                      "type": "Literal",
+                      "value": "{",
+                      "raw": "'{'"
                     },
-                    "prefix": true
+                    "right": {
+                      "type": "BuiltInExpression",
+                      "operator": "?",
+                      "left": {
+                        "type": "Identifier",
+                        "name": "x"
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "lower_case"
+                      }
+                    }
                   },
                   "right": {
                     "type": "Literal",

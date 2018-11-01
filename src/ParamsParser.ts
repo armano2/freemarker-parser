@@ -1,5 +1,6 @@
 import AbstractTokenizer from './AbstractTokenizer'
 import ECharCodes from './enum/CharCodes'
+import {EBinaryOps, ELiterals, EOperators, EUnaryOps, maxBinaryOps, maxUnaryOps} from './enum/Operators'
 import ParamNames from './enum/ParamNames'
 import ParseError from './errors/ParseError'
 import {
@@ -7,6 +8,7 @@ import {
   IArrayExpression,
   IAssignmentExpression,
   IBinaryExpression,
+  IBuiltInExpression,
   ICallExpression,
   IIdentifier,
   ILiteral,
@@ -16,17 +18,11 @@ import {
   IUpdateExpression,
 } from './interface/Params'
 import {
-  binaryOps,
   isDecimalDigit,
   isIdentifierPart,
   isIdentifierStart,
   isWhitespace,
-  literals,
-  maxBinopLen,
-  maxUnopLen,
-  unaryOps,
 } from './utils/Chars'
-import {EOperators} from './enum/Operators'
 
 // Specify values directly
 // - Strings: "Foo" or 'Foo' or "It's \"quoted\"" or 'It\'s "quoted"' or r"C:\raw\string"
@@ -59,7 +55,7 @@ import {EOperators} from './enum/Operators'
 // - Assignment operators: =, +=, -=, *=, /=, %=, ++, --
 
 interface IBiopInfo {
-  value : string
+  value : EOperators
   prec : number
 }
 
@@ -75,15 +71,15 @@ function isAllParamTypes (object : any) : object is AllParamTypes {
  * Returns the precedence of a binary operator or `0` if it isn't a binary operator
  * @param opVal
  */
-function binaryPrecedence (opVal : string) : number {
-  return binaryOps[opVal] || 0
+function binaryPrecedence (opVal : EOperators) : number {
+  return EBinaryOps[opVal] || 0
 }
 
 /**
  * Utility function (gets called from multiple places)
  * Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
  */
-function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression | IAssignmentExpression {
+function createBinaryExpression (operator : EOperators, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression | IAssignmentExpression | IBuiltInExpression {
   switch (operator) {
     case EOperators.EQUALS:
     case EOperators.PLUS_EQUALS:
@@ -92,6 +88,8 @@ function createBinaryExpression (operator : string, left : AllParamTypes, right 
     case EOperators.DIV_EQUALS:
     case EOperators.MOD_EQUALS:
       return createAssignmentExpression(operator, left, right)
+    case EOperators.BUILT_IN:
+      return createBuiltInExpression(operator, left, right)
     case EOperators.OR:
     case EOperators.AND:
       return { type: ParamNames.LogicalExpression, operator, left, right }
@@ -102,6 +100,10 @@ function createBinaryExpression (operator : string, left : AllParamTypes, right 
 
 function createAssignmentExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IAssignmentExpression {
   return { type: ParamNames.AssignmentExpression, operator, left, right }
+}
+
+function createBuiltInExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBuiltInExpression {
+  return { type: ParamNames.BuiltInExpression, operator, left, right }
 }
 
 function createUnaryExpression (operator : string, argument : AllParamTypes | null, prefix : boolean = true) : IUnaryExpression | IUpdateExpression {
@@ -118,10 +120,14 @@ function createUnaryExpression (operator : string, argument : AllParamTypes | nu
 }
 
 export class ParamsParser extends AbstractTokenizer {
-  public parse (template : string) : AllParamTypes {
+  constructor (template : string) {
+    super()
     super.init(template)
-    const nodes = []
+  }
+
+  public parseExpressions () : AllParamTypes {
     let node
+    const nodes = []
 
     while (this.index < this.length)   {
       // Try to gobble each expression individually
@@ -151,6 +157,15 @@ export class ParamsParser extends AbstractTokenizer {
   }
 
   /**
+   * The main parsing function. Much of this code is dedicated to ternary expressions
+   */
+  protected parseExpression () : AllParamTypes | null {
+    const test = this.parseBinaryExpression()
+    this.parseSpaces()
+    return test
+  }
+
+  /**
    * Push `index` up to the next non-space character
    */
   protected parseSpaces () {
@@ -162,28 +177,19 @@ export class ParamsParser extends AbstractTokenizer {
   }
 
   /**
-   * The main parsing function. Much of this code is dedicated to ternary expressions
-   */
-  protected parseExpression () : AllParamTypes | null {
-    const test = this.parseBinaryExpression()
-    this.parseSpaces()
-    return test
-  }
-
-  /**
    * Search for the operation portion of the string (e.g. `+`, `===`)
    * Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
    * and move down from 3 to 2 to 1 character until a matching binary operation is found
    * then, return that binary operation
    */
-  protected parseBinaryOp () : string | null {
+  protected parseBinaryOp () : EOperators | null {
     this.parseSpaces()
-    let toCheck = this.template.substr(this.index, maxBinopLen)
+    let toCheck = this.template.substr(this.index, maxBinaryOps)
     let tcLen = toCheck.length
     while (tcLen > 0) {
-      if (binaryOps.hasOwnProperty(toCheck)) {
+      if (EBinaryOps.hasOwnProperty(toCheck)) {
         this.index += tcLen
-        return toCheck
+        return toCheck as EOperators
       }
       toCheck = toCheck.substr(0, --tcLen)
     }
@@ -196,7 +202,7 @@ export class ParamsParser extends AbstractTokenizer {
    */
   protected parseBinaryExpression () : AllParamTypes | null {
     let node
-    let biop : string | null
+    let biop : EOperators | null
     let prec
     let stack : Array<AllParamTypes | IBiopInfo>
     let biopInfo
@@ -215,7 +221,7 @@ export class ParamsParser extends AbstractTokenizer {
       return left
     }
 
-    if (biop === '++' || biop === '--') {
+    if (biop === EOperators.PLUS_PLUS || biop === EOperators.MINUS_MINUS) {
       return createUnaryExpression(biop, left, false)
     }
 
@@ -294,9 +300,6 @@ export class ParamsParser extends AbstractTokenizer {
    * e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
    */
   protected parseToken () : AllParamTypes | null {
-    let toCheck
-    let tcLen
-
     this.parseSpaces()
     const ch = this.charCodeAt(this.index)
 
@@ -314,10 +317,10 @@ export class ParamsParser extends AbstractTokenizer {
     } else if (ch === ECharCodes.OpenBrace) {
       return this.parseMap()
     } else {
-      toCheck = this.template.substr(this.index, maxUnopLen)
-      tcLen = toCheck.length
+      let toCheck = this.template.substr(this.index, maxUnaryOps)
+      let tcLen = toCheck.length
       while (tcLen > 0) {
-        if (unaryOps.hasOwnProperty(toCheck)) {
+        if (toCheck in EUnaryOps) {
           this.index += tcLen
           return createUnaryExpression(toCheck, this.parseToken(), true)
         }
@@ -423,10 +426,10 @@ export class ParamsParser extends AbstractTokenizer {
     }
     identifier = this.template.slice(start, this.index)
 
-    if (literals.hasOwnProperty(identifier)) {
+    if (identifier in ELiterals) {
       return {
         type: ParamNames.Literal,
-        value: literals[identifier],
+        value: ELiterals[identifier],
         raw: identifier,
       }
     } else {

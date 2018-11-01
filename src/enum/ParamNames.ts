@@ -10,6 +10,7 @@ enum ParamNames {
   ArrayExpression = 'ArrayExpression',
   MapExpression = 'MapExpression',
   AssignmentExpression = 'AssignmentExpression',
+  BuiltInExpression = 'BuiltInExpression',
   UpdateExpression = 'UpdateExpression',
 }
 

@@ -217,30 +217,24 @@
           "start": 108,
           "end": 127,
           "params": {
-            "type": "Compound",
-            "body": [
-              {
-                "type": "MemberExpression",
-                "computed": false,
-                "object": {
-                  "type": "Identifier",
-                  "name": "foo"
-                },
-                "property": {
-                  "type": "Identifier",
-                  "name": "bar"
-                }
+            "type": "BuiltInExpression",
+            "operator": "?",
+            "left": {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": "foo"
               },
-              {
-                "type": "UnaryExpression",
-                "operator": "?",
-                "argument": {
-                  "type": "Identifier",
-                  "name": "toString"
-                },
-                "prefix": true
+              "property": {
+                "type": "Identifier",
+                "name": "bar"
               }
-            ]
+            },
+            "right": {
+              "type": "Literal",
+              "raw": "toString"
+            }
           },
           "loc": {
             "start": {

@@ -1,15 +1,19 @@
 import * as assert from 'assert'
+import {EOperators} from '../src/enum/Operators'
 import ParamNames from '../src/enum/ParamNames'
 import { ParamsParser } from '../src/ParamsParser'
 
-const parser = new ParamsParser()
+function parse (template : string) {
+  const parser = new ParamsParser(template)
+  return parser.parseExpressions()
+}
 
 describe('params parser', () => {
   it('BinaryExpression', () => {
-    const result = parser.parse('a + 1')
+    const result = parse('a + 1')
     const expected = {
       type: ParamNames.BinaryExpression,
-      operator: '+',
+      operator: EOperators.PLUS,
       left: {
         type: ParamNames.Identifier,
         name: 'a',
@@ -23,7 +27,7 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('non-literal variable', () => {
-    const result = parser.parse('foo.baz')
+    const result = parse('foo.baz')
     const expected = {
       type: ParamNames.MemberExpression,
       computed: false,
@@ -39,7 +43,7 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('non-literal array', () => {
-    const result = parser.parse('foo[\'baz\']')
+    const result = parse('foo[\'baz\']')
     const expected = {
       type: ParamNames.MemberExpression,
       computed: true,
@@ -56,10 +60,10 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('unary prefix', () => {
-    const result = parser.parse('++foo')
+    const result = parse('++foo')
     const expected = {
       type: ParamNames.UpdateExpression,
-      operator: '++',
+      operator: EOperators.PLUS_PLUS,
       prefix: true,
       argument: {
         type: ParamNames.Identifier,
@@ -69,10 +73,10 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('unary suffix', () => {
-    const result = parser.parse('foo++')
+    const result = parse('foo++')
     const expected = {
       type: ParamNames.UpdateExpression,
-      operator: '++',
+      operator: EOperators.PLUS_PLUS,
       prefix: false,
       argument: {
         type: ParamNames.Identifier,
@@ -82,29 +86,23 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('toUpperCase', () => {
-    const result = parser.parse('foo?toUpperCase')
+    const result = parse('foo?toUpperCase')
     const expected = {
-      type: ParamNames.Compound,
-      body: [
-        {
-          type: ParamNames.Identifier,
-          name: 'foo',
-        },
-        {
-          type: ParamNames.UnaryExpression,
-          operator: '?',
-          prefix: true,
-          argument: {
-            type: ParamNames.Identifier,
-            name: 'toUpperCase',
-          },
-        },
-      ],
+      type: ParamNames.BuiltInExpression,
+      left: {
+        type: ParamNames.Identifier,
+        name: 'foo',
+      },
+      operator: EOperators.BUILT_IN,
+      right: {
+        type: ParamNames.Identifier,
+        name: 'toUpperCase',
+      },
     }
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('array expression', () => {
-    const result = parser.parse('["","a"]')
+    const result = parse('["","a"]')
     const expected = {
       type: ParamNames.ArrayExpression,
       elements: [
@@ -123,7 +121,7 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('empty object expression', () => {
-    const result = parser.parse('{}')
+    const result = parse('{}')
     const expected = {
       type: ParamNames.MapExpression,
       elements: [
@@ -132,7 +130,7 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('object expression', () => {
-    const result = parser.parse('{"x":1,"y":2}')
+    const result = parse('{"x":1,"y":2}')
     const expected = {
       type: ParamNames.MapExpression,
       elements: [
@@ -165,34 +163,28 @@ describe('params parser', () => {
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })
   it('to string', () => {
-    const result = parser.parse('foo?string("yes")')
+    const result = parse('foo?string("yes")')
     const expected = {
-      type: ParamNames.Compound,
-      body: [
-        {
-          type: ParamNames.Identifier,
-          name: 'foo',
-        },
-        {
-          type: ParamNames.UnaryExpression,
-          operator: '?',
-          prefix: true,
-          argument: {
-            type: ParamNames.CallExpression,
-            arguments: [
-              {
-                type: ParamNames.Literal,
-                raw: '"yes"',
-                value: 'yes',
-              },
-            ],
-            callee: {
-              name: 'string',
-              type: ParamNames.Identifier,
-            },
+      type: ParamNames.BuiltInExpression,
+      left: {
+        type: ParamNames.Identifier,
+        name: 'foo',
+      },
+      operator: EOperators.BUILT_IN,
+      right: {
+        type: ParamNames.CallExpression,
+        arguments: [
+          {
+            type: ParamNames.Literal,
+            raw: '"yes"',
+            value: 'yes',
           },
+        ],
+        callee: {
+          name: 'string',
+          type: ParamNames.Identifier,
         },
-      ],
+      },
     }
     assert.deepStrictEqual(result, expected, 'value is not matching')
   })

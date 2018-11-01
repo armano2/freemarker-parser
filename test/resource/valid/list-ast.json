@@ -62,30 +62,24 @@
           "start": 59,
           "end": 82,
           "params": {
-            "type": "Compound",
-            "body": [
-              {
-                "type": "MemberExpression",
-                "computed": false,
-                "object": {
-                  "type": "Identifier",
-                  "name": "data"
-                },
-                "property": {
-                  "type": "Identifier",
-                  "name": "name"
-                }
+            "type": "BuiltInExpression",
+            "operator": "?",
+            "left": {
+              "type": "MemberExpression",
+              "computed": false,
+              "object": {
+                "type": "Identifier",
+                "name": "data"
               },
-              {
-                "type": "UnaryExpression",
-                "operator": "?",
-                "argument": {
-                  "type": "Identifier",
-                  "name": "lower_case"
-                },
-                "prefix": true
+              "property": {
+                "type": "Identifier",
+                "name": "name"
               }
-            ]
+            },
+            "right": {
+              "type": "Identifier",
+              "name": "lower_case"
+            }
           },
           "loc": {
             "start": {

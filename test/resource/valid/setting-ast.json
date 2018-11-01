@@ -130,31 +130,25 @@
       "start": 834,
       "end": 853,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "MemberExpression",
+          "computed": true,
+          "object": {
             "type": "Identifier",
-            "name": "x"
+            "name": "string"
           },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "MemberExpression",
-              "computed": true,
-              "object": {
-                "type": "Identifier",
-                "name": "string"
-              },
-              "property": {
-                "type": "Literal",
-                "value": "0.00",
-                "raw": "\"0.00\""
-              }
-            },
-            "prefix": true
+          "property": {
+            "type": "Literal",
+            "value": "0.00",
+            "raw": "\"0.00\""
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -188,32 +182,26 @@
       "start": 854,
       "end": 873,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": "0.00",
+              "raw": "\"0.00\""
+            }
+          ],
+          "callee": {
             "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "0.00",
-                  "raw": "\"0.00\""
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
-            },
-            "prefix": true
+            "name": "string"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -247,49 +235,42 @@
       "start": 874,
       "end": 916,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "BuiltInExpression",
+          "operator": "?",
+          "left": {
             "type": "Literal",
             "value": "01:02:03",
             "raw": "'01:02:03'"
           },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "MemberExpression",
-              "computed": false,
-              "object": {
-                "type": "Identifier",
-                "name": "time"
-              },
-              "property": {
-                "type": "Identifier",
-                "name": "iso"
-              }
+          "right": {
+            "type": "MemberExpression",
+            "computed": false,
+            "object": {
+              "type": "Identifier",
+              "name": "time"
             },
-            "prefix": true
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "MemberExpression",
-              "computed": true,
-              "object": {
-                "type": "Identifier",
-                "name": "string"
-              },
-              "property": {
-                "type": "Literal",
-                "value": "iso ms nz",
-                "raw": "\"iso ms nz\""
-              }
-            },
-            "prefix": true
+            "property": {
+              "type": "Identifier",
+              "name": "iso"
+            }
           }
-        ]
+        },
+        "right": {
+          "type": "MemberExpression",
+          "computed": true,
+          "object": {
+            "type": "Identifier",
+            "name": "string"
+          },
+          "property": {
+            "type": "Literal",
+            "value": "iso ms nz",
+            "raw": "\"iso ms nz\""
+          }
+        }
       },
       "loc": {
         "start": {
@@ -323,50 +304,43 @@
       "start": 917,
       "end": 959,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "BuiltInExpression",
+          "operator": "?",
+          "left": {
             "type": "Literal",
             "value": "01:02:03",
             "raw": "'01:02:03'"
           },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "MemberExpression",
-              "computed": false,
-              "object": {
-                "type": "Identifier",
-                "name": "time"
-              },
-              "property": {
-                "type": "Identifier",
-                "name": "iso"
-              }
+          "right": {
+            "type": "MemberExpression",
+            "computed": false,
+            "object": {
+              "type": "Identifier",
+              "name": "time"
             },
-            "prefix": true
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "iso ms nz",
-                  "raw": "\"iso ms nz\""
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
-            },
-            "prefix": true
+            "property": {
+              "type": "Identifier",
+              "name": "iso"
+            }
           }
-        ]
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": "iso ms nz",
+              "raw": "\"iso ms nz\""
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "string"
+          }
+        }
       },
       "loc": {
         "start": {
@@ -527,22 +501,16 @@
       "start": 1012,
       "end": 1023,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
-          }
-        ]
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "a"
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {
@@ -576,22 +544,16 @@
       "start": 1024,
       "end": 1035,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
-          }
-        ]
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {
@@ -625,37 +587,31 @@
       "start": 1036,
       "end": 1060,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "yes",
-                  "raw": "\"yes\""
-                },
-                {
-                  "type": "Literal",
-                  "value": "no",
-                  "raw": "\"no\""
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "a"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": "yes",
+              "raw": "\"yes\""
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": "no",
+              "raw": "\"no\""
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "string"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -689,37 +645,31 @@
       "start": 1061,
       "end": 1085,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "yes",
-                  "raw": "\"yes\""
-                },
-                {
-                  "type": "Literal",
-                  "value": "no",
-                  "raw": "\"no\""
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": "yes",
+              "raw": "\"yes\""
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": "no",
+              "raw": "\"no\""
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "string"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -797,22 +747,16 @@
       "start": 1124,
       "end": 1135,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
-          }
-        ]
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "a"
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {
@@ -846,22 +790,16 @@
       "start": 1136,
       "end": 1147,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
-          }
-        ]
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {
@@ -939,37 +877,31 @@
       "start": 1179,
       "end": 1196,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": 0,
-                  "raw": "0"
-                },
-                {
-                  "type": "Literal",
-                  "value": 1,
-                  "raw": "1"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "a"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": 0,
+              "raw": "0"
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "string"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -1003,37 +935,31 @@
       "start": 1197,
       "end": 1214,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": 0,
-                  "raw": "0"
-                },
-                {
-                  "type": "Literal",
-                  "value": 1,
-                  "raw": "1"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "string"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "b"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": 0,
+              "raw": "0"
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "string"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -1111,16 +1037,19 @@
       "start": 1255,
       "end": 1289,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "a"
-          },
-          {
-            "type": "UnaryExpression",
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "BuiltInExpression",
+          "operator": "?",
+          "left": {
+            "type": "BuiltInExpression",
             "operator": "?",
-            "argument": {
+            "left": {
+              "type": "Identifier",
+              "name": "a"
+            },
+            "right": {
               "type": "CallExpression",
               "arguments": [
                 {
@@ -1138,28 +1067,17 @@
                 "type": "Identifier",
                 "name": "string"
               }
-            },
-            "prefix": true
+            }
           },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "is_string"
-            },
-            "prefix": true
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
+          "right": {
+            "type": "Identifier",
+            "name": "is_string"
           }
-        ]
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {
@@ -1193,16 +1111,19 @@
       "start": 1290,
       "end": 1324,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "b"
-          },
-          {
-            "type": "UnaryExpression",
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "BuiltInExpression",
+          "operator": "?",
+          "left": {
+            "type": "BuiltInExpression",
             "operator": "?",
-            "argument": {
+            "left": {
+              "type": "Identifier",
+              "name": "b"
+            },
+            "right": {
               "type": "CallExpression",
               "arguments": [
                 {
@@ -1220,28 +1141,17 @@
                 "type": "Identifier",
                 "name": "string"
               }
-            },
-            "prefix": true
+            }
           },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "is_string"
-            },
-            "prefix": true
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "string"
-            },
-            "prefix": true
+          "right": {
+            "type": "Identifier",
+            "name": "is_string"
           }
-        ]
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "string"
+        }
       },
       "loc": {
         "start": {

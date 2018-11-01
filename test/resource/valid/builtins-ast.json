@@ -8,22 +8,16 @@
       "start": 0,
       "end": 9,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "Identifier",
-              "name": "trim"
-            },
-            "prefix": true
-          }
-        ]
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "Identifier",
+          "name": "trim"
+        }
       },
       "loc": {
         "start": {
@@ -57,32 +51,26 @@
       "start": 10,
       "end": 26,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": 5,
+              "raw": "5"
+            }
+          ],
+          "callee": {
             "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": 5,
-                  "raw": "5"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "left_pad"
-              }
-            },
-            "prefix": true
+            "name": "left_pad"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -116,37 +104,31 @@
       "start": 27,
       "end": 48,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": 5,
-                  "raw": "5"
-                },
-                {
-                  "type": "Literal",
-                  "value": "-",
-                  "raw": "'-'"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "left_pad"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": 5,
+              "raw": "5"
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": "-",
+              "raw": "'-'"
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "left_pad"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -180,37 +162,31 @@
       "start": 49,
       "end": 68,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": "y",
-                  "raw": "'y'"
-                },
-                {
-                  "type": "Literal",
-                  "value": "n",
-                  "raw": "'n'"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "then"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": "y",
+              "raw": "'y'"
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": "n",
+              "raw": "'n'"
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "then"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
@@ -244,52 +220,46 @@
       "start": 69,
       "end": 98,
       "params": {
-        "type": "Compound",
-        "body": [
-          {
-            "type": "Identifier",
-            "name": "x"
-          },
-          {
-            "type": "UnaryExpression",
-            "operator": "?",
-            "argument": {
-              "type": "CallExpression",
-              "arguments": [
-                {
-                  "type": "Literal",
-                  "value": 1,
-                  "raw": "1"
-                },
-                {
-                  "type": "Literal",
-                  "value": 11,
-                  "raw": "11"
-                },
-                {
-                  "type": "Literal",
-                  "value": 2,
-                  "raw": "2"
-                },
-                {
-                  "type": "Literal",
-                  "value": 22,
-                  "raw": "22"
-                },
-                {
-                  "type": "Literal",
-                  "value": 33,
-                  "raw": "33"
-                }
-              ],
-              "callee": {
-                "type": "Identifier",
-                "name": "switch"
-              }
+        "type": "BuiltInExpression",
+        "operator": "?",
+        "left": {
+          "type": "Identifier",
+          "name": "x"
+        },
+        "right": {
+          "type": "CallExpression",
+          "arguments": [
+            {
+              "type": "Literal",
+              "value": 1,
+              "raw": "1"
             },
-            "prefix": true
+            {
+              "type": "Literal",
+              "value": 11,
+              "raw": "11"
+            },
+            {
+              "type": "Literal",
+              "value": 2,
+              "raw": "2"
+            },
+            {
+              "type": "Literal",
+              "value": 22,
+              "raw": "22"
+            },
+            {
+              "type": "Literal",
+              "value": 33,
+              "raw": "33"
+            }
+          ],
+          "callee": {
+            "type": "Identifier",
+            "name": "switch"
           }
-        ]
+        }
       },
       "loc": {
         "start": {
