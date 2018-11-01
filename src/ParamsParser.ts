@@ -26,6 +26,7 @@ import {
   maxUnopLen,
   unaryOps,
 } from './utils/Chars'
+import {EOperators} from './enum/Operators'
 
 // Specify values directly
 // - Strings: "Foo" or 'Foo' or "It's \"quoted\"" or 'It\'s "quoted"' or r"C:\raw\string"
@@ -81,25 +82,26 @@ function binaryPrecedence (opVal : string) : number {
 /**
  * Utility function (gets called from multiple places)
  * Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
- * @param operator
- * @param left
- * @param right
  */
 function createBinaryExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IBinaryExpression | ILogicalExpression | IAssignmentExpression {
   switch (operator) {
-    case '=':
-    case '+=':
-    case '-=':
-    case '*=':
-    case '/=':
-    case '%=':
-      return { type: ParamNames.AssignmentExpression, operator, left, right }
-    case '||':
-    case '&&':
+    case EOperators.EQUALS:
+    case EOperators.PLUS_EQUALS:
+    case EOperators.MINUS_EQUALS:
+    case EOperators.TIMES_EQUALS:
+    case EOperators.DIV_EQUALS:
+    case EOperators.MOD_EQUALS:
+      return createAssignmentExpression(operator, left, right)
+    case EOperators.OR:
+    case EOperators.AND:
       return { type: ParamNames.LogicalExpression, operator, left, right }
     default:
       return { type: ParamNames.BinaryExpression, operator, left, right }
   }
+}
+
+function createAssignmentExpression (operator : string, left : AllParamTypes, right : AllParamTypes) : IAssignmentExpression {
+  return { type: ParamNames.AssignmentExpression, operator, left, right }
 }
 
 function createUnaryExpression (operator : string, argument : AllParamTypes | null, prefix : boolean = true) : IUnaryExpression | IUpdateExpression {
@@ -107,8 +109,8 @@ function createUnaryExpression (operator : string, argument : AllParamTypes | nu
     throw new ParseError(`Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`, { start: 0, end: 0 })
   }
   switch (operator) {
-    case '++':
-    case '--':
+    case EOperators.PLUS_PLUS:
+    case EOperators.MINUS_MINUS:
       return { type: ParamNames.UpdateExpression, operator, argument, prefix }
     default:
       return { type: ParamNames.UnaryExpression, operator, argument, prefix }
