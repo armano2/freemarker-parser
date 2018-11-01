@@ -1,6 +1,8 @@
 import AbstractTokenizer from './AbstractTokenizer'
+import defaultConfig from './defaultConfig'
 import ECharCodes from './enum/CharCodes'
 import ParseError from './errors/ParseError'
+import { IOptions } from './interface/IOptions'
 import { IToken } from './interface/Tokens'
 import { ENodeType, ISymbol } from './Symbols'
 import { isLetter, isWhitespace } from './utils/Chars'
@@ -15,29 +17,24 @@ interface IParams {
   endToken : string
 }
 
-export interface ITokenizerOptions {
-  useSquareTags? : boolean
-  parseLocation? : boolean
-}
-
 export class Tokenizer extends AbstractTokenizer {
   protected tokens : IToken[] = []
-  protected options : ITokenizerOptions
+  protected options : IOptions
   protected symbols : ISymbol[]
 
   protected get openTag () : ECharCodes {
-    return this.options.useSquareTags ? ECharCodes.OpenBracket : ECharCodes.Less
+    return this.options.squareTags ? ECharCodes.OpenBracket : ECharCodes.Less
   }
 
   protected get closeTag () : ECharCodes {
-    return this.options.useSquareTags ? ECharCodes.CloseBracket : ECharCodes.Greater
+    return this.options.squareTags ? ECharCodes.CloseBracket : ECharCodes.Greater
   }
 
-  constructor (options : ITokenizerOptions = {}) {
+  constructor (options : IOptions = {}) {
     super()
 
     this.options = {
-      useSquareTags : false,
+      ...defaultConfig,
       ...options,
     }
 

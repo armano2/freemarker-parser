@@ -13,7 +13,7 @@
     "diagnostics": true,
     "forceConsistentCasingInFileNames": false,
     "lib": [
-      "es2015"
+      "esnext"
     ],
     "module": "commonjs",
     "moduleResolution": "node",

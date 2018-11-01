@@ -5,6 +5,7 @@ import { IToken } from '../interface/Tokens'
 import AbstractNode from '../nodes/abstract/AbstractNode'
 import AssignNode from '../nodes/AssignNode'
 import AttemptNode from '../nodes/AttemptNode'
+import AutoEscNode from '../nodes/AutoEscNode'
 import BreakNode from '../nodes/BreakNode'
 import CommentNode from '../nodes/CommentNode'
 import CompressNode from '../nodes/CompressNode'
@@ -22,8 +23,10 @@ import LocalNode from '../nodes/LocalNode'
 import LtNode from '../nodes/LtNode'
 import MacroCallNode from '../nodes/MacroCallNode'
 import MacroNode from '../nodes/MacroNode'
+import NoAutoEscNode from '../nodes/NoAutoEscNode'
 import NoEscapeNode from '../nodes/NoEscapeNode'
 import NtNode from '../nodes/NtNode'
+import OutputFormatNode from '../nodes/OutputFormatNode'
 import ReturnNode from '../nodes/ReturnNode'
 import RtNode from '../nodes/RtNode'
 import SettingNode from '../nodes/SettingNode'
@@ -165,6 +168,15 @@ const Nodes : INodes = {
   },
   [NodeNames.Ftl] (token : IToken) : FtlNode {
     return new FtlNode(token)
+  },
+  [NodeNames.AutoEsc] (token : IToken) : AutoEscNode {
+    return new AutoEscNode(token)
+  },
+  [NodeNames.NoAutoEsc] (token : IToken) : NoAutoEscNode {
+    return new NoAutoEscNode(token)
+  },
+  [NodeNames.OutputFormat] (token : IToken) : OutputFormatNode {
+    return new OutputFormatNode(token)
   },
 }
 

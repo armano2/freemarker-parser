@@ -1,11 +1,12 @@
 import noParams from '../decorators/noParams'
 import NodeNames from '../enum/NodeNames'
 import { IToken } from '../interface/Tokens'
-import AbstractNode from './abstract/AbstractNode'
+import AbstractBodyNode from './abstract/AbstractBodyNode'
 
 @noParams
-export default class BreakNode extends AbstractNode {
+export default class NoAutoEscNode extends AbstractBodyNode {
   constructor (token : IToken) {
-    super(NodeNames.Break, token)
+    super(NodeNames.NoAutoEsc, token)
+    this.body = []
   }
 }

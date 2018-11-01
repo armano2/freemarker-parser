@@ -70,17 +70,17 @@ console.log(data.tokens)
   - executing macro
   - directives https://freemarker.apache.org/docs/ref_directives.html:
     - [`#attempt`](https://freemarker.apache.org/docs/ref_directive_attempt.html)
-      - [`#recover`](https://freemarker.apache.org/docs/ref_directive_recover.html)
+      * `#recover`
     - [`#assign`](https://freemarker.apache.org/docs/ref_directive_assign.html)
     - [`#global`](https://freemarker.apache.org/docs/ref_directive_global.html)
     - [`#local`](https://freemarker.apache.org/docs/ref_directive_local.html)
     - [`#if`](https://freemarker.apache.org/docs/ref_directive_if.html)
-      - `#elseif`
-      - `#else`
+      * `#elseif`
+      * `#else`
     - [`#list`](https://freemarker.apache.org/docs/ref_directive_list.html)
-      - `#else`
-      - `#break`
-      - `#continue`
+      * `#else`
+      * `#break`
+      * `#continue`
     - [`#include`](https://freemarker.apache.org/docs/ref_directive_include.html)
     - [`#import`](https://freemarker.apache.org/docs/ref_directive_import.html)
     - [`#macro`](https://freemarker.apache.org/docs/ref_directive_macro.html)
@@ -90,7 +90,7 @@ console.log(data.tokens)
       * `#break`
     - [`#compress`](https://freemarker.apache.org/docs/ref_directive_compress.html)
     - [`#function`](https://freemarker.apache.org/docs/ref_directive_function.html)
-      - `#return`
+      * `#return`
     - [`#parse`](https://freemarker.apache.org/docs/ref_directive_parse.html)
 		- [`#noparse`](https://freemarker.apache.org/docs/ref_directive_noparse.html)
     - [`#stop`](https://freemarker.apache.org/docs/ref_directive_stop.html)
@@ -101,7 +101,10 @@ console.log(data.tokens)
     - [`#rt`](https://freemarker.apache.org/docs/ref_directive_rt.html)
     - [`#flush`](https://freemarker.apache.org/docs/ref_directive_flush.html)
     - [`#escape`](https://freemarker.apache.org/docs/ref_directive_escape.html)
-      - [`#noescape`](https://freemarker.apache.org/docs/ref_directive_noescape.html)
+      * `#noescape`
+    - [`#autoesc`](https://freemarker.apache.org/docs/ref_directive_autoesc.html)
+    - [`#noautoesc`](https://freemarker.apache.org/docs/ref_directive_noautoesc.html)
+    - [`#outputformat`](https://freemarker.apache.org/docs/ref_directive_outputformat.html)
     - [`#ftl`](https://freemarker.apache.org/docs/ref_directive_ftl.html)
   - comments `<#-- -->`
   - built-ins:

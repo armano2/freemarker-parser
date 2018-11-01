@@ -1,16 +1,21 @@
 import ParseError from './errors/ParseError'
 
+import { IOptions } from './interface/IOptions'
 import { IToken } from './interface/Tokens'
+
 import { ENodeType } from './Symbols'
-import { ITokenizerOptions, Tokenizer } from './Tokenizer'
+import { Tokenizer } from './Tokenizer'
 
 import { Directives } from './enum/Directives'
+import NodeNames from './enum/NodeNames'
+
 import AbstractNode from './nodes/abstract/AbstractNode'
 import ProgramNode from './nodes/ProgramNode'
 
-import NodeNames from './enum/NodeNames'
-import {ParserLocation} from './ParserLocation'
+import { ParserLocation } from './ParserLocation'
 import Nodes from './utils/Nodes'
+
+import defaultConfig from './defaultConfig'
 
 export interface IParserReturn {
   ast : ProgramNode
@@ -18,12 +23,9 @@ export interface IParserReturn {
 }
 
 export class Parser extends ParserLocation {
-  protected options : ITokenizerOptions = {
-    useSquareTags : false,
-    parseLocation : true,
-  }
+  protected options : IOptions = defaultConfig
 
-  public parse (template : string, options : ITokenizerOptions = {}) : IParserReturn {
+  public parse (template : string, options : IOptions = {}) : IParserReturn {
     super.parse(template)
     const ast = new ProgramNode(0, template.length - 1)
     const stack : AbstractNode[] = []
@@ -33,8 +35,7 @@ export class Parser extends ParserLocation {
     this.addLocation(parent)
 
     this.options = {
-      useSquareTags : false,
-      parseLocation : true,
+      ...defaultConfig,
       ...options,
     }
 

@@ -37,6 +37,9 @@ enum NodeNames {
   Recurse = 'Recurse',
   Nested = 'Nested',
   Fallback = 'Fallback',
+  AutoEsc = 'AutoEsc',
+  NoAutoEsc = 'NoAutoEsc',
+  OutputFormat = 'OutputFormat',
 }
 
 export default NodeNames

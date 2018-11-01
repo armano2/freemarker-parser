@@ -1,0 +1,31 @@
+[
+  {
+    "type": "OpenDirective",
+    "start": 0,
+    "end": 14,
+    "startTag": "<#",
+    "endTag": ">",
+    "text": "switch",
+    "params": "test"
+  },
+  {
+    "type": "Text",
+    "start": 14,
+    "end": 17,
+    "text": "\n  "
+  },
+  {
+    "type": "OpenMacro",
+    "start": 17,
+    "end": 23,
+    "startTag": "<@",
+    "endTag": ">",
+    "text": "foo"
+  },
+  {
+    "type": "Text",
+    "start": 23,
+    "end": 24,
+    "text": "\n"
+  }
+]

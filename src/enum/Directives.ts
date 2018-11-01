@@ -4,11 +4,16 @@ export enum Directives {
   if = NodeNames.Condition,
   else = NodeNames.Else,
   elseif = NodeNames.ConditionElse,
+  elseIf = NodeNames.ConditionElse,
   list = NodeNames.List,
   include = NodeNames.Include,
   assign = NodeNames.Assign,
   attempt = NodeNames.Attempt,
   compress = NodeNames.Compress,
+  autoesc = NodeNames.AutoEsc,
+  autoEsc = NodeNames.AutoEsc,
+  noAutoEsc = NodeNames.NoAutoEsc,
+  noautoesc = NodeNames.NoAutoEsc,
   escape = NodeNames.Escape,
   noescape = NodeNames.NoEscape,
   // fallback = NodeNames.Fallback, // TODO: unsupported
@@ -20,6 +25,8 @@ export enum Directives {
   local = NodeNames.Local,
   lt = NodeNames.Lt,
   macro = NodeNames.Macro,
+  outputFormat = NodeNames.OutputFormat,
+  outputformat = NodeNames.OutputFormat,
   // nested = NodeNames.Nested, // TODO: unsupported
   nt = NodeNames.Nt,
   recover = NodeNames.Recover,
@@ -35,4 +42,5 @@ export enum Directives {
   t = NodeNames.T,
   // visit = NodeNames.Visit, // TODO: unsupported
   noparse = NodeNames.Text,
+  noParse = NodeNames.Text,
 }
