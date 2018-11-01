@@ -21,13 +21,33 @@
             "raw": "1"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 18
+        }
+      }
     },
     {
       "type": "Text",
       "start": 17,
       "end": 18,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 18
+        },
+        "end": {
+          "line": 2,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Condition",
@@ -52,7 +72,17 @@
           "type": "Text",
           "start": 34,
           "end": 45,
-          "text": "\n  foo = 1\n"
+          "text": "\n  foo = 1\n",
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 17
+            },
+            "end": {
+              "line": 4,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -70,7 +100,17 @@
       "type": "Text",
       "start": 51,
       "end": 52,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 7
+        },
+        "end": {
+          "line": 5,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Condition",
@@ -95,7 +135,17 @@
           "type": "Text",
           "start": 68,
           "end": 79,
-          "text": "\n  foo = 1\n"
+          "text": "\n  foo = 1\n",
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 17
+            },
+            "end": {
+              "line": 7,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -113,7 +163,17 @@
       "type": "Text",
       "start": 85,
       "end": 86,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 7
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

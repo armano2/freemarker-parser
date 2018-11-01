@@ -21,25 +21,65 @@
             "raw": "false"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 29
+        }
+      }
     },
     {
       "type": "Text",
       "start": 28,
       "end": 29,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 29
+        },
+        "end": {
+          "line": 2,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Comment",
       "start": 29,
       "end": 820,
-      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n"
+      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 19,
+          "column": 4
+        }
+      }
     },
     {
       "type": "Text",
       "start": 820,
       "end": 821,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 4
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Macro",
@@ -65,7 +105,17 @@
       "type": "Text",
       "start": 840,
       "end": 841,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 20
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Macro",
@@ -100,7 +150,17 @@
       "type": "Text",
       "start": 862,
       "end": 863,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 22
+        },
+        "end": {
+          "line": 22,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Macro",
@@ -139,7 +199,17 @@
       "type": "Text",
       "start": 886,
       "end": 887,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 24
+        },
+        "end": {
+          "line": 23,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Macro",
@@ -182,7 +252,17 @@
       "type": "Text",
       "start": 912,
       "end": 913,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 26
+        },
+        "end": {
+          "line": 24,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Macro",
@@ -217,7 +297,17 @@
       "type": "Text",
       "start": 934,
       "end": 935,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 22
+        },
+        "end": {
+          "line": 25,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Function",
@@ -247,7 +337,17 @@
       "type": "Text",
       "start": 962,
       "end": 963,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 28
+        },
+        "end": {
+          "line": 26,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Function",
@@ -282,7 +382,17 @@
       "type": "Text",
       "start": 991,
       "end": 992,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 29
+        },
+        "end": {
+          "line": 27,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Function",
@@ -321,7 +431,17 @@
       "type": "Text",
       "start": 1023,
       "end": 1024,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 32
+        },
+        "end": {
+          "line": 28,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Function",
@@ -364,7 +484,17 @@
       "type": "Text",
       "start": 1058,
       "end": 1059,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 35
+        },
+        "end": {
+          "line": 29,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Function",
@@ -399,7 +529,17 @@
       "type": "Text",
       "start": 1087,
       "end": 1088,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 29
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

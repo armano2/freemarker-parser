@@ -2,7 +2,24 @@
   "type": "Program",
   "start": 0,
   "end": 15,
-  "body": [],
+  "body": [
+    {
+      "type": "Text",
+      "start": 15,
+      "end": 16,
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
+    }
+  ],
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +32,7 @@
   },
   "errors": [
     {
-      "message": "Close tag 'Include' should not have params",
+      "message": "Close tag 'Include' should have no params",
       "start": 0,
       "end": 15,
       "loc": {

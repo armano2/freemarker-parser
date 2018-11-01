@@ -7,13 +7,33 @@
       "type": "Comment",
       "start": 0,
       "end": 791,
-      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n"
+      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 18,
+          "column": 4
+        }
+      }
     },
     {
       "type": "Text",
       "start": 791,
       "end": 792,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 4
+        },
+        "end": {
+          "line": 19,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Setting",
@@ -31,13 +51,33 @@
           "value": "en_US",
           "raw": "\"en_US\""
         }
+      },
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 1
+        },
+        "end": {
+          "line": 19,
+          "column": 26
+        }
       }
     },
     {
       "type": "Text",
       "start": 817,
       "end": 818,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 26
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -57,13 +97,33 @@
             "raw": "3"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 1
+        },
+        "end": {
+          "line": 20,
+          "column": 16
+        }
+      }
     },
     {
       "type": "Text",
       "start": 833,
       "end": 834,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 16
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -95,13 +155,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 20
+        }
       }
     },
     {
       "type": "Text",
       "start": 853,
       "end": 854,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 20
+        },
+        "end": {
+          "line": 22,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -134,13 +214,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 1
+        },
+        "end": {
+          "line": 22,
+          "column": 20
+        }
       }
     },
     {
       "type": "Text",
       "start": 873,
       "end": 874,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 20
+        },
+        "end": {
+          "line": 23,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -190,13 +290,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 43
+        }
       }
     },
     {
       "type": "Text",
       "start": 916,
       "end": 917,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 43
+        },
+        "end": {
+          "line": 24,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -247,13 +367,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 1
+        },
+        "end": {
+          "line": 24,
+          "column": 43
+        }
       }
     },
     {
       "type": "Text",
       "start": 959,
       "end": 964,
-      "text": "\n---\n"
+      "text": "\n---\n",
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 43
+        },
+        "end": {
+          "line": 26,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -262,13 +402,33 @@
       "params": {
         "type": "Identifier",
         "name": "multi"
+      },
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 1
+        },
+        "end": {
+          "line": 26,
+          "column": 9
+        }
       }
     },
     {
       "type": "Text",
       "start": 972,
       "end": 973,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 9
+        },
+        "end": {
+          "line": 27,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -288,13 +448,33 @@
             "raw": "true"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 1
+        },
+        "end": {
+          "line": 27,
+          "column": 19
+        }
+      }
     },
     {
       "type": "Text",
       "start": 991,
       "end": 992,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 19
+        },
+        "end": {
+          "line": 28,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -314,13 +494,33 @@
             "raw": "false"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 1
+        },
+        "end": {
+          "line": 28,
+          "column": 20
+        }
+      }
     },
     {
       "type": "Text",
       "start": 1011,
       "end": 1012,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 20
+        },
+        "end": {
+          "line": 29,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -343,13 +543,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 12
+        }
       }
     },
     {
       "type": "Text",
       "start": 1023,
       "end": 1024,
-      "text": " "
+      "text": " ",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 12
+        },
+        "end": {
+          "line": 29,
+          "column": 13
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -372,13 +592,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 13
+        },
+        "end": {
+          "line": 29,
+          "column": 24
+        }
       }
     },
     {
       "type": "Text",
       "start": 1035,
       "end": 1036,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 24
+        },
+        "end": {
+          "line": 30,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -416,13 +656,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 1
+        },
+        "end": {
+          "line": 30,
+          "column": 25
+        }
       }
     },
     {
       "type": "Text",
       "start": 1060,
       "end": 1061,
-      "text": " "
+      "text": " ",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 25
+        },
+        "end": {
+          "line": 30,
+          "column": 26
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -460,13 +720,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 26
+        },
+        "end": {
+          "line": 30,
+          "column": 50
+        }
       }
     },
     {
       "type": "Text",
       "start": 1085,
       "end": 1086,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 50
+        },
+        "end": {
+          "line": 31,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Setting",
@@ -484,13 +764,33 @@
           "value": "igen,nem",
           "raw": "\"igen,nem\""
         }
+      },
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 1
+        },
+        "end": {
+          "line": 31,
+          "column": 38
+        }
       }
     },
     {
       "type": "Text",
       "start": 1123,
       "end": 1124,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 38
+        },
+        "end": {
+          "line": 32,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -513,13 +813,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 1
+        },
+        "end": {
+          "line": 32,
+          "column": 12
+        }
       }
     },
     {
       "type": "Text",
       "start": 1135,
       "end": 1136,
-      "text": " "
+      "text": " ",
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 12
+        },
+        "end": {
+          "line": 32,
+          "column": 13
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -542,13 +862,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 13
+        },
+        "end": {
+          "line": 32,
+          "column": 24
+        }
       }
     },
     {
       "type": "Text",
       "start": 1147,
       "end": 1148,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 24
+        },
+        "end": {
+          "line": 33,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Setting",
@@ -566,13 +906,33 @@
           "value": "0.0",
           "raw": "\"0.0\""
         }
+      },
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 1
+        },
+        "end": {
+          "line": 33,
+          "column": 31
+        }
       }
     },
     {
       "type": "Text",
       "start": 1178,
       "end": 1179,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 31
+        },
+        "end": {
+          "line": 34,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -610,13 +970,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 1
+        },
+        "end": {
+          "line": 34,
+          "column": 18
+        }
       }
     },
     {
       "type": "Text",
       "start": 1196,
       "end": 1197,
-      "text": " "
+      "text": " ",
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 18
+        },
+        "end": {
+          "line": 34,
+          "column": 19
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -654,13 +1034,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 19
+        },
+        "end": {
+          "line": 34,
+          "column": 36
+        }
       }
     },
     {
       "type": "Text",
       "start": 1214,
       "end": 1215,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 36
+        },
+        "end": {
+          "line": 35,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Setting",
@@ -678,13 +1078,33 @@
           "value": "true,false",
           "raw": "\"true,false\""
         }
+      },
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 1
+        },
+        "end": {
+          "line": 35,
+          "column": 40
+        }
       }
     },
     {
       "type": "Text",
       "start": 1254,
       "end": 1255,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 40
+        },
+        "end": {
+          "line": 36,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -740,13 +1160,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 1
+        },
+        "end": {
+          "line": 36,
+          "column": 35
+        }
       }
     },
     {
       "type": "Text",
       "start": 1289,
       "end": 1290,
-      "text": " "
+      "text": " ",
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 35
+        },
+        "end": {
+          "line": 36,
+          "column": 36
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -802,13 +1242,33 @@
             "prefix": true
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 36
+        },
+        "end": {
+          "line": 36,
+          "column": 70
+        }
       }
     },
     {
       "type": "Text",
       "start": 1324,
       "end": 1325,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 70
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

@@ -30,7 +30,17 @@
           "type": "Text",
           "start": 15,
           "end": 18,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 2,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -39,13 +49,33 @@
           "params": {
             "type": "Identifier",
             "name": "x"
+          },
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 3
+            },
+            "end": {
+              "line": 2,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 22,
           "end": 25,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Condition",
@@ -69,18 +99,48 @@
               "type": "Text",
               "start": 37,
               "end": 42,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 15
+                },
+                "end": {
+                  "line": 4,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Break",
               "start": 42,
-              "end": 50
+              "end": 50,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 5
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13
+                }
+              }
             },
             {
               "type": "Text",
               "start": 50,
               "end": 53,
-              "text": "\n  "
+              "text": "\n  ",
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 13
+                },
+                "end": {
+                  "line": 5,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -98,7 +158,17 @@
           "type": "Text",
           "start": 59,
           "end": 60,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 9
+            },
+            "end": {
+              "line": 6,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -116,7 +186,17 @@
       "type": "Text",
       "start": 68,
       "end": 69,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 9
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

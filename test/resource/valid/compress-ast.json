@@ -12,7 +12,17 @@
           "type": "Text",
           "start": 11,
           "end": 32,
-          "text": "\n  1 2  3   4    5\n  "
+          "text": "\n  1 2  3   4    5\n  ",
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 3,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -21,13 +31,33 @@
           "params": {
             "type": "Identifier",
             "name": "moo"
+          },
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "line": 3,
+              "column": 9
+            }
           }
         },
         {
           "type": "Text",
           "start": 38,
           "end": 73,
-          "text": "\n  test only\n\n  I said, test only\n\n"
+          "text": "\n  test only\n\n  I said, test only\n\n",
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "line": 8,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -45,7 +75,17 @@
       "type": "Text",
       "start": 85,
       "end": 86,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 13
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

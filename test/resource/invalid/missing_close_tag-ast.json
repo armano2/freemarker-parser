@@ -16,7 +16,17 @@
           "type": "Text",
           "start": 9,
           "end": 12,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 2,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Condition",
@@ -31,7 +41,17 @@
               "type": "Text",
               "start": 21,
               "end": 22,
-              "text": "\n"
+              "text": "\n",
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 12
+                },
+                "end": {
+                  "line": 0,
+                  "column": 0
+                }
+              }
             }
           ],
           "loc": {
@@ -71,16 +91,16 @@
   "errors": [
     {
       "message": "Unclosed tag 'Condition'",
-      "start": 0,
-      "end": 9,
+      "start": 12,
+      "end": 21,
       "loc": {
         "start": {
-          "line": 1,
-          "column": 1
+          "line": 2,
+          "column": 3
         },
         "end": {
-          "line": 1,
-          "column": 10
+          "line": 2,
+          "column": 12
         }
       }
     }

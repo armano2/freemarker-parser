@@ -10,13 +10,33 @@
       "params": {
         "type": "Identifier",
         "name": "foo"
+      },
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 7
+        }
       }
     },
     {
       "type": "Text",
       "start": 6,
       "end": 8,
-      "text": "\n\n"
+      "text": "\n\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Include",
@@ -26,13 +46,33 @@
         "type": "Literal",
         "value": "./include/test_include.ftl",
         "raw": "\"./include/test_include.ftl\""
+      },
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 40
+        }
       }
     },
     {
       "type": "Text",
       "start": 47,
       "end": 49,
-      "text": "\n\n"
+      "text": "\n\n",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 40
+        },
+        "end": {
+          "line": 5,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Condition",
@@ -56,7 +96,17 @@
           "type": "Text",
           "start": 64,
           "end": 67,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 16
+            },
+            "end": {
+              "line": 6,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Condition",
@@ -79,7 +129,17 @@
               "type": "Text",
               "start": 81,
               "end": 86,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 17
+                },
+                "end": {
+                  "line": 7,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -96,13 +156,33 @@
                   "type": "Identifier",
                   "name": "bar"
                 }
+              },
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 5
+                },
+                "end": {
+                  "line": 7,
+                  "column": 15
+                }
               }
             },
             {
               "type": "Text",
               "start": 96,
               "end": 99,
-              "text": "\n  "
+              "text": "\n  ",
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 15
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -120,7 +200,17 @@
           "type": "Text",
           "start": 105,
           "end": 108,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 8,
+              "column": 9
+            },
+            "end": {
+              "line": 9,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -151,13 +241,33 @@
                 "prefix": true
               }
             ]
+          },
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "line": 9,
+              "column": 22
+            }
           }
         },
         {
           "type": "Text",
           "start": 127,
           "end": 128,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 22
+            },
+            "end": {
+              "line": 10,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -175,7 +285,17 @@
       "type": "Text",
       "start": 134,
       "end": 136,
-      "text": "\n\n"
+      "text": "\n\n",
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 7
+        },
+        "end": {
+          "line": 12,
+          "column": 1
+        }
+      }
     },
     {
       "type": "MacroCall",
@@ -195,13 +315,33 @@
             "raw": "\"./include/test_include.ftl\""
           }
         ]
+      },
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 1
+        },
+        "end": {
+          "line": 12,
+          "column": 44
+        }
       }
     },
     {
       "type": "Text",
       "start": 179,
       "end": 180,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 44
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

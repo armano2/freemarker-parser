@@ -7,7 +7,17 @@
       "type": "Text",
       "start": 0,
       "end": 16,
-      "text": "Primary content\n"
+      "text": "Primary content\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Attempt",
@@ -18,7 +28,17 @@
           "type": "Text",
           "start": 26,
           "end": 47,
-          "text": "\n  Optional content: "
+          "text": "\n  Optional content: ",
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 21
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -27,13 +47,33 @@
           "params": {
             "type": "Identifier",
             "name": "thisMayFails"
+          },
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 21
+            },
+            "end": {
+              "line": 3,
+              "column": 36
+            }
           }
         },
         {
           "type": "Text",
           "start": 62,
           "end": 63,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 36
+            },
+            "end": {
+              "line": 4,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -51,7 +91,17 @@
           "type": "Text",
           "start": 73,
           "end": 120,
-          "text": "\n  Ops! The optional content is not available.\n"
+          "text": "\n  Ops! The optional content is not available.\n",
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 11
+            },
+            "end": {
+              "line": 6,
+              "column": 1
+            }
+          }
         }
       ]
     },
@@ -59,7 +109,17 @@
       "type": "Text",
       "start": 131,
       "end": 158,
-      "text": "\nPrimary content continued\n"
+      "text": "\nPrimary content continued\n",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 12
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

@@ -7,37 +7,97 @@
       "type": "Comment",
       "start": 0,
       "end": 20,
-      "text": " Bar comment "
+      "text": " Bar comment ",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      }
     },
     {
       "type": "Text",
       "start": 20,
       "end": 25,
-      "text": "fo0o\n"
+      "text": "fo0o\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 21
+        },
+        "end": {
+          "line": 2,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Comment",
       "start": 25,
       "end": 43,
-      "text": "Foo comment"
+      "text": "Foo comment",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 19
+        }
+      }
     },
     {
       "type": "Text",
       "start": 43,
       "end": 44,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Comment",
       "start": 44,
       "end": 77,
-      "text": "\n${foo} c\n<#list>\n<@/foo>\n"
+      "text": "\n${foo} c\n<#list>\n<@/foo>\n",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 4
+        }
+      }
     },
     {
       "type": "Text",
       "start": 77,
       "end": 78,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 4
+        },
+        "end": {
+          "line": 8,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -56,25 +116,65 @@
             "name": "value"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 1
+        },
+        "end": {
+          "line": 8,
+          "column": 20
+        }
+      }
     },
     {
       "type": "Text",
       "start": 97,
       "end": 98,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 20
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Comment",
       "start": 98,
       "end": 129,
-      "text": "\nTest comment\nmultiline\n"
+      "text": "\nTest comment\nmultiline\n",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 12,
+          "column": 4
+        }
+      }
     },
     {
       "type": "Text",
       "start": 129,
       "end": 130,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 4
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

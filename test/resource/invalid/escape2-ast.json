@@ -2,7 +2,44 @@
   "type": "Program",
   "start": 0,
   "end": 37,
-  "body": [],
+  "body": [
+    {
+      "type": "Interpolation",
+      "start": 23,
+      "end": 27,
+      "params": {
+        "type": "Literal",
+        "value": 1,
+        "raw": "1"
+      },
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 24
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 37,
+      "end": 38,
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 38
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
+    }
+  ],
   "loc": {
     "start": {
       "line": 1,
@@ -26,6 +63,21 @@
         "end": {
           "line": 1,
           "column": 24
+        }
+      }
+    },
+    {
+      "message": "Unexpected close tag 'Escape'",
+      "start": 27,
+      "end": 37,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 28
+        },
+        "end": {
+          "line": 1,
+          "column": 38
         }
       }
     }

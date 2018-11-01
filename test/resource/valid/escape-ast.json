@@ -7,13 +7,33 @@
       "type": "Comment",
       "start": 0,
       "end": 791,
-      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n"
+      "text": "\n  Licensed to the Apache Software Foundation (ASF) under one\n  or more contributor license agreements.  See the NOTICE file\n  distributed with this work for additional information\n  regarding copyright ownership.  The ASF licenses this file\n  to you under the Apache License, Version 2.0 (the\n  \"License\"); you may not use this file except in compliance\n  with the License.  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License.\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 18,
+          "column": 4
+        }
+      }
     },
     {
       "type": "Text",
       "start": 791,
       "end": 792,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 4
+        },
+        "end": {
+          "line": 19,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -53,13 +73,33 @@
             ]
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 1
+        },
+        "end": {
+          "line": 19,
+          "column": 29
+        }
+      }
     },
     {
       "type": "Text",
       "start": 820,
       "end": 821,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 29
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -115,13 +155,33 @@
             ]
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 1
+        },
+        "end": {
+          "line": 20,
+          "column": 32
+        }
+      }
     },
     {
       "type": "Text",
       "start": 852,
       "end": 853,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 32
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Escape",
@@ -157,7 +217,17 @@
           "type": "Text",
           "start": 872,
           "end": 875,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 21,
+              "column": 20
+            },
+            "end": {
+              "line": 22,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -167,13 +237,33 @@
             "type": "Literal",
             "value": 1,
             "raw": "1"
+          },
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 3
+            },
+            "end": {
+              "line": 22,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 879,
           "end": 882,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 7
+            },
+            "end": {
+              "line": 23,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -183,13 +273,33 @@
             "type": "Literal",
             "value": 2,
             "raw": "2"
+          },
+          "loc": {
+            "start": {
+              "line": 23,
+              "column": 3
+            },
+            "end": {
+              "line": 23,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 886,
           "end": 889,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 23,
+              "column": 7
+            },
+            "end": {
+              "line": 24,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -199,13 +309,33 @@
             "type": "Literal",
             "value": 3,
             "raw": "3"
+          },
+          "loc": {
+            "start": {
+              "line": 24,
+              "column": 3
+            },
+            "end": {
+              "line": 24,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 893,
           "end": 896,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 24,
+              "column": 7
+            },
+            "end": {
+              "line": 25,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Escape",
@@ -241,7 +371,17 @@
               "type": "Text",
               "start": 915,
               "end": 920,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 25,
+                  "column": 22
+                },
+                "end": {
+                  "line": 26,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -251,13 +391,33 @@
                 "type": "Literal",
                 "value": "x",
                 "raw": "\"x\""
+              },
+              "loc": {
+                "start": {
+                  "line": 26,
+                  "column": 5
+                },
+                "end": {
+                  "line": 26,
+                  "column": 11
+                }
               }
             },
             {
               "type": "Text",
               "start": 926,
               "end": 931,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 26,
+                  "column": 11
+                },
+                "end": {
+                  "line": 27,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -267,13 +427,33 @@
                 "type": "Literal",
                 "value": "y",
                 "raw": "\"y\""
+              },
+              "loc": {
+                "start": {
+                  "line": 27,
+                  "column": 5
+                },
+                "end": {
+                  "line": 27,
+                  "column": 11
+                }
               }
             },
             {
               "type": "Text",
               "start": 937,
               "end": 942,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 27,
+                  "column": 11
+                },
+                "end": {
+                  "line": 28,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -283,13 +463,33 @@
                 "type": "Literal",
                 "value": "z",
                 "raw": "\"z\""
+              },
+              "loc": {
+                "start": {
+                  "line": 28,
+                  "column": 5
+                },
+                "end": {
+                  "line": 28,
+                  "column": 11
+                }
               }
             },
             {
               "type": "Text",
               "start": 948,
               "end": 953,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 28,
+                  "column": 11
+                },
+                "end": {
+                  "line": 29,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "NoEscape",
@@ -304,6 +504,16 @@
                     "type": "Literal",
                     "value": 1,
                     "raw": "1"
+                  },
+                  "loc": {
+                    "start": {
+                      "line": 29,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 29,
+                      "column": 20
+                    }
                   }
                 }
               ],
@@ -322,7 +532,17 @@
               "type": "Text",
               "start": 980,
               "end": 985,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 29,
+                  "column": 32
+                },
+                "end": {
+                  "line": 30,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "NoEscape",
@@ -342,6 +562,16 @@
                         "type": "Literal",
                         "value": 1,
                         "raw": "1"
+                      },
+                      "loc": {
+                        "start": {
+                          "line": 30,
+                          "column": 27
+                        },
+                        "end": {
+                          "line": 30,
+                          "column": 31
+                        }
                       }
                     }
                   ],
@@ -372,7 +602,17 @@
               "type": "Text",
               "start": 1035,
               "end": 1038,
-              "text": "\n  "
+              "text": "\n  ",
+              "loc": {
+                "start": {
+                  "line": 30,
+                  "column": 55
+                },
+                "end": {
+                  "line": 31,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -390,7 +630,17 @@
           "type": "Text",
           "start": 1048,
           "end": 1051,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 31,
+              "column": 13
+            },
+            "end": {
+              "line": 32,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -400,13 +650,33 @@
             "type": "Literal",
             "value": 1,
             "raw": "1"
+          },
+          "loc": {
+            "start": {
+              "line": 32,
+              "column": 3
+            },
+            "end": {
+              "line": 32,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1055,
           "end": 1058,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 32,
+              "column": 7
+            },
+            "end": {
+              "line": 33,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -416,13 +686,33 @@
             "type": "Literal",
             "value": 2,
             "raw": "2"
+          },
+          "loc": {
+            "start": {
+              "line": 33,
+              "column": 3
+            },
+            "end": {
+              "line": 33,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1062,
           "end": 1065,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 33,
+              "column": 7
+            },
+            "end": {
+              "line": 34,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -432,13 +722,33 @@
             "type": "Literal",
             "value": 3,
             "raw": "3"
+          },
+          "loc": {
+            "start": {
+              "line": 34,
+              "column": 3
+            },
+            "end": {
+              "line": 34,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1069,
           "end": 1070,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 34,
+              "column": 7
+            },
+            "end": {
+              "line": 35,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -456,7 +766,17 @@
       "type": "Text",
       "start": 1080,
       "end": 1081,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 11
+        },
+        "end": {
+          "line": 36,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Escape",
@@ -493,7 +813,17 @@
           "type": "Text",
           "start": 1102,
           "end": 1105,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 36,
+              "column": 22
+            },
+            "end": {
+              "line": 37,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -503,13 +833,33 @@
             "type": "Literal",
             "value": "<&>",
             "raw": "\"<&>\""
+          },
+          "loc": {
+            "start": {
+              "line": 37,
+              "column": 3
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
           }
         },
         {
           "type": "Text",
           "start": 1113,
           "end": 1116,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 37,
+              "column": 11
+            },
+            "end": {
+              "line": 38,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Escape",
@@ -546,7 +896,17 @@
               "type": "Text",
               "start": 1136,
               "end": 1141,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 38,
+                  "column": 23
+                },
+                "end": {
+                  "line": 39,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -556,13 +916,33 @@
                 "type": "Literal",
                 "value": "<&>",
                 "raw": "\"<&>\""
+              },
+              "loc": {
+                "start": {
+                  "line": 39,
+                  "column": 5
+                },
+                "end": {
+                  "line": 39,
+                  "column": 13
+                }
               }
             },
             {
               "type": "Text",
               "start": 1149,
               "end": 1152,
-              "text": "\n  "
+              "text": "\n  ",
+              "loc": {
+                "start": {
+                  "line": 39,
+                  "column": 13
+                },
+                "end": {
+                  "line": 40,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -580,7 +960,17 @@
           "type": "Text",
           "start": 1162,
           "end": 1165,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 40,
+              "column": 13
+            },
+            "end": {
+              "line": 41,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -590,13 +980,33 @@
             "type": "Literal",
             "value": "<&>",
             "raw": "\"<&>\""
+          },
+          "loc": {
+            "start": {
+              "line": 41,
+              "column": 3
+            },
+            "end": {
+              "line": 41,
+              "column": 11
+            }
           }
         },
         {
           "type": "Text",
           "start": 1173,
           "end": 1174,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 41,
+              "column": 11
+            },
+            "end": {
+              "line": 42,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -614,7 +1024,17 @@
       "type": "Text",
       "start": 1184,
       "end": 1189,
-      "text": "\n---\n"
+      "text": "\n---\n",
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 11
+        },
+        "end": {
+          "line": 44,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -634,13 +1054,33 @@
             "raw": "\"<Mooo>\""
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 1
+        },
+        "end": {
+          "line": 44,
+          "column": 23
+        }
+      }
     },
     {
       "type": "Text",
       "start": 1211,
       "end": 1212,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 23
+        },
+        "end": {
+          "line": 45,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -649,13 +1089,33 @@
       "params": {
         "type": "Identifier",
         "name": "x"
+      },
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 5
+        }
       }
     },
     {
       "type": "Text",
       "start": 1216,
       "end": 1226,
-      "text": " = <Mooo>\n"
+      "text": " = <Mooo>\n",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 5
+        },
+        "end": {
+          "line": 46,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Escape",
@@ -692,7 +1152,17 @@
           "type": "Text",
           "start": 1253,
           "end": 1256,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 46,
+              "column": 28
+            },
+            "end": {
+              "line": 47,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -701,13 +1171,33 @@
           "params": {
             "type": "Identifier",
             "name": "x"
+          },
+          "loc": {
+            "start": {
+              "line": 47,
+              "column": 3
+            },
+            "end": {
+              "line": 47,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1260,
           "end": 1272,
-          "text": " = <MOOO>\n  "
+          "text": " = <MOOO>\n  ",
+          "loc": {
+            "start": {
+              "line": 47,
+              "column": 7
+            },
+            "end": {
+              "line": 48,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Escape",
@@ -744,7 +1234,17 @@
               "type": "Text",
               "start": 1293,
               "end": 1298,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 48,
+                  "column": 24
+                },
+                "end": {
+                  "line": 49,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -753,13 +1253,33 @@
               "params": {
                 "type": "Identifier",
                 "name": "x"
+              },
+              "loc": {
+                "start": {
+                  "line": 49,
+                  "column": 5
+                },
+                "end": {
+                  "line": 49,
+                  "column": 9
+                }
               }
             },
             {
               "type": "Text",
               "start": 1302,
               "end": 1322,
-              "text": " = &lt;MOOO&gt;\n    "
+              "text": " = &lt;MOOO&gt;\n    ",
+              "loc": {
+                "start": {
+                  "line": 49,
+                  "column": 9
+                },
+                "end": {
+                  "line": 50,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "NoEscape",
@@ -770,7 +1290,17 @@
                   "type": "Text",
                   "start": 1333,
                   "end": 1340,
-                  "text": "\n      "
+                  "text": "\n      ",
+                  "loc": {
+                    "start": {
+                      "line": 50,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 51,
+                      "column": 7
+                    }
+                  }
                 },
                 {
                   "type": "Interpolation",
@@ -779,13 +1309,33 @@
                   "params": {
                     "type": "Identifier",
                     "name": "x"
+                  },
+                  "loc": {
+                    "start": {
+                      "line": 51,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 51,
+                      "column": 11
+                    }
                   }
                 },
                 {
                   "type": "Text",
                   "start": 1344,
                   "end": 1358,
-                  "text": " = <MOOO>\n    "
+                  "text": " = <MOOO>\n    ",
+                  "loc": {
+                    "start": {
+                      "line": 51,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 52,
+                      "column": 5
+                    }
+                  }
                 }
               ],
               "loc": {
@@ -803,7 +1353,17 @@
               "type": "Text",
               "start": 1370,
               "end": 1375,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 52,
+                  "column": 17
+                },
+                "end": {
+                  "line": 53,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -812,13 +1372,33 @@
               "params": {
                 "type": "Identifier",
                 "name": "x"
+              },
+              "loc": {
+                "start": {
+                  "line": 53,
+                  "column": 5
+                },
+                "end": {
+                  "line": 53,
+                  "column": 9
+                }
               }
             },
             {
               "type": "Text",
               "start": 1379,
               "end": 1397,
-              "text": " = &lt;MOOO&gt;\n  "
+              "text": " = &lt;MOOO&gt;\n  ",
+              "loc": {
+                "start": {
+                  "line": 53,
+                  "column": 9
+                },
+                "end": {
+                  "line": 54,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -836,7 +1416,17 @@
           "type": "Text",
           "start": 1407,
           "end": 1410,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 54,
+              "column": 13
+            },
+            "end": {
+              "line": 55,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -845,13 +1435,33 @@
           "params": {
             "type": "Identifier",
             "name": "x"
+          },
+          "loc": {
+            "start": {
+              "line": 55,
+              "column": 3
+            },
+            "end": {
+              "line": 55,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1414,
           "end": 1426,
-          "text": " = <MOOO>\n  "
+          "text": " = <MOOO>\n  ",
+          "loc": {
+            "start": {
+              "line": 55,
+              "column": 7
+            },
+            "end": {
+              "line": 56,
+              "column": 3
+            }
+          }
         },
         {
           "type": "NoEscape",
@@ -862,7 +1472,17 @@
               "type": "Text",
               "start": 1437,
               "end": 1442,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 56,
+                  "column": 14
+                },
+                "end": {
+                  "line": 57,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -871,13 +1491,33 @@
               "params": {
                 "type": "Identifier",
                 "name": "x"
+              },
+              "loc": {
+                "start": {
+                  "line": 57,
+                  "column": 5
+                },
+                "end": {
+                  "line": 57,
+                  "column": 9
+                }
               }
             },
             {
               "type": "Text",
               "start": 1446,
               "end": 1460,
-              "text": " = <Mooo>\n    "
+              "text": " = <Mooo>\n    ",
+              "loc": {
+                "start": {
+                  "line": 57,
+                  "column": 9
+                },
+                "end": {
+                  "line": 58,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Escape",
@@ -914,7 +1554,17 @@
                   "type": "Text",
                   "start": 1481,
                   "end": 1488,
-                  "text": "\n      "
+                  "text": "\n      ",
+                  "loc": {
+                    "start": {
+                      "line": 58,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 59,
+                      "column": 7
+                    }
+                  }
                 },
                 {
                   "type": "Interpolation",
@@ -923,13 +1573,33 @@
                   "params": {
                     "type": "Identifier",
                     "name": "x"
+                  },
+                  "loc": {
+                    "start": {
+                      "line": 59,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 59,
+                      "column": 11
+                    }
                   }
                 },
                 {
                   "type": "Text",
                   "start": 1492,
                   "end": 1514,
-                  "text": " = &lt;Mooo&gt;\n      "
+                  "text": " = &lt;Mooo&gt;\n      ",
+                  "loc": {
+                    "start": {
+                      "line": 59,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 60,
+                      "column": 7
+                    }
+                  }
                 },
                 {
                   "type": "NoEscape",
@@ -940,7 +1610,17 @@
                       "type": "Text",
                       "start": 1525,
                       "end": 1534,
-                      "text": "\n        "
+                      "text": "\n        ",
+                      "loc": {
+                        "start": {
+                          "line": 60,
+                          "column": 18
+                        },
+                        "end": {
+                          "line": 61,
+                          "column": 9
+                        }
+                      }
                     },
                     {
                       "type": "Interpolation",
@@ -949,13 +1629,33 @@
                       "params": {
                         "type": "Identifier",
                         "name": "x"
+                      },
+                      "loc": {
+                        "start": {
+                          "line": 61,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 61,
+                          "column": 13
+                        }
                       }
                     },
                     {
                       "type": "Text",
                       "start": 1538,
                       "end": 1554,
-                      "text": " = <Mooo>\n      "
+                      "text": " = <Mooo>\n      ",
+                      "loc": {
+                        "start": {
+                          "line": 61,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 62,
+                          "column": 7
+                        }
+                      }
                     }
                   ],
                   "loc": {
@@ -973,7 +1673,17 @@
                   "type": "Text",
                   "start": 1566,
                   "end": 1573,
-                  "text": "\n      "
+                  "text": "\n      ",
+                  "loc": {
+                    "start": {
+                      "line": 62,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 63,
+                      "column": 7
+                    }
+                  }
                 },
                 {
                   "type": "Interpolation",
@@ -982,13 +1692,33 @@
                   "params": {
                     "type": "Identifier",
                     "name": "x"
+                  },
+                  "loc": {
+                    "start": {
+                      "line": 63,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 63,
+                      "column": 11
+                    }
                   }
                 },
                 {
                   "type": "Text",
                   "start": 1577,
                   "end": 1597,
-                  "text": " = &lt;Mooo&gt;\n    "
+                  "text": " = &lt;Mooo&gt;\n    ",
+                  "loc": {
+                    "start": {
+                      "line": 63,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 64,
+                      "column": 5
+                    }
+                  }
                 }
               ],
               "loc": {
@@ -1006,7 +1736,17 @@
               "type": "Text",
               "start": 1607,
               "end": 1612,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 64,
+                  "column": 15
+                },
+                "end": {
+                  "line": 65,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -1015,13 +1755,33 @@
               "params": {
                 "type": "Identifier",
                 "name": "x"
+              },
+              "loc": {
+                "start": {
+                  "line": 65,
+                  "column": 5
+                },
+                "end": {
+                  "line": 65,
+                  "column": 9
+                }
               }
             },
             {
               "type": "Text",
               "start": 1616,
               "end": 1628,
-              "text": " = <Mooo>\n  "
+              "text": " = <Mooo>\n  ",
+              "loc": {
+                "start": {
+                  "line": 65,
+                  "column": 9
+                },
+                "end": {
+                  "line": 66,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -1039,7 +1799,17 @@
           "type": "Text",
           "start": 1640,
           "end": 1643,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 66,
+              "column": 15
+            },
+            "end": {
+              "line": 67,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -1048,13 +1818,33 @@
           "params": {
             "type": "Identifier",
             "name": "x"
+          },
+          "loc": {
+            "start": {
+              "line": 67,
+              "column": 3
+            },
+            "end": {
+              "line": 67,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1647,
           "end": 1657,
-          "text": " = <MOOO>\n"
+          "text": " = <MOOO>\n",
+          "loc": {
+            "start": {
+              "line": 67,
+              "column": 7
+            },
+            "end": {
+              "line": 68,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -1072,7 +1862,17 @@
       "type": "Text",
       "start": 1667,
       "end": 1672,
-      "text": "\n---\n"
+      "text": "\n---\n",
+      "loc": {
+        "start": {
+          "line": 68,
+          "column": 11
+        },
+        "end": {
+          "line": 70,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Assign",
@@ -1092,13 +1892,33 @@
             "raw": "'A&B'"
           }
         }
-      ]
+      ],
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 1
+        },
+        "end": {
+          "line": 70,
+          "column": 20
+        }
+      }
     },
     {
       "type": "Text",
       "start": 1691,
       "end": 1692,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 20
+        },
+        "end": {
+          "line": 71,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Escape",
@@ -1196,7 +2016,17 @@
           "type": "Text",
           "start": 1758,
           "end": 1761,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 71,
+              "column": 67
+            },
+            "end": {
+              "line": 72,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -1205,13 +2035,33 @@
           "params": {
             "type": "Identifier",
             "name": "s"
+          },
+          "loc": {
+            "start": {
+              "line": 72,
+              "column": 3
+            },
+            "end": {
+              "line": 72,
+              "column": 7
+            }
           }
         },
         {
           "type": "Text",
           "start": 1765,
           "end": 1766,
-          "text": " "
+          "text": " ",
+          "loc": {
+            "start": {
+              "line": 72,
+              "column": 7
+            },
+            "end": {
+              "line": 72,
+              "column": 8
+            }
+          }
         },
         {
           "type": "Interpolation",
@@ -1229,13 +2079,33 @@
               "value": 2,
               "raw": "2"
             }
+          },
+          "loc": {
+            "start": {
+              "line": 72,
+              "column": 8
+            },
+            "end": {
+              "line": 72,
+              "column": 16
+            }
           }
         },
         {
           "type": "Text",
           "start": 1774,
           "end": 1777,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 72,
+              "column": 16
+            },
+            "end": {
+              "line": 73,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Escape",
@@ -1298,7 +2168,17 @@
               "type": "Text",
               "start": 1820,
               "end": 1825,
-              "text": "\n    "
+              "text": "\n    ",
+              "loc": {
+                "start": {
+                  "line": 73,
+                  "column": 46
+                },
+                "end": {
+                  "line": 74,
+                  "column": 5
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -1307,13 +2187,33 @@
               "params": {
                 "type": "Identifier",
                 "name": "s"
+              },
+              "loc": {
+                "start": {
+                  "line": 74,
+                  "column": 5
+                },
+                "end": {
+                  "line": 74,
+                  "column": 9
+                }
               }
             },
             {
               "type": "Text",
               "start": 1829,
               "end": 1830,
-              "text": " "
+              "text": " ",
+              "loc": {
+                "start": {
+                  "line": 74,
+                  "column": 9
+                },
+                "end": {
+                  "line": 74,
+                  "column": 10
+                }
+              }
             },
             {
               "type": "Interpolation",
@@ -1331,13 +2231,33 @@
                   "value": 2,
                   "raw": "2"
                 }
+              },
+              "loc": {
+                "start": {
+                  "line": 74,
+                  "column": 10
+                },
+                "end": {
+                  "line": 74,
+                  "column": 18
+                }
               }
             },
             {
               "type": "Text",
               "start": 1838,
               "end": 1841,
-              "text": "\n  "
+              "text": "\n  ",
+              "loc": {
+                "start": {
+                  "line": 74,
+                  "column": 18
+                },
+                "end": {
+                  "line": 75,
+                  "column": 3
+                }
+              }
             }
           ],
           "loc": {
@@ -1355,7 +2275,17 @@
           "type": "Text",
           "start": 1851,
           "end": 1852,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 75,
+              "column": 13
+            },
+            "end": {
+              "line": 76,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -1373,7 +2303,17 @@
       "type": "Text",
       "start": 1862,
       "end": 1863,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 76,
+          "column": 11
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

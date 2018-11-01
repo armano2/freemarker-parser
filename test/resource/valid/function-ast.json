@@ -29,7 +29,17 @@
           "type": "Text",
           "start": 19,
           "end": 22,
-          "text": "\n  "
+          "text": "\n  ",
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 2,
+              "column": 3
+            }
+          }
         },
         {
           "type": "Return",
@@ -55,13 +65,33 @@
               "value": 2,
               "raw": "2"
             }
+          },
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 3
+            },
+            "end": {
+              "line": 2,
+              "column": 24
+            }
           }
         },
         {
           "type": "Text",
           "start": 43,
           "end": 44,
-          "text": "\n"
+          "text": "\n",
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 24
+            },
+            "end": {
+              "line": 3,
+              "column": 1
+            }
+          }
         }
       ],
       "loc": {
@@ -79,7 +109,17 @@
       "type": "Text",
       "start": 56,
       "end": 57,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 13
+        },
+        "end": {
+          "line": 4,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Interpolation",
@@ -103,13 +143,33 @@
           "type": "Identifier",
           "name": "avg"
         }
+      },
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 15
+        }
       }
     },
     {
       "type": "Text",
       "start": 71,
       "end": 72,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 15
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

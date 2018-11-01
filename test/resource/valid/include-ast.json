@@ -7,7 +7,17 @@
       "type": "Text",
       "start": 0,
       "end": 79,
-      "text": "<p>This is include-subdir.ftl</p>\n<p>Testing including from same directory</p>\n"
+      "text": "<p>This is include-subdir.ftl</p>\n<p>Testing including from same directory</p>\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Include",
@@ -17,13 +27,33 @@
         "type": "Literal",
         "value": "include-subdir2.ftl",
         "raw": "\"include-subdir2.ftl\""
+      },
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 33
+        }
       }
     },
     {
       "type": "Text",
       "start": 111,
       "end": 158,
-      "text": "\n<p>Testing including from relative parent</p>\n"
+      "text": "\n<p>Testing including from relative parent</p>\n",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 33
+        },
+        "end": {
+          "line": 5,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Include",
@@ -33,13 +63,33 @@
         "type": "Literal",
         "value": "../included.ftl",
         "raw": "\"../included.ftl\""
+      },
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 29
+        }
       }
     },
     {
       "type": "Text",
       "start": 186,
       "end": 229,
-      "text": "\n<p>Testing including from loader root</p>\n"
+      "text": "\n<p>Testing including from loader root</p>\n",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 29
+        },
+        "end": {
+          "line": 7,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Include",
@@ -49,13 +99,33 @@
         "type": "Literal",
         "value": "/included.ftl",
         "raw": "\"/included.ftl\""
+      },
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 27
+        }
       }
     },
     {
       "type": "Text",
       "start": 255,
       "end": 301,
-      "text": "\n<p>Testing including through acquisition</p>\n"
+      "text": "\n<p>Testing including through acquisition</p>\n",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 27
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
     },
     {
       "type": "Include",
@@ -65,13 +135,33 @@
         "type": "Literal",
         "value": "*/subdir/include-subdir2.ftl",
         "raw": "\"*/subdir/include-subdir2.ftl\""
+      },
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 42
+        }
       }
     },
     {
       "type": "Text",
       "start": 342,
       "end": 343,
-      "text": "\n"
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 42
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
     }
   ],
   "loc": {

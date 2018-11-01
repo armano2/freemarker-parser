@@ -2,7 +2,40 @@
   "type": "Program",
   "start": 0,
   "end": 27,
-  "body": [],
+  "body": [
+    {
+      "type": "Text",
+      "start": 13,
+      "end": 14,
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 14
+        },
+        "end": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": "Text",
+      "start": 27,
+      "end": 28,
+      "text": "\n",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 14
+        },
+        "end": {
+          "line": 0,
+          "column": 0
+        }
+      }
+    }
+  ],
   "loc": {
     "start": {
       "line": 1,
@@ -25,6 +58,21 @@
         },
         "end": {
           "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "message": "Invalid parameters in Assign",
+      "start": 14,
+      "end": 27,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
           "column": 14
         }
       }
