@@ -119,7 +119,3 @@ console.log(data.tokens)
     - `#recurse`
     - `#visit`
     - `#items`
-
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Farmano2%2Ffreemarker-parser.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Farmano2%2Ffreemarker-parser?ref=badge_large)
