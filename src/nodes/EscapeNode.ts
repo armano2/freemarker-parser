@@ -9,7 +9,7 @@ export default class EscapeNode extends AbstractBodyNode {
 
   constructor (token : IToken) {
     super(NodeNames.Escape, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.body = []
   }
 }

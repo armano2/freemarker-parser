@@ -13,7 +13,7 @@ export default class MacroCallNode extends AbstractBodyNode {
   constructor (token : IToken) {
     super(NodeNames.MacroCall, token)
     this.name = token.text
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     if (token.endTag !== '/>') {
       this.body = []
     }

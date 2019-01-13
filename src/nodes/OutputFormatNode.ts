@@ -11,7 +11,7 @@ export default class OutputFormatNode extends AbstractBodyNode {
 
   constructor (token : IToken) {
     super(NodeNames.OutputFormat, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.body = []
     if (!this.params || this.params.type !== ParamNames.Literal) {
       throw new ParseError(`Invalid parameters in ${this.type}`, token)

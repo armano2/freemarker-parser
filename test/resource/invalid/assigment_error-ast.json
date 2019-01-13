@@ -34,7 +34,7 @@
     {
       "message": "Missing argument in before '--'",
       "start": 0,
-      "end": 12,
+      "end": 0,
       "loc": {
         "start": {
           "line": 1,
@@ -42,7 +42,7 @@
         },
         "end": {
           "line": 1,
-          "column": 13
+          "column": 1
         }
       }
     }

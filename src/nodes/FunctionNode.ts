@@ -9,7 +9,7 @@ export default class FunctionNode extends AbstractBodyNode {
 
   constructor (token : IToken) {
     super(NodeNames.Function, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.body = []
   }
 }

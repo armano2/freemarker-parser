@@ -54,7 +54,7 @@
     {
       "message": "Unclosed {",
       "start": 15,
-      "end": 25,
+      "end": 15,
       "loc": {
         "start": {
           "line": 1,
@@ -62,7 +62,7 @@
         },
         "end": {
           "line": 1,
-          "column": 26
+          "column": 16
         }
       }
     },

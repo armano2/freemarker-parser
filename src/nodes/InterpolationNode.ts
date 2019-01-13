@@ -9,6 +9,6 @@ export default class InterpolationNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Interpolation, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
   }
 }

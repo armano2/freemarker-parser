@@ -18,7 +18,7 @@ export default class SwitchNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Switch, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.cases = []
   }
 

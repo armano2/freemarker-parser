@@ -15,7 +15,7 @@ export default class ConditionNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Condition, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.consequent = []
   }
 

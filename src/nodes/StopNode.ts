@@ -11,6 +11,6 @@ export default class StopNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Stop, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
   }
 }

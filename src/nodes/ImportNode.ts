@@ -9,6 +9,6 @@ export default class ImportNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Import, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
   }
 }

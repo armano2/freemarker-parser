@@ -15,7 +15,7 @@ export default class ListNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.List, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.body = []
   }
 

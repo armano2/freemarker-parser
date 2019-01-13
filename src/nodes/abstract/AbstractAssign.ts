@@ -7,7 +7,7 @@ import AbstractBodyNode from './AbstractBodyNode'
 
 export default abstract class AbstractAssign extends AbstractBodyNode {
   protected checkParams (token : IToken) : AllParamTypes[] {
-    const params = paramParser(token.start, token.end, token.params)
+    const params = paramParser(token)
     if (params) {
       const result = []
       if (params.type === ParamNames.Compound) {

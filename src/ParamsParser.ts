@@ -12,7 +12,9 @@ import {
   ICallExpression,
   IIdentifier,
   ILiteral,
-  ILogicalExpression, IMapExpression, IMapExpressionValues,
+  ILogicalExpression,
+  IMapExpression,
+  IMapExpressionValues,
   IMemberExpression,
   IUnaryExpression,
   IUpdateExpression,
@@ -106,6 +108,10 @@ function createBuiltInExpression (operator : string, left : AllParamTypes, right
   return { type: ParamNames.BuiltInExpression, operator, left, right }
 }
 
+function createUpdateExpression (operator : string, argument : AllParamTypes, prefix : boolean = true) : IUpdateExpression {
+  return { type: ParamNames.UpdateExpression, operator, argument, prefix }
+}
+
 function createUnaryExpression (operator : string, argument : AllParamTypes | null, prefix : boolean = true) : IUnaryExpression | IUpdateExpression {
   if (!argument) {
     throw new ParseError(`Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`, { start: 0, end: 0 })
@@ -113,7 +119,7 @@ function createUnaryExpression (operator : string, argument : AllParamTypes | nu
   switch (operator) {
     case EOperators.PLUS_PLUS:
     case EOperators.MINUS_MINUS:
-      return { type: ParamNames.UpdateExpression, operator, argument, prefix }
+      return createUpdateExpression(operator, argument, prefix)
     default:
       return { type: ParamNames.UnaryExpression, operator, argument, prefix }
   }
@@ -129,7 +135,7 @@ export class ParamsParser extends AbstractTokenizer {
     let node
     const nodes = []
 
-    while (this.index < this.length)   {
+    while (this.index < this.length) {
       // Try to gobble each expression individually
       node = this.parseExpression()
       if (node) {

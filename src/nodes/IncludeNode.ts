@@ -9,6 +9,6 @@ export default class IncludeNode extends AbstractNode {
 
   constructor (token : IToken) {
     super(NodeNames.Include, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
   }
 }

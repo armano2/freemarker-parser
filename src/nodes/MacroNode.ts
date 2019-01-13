@@ -9,7 +9,7 @@ export default class MacroNode extends AbstractBodyNode {
 
   constructor (token : IToken) {
     super(NodeNames.Macro, token)
-    this.params = paramParser(token.start, token.end, token.params)
+    this.params = paramParser(token)
     this.body = []
   }
 }
