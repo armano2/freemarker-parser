@@ -2,3 +2,5 @@
 test/resource/**/*
 dist
 types
+coverage
+coverage.xml

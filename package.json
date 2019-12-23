@@ -3,11 +3,11 @@
   "version": "1.1.6",
   "description": "Freemarker Parser is a javascript implementation of the Freemarker",
   "scripts": {
-    "build": "npm run lint & npm run format-check & tsc",
+    "build": "tsc",
     "pretest": "npm run build",
-    "mocha": "nyc mocha \"test/*.spec.ts\" --reporter=mocha-junit-reporter --reporter-options mochaFile=./test-results/mocha/results.xml",
+    "mocha": "nyc mocha \"test/*.spec.ts\"",
     "test": "npm run mocha",
-    "posttest": "nyc report --reporter=lcovonly && codecov -f coverage/*.info",
+    "posttest": "nyc report",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "lint": "eslint . --ext .js,.ts",
@@ -16,12 +16,9 @@
     "watch": "tsc --watch",
     "coverage": "nyc mocha \"test/*.ts\" && nyc report --reporter html"
   },
-  "typings": "types/index.d.ts",
   "main": "dist/index.js",
   "files": [
-    "dist",
-    "src",
-    "types"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -44,6 +41,7 @@
   },
   "homepage": "https://github.com/armano2/freemarker-parser#readme",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.0",
     "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.21",
@@ -62,9 +60,11 @@
   },
   "dependencies": {},
   "nyc": {
-    "extension": [
-      ".ts",
-      ".tsx"
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "check-coverage": true,
+    "include": [
+      "src/**/*"
     ],
     "exclude": [
       "**/*.d.ts",
@@ -72,8 +72,7 @@
       "test/**/*"
     ],
     "reporter": [
-      "html"
-    ],
-    "all": true
+      "lcovonly"
+    ]
   }
 }

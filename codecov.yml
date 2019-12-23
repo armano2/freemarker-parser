@@ -3,6 +3,7 @@ ignore:
   - "scripts"
   - "typings"
   - "dist"
+  - "coverage"
   - "test"
   - "**/*.yml"
   - "**/*.md"

@@ -2,3 +2,4 @@
 test/resource/**/*
 dist
 types
+coverage
