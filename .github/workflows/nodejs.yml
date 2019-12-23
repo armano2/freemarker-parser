@@ -33,4 +33,3 @@ jobs:
           file: ./coverage/lcov.info
           flags: unittests
           yml: ./codecov.yml
-          fail_ci_if_error: true

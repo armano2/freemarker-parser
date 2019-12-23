@@ -1,0 +1,527 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`html advance 1`] = `
+Array [
+  Object {
+    "end": 33,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "<p>This is include-subdir.ftl</p>",
+    "type": "Text",
+  },
+  Object {
+    "end": 65,
+    "endTag": ">",
+    "params": "\\"include-subdir2.ftl\\"",
+    "start": 33,
+    "startTag": "<#",
+    "text": "include",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`html simple 1`] = `
+Array [
+  Object {
+    "end": 33,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "<p>This is include-subdir.ftl</p>",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`names directive 1`] = `
+Array [
+  Object {
+    "end": 7,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 14,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 7,
+    "startTag": "<#",
+    "text": "Foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 21,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 14,
+    "startTag": "<#",
+    "text": "FoO",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 29,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 21,
+    "startTag": "<#",
+    "text": "Fo_O",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing comments coment in directive 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 20,
+    "endTag": "-->",
+    "params": undefined,
+    "start": 6,
+    "startTag": "<#--",
+    "text": "  foo  ",
+    "type": "Comment",
+  },
+  Object {
+    "end": 27,
+    "endTag": ">",
+    "params": undefined,
+    "start": 20,
+    "startTag": "</#",
+    "text": "foo",
+    "type": "CloseDirective",
+  },
+]
+`;
+
+exports[`parsing comments coment with text 1`] = `
+Array [
+  Object {
+    "end": 20,
+    "endTag": "-->",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#--",
+    "text": "  <@d></@d>  ",
+    "type": "Comment",
+  },
+]
+`;
+
+exports[`parsing directives many, no arguments 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 12,
+    "endTag": ">",
+    "params": undefined,
+    "start": 6,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing directives many, no arguments, with text 1`] = `
+Array [
+  Object {
+    "end": 3,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": undefined,
+    "start": 3,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 12,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+  Object {
+    "end": 18,
+    "endTag": ">",
+    "params": undefined,
+    "start": 12,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 21,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 18,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`parsing directives many, with arguments 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": "bar",
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 25,
+    "endTag": ">",
+    "params": "bar test",
+    "start": 10,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 40,
+    "endTag": ">",
+    "params": "bar less",
+    "start": 25,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing directives no arguments 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing directives no arguments, self-closing 1`] = `
+Array [
+  Object {
+    "end": 7,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing directives no arguments, with close tag 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 13,
+    "endTag": ">",
+    "params": undefined,
+    "start": 6,
+    "startTag": "</#",
+    "text": "foo",
+    "type": "CloseDirective",
+  },
+]
+`;
+
+exports[`parsing directives with arguments 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": "bar",
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;
+
+exports[`parsing macros many, no arguments 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 12,
+    "endTag": ">",
+    "params": undefined,
+    "start": 6,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+]
+`;
+
+exports[`parsing macros many, no arguments, with text 1`] = `
+Array [
+  Object {
+    "end": 3,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": undefined,
+    "start": 3,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 12,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+  Object {
+    "end": 18,
+    "endTag": ">",
+    "params": undefined,
+    "start": 12,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 21,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 18,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`parsing macros many, with arguments 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": "bar",
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 25,
+    "endTag": ">",
+    "params": "bar test",
+    "start": 10,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 40,
+    "endTag": ">",
+    "params": "bar less",
+    "start": 25,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+]
+`;
+
+exports[`parsing macros no arguments 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+]
+`;
+
+exports[`parsing macros no arguments, self-closing 1`] = `
+Array [
+  Object {
+    "end": 7,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+]
+`;
+
+exports[`parsing macros no arguments, with close tag 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 13,
+    "endTag": ">",
+    "params": undefined,
+    "start": 6,
+    "startTag": "</@",
+    "text": "foo",
+    "type": "CloseMacro",
+  },
+]
+`;
+
+exports[`parsing macros with arguments 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": "bar",
+    "start": 0,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+]
+`;
+
+exports[`parsing text empty text 1`] = `Array []`;
+
+exports[`parsing text raw text 1`] = `
+Array [
+  Object {
+    "end": 5,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "<foo>",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`parsing text text after directive 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 9,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 6,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`parsing text text before directive 1`] = `
+Array [
+  Object {
+    "end": 3,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 0,
+    "startTag": undefined,
+    "text": "foo",
+    "type": "Text",
+  },
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": undefined,
+    "start": 3,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+]
+`;

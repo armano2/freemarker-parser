@@ -3,3 +3,4 @@ test/resource/**/*
 dist
 types
 coverage
+jest.config.js
