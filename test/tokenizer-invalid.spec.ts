@@ -1,158 +1,85 @@
-import * as assert from 'assert';
-
 import { Tokenizer } from '../src';
 import { IToken } from '../src/interface/Tokens';
 
 const tokenizer = new Tokenizer();
 
 function parse(text: string): IToken[] {
-  return tokenizer.parse(text);
+  try {
+    return tokenizer.parse(text);
+  } catch (e) {
+    throw new Error(`${e.message} [${e.start}-${e.end}]`)
+  }
 }
 
 describe('errors', () => {
   it('invalid amount of brackets', () => {
-    try {
+    expect(() => {
       parse('<#foo foo)>');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'To many close tags )',
-        'error message is invalid',
-      );
-    }
-    try {
+    }).toThrowErrorMatchingSnapshot();
+    expect(() => {
       parse('<#foo foo(>');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'Missing ) close char',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
+
   it('unclosed comment', () => {
-    try {
+    expect(() => {
       parse('<#-- foo bar');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'Unclosed comment',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
+
   it('missing close tag in directive', () => {
-    try {
+    expect(() => {
       parse('<#');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'OpenDirective name cannot be empty',
-        'error message is invalid',
-      );
-      assert.strictEqual(e.start, 2, 'start pos is invalid');
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
+
   it('missing close tag in macro', () => {
-    try {
+    expect(() => {
       parse('<@');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'OpenMacro name cannot be empty',
-        'error message is invalid',
-      );
-      assert.strictEqual(e.start, 2, 'start pos is invalid');
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
   it('invalid character in macro name', () => {
-    try {
+    expect(() => {
       parse('<@?');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(e.message, 'Invalid `?`', 'error message is invalid');
-      assert.strictEqual(e.start, 2, 'start pos is invalid');
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
   it('invalid character in directive name', () => {
-    try {
+    expect(() => {
       parse('<@&');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(e.message, 'Invalid `&`', 'error message is invalid');
-      assert.strictEqual(e.start, 2, 'start pos is invalid');
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
 });
 
 describe('error_expresion', () => {
   it('to many close tags ]', () => {
-    try {
+    expect(() => {
       parse('<@foo a["foo"]]');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'To many close tags ]',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
+
   it('to many close tags )', () => {
-    try {
+    expect(() => {
       parse('<@foo a("foo"))');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'To many close tags )',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
 });
 
 describe('unclosed', () => {
   it('directive', () => {
-    try {
+    expect(() => {
       parse('<#foo');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'Unclosed directive or macro',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
+
   it('macro', () => {
-    try {
+    expect(() => {
       parse('<@foo');
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'Unclosed directive or macro',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
 
   it('interpolation', () => {
-    try {
+    expect(() => {
       parse(`\${ foo`);
-      assert.fail('should fail');
-    } catch (e) {
-      assert.strictEqual(
-        e.message,
-        'Unclosed directive or macro',
-        'error message is invalid',
-      );
-    }
+    }).toThrowErrorMatchingSnapshot();
   });
 });

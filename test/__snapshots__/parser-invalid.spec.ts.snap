@@ -1,0 +1,3459 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assigment.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 14,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 14,
+          "line": 1,
+        },
+      },
+      "start": 13,
+      "text": "
+",
+      "type": "Text",
+    },
+    Final {
+      "end": 28,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 14,
+          "line": 2,
+        },
+      },
+      "start": 27,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 27,
+  "errors": Array [
+    ParseError {
+      "end": 13,
+      "loc": Object {
+        "end": Object {
+          "column": 14,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Invalid parameters in Assign",
+      "start": 0,
+    },
+    ParseError {
+      "end": 27,
+      "loc": Object {
+        "end": Object {
+          "column": 14,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "message": "Invalid parameters in Assign",
+      "start": 14,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 14,
+      "line": 2,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`assigment.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 13,
+    "endTag": ">",
+    "params": "++x",
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 14,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 13,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 27,
+    "endTag": ">",
+    "params": "--x",
+    "start": 14,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 28,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 27,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`assigment.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 13,
+    "loc": Object {
+      "end": Object {
+        "column": 14,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Invalid parameters in Assign",
+    "start": 0,
+  },
+  ParseError {
+    "end": 27,
+    "loc": Object {
+      "end": Object {
+        "column": 14,
+        "line": 2,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 2,
+      },
+    },
+    "message": "Invalid parameters in Assign",
+    "start": 14,
+  },
+]
+`;
+
+exports[`assigment_error.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 13,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 13,
+          "line": 1,
+        },
+      },
+      "start": 12,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 12,
+  "errors": Array [
+    ParseError {
+      "end": 0,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Missing argument in before '--'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 13,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`assigment_error.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 12,
+    "endTag": ">",
+    "params": "--",
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 13,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 12,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`assigment_error.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 0,
+    "loc": Object {
+      "end": Object {
+        "column": 1,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Missing argument in before '--'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`assign.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 10,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 10,
+          "line": 1,
+        },
+      },
+      "start": 9,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 9,
+  "errors": Array [
+    ParseError {
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Assign require params",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 10,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`assign.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 10,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`assign.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 9,
+    "loc": Object {
+      "end": Object {
+        "column": 10,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Assign require params",
+    "start": 0,
+  },
+]
+`;
+
+exports[`assign_empty.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 12,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 12,
+          "line": 1,
+        },
+      },
+      "start": 11,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 11,
+  "errors": Array [
+    ParseError {
+      "end": 0,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unexpected \\",\\"",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 12,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`assign_empty.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 11,
+    "endTag": ">",
+    "params": ",",
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 12,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 11,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`assign_empty.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 0,
+    "loc": Object {
+      "end": Object {
+        "column": 1,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unexpected \\",\\"",
+    "start": 0,
+  },
+]
+`;
+
+exports[`assign_invalid_char.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 18,
+          "line": 1,
+        },
+      },
+      "start": 17,
+      "text": "
+
+",
+      "type": "Text",
+    },
+    Final {
+      "end": 30,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 11,
+          "line": 3,
+        },
+      },
+      "start": 29,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 29,
+  "errors": Array [
+    ParseError {
+      "end": 17,
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Invalid parameters in Assign",
+      "start": 0,
+    },
+    ParseError {
+      "end": 29,
+      "loc": Object {
+        "end": Object {
+          "column": 11,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 3,
+        },
+      },
+      "message": "Unexpected close tag 'Assign'",
+      "start": 19,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 11,
+      "line": 3,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`assign_invalid_char.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 17,
+    "endTag": ">",
+    "params": "foo bar",
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 19,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 17,
+    "startTag": undefined,
+    "text": "
+
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 29,
+    "endTag": ">",
+    "params": undefined,
+    "start": 19,
+    "startTag": "</#",
+    "text": "assign",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 30,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 29,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`assign_invalid_char.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 17,
+    "loc": Object {
+      "end": Object {
+        "column": 18,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Invalid parameters in Assign",
+    "start": 0,
+  },
+  ParseError {
+    "end": 29,
+    "loc": Object {
+      "end": Object {
+        "column": 11,
+        "line": 3,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 3,
+      },
+    },
+    "message": "Unexpected close tag 'Assign'",
+    "start": 19,
+  },
+]
+`;
+
+exports[`ast.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 18,
+      "loc": Object {
+        "end": Object {
+          "column": 3,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 16,
+          "line": 1,
+        },
+      },
+      "start": 15,
+      "text": "
+  ",
+      "type": "Text",
+    },
+    Final {
+      "end": 42,
+      "loc": Object {
+        "end": Object {
+          "column": 5,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 22,
+          "line": 2,
+        },
+      },
+      "start": 37,
+      "text": "
+    ",
+      "type": "Text",
+    },
+    Final {
+      "end": 60,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 22,
+          "line": 3,
+        },
+      },
+      "start": 59,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 59,
+  "errors": Array [
+    ParseError {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Invalid parameters in OutputFormat",
+      "start": 0,
+    },
+    ParseError {
+      "end": 37,
+      "loc": Object {
+        "end": Object {
+          "column": 22,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "message": "Unexpected parameter in OpenDirective",
+      "start": 18,
+    },
+    ParseError {
+      "end": 59,
+      "loc": Object {
+        "end": Object {
+          "column": 22,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 5,
+          "line": 3,
+        },
+      },
+      "message": "Unexpected parameter in OpenDirective",
+      "start": 42,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 22,
+      "line": 3,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`ast.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 15,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "outputFormat",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 18,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 15,
+    "startTag": undefined,
+    "text": "
+  ",
+    "type": "Text",
+  },
+  Object {
+    "end": 37,
+    "endTag": ">",
+    "params": "\\"test\\"",
+    "start": 18,
+    "startTag": "<#",
+    "text": "noAutoEsc",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 42,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 37,
+    "startTag": undefined,
+    "text": "
+    ",
+    "type": "Text",
+  },
+  Object {
+    "end": 59,
+    "endTag": ">",
+    "params": "\\"test\\"",
+    "start": 42,
+    "startTag": "<#",
+    "text": "autoEsc",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 60,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 59,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`ast.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 15,
+    "loc": Object {
+      "end": Object {
+        "column": 16,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Invalid parameters in OutputFormat",
+    "start": 0,
+  },
+  ParseError {
+    "end": 37,
+    "loc": Object {
+      "end": Object {
+        "column": 22,
+        "line": 2,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 2,
+      },
+    },
+    "message": "Unexpected parameter in OpenDirective",
+    "start": 18,
+  },
+  ParseError {
+    "end": 59,
+    "loc": Object {
+      "end": Object {
+        "column": 22,
+        "line": 3,
+      },
+      "start": Object {
+        "column": 5,
+        "line": 3,
+      },
+    },
+    "message": "Unexpected parameter in OpenDirective",
+    "start": 42,
+  },
+]
+`;
+
+exports[`close_params.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    ListNode {
+      "body": Array [
+        Final {
+          "end": 13,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 12,
+              "line": 1,
+            },
+          },
+          "start": 11,
+          "text": "
+
+",
+          "type": "Text",
+        },
+        Final {
+          "end": 29,
+          "loc": Object {
+            "end": Object {
+              "column": 0,
+              "line": 0,
+            },
+            "start": Object {
+              "column": 16,
+              "line": 3,
+            },
+          },
+          "start": 28,
+          "text": "
+",
+          "type": "Text",
+        },
+      ],
+      "end": 11,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "name": "foo",
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "List",
+    },
+  ],
+  "end": 28,
+  "errors": Array [
+    ParseError {
+      "end": 28,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 3,
+        },
+      },
+      "message": "Close tag 'List' should have no params",
+      "start": 13,
+    },
+    ParseError {
+      "end": 11,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unclosed tag 'List'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 16,
+      "line": 3,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`close_params.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 11,
+    "endTag": ">",
+    "params": "foo",
+    "start": 0,
+    "startTag": "<#",
+    "text": "list",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 13,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 11,
+    "startTag": undefined,
+    "text": "
+
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 28,
+    "endTag": ">",
+    "params": "id=\\"2\\"",
+    "start": 13,
+    "startTag": "</#",
+    "text": "list",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 29,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 28,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`close_params.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 28,
+    "loc": Object {
+      "end": Object {
+        "column": 16,
+        "line": 3,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 3,
+      },
+    },
+    "message": "Close tag 'List' should have no params",
+    "start": 13,
+  },
+  ParseError {
+    "end": 11,
+    "loc": Object {
+      "end": Object {
+        "column": 12,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unclosed tag 'List'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`condition_else.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    ConditionNode {
+      "alternate": Array [
+        Final {
+          "end": 20,
+          "loc": Object {
+            "end": Object {
+              "column": 3,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 8,
+              "line": 2,
+            },
+          },
+          "start": 17,
+          "text": "
+  ",
+          "type": "Text",
+        },
+        Final {
+          "end": 30,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 4,
+            },
+            "start": Object {
+              "column": 12,
+              "line": 3,
+            },
+          },
+          "start": 29,
+          "text": "
+",
+          "type": "Text",
+        },
+      ],
+      "consequent": Array [
+        Final {
+          "end": 10,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 10,
+              "line": 1,
+            },
+          },
+          "start": 9,
+          "text": "
+",
+          "type": "Text",
+        },
+      ],
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "name": "foo",
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "Condition",
+    },
+    Final {
+      "end": 37,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 7,
+          "line": 4,
+        },
+      },
+      "start": 36,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 36,
+  "errors": Array [
+    ParseError {
+      "end": 29,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 3,
+        },
+      },
+      "message": "Error while creating node 'ConditionElse' inside 'Condition'",
+      "start": 20,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 7,
+      "line": 4,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`condition_else.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": "foo",
+    "start": 0,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 10,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 17,
+    "endTag": ">",
+    "params": undefined,
+    "start": 10,
+    "startTag": "<#",
+    "text": "else",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 20,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 17,
+    "startTag": undefined,
+    "text": "
+  ",
+    "type": "Text",
+  },
+  Object {
+    "end": 29,
+    "endTag": ">",
+    "params": undefined,
+    "start": 20,
+    "startTag": "<#",
+    "text": "elseif",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 30,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 29,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 36,
+    "endTag": ">",
+    "params": undefined,
+    "start": 30,
+    "startTag": "</#",
+    "text": "if",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 37,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 36,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`condition_else.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 29,
+    "loc": Object {
+      "end": Object {
+        "column": 12,
+        "line": 3,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 3,
+      },
+    },
+    "message": "Error while creating node 'ConditionElse' inside 'Condition'",
+    "start": 20,
+  },
+]
+`;
+
+exports[`else.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 8,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 8,
+          "line": 1,
+        },
+      },
+      "start": 7,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 7,
+  "errors": Array [
+    ParseError {
+      "end": 7,
+      "loc": Object {
+        "end": Object {
+          "column": 8,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'Else' inside 'Program'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 8,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`else.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 7,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "else",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 8,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 7,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`else.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 7,
+    "loc": Object {
+      "end": Object {
+        "column": 8,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'Else' inside 'Program'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`escape.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    InterpolationNode {
+      "end": 29,
+      "loc": Object {
+        "end": Object {
+          "column": 30,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 26,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "raw": "1",
+        "type": "Literal",
+        "value": 1,
+      },
+      "start": 25,
+      "type": "Interpolation",
+    },
+    Final {
+      "end": 40,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 40,
+          "line": 1,
+        },
+      },
+      "start": 39,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 39,
+  "errors": Array [
+    ParseError {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 16,
+          "line": 1,
+        },
+      },
+      "message": "Unclosed {",
+      "start": 15,
+    },
+    ParseError {
+      "end": 39,
+      "loc": Object {
+        "end": Object {
+          "column": 40,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 30,
+          "line": 1,
+        },
+      },
+      "message": "Unexpected close tag 'Escape'",
+      "start": 29,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 40,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`escape.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 25,
+    "endTag": ">",
+    "params": "test as {\\"a\\": 2",
+    "start": 0,
+    "startTag": "<#",
+    "text": "escape",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 29,
+    "endTag": "}",
+    "params": "1",
+    "start": 25,
+    "startTag": "\${",
+    "text": "",
+    "type": "Interpolation",
+  },
+  Object {
+    "end": 39,
+    "endTag": ">",
+    "params": undefined,
+    "start": 29,
+    "startTag": "</#",
+    "text": "escape",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 40,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 39,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`escape.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 15,
+    "loc": Object {
+      "end": Object {
+        "column": 16,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 16,
+        "line": 1,
+      },
+    },
+    "message": "Unclosed {",
+    "start": 15,
+  },
+  ParseError {
+    "end": 39,
+    "loc": Object {
+      "end": Object {
+        "column": 40,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 30,
+        "line": 1,
+      },
+    },
+    "message": "Unexpected close tag 'Escape'",
+    "start": 29,
+  },
+]
+`;
+
+exports[`escape_unclosed.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    EscapeNode {
+      "body": Array [
+        Final {
+          "end": 20,
+          "loc": Object {
+            "end": Object {
+              "column": 0,
+              "line": 0,
+            },
+            "start": Object {
+              "column": 20,
+              "line": 1,
+            },
+          },
+          "start": 19,
+          "text": "
+",
+          "type": "Text",
+        },
+      ],
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 20,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "body": Array [
+          Object {
+            "name": "test",
+            "type": "Identifier",
+          },
+          Object {
+            "name": "as",
+            "type": "Identifier",
+          },
+          Object {
+            "name": "a",
+            "type": "Identifier",
+          },
+        ],
+        "type": "Compound",
+      },
+      "start": 0,
+      "type": "Escape",
+    },
+  ],
+  "end": 19,
+  "errors": Array [
+    ParseError {
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 20,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unclosed tag 'Escape'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 20,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`escape_unclosed.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 19,
+    "endTag": ">",
+    "params": "test as a",
+    "start": 0,
+    "startTag": "<#",
+    "text": "escape",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 20,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 19,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`escape_unclosed.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 19,
+    "loc": Object {
+      "end": Object {
+        "column": 20,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unclosed tag 'Escape'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`escape2.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    InterpolationNode {
+      "end": 27,
+      "loc": Object {
+        "end": Object {
+          "column": 28,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 24,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "raw": "1",
+        "type": "Literal",
+        "value": 1,
+      },
+      "start": 23,
+      "type": "Interpolation",
+    },
+    Final {
+      "end": 38,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 38,
+          "line": 1,
+        },
+      },
+      "start": 37,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 37,
+  "errors": Array [
+    ParseError {
+      "end": 12,
+      "loc": Object {
+        "end": Object {
+          "column": 13,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 13,
+          "line": 1,
+        },
+      },
+      "message": "Invalid character }",
+      "start": 12,
+    },
+    ParseError {
+      "end": 37,
+      "loc": Object {
+        "end": Object {
+          "column": 38,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 28,
+          "line": 1,
+        },
+      },
+      "message": "Unexpected close tag 'Escape'",
+      "start": 27,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 38,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`escape2.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 23,
+    "endTag": ">",
+    "params": "test as {\\"a\\"}",
+    "start": 0,
+    "startTag": "<#",
+    "text": "escape",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 27,
+    "endTag": "}",
+    "params": "1",
+    "start": 23,
+    "startTag": "\${",
+    "text": "",
+    "type": "Interpolation",
+  },
+  Object {
+    "end": 37,
+    "endTag": ">",
+    "params": undefined,
+    "start": 27,
+    "startTag": "</#",
+    "text": "escape",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 38,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 37,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`escape2.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 12,
+    "loc": Object {
+      "end": Object {
+        "column": 13,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 13,
+        "line": 1,
+      },
+    },
+    "message": "Invalid character }",
+    "start": 12,
+  },
+  ParseError {
+    "end": 37,
+    "loc": Object {
+      "end": Object {
+        "column": 38,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 28,
+        "line": 1,
+      },
+    },
+    "message": "Unexpected close tag 'Escape'",
+    "start": 27,
+  },
+]
+`;
+
+exports[`missing_close_tag.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    ConditionNode {
+      "consequent": Array [
+        Final {
+          "end": 12,
+          "loc": Object {
+            "end": Object {
+              "column": 3,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 10,
+              "line": 1,
+            },
+          },
+          "start": 9,
+          "text": "
+  ",
+          "type": "Text",
+        },
+        ConditionNode {
+          "consequent": Array [
+            Final {
+              "end": 22,
+              "loc": Object {
+                "end": Object {
+                  "column": 0,
+                  "line": 0,
+                },
+                "start": Object {
+                  "column": 12,
+                  "line": 2,
+                },
+              },
+              "start": 21,
+              "text": "
+",
+              "type": "Text",
+            },
+          ],
+          "end": 21,
+          "loc": Object {
+            "end": Object {
+              "column": 12,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 3,
+              "line": 2,
+            },
+          },
+          "params": Object {
+            "name": "bar",
+            "type": "Identifier",
+          },
+          "start": 12,
+          "type": "Condition",
+        },
+      ],
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "name": "foo",
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "Condition",
+    },
+  ],
+  "end": 21,
+  "errors": Array [
+    ParseError {
+      "end": 21,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "message": "Unclosed tag 'Condition'",
+      "start": 12,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 12,
+      "line": 2,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`missing_close_tag.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": "foo",
+    "start": 0,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 12,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "
+  ",
+    "type": "Text",
+  },
+  Object {
+    "end": 21,
+    "endTag": ">",
+    "params": "bar",
+    "start": 12,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 22,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 21,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`missing_close_tag.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 21,
+    "loc": Object {
+      "end": Object {
+        "column": 12,
+        "line": 2,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 2,
+      },
+    },
+    "message": "Unclosed tag 'Condition'",
+    "start": 12,
+  },
+]
+`;
+
+exports[`noescape.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    InterpolationNode {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 12,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "raw": "1",
+        "type": "Literal",
+        "value": 1,
+      },
+      "start": 11,
+      "type": "Interpolation",
+    },
+    Final {
+      "end": 28,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 28,
+          "line": 1,
+        },
+      },
+      "start": 27,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 27,
+  "errors": Array [
+    ParseError {
+      "end": 11,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'NoEscape' inside 'Program'",
+      "start": 0,
+    },
+    ParseError {
+      "end": 27,
+      "loc": Object {
+        "end": Object {
+          "column": 28,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 16,
+          "line": 1,
+        },
+      },
+      "message": "Unexpected close tag 'NoEscape'",
+      "start": 15,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 28,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`noescape.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 11,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "noescape",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 15,
+    "endTag": "}",
+    "params": "1",
+    "start": 11,
+    "startTag": "\${",
+    "text": "",
+    "type": "Interpolation",
+  },
+  Object {
+    "end": 27,
+    "endTag": ">",
+    "params": undefined,
+    "start": 15,
+    "startTag": "</#",
+    "text": "noescape",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 28,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 27,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`noescape.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 11,
+    "loc": Object {
+      "end": Object {
+        "column": 12,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'NoEscape' inside 'Program'",
+    "start": 0,
+  },
+  ParseError {
+    "end": 27,
+    "loc": Object {
+      "end": Object {
+        "column": 28,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 16,
+        "line": 1,
+      },
+    },
+    "message": "Unexpected close tag 'NoEscape'",
+    "start": 15,
+  },
+]
+`;
+
+exports[`noescape2.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 30,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 30,
+          "line": 1,
+        },
+      },
+      "start": 29,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 29,
+  "errors": Array [
+    ParseError {
+      "end": 17,
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'NoEscape' inside 'Program'",
+      "start": 0,
+    },
+    ParseError {
+      "end": 29,
+      "loc": Object {
+        "end": Object {
+          "column": 30,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 18,
+          "line": 1,
+        },
+      },
+      "message": "Unexpected close tag 'NoEscape'",
+      "start": 17,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 30,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`noescape2.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 17,
+    "endTag": ">",
+    "params": "a=\\"b\\"",
+    "start": 0,
+    "startTag": "<#",
+    "text": "noescape",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 29,
+    "endTag": ">",
+    "params": undefined,
+    "start": 17,
+    "startTag": "</#",
+    "text": "noescape",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 30,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 29,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`noescape2.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 17,
+    "loc": Object {
+      "end": Object {
+        "column": 18,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'NoEscape' inside 'Program'",
+    "start": 0,
+  },
+  ParseError {
+    "end": 29,
+    "loc": Object {
+      "end": Object {
+        "column": 30,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 18,
+        "line": 1,
+      },
+    },
+    "message": "Unexpected close tag 'NoEscape'",
+    "start": 17,
+  },
+]
+`;
+
+exports[`not_closable.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    SwitchNode {
+      "cases": Array [],
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": undefined,
+      "start": 0,
+      "type": "Switch",
+    },
+  ],
+  "end": 20,
+  "errors": Array [
+    ParseError {
+      "end": 20,
+      "loc": Object {
+        "end": Object {
+          "column": 11,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "message": "Unexpected close tag 'Else'",
+      "start": 12,
+    },
+    ParseError {
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unclosed tag 'Switch'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 11,
+      "line": 2,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`not_closable.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "switch",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 12,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "
+  ",
+    "type": "Text",
+  },
+  Object {
+    "end": 20,
+    "endTag": ">",
+    "params": undefined,
+    "start": 12,
+    "startTag": "</#",
+    "text": "else",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 21,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 20,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`not_closable.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 20,
+    "loc": Object {
+      "end": Object {
+        "column": 11,
+        "line": 2,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 2,
+      },
+    },
+    "message": "Unexpected close tag 'Else'",
+    "start": 12,
+  },
+  ParseError {
+    "end": 9,
+    "loc": Object {
+      "end": Object {
+        "column": 10,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unclosed tag 'Switch'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`not_closable2.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 16,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 16,
+          "line": 1,
+        },
+      },
+      "start": 15,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 15,
+  "errors": Array [
+    ParseError {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Close tag 'Include' should have no params",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 16,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`not_closable2.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 15,
+    "endTag": ">",
+    "params": "foo",
+    "start": 0,
+    "startTag": "</#",
+    "text": "include",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 16,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 15,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`not_closable2.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 15,
+    "loc": Object {
+      "end": Object {
+        "column": 16,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Close tag 'Include' should have no params",
+    "start": 0,
+  },
+]
+`;
+
+exports[`not_closable3.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [],
+  "end": 10,
+  "errors": Array [
+    ParseError {
+      "end": 12,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 7,
+          "line": 1,
+        },
+      },
+      "message": "Missing ) close char",
+      "start": 6,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 11,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`not_closable3.ftl should have correct tokens 1`] = `Array []`;
+
+exports[`not_closable3.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 12,
+    "loc": Object {
+      "end": Object {
+        "column": 0,
+        "line": 0,
+      },
+      "start": Object {
+        "column": 7,
+        "line": 1,
+      },
+    },
+    "message": "Missing ) close char",
+    "start": 6,
+  },
+]
+`;
+
+exports[`recover.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 11,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 11,
+          "line": 1,
+        },
+      },
+      "start": 10,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 10,
+  "errors": Array [
+    ParseError {
+      "end": 10,
+      "loc": Object {
+        "end": Object {
+          "column": 11,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'Recover' inside 'Program'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 11,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`recover.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "recover",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 11,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 10,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`recover.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 10,
+    "loc": Object {
+      "end": Object {
+        "column": 11,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'Recover' inside 'Program'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`setting.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 41,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 41,
+          "line": 1,
+        },
+      },
+      "start": 40,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 40,
+  "errors": Array [
+    ParseError {
+      "end": 40,
+      "loc": Object {
+        "end": Object {
+          "column": 41,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Invalid parameters in Setting",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 41,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`setting.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 40,
+    "endTag": ">",
+    "params": "locale=\\"en_US\\" locale=\\"en_US\\"",
+    "start": 0,
+    "startTag": "<#",
+    "text": "setting",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 41,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 40,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`setting.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 40,
+    "loc": Object {
+      "end": Object {
+        "column": 41,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Invalid parameters in Setting",
+    "start": 0,
+  },
+]
+`;
+
+exports[`stop.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": undefined,
+      "start": 0,
+      "type": "Stop",
+    },
+    Final {
+      "end": 10,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 10,
+          "line": 1,
+        },
+      },
+      "start": 9,
+      "text": "
+",
+      "type": "Text",
+    },
+    Final {
+      "end": 17,
+      "loc": Object {
+        "end": Object {
+          "column": 8,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "params": undefined,
+      "start": 10,
+      "type": "Stop",
+    },
+    Final {
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 8,
+          "line": 2,
+        },
+      },
+      "start": 17,
+      "text": "
+
+",
+      "type": "Text",
+    },
+    Final {
+      "end": 28,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 9,
+          "line": 4,
+        },
+      },
+      "start": 27,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 27,
+  "errors": Array [
+    ParseError {
+      "end": 27,
+      "loc": Object {
+        "end": Object {
+          "column": 9,
+          "line": 4,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 4,
+        },
+      },
+      "message": "Unexpected close tag 'Stop'",
+      "start": 19,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 9,
+      "line": 4,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`stop.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": "/>",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "stop",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 10,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 17,
+    "endTag": ">",
+    "params": undefined,
+    "start": 10,
+    "startTag": "<#",
+    "text": "stop",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 19,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 17,
+    "startTag": undefined,
+    "text": "
+
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 27,
+    "endTag": ">",
+    "params": undefined,
+    "start": 19,
+    "startTag": "</#",
+    "text": "stop",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 28,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 27,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`stop.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 27,
+    "loc": Object {
+      "end": Object {
+        "column": 9,
+        "line": 4,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 4,
+      },
+    },
+    "message": "Unexpected close tag 'Stop'",
+    "start": 19,
+  },
+]
+`;
+
+exports[`switch.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    SwitchNode {
+      "cases": Array [],
+      "end": 14,
+      "loc": Object {
+        "end": Object {
+          "column": 15,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "name": "test",
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "Switch",
+    },
+  ],
+  "end": 23,
+  "errors": Array [
+    ParseError {
+      "end": 23,
+      "loc": Object {
+        "end": Object {
+          "column": 9,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 2,
+        },
+      },
+      "message": "Node Switch can't contain MacroCall",
+      "start": 17,
+    },
+    ParseError {
+      "end": 14,
+      "loc": Object {
+        "end": Object {
+          "column": 15,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unclosed tag 'Switch'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 9,
+      "line": 2,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`switch.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 14,
+    "endTag": ">",
+    "params": "test",
+    "start": 0,
+    "startTag": "<#",
+    "text": "switch",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 17,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 14,
+    "startTag": undefined,
+    "text": "
+  ",
+    "type": "Text",
+  },
+  Object {
+    "end": 23,
+    "endTag": ">",
+    "params": undefined,
+    "start": 17,
+    "startTag": "<@",
+    "text": "foo",
+    "type": "OpenMacro",
+  },
+  Object {
+    "end": 24,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 23,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`switch.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 23,
+    "loc": Object {
+      "end": Object {
+        "column": 9,
+        "line": 2,
+      },
+      "start": Object {
+        "column": 3,
+        "line": 2,
+      },
+    },
+    "message": "Node Switch can't contain MacroCall",
+    "start": 17,
+  },
+  ParseError {
+    "end": 14,
+    "loc": Object {
+      "end": Object {
+        "column": 15,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unclosed tag 'Switch'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`switch_case.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 8,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 8,
+          "line": 1,
+        },
+      },
+      "start": 7,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 7,
+  "errors": Array [
+    ParseError {
+      "end": 7,
+      "loc": Object {
+        "end": Object {
+          "column": 8,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'SwitchCase' inside 'Program'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 8,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`switch_case.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 7,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "case",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 8,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 7,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`switch_case.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 7,
+    "loc": Object {
+      "end": Object {
+        "column": 8,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'SwitchCase' inside 'Program'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`switch_default.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 11,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 11,
+          "line": 1,
+        },
+      },
+      "start": 10,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 10,
+  "errors": Array [
+    ParseError {
+      "end": 10,
+      "loc": Object {
+        "end": Object {
+          "column": 11,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Error while creating node 'SwitchDefault' inside 'Program'",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 11,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`switch_default.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 10,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "default",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 11,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 10,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`switch_default.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 10,
+    "loc": Object {
+      "end": Object {
+        "column": 11,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Error while creating node 'SwitchDefault' inside 'Program'",
+    "start": 0,
+  },
+]
+`;
+
+exports[`unknown_directive.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    Final {
+      "end": 7,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 7,
+          "line": 1,
+        },
+      },
+      "start": 6,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 6,
+  "errors": Array [
+    ParseError {
+      "end": 6,
+      "loc": Object {
+        "end": Object {
+          "column": 7,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "message": "Unknown token \`OpenDirective\` - \`foo\`",
+      "start": 0,
+    },
+  ],
+  "loc": Object {
+    "end": Object {
+      "column": 7,
+      "line": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`unknown_directive.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 6,
+    "endTag": ">",
+    "params": undefined,
+    "start": 0,
+    "startTag": "<#",
+    "text": "foo",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 7,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 6,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
+exports[`unknown_directive.ftl should have errors 1`] = `
+Array [
+  ParseError {
+    "end": 6,
+    "loc": Object {
+      "end": Object {
+        "column": 7,
+        "line": 1,
+      },
+      "start": Object {
+        "column": 1,
+        "line": 1,
+      },
+    },
+    "message": "Unknown token \`OpenDirective\` - \`foo\`",
+    "start": 0,
+  },
+]
+`;

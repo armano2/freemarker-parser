@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error_expresion to many close tags ) 1`] = `"To many close tags ) [6-14]"`;
+
+exports[`error_expresion to many close tags ] 1`] = `"To many close tags ] [6-14]"`;
+
+exports[`errors invalid amount of brackets 1`] = `"To many close tags ) [6-9]"`;
+
+exports[`errors invalid amount of brackets 2`] = `"Missing ) close char [6-12]"`;
+
+exports[`errors invalid character in directive name 1`] = `"Invalid \`&\` [2-2]"`;
+
+exports[`errors invalid character in macro name 1`] = `"Invalid \`?\` [2-2]"`;
+
+exports[`errors missing close tag in directive 1`] = `"OpenDirective name cannot be empty [2-2]"`;
+
+exports[`errors missing close tag in macro 1`] = `"OpenMacro name cannot be empty [2-2]"`;
+
+exports[`errors unclosed comment 1`] = `"Unclosed comment [undefined-undefined]"`;
+
+exports[`unclosed directive 1`] = `"Unclosed directive or macro [5-6]"`;
+
+exports[`unclosed interpolation 1`] = `"Unclosed directive or macro [2-7]"`;
+
+exports[`unclosed macro 1`] = `"Unclosed directive or macro [5-6]"`;

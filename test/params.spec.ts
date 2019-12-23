@@ -1,4 +1,3 @@
-import * as assert from 'assert';
 import { EOperators } from '../src/enum/Operators';
 import ParamNames from '../src/enum/ParamNames';
 import { ParamsParser } from '../src/ParamsParser';
@@ -24,8 +23,9 @@ describe('params parser', () => {
         raw: '1',
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toEqual(expected);
   });
+
   it('non-literal variable', () => {
     const result = parse('foo.baz');
     const expected = {
@@ -40,8 +40,9 @@ describe('params parser', () => {
         name: 'baz',
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toEqual(expected);
   });
+
   it('non-literal array', () => {
     const result = parse("foo['baz']");
     const expected = {
@@ -57,8 +58,9 @@ describe('params parser', () => {
         raw: "'baz'",
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('unary prefix', () => {
     const result = parse('++foo');
     const expected = {
@@ -70,8 +72,9 @@ describe('params parser', () => {
         name: 'foo',
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('unary suffix', () => {
     const result = parse('foo++');
     const expected = {
@@ -83,8 +86,9 @@ describe('params parser', () => {
         name: 'foo',
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('toUpperCase', () => {
     const result = parse('foo?toUpperCase');
     const expected = {
@@ -99,8 +103,9 @@ describe('params parser', () => {
         name: 'toUpperCase',
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('array expression', () => {
     const result = parse('["","a"]');
     const expected = {
@@ -118,16 +123,18 @@ describe('params parser', () => {
         },
       ],
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('empty object expression', () => {
     const result = parse('{}');
     const expected = {
       type: ParamNames.MapExpression,
       elements: [],
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('object expression', () => {
     const result = parse('{"x":1,"y":2}');
     const expected = {
@@ -159,8 +166,9 @@ describe('params parser', () => {
         },
       ],
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
+
   it('to string', () => {
     const result = parse('foo?string("yes")');
     const expected = {
@@ -185,6 +193,6 @@ describe('params parser', () => {
         },
       },
     };
-    assert.deepStrictEqual(result, expected, 'value is not matching');
+    expect(result).toStrictEqual(expected);
   });
 });
