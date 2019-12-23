@@ -1,0 +1,4 @@
+.github
+test/resource/**/*
+dist
+types

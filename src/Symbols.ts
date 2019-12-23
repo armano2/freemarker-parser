@@ -10,7 +10,7 @@ export enum ENodeType {
 }
 
 export interface ISymbol {
-  startToken : string
-  endToken : string[]
-  type : ENodeType
+  startToken: string;
+  endToken: string[];
+  type: ENodeType;
 }

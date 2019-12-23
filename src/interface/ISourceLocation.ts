@@ -1,4 +1,4 @@
 export interface ISourceLocation {
-  line : number
-  column : number
+  line: number;
+  column: number;
 }

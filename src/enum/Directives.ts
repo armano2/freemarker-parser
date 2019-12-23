@@ -1,4 +1,4 @@
-import NodeNames from './NodeNames'
+import NodeNames from './NodeNames';
 
 export enum Directives {
   if = NodeNames.Condition,

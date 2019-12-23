@@ -66,7 +66,7 @@ enum ECharCodes {
   Equal = 0x3d,
   Greater = 0x3e,
   QuestionMark = 0x3f,
-  At = 0X40,
+  At = 0x40,
   A = 0x41,
   B = 0x42,
   C = 0x43,
@@ -150,4 +150,4 @@ enum ECharCodes {
   MathematicalSpace = 0x205f,
   Ogham = 0x1680,
 }
-export default ECharCodes
+export default ECharCodes;

@@ -1,8 +1,8 @@
-import {IOptions} from './interface/IOptions'
+import { IOptions } from './interface/IOptions';
 
-const defaultConfig : IOptions = {
-  squareTags : false,
-  parseLocation : true,
-}
+const defaultConfig: IOptions = {
+  squareTags: false,
+  parseLocation: true,
+};
 
-export default defaultConfig
+export default defaultConfig;

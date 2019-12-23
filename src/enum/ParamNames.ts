@@ -14,4 +14,4 @@ enum ParamNames {
   UpdateExpression = 'UpdateExpression',
 }
 
-export default ParamNames
+export default ParamNames;

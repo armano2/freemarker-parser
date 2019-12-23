@@ -12,9 +12,7 @@
     "declaration": true,
     "diagnostics": true,
     "forceConsistentCasingInFileNames": false,
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
@@ -25,7 +23,6 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "declarationDir": "./types/",
     "outDir": "./dist/",
     "sourceMap": true,
     "sourceRoot": "./src/",
@@ -35,7 +32,5 @@
     "strictNullChecks": true,
     "target": "es2015"
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

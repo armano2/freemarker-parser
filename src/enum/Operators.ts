@@ -1,20 +1,20 @@
 export interface IBinaryOperators {
-  [n : string] : number
+  [n: string]: number;
 }
 
 export interface IUnaryOperators {
-  [n : string] : boolean
+  [n: string]: boolean;
 }
 
 export interface ILiteralOperators {
-  [n : string] : boolean
+  [n: string]: boolean;
 }
 
 export enum EOperators {
   FALSE = 'false',
   TRUE = 'true',
   RAW_STRING = '"',
-  RAW_STRING2 = '\'',
+  RAW_STRING2 = "'",
   DOT = '.',
   DOT_DOT = '..',
   DOT_DOT_LESS = '..<',
@@ -68,25 +68,25 @@ export enum EOperators {
 }
 
 // Store the values to return for the various literals we may encounter
-export const ELiterals : ILiteralOperators = {
+export const ELiterals: ILiteralOperators = {
   [EOperators.TRUE]: true,
   [EOperators.FALSE]: false,
-}
+};
 
 // Use a quickly-accessible map to store all of the unary operators
-export const EUnaryOps : IUnaryOperators = {
+export const EUnaryOps: IUnaryOperators = {
   [EOperators.MINUS]: true,
   [EOperators.TIMES]: true,
   [EOperators.EXCLAM]: true,
   [EOperators.PLUS]: true,
   [EOperators.MINUS_MINUS]: true,
   [EOperators.PLUS_PLUS]: true,
-}
+};
 
 /**
  * @see http://en.wikipedia.org/wiki/Order_of_operations#Programming_language
  */
-export const EBinaryOps : IBinaryOperators = {
+export const EBinaryOps: IBinaryOperators = {
   // Assignment operators (right to left)
   [EOperators.EQUALS]: 0,
   [EOperators.PLUS_EQUALS]: 0,
@@ -127,20 +127,20 @@ export const EBinaryOps : IBinaryOperators = {
 
   // Custom
   [EOperators.BUILT_IN]: 11,
-}
+};
 
 // Get return the longest key length of any object
-export function getMaxKeyLength (obj : object) : number {
-  let maxLen = 0
-  let len
+export function getMaxKeyLength(obj: object): number {
+  let maxLen = 0;
+  let len;
   for (const key of Object.keys(obj)) {
-    len = key.length
+    len = key.length;
     if (len > maxLen) {
-      maxLen = len
+      maxLen = len;
     }
   }
-  return maxLen
+  return maxLen;
 }
 
-export const maxBinaryOps = getMaxKeyLength(EBinaryOps)
-export const maxUnaryOps = getMaxKeyLength(EUnaryOps)
+export const maxBinaryOps = getMaxKeyLength(EBinaryOps);
+export const maxUnaryOps = getMaxKeyLength(EUnaryOps);

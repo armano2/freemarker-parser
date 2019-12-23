@@ -1,7 +1,7 @@
 export interface IOptions {
-  squareTags? : boolean
+  squareTags?: boolean;
   // squareInterpolation? : boolean // TODO: unsupported
   // hashInterpolation? : boolean // TODO: unsupported
-  parseLocation? : boolean
+  parseLocation?: boolean;
   // useCamelCaseNaming? : boolean // TODO: unsupported
 }

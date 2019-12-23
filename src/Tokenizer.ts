@@ -1,155 +1,196 @@
-import AbstractTokenizer from './AbstractTokenizer'
-import defaultConfig from './defaultConfig'
-import ECharCodes from './enum/CharCodes'
-import ParseError from './errors/ParseError'
-import { IOptions } from './interface/IOptions'
-import { IToken } from './interface/Tokens'
-import { ENodeType, ISymbol } from './Symbols'
-import { isLetter, isWhitespace } from './utils/Chars'
+import AbstractTokenizer from './AbstractTokenizer';
+import defaultConfig from './defaultConfig';
+import ECharCodes from './enum/CharCodes';
+import ParseError from './errors/ParseError';
+import { IOptions } from './interface/IOptions';
+import { IToken } from './interface/Tokens';
+import { ENodeType, ISymbol } from './Symbols';
+import { isLetter, isWhitespace } from './utils/Chars';
 
 interface INextPos {
-  pos : number
-  text : string
+  pos: number;
+  text: string;
 }
 
 interface IParams {
-  paramText : string
-  endToken : string
+  paramText: string;
+  endToken: string;
 }
 
 export class Tokenizer extends AbstractTokenizer {
-  protected tokens : IToken[] = []
-  protected options : IOptions
-  protected symbols : ISymbol[]
+  protected tokens: IToken[] = [];
+  protected options: IOptions;
+  protected symbols: ISymbol[];
 
-  protected get openTag () : ECharCodes {
-    return this.options.squareTags ? ECharCodes.OpenBracket : ECharCodes.Less
+  protected get openTag(): ECharCodes {
+    return this.options.squareTags ? ECharCodes.OpenBracket : ECharCodes.Less;
   }
 
-  protected get closeTag () : ECharCodes {
-    return this.options.squareTags ? ECharCodes.CloseBracket : ECharCodes.Greater
+  protected get closeTag(): ECharCodes {
+    return this.options.squareTags
+      ? ECharCodes.CloseBracket
+      : ECharCodes.Greater;
   }
 
-  constructor (options : IOptions = {}) {
-    super()
+  constructor(options: IOptions = {}) {
+    super();
 
     this.options = {
       ...defaultConfig,
       ...options,
-    }
+    };
 
-    const openTag = String.fromCharCode(this.openTag)
-    const closeTag = String.fromCharCode(this.closeTag)
+    const openTag = String.fromCharCode(this.openTag);
+    const closeTag = String.fromCharCode(this.closeTag);
 
     this.symbols = [
-      { startToken: `${openTag}#--`, endToken: [`--${closeTag}`], type: ENodeType.Comment },
-      { startToken: `${openTag}/#`, endToken: [`${closeTag}`], type: ENodeType.CloseDirective },
-      { startToken: `${openTag}#`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.OpenDirective },
-      { startToken: `${openTag}/@`, endToken: [`${closeTag}`], type: ENodeType.CloseMacro },
-      { startToken: `${openTag}@`, endToken: [`${closeTag}`, `/${closeTag}`], type: ENodeType.OpenMacro },
+      {
+        startToken: `${openTag}#--`,
+        endToken: [`--${closeTag}`],
+        type: ENodeType.Comment,
+      },
+      {
+        startToken: `${openTag}/#`,
+        endToken: [`${closeTag}`],
+        type: ENodeType.CloseDirective,
+      },
+      {
+        startToken: `${openTag}#`,
+        endToken: [`${closeTag}`, `/${closeTag}`],
+        type: ENodeType.OpenDirective,
+      },
+      {
+        startToken: `${openTag}/@`,
+        endToken: [`${closeTag}`],
+        type: ENodeType.CloseMacro,
+      },
+      {
+        startToken: `${openTag}@`,
+        endToken: [`${closeTag}`, `/${closeTag}`],
+        type: ENodeType.OpenMacro,
+      },
       // tslint:disable-next-line:no-invalid-template-strings
       { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation },
-    ]
+    ];
   }
 
-  public parse (template : string) : IToken[] {
-    super.init(template)
+  public parse(template: string): IToken[] {
+    super.init(template);
 
-    this.tokens = []
+    this.tokens = [];
     while (this.index >= 0 && this.index < this.template.length) {
-      this.parseTemplate()
+      this.parseTemplate();
     }
 
-    return this.tokens
+    return this.tokens;
   }
 
-  protected getNextPos (items : string[]) : INextPos {
-    let pos = -1
-    let text = ''
+  protected getNextPos(items: string[]): INextPos {
+    let pos = -1;
+    let text = '';
     for (const item of items) {
-      const n = this.template.indexOf(item, this.index)
+      const n = this.template.indexOf(item, this.index);
       if (n >= 0 && (pos === -1 || n < pos)) {
-        pos = n
-        text = item
+        pos = n;
+        text = item;
       }
     }
-    return { pos, text }
+    return { pos, text };
   }
 
-  protected parseTagName () : string {
-    let text : string = ''
-    let ch : number = this.charCodeAt(this.index)
+  protected parseTagName(): string {
+    let text: string = '';
+    let ch: number = this.charCodeAt(this.index);
 
     while (this.index < this.template.length) {
       if (isWhitespace(ch)) {
-        ++this.index
-        break
+        ++this.index;
+        break;
       }
-      if (ch === this.closeTag || (ch === ECharCodes.Slash && this.charCodeAt(this.index + 1) === this.closeTag)) {
-        break
+      if (
+        ch === this.closeTag ||
+        (ch === ECharCodes.Slash &&
+          this.charCodeAt(this.index + 1) === this.closeTag)
+      ) {
+        break;
       }
-      if (isLetter(ch) || ch === ECharCodes.Period || ch === ECharCodes.Underscore) {
-        text += this.charAt(this.index)
-        ch = this.charCodeAt(++this.index)
+      if (
+        isLetter(ch) ||
+        ch === ECharCodes.Period ||
+        ch === ECharCodes.Underscore
+      ) {
+        text += this.charAt(this.index);
+        ch = this.charCodeAt(++this.index);
       } else {
-        throw new ParseError(`Invalid \`${this.charAt(this.index)}\``, { start: this.index, end: this.index })
+        throw new ParseError(`Invalid \`${this.charAt(this.index)}\``, {
+          start: this.index,
+          end: this.index,
+        });
       }
     }
-    return text
+    return text;
   }
 
-  protected getToken () : ISymbol | null {
-    let symbol : ISymbol | null = null
-    let startPos : number = 0
+  protected getToken(): ISymbol | null {
+    let symbol: ISymbol | null = null;
+    let startPos: number = 0;
     for (const item of this.symbols) {
-      const n = this.template.indexOf(item.startToken, this.index)
+      const n = this.template.indexOf(item.startToken, this.index);
       if (n === this.index && (!symbol || n < startPos)) {
-        symbol = item
-        startPos = n
+        symbol = item;
+        startPos = n;
       }
     }
-    return symbol || null
+    return symbol || null;
   }
 
-  protected parseTemplate () {
-    let text : string = ''
-    const startPos = this.index
-    let ch : number
+  protected parseTemplate() {
+    let text: string = '';
+    const startPos = this.index;
+    let ch: number;
     while (this.index < this.length) {
-      ch = this.charCodeAt(this.index)
+      ch = this.charCodeAt(this.index);
       if (ch === this.openTag || ch === ECharCodes.$) {
-        const token = this.getToken()
+        const token = this.getToken();
         if (token) {
           if (text.length > 0) {
-            this.addToken(ENodeType.Text, startPos, this.index, text)
-            text = ''
+            this.addToken(ENodeType.Text, startPos, this.index, text);
+            text = '';
           }
 
-          const start = this.index
-          this.index += token.startToken.length
+          const start = this.index;
+          this.index += token.startToken.length;
 
           switch (token.type) {
             case ENodeType.Comment:
-              return this.parseComment(token, start)
+              return this.parseComment(token, start);
             case ENodeType.OpenDirective:
             case ENodeType.OpenMacro:
-              return this.parseOpenDirectiveOrMacro(token, start)
-              case ENodeType.CloseDirective:
+              return this.parseOpenDirectiveOrMacro(token, start);
+            case ENodeType.CloseDirective:
             case ENodeType.CloseMacro:
-              return this.parseCloseDirectiveOrMacro(token, start)
+              return this.parseCloseDirectiveOrMacro(token, start);
             case ENodeType.Interpolation:
-              return this.parseInterpolation(token, start)
+              return this.parseInterpolation(token, start);
           }
         }
       }
-      text += this.charAt(this.index)
-      ++this.index
+      text += this.charAt(this.index);
+      ++this.index;
     }
 
-    return this.addToken(ENodeType.Text, startPos, this.index, text)
+    return this.addToken(ENodeType.Text, startPos, this.index, text);
   }
 
-  protected addToken (type : ENodeType, start : number, end : number, text : string, startTag? : string, endTag? : string, params? : string) {
+  protected addToken(
+    type: ENodeType,
+    start: number,
+    end: number,
+    text: string,
+    startTag?: string,
+    endTag?: string,
+    params?: string,
+  ) {
     this.tokens.push({
       type,
       start,
@@ -158,109 +199,164 @@ export class Tokenizer extends AbstractTokenizer {
       endTag,
       text,
       params: params || undefined,
-    })
+    });
   }
 
-  protected parseComment (symbol : ISymbol, start : number) {
-    const end = this.getNextPos(symbol.endToken)
+  protected parseComment(symbol: ISymbol, start: number) {
+    const end = this.getNextPos(symbol.endToken);
     if (end.pos === -1) {
-      throw new ReferenceError(`Unclosed comment`)
+      throw new ReferenceError(`Unclosed comment`);
     }
-    const text = this.template.substring(this.index, end.pos)
-    this.index = end.pos + end.text.length
+    const text = this.template.substring(this.index, end.pos);
+    this.index = end.pos + end.text.length;
 
-    this.addToken(symbol.type, start, this.index, text, symbol.startToken, end.text)
+    this.addToken(
+      symbol.type,
+      start,
+      this.index,
+      text,
+      symbol.startToken,
+      end.text,
+    );
   }
 
-  protected parseInterpolation (symbol : ISymbol, start : number) {
-    const params = this.parseParams(symbol.endToken)
-    this.addToken(symbol.type, start, this.index, '', symbol.startToken, params.endToken, params.paramText)
+  protected parseInterpolation(symbol: ISymbol, start: number) {
+    const params = this.parseParams(symbol.endToken);
+    this.addToken(
+      symbol.type,
+      start,
+      this.index,
+      '',
+      symbol.startToken,
+      params.endToken,
+      params.paramText,
+    );
   }
 
-  protected parseOpenDirectiveOrMacro (symbol : ISymbol, start : number) {
-    const typeString = this.parseTagName()
+  protected parseOpenDirectiveOrMacro(symbol: ISymbol, start: number) {
+    const typeString = this.parseTagName();
     if (typeString.length === 0) {
-      throw new ParseError(`${symbol.type} name cannot be empty`, { start: this.index, end: this.index })
+      throw new ParseError(`${symbol.type} name cannot be empty`, {
+        start: this.index,
+        end: this.index,
+      });
     }
 
-    const params = this.parseParams(symbol.endToken)
-    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText)
+    const params = this.parseParams(symbol.endToken);
+    this.addToken(
+      symbol.type,
+      start,
+      this.index,
+      typeString,
+      symbol.startToken,
+      params.endToken,
+      params.paramText,
+    );
   }
 
-  protected parseCloseDirectiveOrMacro (symbol : ISymbol, start : number) {
-    const typeString = this.parseTagName()
+  protected parseCloseDirectiveOrMacro(symbol: ISymbol, start: number) {
+    const typeString = this.parseTagName();
     if (typeString.length === 0) {
-      throw new ParseError(`${symbol.type} name cannot be empty`, { start: this.index, end: this.index })
+      throw new ParseError(`${symbol.type} name cannot be empty`, {
+        start: this.index,
+        end: this.index,
+      });
     }
 
-    const params = this.parseParams(symbol.endToken)
-    this.addToken(symbol.type, start, this.index, typeString, symbol.startToken, params.endToken, params.paramText)
+    const params = this.parseParams(symbol.endToken);
+    this.addToken(
+      symbol.type,
+      start,
+      this.index,
+      typeString,
+      symbol.startToken,
+      params.endToken,
+      params.paramText,
+    );
   }
 
   // When you want to test if x > 0 or x >= 0, writing <#if x > 0> and <#if x >= 0> is WRONG,
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  protected parseParams (endTags : string[]) : IParams {
-    let paramText : string = ''
-    const start = this.index
-    const stack : number[] = []
-    let closeCode : number | undefined
+  protected parseParams(endTags: string[]): IParams {
+    let paramText: string = '';
+    const start = this.index;
+    const stack: number[] = [];
+    let closeCode: number | undefined;
 
     while (this.index <= this.length) {
-      const ch = this.charCodeAt(this.index)
+      const ch = this.charCodeAt(this.index);
 
-      if (closeCode !== ECharCodes.DoubleQuote && closeCode !== ECharCodes.SingleQuote) {
+      if (
+        closeCode !== ECharCodes.DoubleQuote &&
+        closeCode !== ECharCodes.SingleQuote
+      ) {
         switch (ch) {
           case ECharCodes.SingleQuote: // '
           case ECharCodes.DoubleQuote: // "
-            if (closeCode) { stack.push(closeCode) }
-            closeCode = ch
-            break
+            if (closeCode) {
+              stack.push(closeCode);
+            }
+            closeCode = ch;
+            break;
           case ECharCodes.OpenParenthesis: // (
-            if (closeCode) { stack.push(closeCode) }
-            closeCode = ECharCodes.CloseParenthesis
-            break
+            if (closeCode) {
+              stack.push(closeCode);
+            }
+            closeCode = ECharCodes.CloseParenthesis;
+            break;
           case ECharCodes.OpenBracket: // [
-            if (closeCode) { stack.push(closeCode) }
-            closeCode = ECharCodes.CloseBracket
-            break
+            if (closeCode) {
+              stack.push(closeCode);
+            }
+            closeCode = ECharCodes.CloseBracket;
+            break;
           case ECharCodes.CloseBracket: // ]
           case ECharCodes.CloseParenthesis: // )
             if (!closeCode || ch !== closeCode) {
-              throw new ParseError(`To many close tags ${String.fromCharCode(ch)}`, { start, end: this.index})
+              throw new ParseError(
+                `To many close tags ${String.fromCharCode(ch)}`,
+                { start, end: this.index },
+              );
             }
-            closeCode = stack.pop()
-            break
+            closeCode = stack.pop();
+            break;
         }
       } else {
         switch (ch) {
           case ECharCodes.SingleQuote: // '
           case ECharCodes.DoubleQuote: // "
             if (closeCode === ch) {
-              closeCode = stack.pop()
+              closeCode = stack.pop();
             }
-            break
+            break;
         }
       }
 
       if (!closeCode) {
-        const nextPos = this.getNextPos(endTags)
+        const nextPos = this.getNextPos(endTags);
         if (nextPos.pos !== -1 && this.index === nextPos.pos) {
-          this.index += nextPos.text.length
-          return { paramText, endToken: nextPos.text }
+          this.index += nextPos.text.length;
+          return { paramText, endToken: nextPos.text };
         } else {
-          paramText += this.charAt(this.index)
-          ++this.index
+          paramText += this.charAt(this.index);
+          ++this.index;
         }
       } else {
-        paramText += this.charAt(this.index)
-        ++this.index
+        paramText += this.charAt(this.index);
+        ++this.index;
       }
     }
     if (closeCode) {
-      throw new ParseError(`Missing ${String.fromCharCode(closeCode)} close char`, { start, end: this.index})
+      throw new ParseError(
+        `Missing ${String.fromCharCode(closeCode)} close char`,
+        { start, end: this.index },
+      );
     }
-    throw new ParseError(`Unclosed directive or macro`, { start, end: this.index})
+    throw new ParseError(`Unclosed directive or macro`, {
+      start,
+      end: this.index,
+    });
   }
 }

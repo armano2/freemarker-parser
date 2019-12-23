@@ -1,7 +1,4 @@
-import { Parser } from './Parser'
-import { Tokenizer } from './Tokenizer'
+import { Parser } from './Parser';
+import { Tokenizer } from './Tokenizer';
 
-export {
-  Parser,
-  Tokenizer,
-}
+export { Parser, Tokenizer };

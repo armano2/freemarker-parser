@@ -1,34 +1,45 @@
-import ECharCodes from '../enum/CharCodes'
-import {EBinaryOps} from '../enum/Operators'
+import ECharCodes from '../enum/CharCodes';
+import { EBinaryOps } from '../enum/Operators';
 
-export function isDecimalDigit (ch : number) : boolean {
-  return ch >= ECharCodes._0 && ch <= ECharCodes._9 // 0...9
+export function isDecimalDigit(ch: number): boolean {
+  return ch >= ECharCodes._0 && ch <= ECharCodes._9; // 0...9
 }
 
-export function isLetter (ch : number) : boolean {
-  return (ch >= ECharCodes.a && ch <= ECharCodes.z) || // a...z
-  (ch >= ECharCodes.A && ch <= ECharCodes.Z) // A...Z
+export function isLetter(ch: number): boolean {
+  return (
+    (ch >= ECharCodes.a && ch <= ECharCodes.z) || // a...z
+    (ch >= ECharCodes.A && ch <= ECharCodes.Z)
+  ); // A...Z
 }
 
-export function isWhitespace (ch : number) : boolean {
-  return ch === ECharCodes.Space || ch === ECharCodes.Tab || ch === ECharCodes.CarriageReturn || ch === ECharCodes.LineFeed
+export function isWhitespace(ch: number): boolean {
+  return (
+    ch === ECharCodes.Space ||
+    ch === ECharCodes.Tab ||
+    ch === ECharCodes.CarriageReturn ||
+    ch === ECharCodes.LineFeed
+  );
 }
 
 // any non-ASCII that is not an operator
-export function isIdentifierStart (ch : number) : boolean {
+export function isIdentifierStart(ch: number): boolean {
   return (
-    isLetter(ch) ||
-    (ch === ECharCodes.$) || (ch === ECharCodes.Underscore) || // `$` and `_`
-    ch >= 128
-  ) && !EBinaryOps[String.fromCharCode(ch)]
+    (isLetter(ch) ||
+    ch === ECharCodes.$ ||
+    ch === ECharCodes.Underscore || // `$` and `_`
+      ch >= 128) &&
+    !EBinaryOps[String.fromCharCode(ch)]
+  );
 }
 
 // any non-ASCII that is not an operator
-export function isIdentifierPart (ch : number) : boolean {
+export function isIdentifierPart(ch: number): boolean {
   return (
-    isLetter(ch) ||
+    (isLetter(ch) ||
     isDecimalDigit(ch) ||
-    (ch === ECharCodes.$) || (ch === ECharCodes.Underscore) || // `$` and `_`
-    ch >= 128
-  ) && !EBinaryOps[String.fromCharCode(ch)]
+    ch === ECharCodes.$ ||
+    ch === ECharCodes.Underscore || // `$` and `_`
+      ch >= 128) &&
+    !EBinaryOps[String.fromCharCode(ch)]
+  );
 }

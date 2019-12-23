@@ -42,4 +42,4 @@ enum NodeNames {
   OutputFormat = 'OutputFormat',
 }
 
-export default NodeNames
+export default NodeNames;

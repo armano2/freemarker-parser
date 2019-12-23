@@ -1,147 +1,162 @@
-import ParseError from './errors/ParseError'
+import ParseError from './errors/ParseError';
 
-import { IOptions } from './interface/IOptions'
-import { IToken } from './interface/Tokens'
+import { IOptions } from './interface/IOptions';
+import { IToken } from './interface/Tokens';
 
-import { ENodeType } from './Symbols'
-import { Tokenizer } from './Tokenizer'
+import { ENodeType } from './Symbols';
+import { Tokenizer } from './Tokenizer';
 
-import { Directives } from './enum/Directives'
-import NodeNames from './enum/NodeNames'
+import { Directives } from './enum/Directives';
+import NodeNames from './enum/NodeNames';
 
-import AbstractNode from './nodes/abstract/AbstractNode'
-import ProgramNode from './nodes/ProgramNode'
+import AbstractNode from './nodes/abstract/AbstractNode';
+import ProgramNode from './nodes/ProgramNode';
 
-import { ParserLocation } from './ParserLocation'
-import Nodes from './utils/Nodes'
+import { ParserLocation } from './ParserLocation';
+import Nodes from './utils/Nodes';
 
-import defaultConfig from './defaultConfig'
+import defaultConfig from './defaultConfig';
 
 export interface IParserReturn {
-  ast : ProgramNode
-  tokens : IToken[]
+  ast: ProgramNode;
+  tokens: IToken[];
 }
 
 export class Parser extends ParserLocation {
-  protected options : IOptions = defaultConfig
+  protected options: IOptions = defaultConfig;
 
-  public parse (template : string, options : IOptions = {}) : IParserReturn {
-    super.parse(template)
-    const ast = new ProgramNode(0, template.length - 1)
-    const stack : AbstractNode[] = []
-    let parent : AbstractNode = ast
-    let tokens : IToken[] = []
+  public parse(template: string, options: IOptions = {}): IParserReturn {
+    super.parse(template);
+    const ast = new ProgramNode(0, template.length - 1);
+    const stack: AbstractNode[] = [];
+    let parent: AbstractNode = ast;
+    let tokens: IToken[] = [];
 
-    this.addLocation(parent)
+    this.addLocation(parent);
 
     this.options = {
       ...defaultConfig,
       ...options,
-    }
+    };
 
     try {
-      const tokenizer = new Tokenizer(this.options)
-      tokens = tokenizer.parse(template)
+      const tokenizer = new Tokenizer(this.options);
+      tokens = tokenizer.parse(template);
     } catch (error) {
-      ast.addError(error)
+      ast.addError(error);
     }
 
     if (tokens.length === 0) {
-      this.addLocationToProgram(ast)
-      return { ast, tokens }
+      this.addLocationToProgram(ast);
+      return { ast, tokens };
     }
 
-    let token : IToken | null = null
+    let token: IToken | null = null;
     for (token of tokens) {
       try {
-        const tokenType = this.tokenToNodeType(token)
+        const tokenType = this.tokenToNodeType(token);
 
-        if (token.type === ENodeType.CloseDirective || token.type === ENodeType.CloseMacro) {
+        if (
+          token.type === ENodeType.CloseDirective ||
+          token.type === ENodeType.CloseMacro
+        ) {
           if (token.params) {
-            ast.addError(new ParseError(`Close tag '${tokenType}' should have no params`, token))
-            continue
+            ast.addError(
+              new ParseError(
+                `Close tag '${tokenType}' should have no params`,
+                token,
+              ),
+            );
+            continue;
           }
           if (parent.type !== tokenType) {
-            ast.addError(new ParseError(`Unexpected close tag '${tokenType}'`, token))
-            continue
+            ast.addError(
+              new ParseError(`Unexpected close tag '${tokenType}'`, token),
+            );
+            continue;
           }
-          parent = stack.pop() as AbstractNode // its always
+          parent = stack.pop() as AbstractNode; // its always
         } else {
-          const node = this.addNodeChild(parent, token)
+          const node = this.addNodeChild(parent, token);
           if (node !== parent && node.hasBody) {
             if (!this.isPartial(tokenType, parent.type)) {
-              stack.push(parent)
+              stack.push(parent);
             }
-            parent = node
+            parent = node;
           }
         }
       } catch (error) {
-        ast.addError(error)
+        ast.addError(error);
       }
     }
 
     if (stack.length > 0) {
-      ast.addError(new ParseError(`Unclosed tag '${parent.type}'`, parent))
+      ast.addError(new ParseError(`Unclosed tag '${parent.type}'`, parent));
     }
 
-    this.addLocationToProgram(ast)
-    return { ast, tokens }
+    this.addLocationToProgram(ast);
+    return { ast, tokens };
   }
 
-  protected addLocationToProgram (parent : ProgramNode) {
+  protected addLocationToProgram(parent: ProgramNode) {
     if (this.options.parseLocation) {
       if (parent.errors) {
         for (const node of parent.errors) {
-          this.addLocation(node)
+          this.addLocation(node);
         }
       }
     }
   }
 
-  protected addNodeChild (parent : AbstractNode, token : IToken) : AbstractNode {
-    const tokenType = this.tokenToNodeType(token)
+  protected addNodeChild(parent: AbstractNode, token: IToken): AbstractNode {
+    const tokenType = this.tokenToNodeType(token);
 
-    const node : AbstractNode = Nodes[tokenType](token, parent)
+    const node: AbstractNode = Nodes[tokenType](token, parent);
     if (node) {
-      this.addLocation(node)
+      this.addLocation(node);
     }
     if (parent !== node) {
-      parent.addToNode(node)
+      parent.addToNode(node);
     }
-    return node
+    return node;
   }
 
-  protected isPartial (type : NodeNames, parentType : NodeNames) : boolean {
+  protected isPartial(type: NodeNames, parentType: NodeNames): boolean {
     switch (type) {
       case NodeNames.ConditionElse:
-        return NodeNames.Condition === parentType
+        return NodeNames.Condition === parentType;
       case NodeNames.Else:
-        return NodeNames.Condition === parentType || NodeNames.List === parentType
+        return (
+          NodeNames.Condition === parentType || NodeNames.List === parentType
+        );
       case NodeNames.Recover:
-        return NodeNames.Attempt === parentType
+        return NodeNames.Attempt === parentType;
     }
 
-    return false
+    return false;
   }
 
-  protected tokenToNodeType (token : IToken) : NodeNames {
+  protected tokenToNodeType(token: IToken): NodeNames {
     switch (token.type) {
       case ENodeType.CloseDirective:
       case ENodeType.OpenDirective:
         if (token.text in Directives) {
-          return Directives[token.text as any] as NodeNames
+          return Directives[token.text as any] as NodeNames;
         }
-        break
+        break;
       case ENodeType.Interpolation:
-        return NodeNames.Interpolation
+        return NodeNames.Interpolation;
       case ENodeType.Text:
-        return NodeNames.Text
+        return NodeNames.Text;
       case ENodeType.CloseMacro:
       case ENodeType.OpenMacro:
-        return NodeNames.MacroCall
+        return NodeNames.MacroCall;
       case ENodeType.Comment:
-        return NodeNames.Comment
+        return NodeNames.Comment;
     }
-    throw new ParseError(`Unknown token \`${token.type}\` - \`${token.text}\``, token)
+    throw new ParseError(
+      `Unknown token \`${token.type}\` - \`${token.text}\``,
+      token,
+    );
   }
 }
