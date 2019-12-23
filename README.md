@@ -1,11 +1,9 @@
 # freemarker-parser
 
 [![Codecov](https://img.shields.io/codecov/c/github/armano2/freemarker-parser.svg)](https://codecov.io/gh/armano2/freemarker-parser/tree/master)
-[![CircleCI](https://img.shields.io/circleci/project/github/armano2/freemarker-parser/master.svg)](https://circleci.com/gh/armano2/freemarker-parser/tree/master)
 [![License](https://img.shields.io/github/license/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![Greenkeeper](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/freemarker-parser.svg)](https://www.npmjs.com/package/freemarker-parser)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Farmano2%2Ffreemarker-parser.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Farmano2%2Ffreemarker-parser?ref=badge_shield)
 
 Freemarker Parser is a javascript implementation of the Freemarker (https://freemarker.apache.org).
 
