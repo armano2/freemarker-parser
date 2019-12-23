@@ -26,6 +26,8 @@ jobs:
           npm test
         env:
           CI: true
+      - name: Jest Snapshots
+        uses: gimenete/github-jest-snapshots@1.0
       - name: Codecov
         uses: codecov/codecov-action@v1.0.5
         with:
@@ -33,4 +35,3 @@ jobs:
           file: ./coverage/lcov.info
           flags: unittests
           yml: ./codecov.yml
-          fail_ci_if_error: true
