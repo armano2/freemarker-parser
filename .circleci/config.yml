@@ -50,4 +50,4 @@ jobs:
   node-v12:
     <<: *node-base
     docker:
-      - image: node:6
+      - image: node:12
