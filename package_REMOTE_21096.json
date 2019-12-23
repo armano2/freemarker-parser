@@ -1,0 +1,78 @@
+{
+  "name": "freemarker-parser",
+  "version": "1.1.6",
+  "description": "Freemarker Parser is a javascript implementation of the Freemarker",
+  "scripts": {
+    "build": "tsc",
+    "pretest": "npm run build",
+    "mocha": "nyc mocha \"test/*.spec.ts\"",
+    "test": "npm run mocha",
+    "posttest": "nyc report",
+    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
+    "lint": "eslint . --ext .js,.ts",
+    "lint-fix": "eslint . --ext .js,.ts --fix",
+    "update-ast": "ts-node ./scripts/update-ast.ts",
+    "watch": "tsc --watch",
+    "coverage": "nyc mocha \"test/*.ts\" && nyc report --reporter html"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armano2/freemarker-parser.git"
+  },
+  "keywords": [
+    "freemarker",
+    "parser",
+    "js",
+    "ast",
+    "ftl"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "Armano (https://github.com/armano2)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/armano2/freemarker-parser/issues"
+  },
+  "homepage": "https://github.com/armano2/freemarker-parser#readme",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^13.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "codecov": "^3.6.1",
+    "eslint": "^6.8.0",
+    "glob": "^7.1.6",
+    "mocha": "^6.2.2",
+    "mocha-junit-reporter": "^1.23.1",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "source-map-support": "^0.5.16",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {},
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "check-coverage": true,
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.js",
+      "test/**/*"
+    ],
+    "reporter": [
+      "lcovonly"
+    ]
+  }
+}
