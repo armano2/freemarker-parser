@@ -7,7 +7,7 @@ function parse(text: string): IToken[] {
   try {
     return tokenizer.parse(text);
   } catch (e) {
-    throw new Error(`${e.message} [${e.start}-${e.end}]`)
+    throw new Error(`${e.message} [${e.start}-${e.end}]`);
   }
 }
 
