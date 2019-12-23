@@ -1,14 +1,14 @@
 workflows:
   version: 2
-  node-v6:
-    jobs:
-      - node-v6
   node-v8:
     jobs:
-      - node-v6
+      - node-v8
   node-v10:
     jobs:
       - node-v10
+  node-v12:
+    jobs:
+      - node-v12
 
 version: 2
 jobs:
@@ -39,10 +39,6 @@ jobs:
           paths:
             - node_modules
 
-  node-v6:
-    <<: *node-base
-    docker:
-      - image: node:6
   node-v8:
     <<: *node-base
     docker:
@@ -51,3 +47,7 @@ jobs:
     <<: *node-base
     docker:
       - image: node:10
+  node-v12:
+    <<: *node-base
+    docker:
+      - image: node:6
