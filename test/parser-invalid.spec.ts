@@ -1,7 +1,6 @@
-import * as assert from 'assert';
-import * as fs from 'fs';
+import fs from 'fs';
 import glob = require('glob');
-import * as path from 'path';
+import path from 'path';
 import { Parser } from '../src';
 
 const parser = new Parser();
@@ -20,9 +19,7 @@ for (const file of files) {
     const data = parser.parse(template);
 
     it('should have errors', () => {
-      if (!data.ast.errors) {
-        assert.fail('This test should have an error');
-      }
+      expect(data.ast.errors).toBeTruthy();
       expect(data.ast.errors).toMatchSnapshot();
     });
 

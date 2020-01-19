@@ -1,12 +1,9 @@
-import * as assert from 'assert';
-import * as fs from 'fs';
+import fs from 'fs';
 import glob = require('glob');
-import * as path from 'path';
+import path from 'path';
 import { Parser } from '../src';
 
 const parser = new Parser();
-
-const baseDir = path.join(__dirname, '..');
 
 const testsPath = path.join(__dirname, 'resource', 'valid');
 
@@ -22,17 +19,7 @@ for (const file of files) {
     const data = parser.parse(template);
 
     it('should have no errors', () => {
-      if (data.ast.errors) {
-        for (const error of data.ast.errors) {
-          assert.fail(
-            `${error.message}\n\tfile:.\\${path.relative(baseDir, file)}:${
-              error.loc
-                ? `${error.loc.start.column}:${error.loc.start.line}`
-                : '0:0'
-            }`,
-          );
-        }
-      }
+      expect(data.ast.errors).toBeFalsy();
     });
 
     it('should have correct tokens', () => {
