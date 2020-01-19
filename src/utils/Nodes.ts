@@ -36,7 +36,7 @@ import SwitchDefaultNode from '../nodes/SwitchDefaultNode';
 import SwitchNode from '../nodes/SwitchNode';
 import TextNode from '../nodes/TextNode';
 import TNode from '../nodes/TNode';
-import ItemsNode from "../nodes/Items";
+import ItemsNode from '../nodes/Items';
 
 export interface NodeSelector {
   [n: string]: (token: Token, parent: AbstractNode) => AbstractNode;
