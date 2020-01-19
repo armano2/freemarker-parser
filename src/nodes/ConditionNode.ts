@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import { Expression } from '../interface/Params';
 import { Token } from '../interface/Tokens';
 import { paramParser } from '../utils/Params';
@@ -14,7 +14,7 @@ export default class ConditionNode extends AbstractNode {
   }
 
   constructor(token: Token) {
-    super(NodeNames.Condition, token);
+    super(NodeTypes.Condition, token);
     this.params = paramParser(token);
     this.consequent = [];
   }

@@ -7,7 +7,7 @@ import { NodeType } from './Symbols';
 import { Tokenizer } from './Tokenizer';
 
 import { Directives } from './enum/Directives';
-import NodeNames from './enum/NodeNames';
+import { NodeTypes } from './enum/NodeTypes';
 
 import AbstractNode from './nodes/abstract/AbstractNode';
 import ProgramNode from './nodes/ProgramNode';
@@ -121,39 +121,39 @@ export class Parser extends ParserLocation {
     return node;
   }
 
-  protected isPartial(type: NodeNames, parentType: NodeNames): boolean {
+  protected isPartial(type: NodeTypes, parentType: NodeTypes): boolean {
     switch (type) {
-      case NodeNames.ConditionElse:
-        return NodeNames.Condition === parentType;
-      case NodeNames.Else:
+      case NodeTypes.ConditionElse:
+        return NodeTypes.Condition === parentType;
+      case NodeTypes.Else:
         return (
-          NodeNames.Condition === parentType || NodeNames.List === parentType
+          NodeTypes.Condition === parentType || NodeTypes.List === parentType
         );
-      case NodeNames.Recover:
-        return NodeNames.Attempt === parentType;
+      case NodeTypes.Recover:
+        return NodeTypes.Attempt === parentType;
     }
 
     return false;
   }
 
-  protected tokenToNodeType(token: Token): NodeNames {
+  protected tokenToNodeType(token: Token): NodeTypes {
     switch (token.type) {
       case NodeType.CloseDirective:
       case NodeType.OpenDirective:
         if (token.text in Directives) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return Directives[token.text as any] as NodeNames;
+          return Directives[token.text as any] as NodeTypes;
         }
         break;
       case NodeType.Interpolation:
-        return NodeNames.Interpolation;
+        return NodeTypes.Interpolation;
       case NodeType.Text:
-        return NodeNames.Text;
+        return NodeTypes.Text;
       case NodeType.CloseMacro:
       case NodeType.OpenMacro:
-        return NodeNames.MacroCall;
+        return NodeTypes.MacroCall;
       case NodeType.Comment:
-        return NodeNames.Comment;
+        return NodeTypes.Comment;
     }
     throw new ParseError(
       `Unknown token \`${token.type}\` - \`${token.text}\``,

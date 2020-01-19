@@ -2,7 +2,6 @@
 
 [![Codecov](https://img.shields.io/codecov/c/github/armano2/freemarker-parser.svg)](https://codecov.io/gh/armano2/freemarker-parser/tree/master)
 [![License](https://img.shields.io/github/license/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
-[![Greenkeeper](https://badges.greenkeeper.io/armano2/freemarker-parser.svg)](https://github.com/armano2/freemarker-parser/blob/master/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/freemarker-parser.svg)](https://www.npmjs.com/package/freemarker-parser)
 
 Freemarker Parser is a javascript implementation of the Freemarker (https://freemarker.apache.org).
@@ -86,6 +85,7 @@ console.log(data.tokens);
     - `#else`
     - `#break`
     - `#continue`
+    - `#items`
   - [`#include`](https://freemarker.apache.org/docs/ref_directive_include.html)
   - [`#import`](https://freemarker.apache.org/docs/ref_directive_import.html)
   - [`#macro`](https://freemarker.apache.org/docs/ref_directive_macro.html)
@@ -126,4 +126,3 @@ console.log(data.tokens);
   - `#nested`
   - `#recurse`
   - `#visit`
-  - `#items`

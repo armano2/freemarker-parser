@@ -20774,6 +20774,272 @@ Array [
 ]
 `;
 
+exports[`items.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    ListNode {
+      "body": Array [
+        TextNode {
+          "end": 73,
+          "loc": Object {
+            "end": Object {
+              "column": 5,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 17,
+              "line": 1,
+            },
+          },
+          "start": 16,
+          "text": "
+    Part executed once if we have more than 0 items
+    ",
+          "type": "Text",
+        },
+        ItemsNode {
+          "body": Array [
+            TextNode {
+              "end": 130,
+              "loc": Object {
+                "end": Object {
+                  "column": 5,
+                  "line": 5,
+                },
+                "start": Object {
+                  "column": 21,
+                  "line": 3,
+                },
+              },
+              "start": 89,
+              "text": "
+        Part repeated for each item
+    ",
+              "type": "Text",
+            },
+          ],
+          "end": 89,
+          "loc": Object {
+            "end": Object {
+              "column": 21,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 5,
+              "line": 3,
+            },
+          },
+          "params": Object {
+            "body": Array [
+              Object {
+                "name": "as",
+                "type": "Identifier",
+              },
+              Object {
+                "name": "item",
+                "type": "Identifier",
+              },
+            ],
+            "type": "Compound",
+          },
+          "start": 73,
+          "type": "Items",
+        },
+        TextNode {
+          "end": 192,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 7,
+            },
+            "start": Object {
+              "column": 14,
+              "line": 5,
+            },
+          },
+          "start": 139,
+          "text": "
+    Part executed once if we have more than 0 items
+",
+          "type": "Text",
+        },
+      ],
+      "end": 16,
+      "fallback": Array [
+        TextNode {
+          "end": 241,
+          "loc": Object {
+            "end": Object {
+              "column": 1,
+              "line": 9,
+            },
+            "start": Object {
+              "column": 8,
+              "line": 7,
+            },
+          },
+          "start": 199,
+          "text": "
+    Part executed when there are 0 items
+",
+          "type": "Text",
+        },
+      ],
+      "loc": Object {
+        "end": Object {
+          "column": 17,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "name": "sequence",
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "List",
+    },
+    TextNode {
+      "end": 250,
+      "loc": Object {
+        "end": Object {
+          "column": 0,
+          "line": 0,
+        },
+        "start": Object {
+          "column": 9,
+          "line": 9,
+        },
+      },
+      "start": 249,
+      "text": "
+",
+      "type": "Text",
+    },
+  ],
+  "end": 249,
+  "loc": Object {
+    "end": Object {
+      "column": 9,
+      "line": 9,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`items.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 16,
+    "endTag": ">",
+    "params": "sequence",
+    "start": 0,
+    "startTag": "<#",
+    "text": "list",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 73,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 16,
+    "startTag": undefined,
+    "text": "
+    Part executed once if we have more than 0 items
+    ",
+    "type": "Text",
+  },
+  Object {
+    "end": 89,
+    "endTag": ">",
+    "params": "as item",
+    "start": 73,
+    "startTag": "<#",
+    "text": "items",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 130,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 89,
+    "startTag": undefined,
+    "text": "
+        Part repeated for each item
+    ",
+    "type": "Text",
+  },
+  Object {
+    "end": 139,
+    "endTag": ">",
+    "params": undefined,
+    "start": 130,
+    "startTag": "</#",
+    "text": "items",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 192,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 139,
+    "startTag": undefined,
+    "text": "
+    Part executed once if we have more than 0 items
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 199,
+    "endTag": ">",
+    "params": undefined,
+    "start": 192,
+    "startTag": "<#",
+    "text": "else",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 241,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 199,
+    "startTag": undefined,
+    "text": "
+    Part executed when there are 0 items
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 249,
+    "endTag": ">",
+    "params": undefined,
+    "start": 241,
+    "startTag": "</#",
+    "text": "list",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 250,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 249,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+]
+`;
+
 exports[`list.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [

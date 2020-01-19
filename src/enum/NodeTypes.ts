@@ -1,4 +1,4 @@
-enum NodeNames {
+export enum NodeTypes {
   Program = 'Program',
   Else = 'Else',
   Condition = 'Condition',
@@ -12,6 +12,7 @@ enum NodeNames {
   Macro = 'Macro',
   MacroCall = 'MacroCall',
   Interpolation = 'Interpolation',
+  Items = 'Items',
   Attempt = 'Attempt',
   Recover = 'Recover',
   Comment = 'Comment',
@@ -41,5 +42,3 @@ enum NodeNames {
   NoAutoEsc = 'NoAutoEsc',
   OutputFormat = 'OutputFormat',
 }
-
-export default NodeNames;

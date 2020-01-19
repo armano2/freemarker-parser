@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import ParamNames from '../enum/ParamNames';
 import { AllParamTypes, Expression } from '../interface/Params';
 import { Token } from '../interface/Tokens';
@@ -10,7 +10,7 @@ export default class AssignNode extends AbstractAssign {
   public body?: AbstractNode[];
 
   constructor(token: Token) {
-    super(NodeNames.Assign, token);
+    super(NodeTypes.Assign, token);
     this.params = this.checkParams(token);
 
     if (

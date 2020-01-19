@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import ParamNames from '../enum/ParamNames';
 import ParseError from '../errors/ParseError';
 import { AssignmentExpression } from '../interface/Params';
@@ -9,7 +9,7 @@ export default class SettingNode extends AbstractAssign {
   public expression: AssignmentExpression;
 
   constructor(token: Token) {
-    super(NodeNames.Setting, token);
+    super(NodeTypes.Setting, token);
     const params = this.checkParams(token);
 
     if (params.length === 1) {

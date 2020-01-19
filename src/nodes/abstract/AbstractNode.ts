@@ -1,9 +1,9 @@
-import NodeNames from '../../enum/NodeNames';
+import { NodeTypes } from '../../enum/NodeTypes';
 import ParseError from '../../errors/ParseError';
 import { Location, Token } from '../../interface/Tokens';
 
 export default abstract class AbstractNode implements Location {
-  public type: NodeNames;
+  public type: NodeTypes;
   public start: number;
   public end: number;
 
@@ -11,7 +11,7 @@ export default abstract class AbstractNode implements Location {
     return false;
   }
 
-  protected constructor(type: NodeNames, token: Location) {
+  protected constructor(type: NodeTypes, token: Location) {
     this.type = type;
     this.start = token.start;
     this.end = token.end;

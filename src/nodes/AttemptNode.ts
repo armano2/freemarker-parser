@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import { Token } from '../interface/Tokens';
 import AbstractNode from './abstract/AbstractNode';
 
@@ -11,7 +11,7 @@ export default class AttemptNode extends AbstractNode {
   }
 
   constructor(token: Token) {
-    super(NodeNames.Attempt, token);
+    super(NodeTypes.Attempt, token);
   }
 
   public addToNode(child: AbstractNode): void {

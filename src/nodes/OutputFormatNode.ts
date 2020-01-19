@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import ParamNames from '../enum/ParamNames';
 import ParseError from '../errors/ParseError';
 import { Expression } from '../interface/Params';
@@ -10,7 +10,7 @@ export default class OutputFormatNode extends AbstractBodyNode {
   public params?: Expression;
 
   constructor(token: Token) {
-    super(NodeNames.OutputFormat, token);
+    super(NodeTypes.OutputFormat, token);
     this.params = paramParser(token);
     this.body = [];
     if (!this.params || this.params.type !== ParamNames.Literal) {

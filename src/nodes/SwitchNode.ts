@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import { Expression } from '../interface/Params';
 import { Token } from '../interface/Tokens';
 import { paramParser } from '../utils/Params';
@@ -17,7 +17,7 @@ export default class SwitchNode extends AbstractNode {
   }
 
   constructor(token: Token) {
-    super(NodeNames.Switch, token);
+    super(NodeTypes.Switch, token);
     this.params = paramParser(token);
     this.cases = [];
   }
@@ -26,7 +26,7 @@ export default class SwitchNode extends AbstractNode {
     if (child instanceof SwitchCaseNode || child instanceof SwitchDefaultNode) {
       this.cases.push(child);
     } else if (this.cases.length === 0) {
-      if (child.type === NodeNames.Text) {
+      if (child.type === NodeTypes.Text) {
         // TODO: accept only whitespaces
         return;
       }

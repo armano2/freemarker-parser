@@ -1,4 +1,4 @@
-import NodeNames from '../enum/NodeNames';
+import { NodeTypes } from '../enum/NodeTypes';
 import { Expression } from '../interface/Params';
 import { Token } from '../interface/Tokens';
 import { paramParser } from '../utils/Params';
@@ -11,7 +11,7 @@ export default class MacroCallNode extends AbstractBodyNode {
   public body?: AbstractNode[];
 
   constructor(token: Token) {
-    super(NodeNames.MacroCall, token);
+    super(NodeTypes.MacroCall, token);
     this.name = token.text;
     this.params = paramParser(token);
     if (token.endTag !== '/>') {
