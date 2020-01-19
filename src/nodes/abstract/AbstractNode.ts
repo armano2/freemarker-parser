@@ -1,6 +1,6 @@
 import NodeNames from '../../enum/NodeNames';
 import ParseError from '../../errors/ParseError';
-import { Location } from '../../interface/Tokens';
+import { Location, Token } from '../../interface/Tokens';
 
 export default abstract class AbstractNode implements Location {
   public type: NodeNames;
@@ -22,5 +22,11 @@ export default abstract class AbstractNode implements Location {
       `Node ${this.type} can't contain ${child.type}`,
       child,
     );
+  }
+
+  protected noParams(token: Token): void {
+    if (token.params) {
+      throw new ParseError(`Unexpected parameter in ${this.type}`, token);
+    }
   }
 }

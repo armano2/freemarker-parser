@@ -12,7 +12,7 @@ export default class ProgramNode extends AbstractBodyNode {
     this.body = [];
   }
 
-  public addError(error: any): void {
+  public addError(error: unknown): void {
     if (error instanceof ParseError) {
       if (!this.errors) {
         this.errors = [];

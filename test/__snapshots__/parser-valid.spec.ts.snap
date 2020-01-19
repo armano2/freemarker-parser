@@ -3,7 +3,7 @@
 exports[`assignments.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 39,
       "loc": Object {
         "end": Object {
@@ -19,7 +19,7 @@ ProgramNode {
       "text": "  <#ftl stripWhitespace=false>  ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 40,
       "loc": Object {
         "end": Object {
@@ -66,7 +66,7 @@ ProgramNode {
       "start": 40,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 56,
       "loc": Object {
         "end": Object {
@@ -126,7 +126,7 @@ ProgramNode {
       "start": 56,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 79,
       "loc": Object {
         "end": Object {
@@ -173,7 +173,7 @@ ProgramNode {
       "start": 79,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 95,
       "loc": Object {
         "end": Object {
@@ -233,7 +233,7 @@ ProgramNode {
       "start": 95,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 118,
       "loc": Object {
         "end": Object {
@@ -287,7 +287,7 @@ ProgramNode {
       "start": 118,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 139,
       "loc": Object {
         "end": Object {
@@ -404,7 +404,7 @@ ProgramNode {
       "start": 139,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 198,
       "loc": Object {
         "end": Object {
@@ -451,7 +451,7 @@ ProgramNode {
       "start": 198,
       "type": "Global",
     },
-    Final {
+    TextNode {
       "end": 214,
       "loc": Object {
         "end": Object {
@@ -511,7 +511,7 @@ ProgramNode {
       "start": 214,
       "type": "Global",
     },
-    Final {
+    TextNode {
       "end": 237,
       "loc": Object {
         "end": Object {
@@ -554,7 +554,7 @@ ProgramNode {
       "start": 237,
       "type": "Global",
     },
-    Final {
+    TextNode {
       "end": 251,
       "loc": Object {
         "end": Object {
@@ -573,7 +573,7 @@ ProgramNode {
     },
     MacroNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 264,
           "loc": Object {
             "end": Object {
@@ -620,7 +620,7 @@ ProgramNode {
           "start": 264,
           "type": "Local",
         },
-        Final {
+        TextNode {
           "end": 281,
           "loc": Object {
             "end": Object {
@@ -680,7 +680,7 @@ ProgramNode {
           "start": 281,
           "type": "Local",
         },
-        Final {
+        TextNode {
           "end": 303,
           "loc": Object {
             "end": Object {
@@ -716,7 +716,7 @@ ProgramNode {
       "start": 251,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 314,
       "loc": Object {
         "end": Object {
@@ -764,7 +764,7 @@ ProgramNode {
       "start": 314,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 330,
       "loc": Object {
         "end": Object {
@@ -811,7 +811,7 @@ ProgramNode {
       "start": 330,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 347,
       "loc": Object {
         "end": Object {
@@ -858,7 +858,7 @@ ProgramNode {
       "start": 347,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 364,
       "loc": Object {
         "end": Object {
@@ -905,7 +905,7 @@ ProgramNode {
       "start": 364,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 381,
       "loc": Object {
         "end": Object {
@@ -952,7 +952,7 @@ ProgramNode {
       "start": 381,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 398,
       "loc": Object {
         "end": Object {
@@ -999,7 +999,7 @@ ProgramNode {
       "start": 398,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 415,
       "loc": Object {
         "end": Object {
@@ -1042,7 +1042,7 @@ ProgramNode {
       "start": 415,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 429,
       "loc": Object {
         "end": Object {
@@ -1085,7 +1085,7 @@ ProgramNode {
       "start": 429,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 443,
       "loc": Object {
         "end": Object {
@@ -1128,7 +1128,7 @@ ProgramNode {
       "start": 443,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 457,
       "loc": Object {
         "end": Object {
@@ -1171,7 +1171,7 @@ ProgramNode {
       "start": 457,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 472,
       "loc": Object {
         "end": Object {
@@ -1228,7 +1228,7 @@ ProgramNode {
       "start": 472,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 491,
       "loc": Object {
         "end": Object {
@@ -1284,7 +1284,7 @@ ProgramNode {
       "start": 491,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 510,
       "loc": Object {
         "end": Object {
@@ -1340,7 +1340,7 @@ ProgramNode {
       "start": 510,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 529,
       "loc": Object {
         "end": Object {
@@ -1396,7 +1396,7 @@ ProgramNode {
       "start": 529,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 548,
       "loc": Object {
         "end": Object {
@@ -1452,7 +1452,7 @@ ProgramNode {
       "start": 548,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 567,
       "loc": Object {
         "end": Object {
@@ -1495,7 +1495,7 @@ ProgramNode {
       "start": 567,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 581,
       "loc": Object {
         "end": Object {
@@ -1538,7 +1538,7 @@ ProgramNode {
       "start": 581,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 595,
       "loc": Object {
         "end": Object {
@@ -1581,7 +1581,7 @@ ProgramNode {
       "start": 595,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 609,
       "loc": Object {
         "end": Object {
@@ -1624,7 +1624,7 @@ ProgramNode {
       "start": 609,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 624,
       "loc": Object {
         "end": Object {
@@ -1644,7 +1644,7 @@ ProgramNode {
     },
     AssignNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 642,
           "loc": Object {
             "end": Object {
@@ -1680,7 +1680,7 @@ ProgramNode {
           "start": 642,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 649,
           "loc": Object {
             "end": Object {
@@ -1718,7 +1718,7 @@ ProgramNode {
       "start": 624,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 660,
       "loc": Object {
         "end": Object {
@@ -1737,7 +1737,7 @@ ProgramNode {
     },
     LocalNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 677,
           "loc": Object {
             "end": Object {
@@ -1773,7 +1773,7 @@ ProgramNode {
           "start": 677,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 684,
           "loc": Object {
             "end": Object {
@@ -1811,7 +1811,7 @@ ProgramNode {
       "start": 660,
       "type": "Local",
     },
-    Final {
+    TextNode {
       "end": 694,
       "loc": Object {
         "end": Object {
@@ -1830,7 +1830,7 @@ ProgramNode {
     },
     GlobalNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 712,
           "loc": Object {
             "end": Object {
@@ -1866,7 +1866,7 @@ ProgramNode {
           "start": 712,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 719,
           "loc": Object {
             "end": Object {
@@ -1904,7 +1904,7 @@ ProgramNode {
       "start": 694,
       "type": "Global",
     },
-    Final {
+    TextNode {
       "end": 730,
       "loc": Object {
         "end": Object {
@@ -2747,7 +2747,7 @@ Array [
 exports[`ast.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 791,
       "loc": Object {
         "end": Object {
@@ -2780,7 +2780,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 794,
       "loc": Object {
         "end": Object {
@@ -2799,7 +2799,7 @@ ProgramNode {
     },
     MacroCallNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 805,
           "loc": Object {
             "end": Object {
@@ -2846,7 +2846,7 @@ ProgramNode {
       "start": 794,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 815,
       "loc": Object {
         "end": Object {
@@ -2863,7 +2863,7 @@ ProgramNode {
 2 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 850,
       "loc": Object {
         "end": Object {
@@ -2879,7 +2879,7 @@ ProgramNode {
       "text": " <@ns.bar 1 2; b1, b2>y</@> ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 853,
       "loc": Object {
         "end": Object {
@@ -2986,7 +2986,7 @@ ProgramNode {
       "start": 887,
       "type": "Global",
     },
-    Final {
+    TextNode {
       "end": 907,
       "loc": Object {
         "end": Object {
@@ -3047,7 +3047,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 926,
           "loc": Object {
             "end": Object {
@@ -3082,7 +3082,7 @@ ProgramNode {
           "start": 926,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 933,
           "loc": Object {
             "end": Object {
@@ -3135,7 +3135,7 @@ ProgramNode {
       "start": 907,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 979,
       "loc": Object {
         "end": Object {
@@ -3156,7 +3156,7 @@ ProgramNode {
       "cases": Array [
         SwitchCaseNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1002,
               "loc": Object {
                 "end": Object {
@@ -3184,7 +3184,7 @@ ProgramNode {
         },
         SwitchCaseNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1014,
               "loc": Object {
                 "end": Object {
@@ -3210,9 +3210,9 @@ ProgramNode {
           "start": 1002,
           "type": "SwitchCase",
         },
-        Final {
+        SwitchDefaultNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1028,
               "loc": Object {
                 "end": Object {
@@ -3252,7 +3252,7 @@ ProgramNode {
       "start": 979,
       "type": "Switch",
     },
-    Final {
+    TextNode {
       "end": 1039,
       "loc": Object {
         "end": Object {
@@ -3269,7 +3269,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1087,
       "loc": Object {
         "end": Object {
@@ -3285,7 +3285,7 @@ ProgramNode {
       "text": " 6 <#macro foo x y=2 z=y+1 q...></#macro>",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1090,
       "loc": Object {
         "end": Object {
@@ -3386,7 +3386,7 @@ ProgramNode {
       "start": 1090,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 1151,
       "loc": Object {
         "end": Object {
@@ -3436,7 +3436,7 @@ ProgramNode {
       "start": 1151,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 1177,
       "loc": Object {
         "end": Object {
@@ -3453,7 +3453,7 @@ ProgramNode {
 9 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1251,
       "loc": Object {
         "end": Object {
@@ -3469,7 +3469,7 @@ ProgramNode {
       "text": " <#list xs>[<#items as x>\${x}<#sep>, </#items>]<#else>None</#list> ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1255,
       "loc": Object {
         "end": Object {
@@ -3486,7 +3486,7 @@ ProgramNode {
 10 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1273,
       "loc": Object {
         "end": Object {
@@ -3502,7 +3502,7 @@ ProgramNode {
       "text": " A comment ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1277,
       "loc": Object {
         "end": Object {
@@ -3521,7 +3521,7 @@ ProgramNode {
     },
     OutputFormatNode {
       "body": Array [
-        Final {
+        NoAutoEscNode {
           "body": Array [
             InterpolationNode {
               "end": 1314,
@@ -3542,7 +3542,7 @@ ProgramNode {
               "start": 1310,
               "type": "Interpolation",
             },
-            Final {
+            AutoEscNode {
               "body": Array [
                 InterpolationNode {
                   "end": 1328,
@@ -3632,7 +3632,7 @@ ProgramNode {
       "start": 1277,
       "type": "OutputFormat",
     },
-    Final {
+    TextNode {
       "end": 1373,
       "loc": Object {
         "end": Object {
@@ -4189,7 +4189,7 @@ Array [
 exports[`attempt.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 16,
       "loc": Object {
         "end": Object {
@@ -4208,7 +4208,7 @@ ProgramNode {
     },
     AttemptNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 47,
           "loc": Object {
             "end": Object {
@@ -4244,7 +4244,7 @@ ProgramNode {
           "start": 47,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 63,
           "loc": Object {
             "end": Object {
@@ -4264,7 +4264,7 @@ ProgramNode {
       ],
       "end": 26,
       "fallback": Array [
-        Final {
+        TextNode {
           "end": 120,
           "loc": Object {
             "end": Object {
@@ -4296,7 +4296,7 @@ ProgramNode {
       "start": 16,
       "type": "Attempt",
     },
-    Final {
+    TextNode {
       "end": 158,
       "loc": Object {
         "end": Object {
@@ -4429,7 +4429,7 @@ ProgramNode {
   "body": Array [
     ListNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 18,
           "loc": Object {
             "end": Object {
@@ -4465,7 +4465,7 @@ ProgramNode {
           "start": 18,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 25,
           "loc": Object {
             "end": Object {
@@ -4484,7 +4484,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 42,
               "loc": Object {
                 "end": Object {
@@ -4501,7 +4501,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            BreakNode {
               "end": 50,
               "loc": Object {
                 "end": Object {
@@ -4516,7 +4516,7 @@ ProgramNode {
               "start": 42,
               "type": "Break",
             },
-            Final {
+            TextNode {
               "end": 53,
               "loc": Object {
                 "end": Object {
@@ -4561,7 +4561,7 @@ ProgramNode {
           "start": 25,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 60,
           "loc": Object {
             "end": Object {
@@ -4611,7 +4611,7 @@ ProgramNode {
       "start": 0,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 69,
       "loc": Object {
         "end": Object {
@@ -4794,7 +4794,7 @@ ProgramNode {
       "start": 0,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 10,
       "loc": Object {
         "end": Object {
@@ -4848,7 +4848,7 @@ ProgramNode {
       "start": 10,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 27,
       "loc": Object {
         "end": Object {
@@ -4907,7 +4907,7 @@ ProgramNode {
       "start": 27,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 49,
       "loc": Object {
         "end": Object {
@@ -4966,7 +4966,7 @@ ProgramNode {
       "start": 49,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 69,
       "loc": Object {
         "end": Object {
@@ -5040,7 +5040,7 @@ ProgramNode {
       "start": 69,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 99,
       "loc": Object {
         "end": Object {
@@ -5207,7 +5207,7 @@ ProgramNode {
       "start": 0,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 29,
       "loc": Object {
         "end": Object {
@@ -5224,7 +5224,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 820,
       "loc": Object {
         "end": Object {
@@ -5257,7 +5257,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 821,
       "loc": Object {
         "end": Object {
@@ -5294,7 +5294,7 @@ ProgramNode {
       "start": 821,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 841,
       "loc": Object {
         "end": Object {
@@ -5340,7 +5340,7 @@ ProgramNode {
       "start": 841,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 863,
       "loc": Object {
         "end": Object {
@@ -5390,7 +5390,7 @@ ProgramNode {
       "start": 863,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 887,
       "loc": Object {
         "end": Object {
@@ -5444,7 +5444,7 @@ ProgramNode {
       "start": 887,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 913,
       "loc": Object {
         "end": Object {
@@ -5490,7 +5490,7 @@ ProgramNode {
       "start": 913,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 935,
       "loc": Object {
         "end": Object {
@@ -5531,7 +5531,7 @@ ProgramNode {
       "start": 935,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 963,
       "loc": Object {
         "end": Object {
@@ -5577,7 +5577,7 @@ ProgramNode {
       "start": 963,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 992,
       "loc": Object {
         "end": Object {
@@ -5627,7 +5627,7 @@ ProgramNode {
       "start": 992,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 1024,
       "loc": Object {
         "end": Object {
@@ -5681,7 +5681,7 @@ ProgramNode {
       "start": 1024,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 1059,
       "loc": Object {
         "end": Object {
@@ -5727,7 +5727,7 @@ ProgramNode {
       "start": 1059,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 1088,
       "loc": Object {
         "end": Object {
@@ -6104,7 +6104,7 @@ Array [
 exports[`comment.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 20,
       "loc": Object {
         "end": Object {
@@ -6120,7 +6120,7 @@ ProgramNode {
       "text": " Bar comment ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 25,
       "loc": Object {
         "end": Object {
@@ -6137,7 +6137,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 43,
       "loc": Object {
         "end": Object {
@@ -6153,7 +6153,7 @@ ProgramNode {
       "text": "Foo comment",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 44,
       "loc": Object {
         "end": Object {
@@ -6170,7 +6170,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 77,
       "loc": Object {
         "end": Object {
@@ -6190,7 +6190,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 78,
       "loc": Object {
         "end": Object {
@@ -6236,7 +6236,7 @@ ProgramNode {
       "start": 78,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 98,
       "loc": Object {
         "end": Object {
@@ -6253,7 +6253,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 129,
       "loc": Object {
         "end": Object {
@@ -6272,7 +6272,7 @@ multiline
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 130,
       "loc": Object {
         "end": Object {
@@ -6416,9 +6416,9 @@ multiline
 exports[`compress.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CompressNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 32,
           "loc": Object {
             "end": Object {
@@ -6455,7 +6455,7 @@ ProgramNode {
           "start": 32,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 73,
           "loc": Object {
             "end": Object {
@@ -6491,7 +6491,7 @@ ProgramNode {
       "start": 0,
       "type": "Compress",
     },
-    Final {
+    TextNode {
       "end": 86,
       "loc": Object {
         "end": Object {
@@ -6638,7 +6638,7 @@ ProgramNode {
       "start": 0,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 24,
       "loc": Object {
         "end": Object {
@@ -6660,7 +6660,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 169,
               "loc": Object {
                 "end": Object {
@@ -6696,7 +6696,7 @@ ProgramNode {
               "start": 169,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 190,
               "loc": Object {
                 "end": Object {
@@ -6731,7 +6731,7 @@ ProgramNode {
               "start": 190,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 198,
               "loc": Object {
                 "end": Object {
@@ -6750,7 +6750,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 122,
               "loc": Object {
                 "end": Object {
@@ -6786,7 +6786,7 @@ ProgramNode {
               "start": 122,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 147,
               "loc": Object {
                 "end": Object {
@@ -6821,7 +6821,7 @@ ProgramNode {
               "start": 147,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 155,
               "loc": Object {
                 "end": Object {
@@ -6883,7 +6883,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 47,
           "loc": Object {
             "end": Object {
@@ -6919,7 +6919,7 @@ ProgramNode {
           "start": 47,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 72,
           "loc": Object {
             "end": Object {
@@ -6954,7 +6954,7 @@ ProgramNode {
           "start": 72,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 80,
           "loc": Object {
             "end": Object {
@@ -6998,7 +6998,7 @@ ProgramNode {
       "start": 24,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 205,
       "loc": Object {
         "end": Object {
@@ -7268,7 +7268,7 @@ exports[`empty.ftl should have correct tokens 1`] = `Array []`;
 exports[`escape.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 791,
       "loc": Object {
         "end": Object {
@@ -7301,7 +7301,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 792,
       "loc": Object {
         "end": Object {
@@ -7368,7 +7368,7 @@ ProgramNode {
       "start": 792,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 821,
       "loc": Object {
         "end": Object {
@@ -7451,7 +7451,7 @@ ProgramNode {
       "start": 821,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 853,
       "loc": Object {
         "end": Object {
@@ -7470,7 +7470,7 @@ ProgramNode {
     },
     EscapeNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 875,
           "loc": Object {
             "end": Object {
@@ -7507,7 +7507,7 @@ ProgramNode {
           "start": 875,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 882,
           "loc": Object {
             "end": Object {
@@ -7544,7 +7544,7 @@ ProgramNode {
           "start": 882,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 889,
           "loc": Object {
             "end": Object {
@@ -7581,7 +7581,7 @@ ProgramNode {
           "start": 889,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 896,
           "loc": Object {
             "end": Object {
@@ -7600,7 +7600,7 @@ ProgramNode {
         },
         EscapeNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 920,
               "loc": Object {
                 "end": Object {
@@ -7637,7 +7637,7 @@ ProgramNode {
               "start": 920,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 931,
               "loc": Object {
                 "end": Object {
@@ -7674,7 +7674,7 @@ ProgramNode {
               "start": 931,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 942,
               "loc": Object {
                 "end": Object {
@@ -7711,7 +7711,7 @@ ProgramNode {
               "start": 942,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 953,
               "loc": Object {
                 "end": Object {
@@ -7728,7 +7728,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            NoEscapeNode {
               "body": Array [
                 InterpolationNode {
                   "end": 968,
@@ -7765,7 +7765,7 @@ ProgramNode {
               "start": 953,
               "type": "NoEscape",
             },
-            Final {
+            TextNode {
               "end": 985,
               "loc": Object {
                 "end": Object {
@@ -7782,9 +7782,9 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            NoEscapeNode {
               "body": Array [
-                Final {
+                NoEscapeNode {
                   "body": Array [
                     InterpolationNode {
                       "end": 1011,
@@ -7836,7 +7836,7 @@ ProgramNode {
               "start": 985,
               "type": "NoEscape",
             },
-            Final {
+            TextNode {
               "end": 1038,
               "loc": Object {
                 "end": Object {
@@ -7893,7 +7893,7 @@ ProgramNode {
           "start": 896,
           "type": "Escape",
         },
-        Final {
+        TextNode {
           "end": 1051,
           "loc": Object {
             "end": Object {
@@ -7930,7 +7930,7 @@ ProgramNode {
           "start": 1051,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1058,
           "loc": Object {
             "end": Object {
@@ -7967,7 +7967,7 @@ ProgramNode {
           "start": 1058,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1065,
           "loc": Object {
             "end": Object {
@@ -8004,7 +8004,7 @@ ProgramNode {
           "start": 1065,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1070,
           "loc": Object {
             "end": Object {
@@ -8061,7 +8061,7 @@ ProgramNode {
       "start": 853,
       "type": "Escape",
     },
-    Final {
+    TextNode {
       "end": 1081,
       "loc": Object {
         "end": Object {
@@ -8080,7 +8080,7 @@ ProgramNode {
     },
     EscapeNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 1105,
           "loc": Object {
             "end": Object {
@@ -8117,7 +8117,7 @@ ProgramNode {
           "start": 1105,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1116,
           "loc": Object {
             "end": Object {
@@ -8136,7 +8136,7 @@ ProgramNode {
         },
         EscapeNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 1141,
               "loc": Object {
                 "end": Object {
@@ -8173,7 +8173,7 @@ ProgramNode {
               "start": 1141,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1152,
               "loc": Object {
                 "end": Object {
@@ -8230,7 +8230,7 @@ ProgramNode {
           "start": 1116,
           "type": "Escape",
         },
-        Final {
+        TextNode {
           "end": 1165,
           "loc": Object {
             "end": Object {
@@ -8267,7 +8267,7 @@ ProgramNode {
           "start": 1165,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1174,
           "loc": Object {
             "end": Object {
@@ -8324,7 +8324,7 @@ ProgramNode {
       "start": 1081,
       "type": "Escape",
     },
-    Final {
+    TextNode {
       "end": 1189,
       "loc": Object {
         "end": Object {
@@ -8372,7 +8372,7 @@ ProgramNode {
       "start": 1189,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1212,
       "loc": Object {
         "end": Object {
@@ -8408,7 +8408,7 @@ ProgramNode {
       "start": 1212,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1226,
       "loc": Object {
         "end": Object {
@@ -8427,7 +8427,7 @@ ProgramNode {
     },
     EscapeNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 1256,
           "loc": Object {
             "end": Object {
@@ -8463,7 +8463,7 @@ ProgramNode {
           "start": 1256,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1272,
           "loc": Object {
             "end": Object {
@@ -8482,7 +8482,7 @@ ProgramNode {
         },
         EscapeNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 1298,
               "loc": Object {
                 "end": Object {
@@ -8518,7 +8518,7 @@ ProgramNode {
               "start": 1298,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1322,
               "loc": Object {
                 "end": Object {
@@ -8535,9 +8535,9 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            NoEscapeNode {
               "body": Array [
-                Final {
+                TextNode {
                   "end": 1340,
                   "loc": Object {
                     "end": Object {
@@ -8573,7 +8573,7 @@ ProgramNode {
                   "start": 1340,
                   "type": "Interpolation",
                 },
-                Final {
+                TextNode {
                   "end": 1358,
                   "loc": Object {
                     "end": Object {
@@ -8605,7 +8605,7 @@ ProgramNode {
               "start": 1322,
               "type": "NoEscape",
             },
-            Final {
+            TextNode {
               "end": 1375,
               "loc": Object {
                 "end": Object {
@@ -8641,7 +8641,7 @@ ProgramNode {
               "start": 1375,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1397,
               "loc": Object {
                 "end": Object {
@@ -8698,7 +8698,7 @@ ProgramNode {
           "start": 1272,
           "type": "Escape",
         },
-        Final {
+        TextNode {
           "end": 1410,
           "loc": Object {
             "end": Object {
@@ -8734,7 +8734,7 @@ ProgramNode {
           "start": 1410,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1426,
           "loc": Object {
             "end": Object {
@@ -8751,9 +8751,9 @@ ProgramNode {
   ",
           "type": "Text",
         },
-        Final {
+        NoEscapeNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 1442,
               "loc": Object {
                 "end": Object {
@@ -8789,7 +8789,7 @@ ProgramNode {
               "start": 1442,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1460,
               "loc": Object {
                 "end": Object {
@@ -8808,7 +8808,7 @@ ProgramNode {
             },
             EscapeNode {
               "body": Array [
-                Final {
+                TextNode {
                   "end": 1488,
                   "loc": Object {
                     "end": Object {
@@ -8844,7 +8844,7 @@ ProgramNode {
                   "start": 1488,
                   "type": "Interpolation",
                 },
-                Final {
+                TextNode {
                   "end": 1514,
                   "loc": Object {
                     "end": Object {
@@ -8861,9 +8861,9 @@ ProgramNode {
       ",
                   "type": "Text",
                 },
-                Final {
+                NoEscapeNode {
                   "body": Array [
-                    Final {
+                    TextNode {
                       "end": 1534,
                       "loc": Object {
                         "end": Object {
@@ -8899,7 +8899,7 @@ ProgramNode {
                       "start": 1534,
                       "type": "Interpolation",
                     },
-                    Final {
+                    TextNode {
                       "end": 1554,
                       "loc": Object {
                         "end": Object {
@@ -8931,7 +8931,7 @@ ProgramNode {
                   "start": 1514,
                   "type": "NoEscape",
                 },
-                Final {
+                TextNode {
                   "end": 1573,
                   "loc": Object {
                     "end": Object {
@@ -8967,7 +8967,7 @@ ProgramNode {
                   "start": 1573,
                   "type": "Interpolation",
                 },
-                Final {
+                TextNode {
                   "end": 1597,
                   "loc": Object {
                     "end": Object {
@@ -9024,7 +9024,7 @@ ProgramNode {
               "start": 1460,
               "type": "Escape",
             },
-            Final {
+            TextNode {
               "end": 1612,
               "loc": Object {
                 "end": Object {
@@ -9060,7 +9060,7 @@ ProgramNode {
               "start": 1612,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1628,
               "loc": Object {
                 "end": Object {
@@ -9092,7 +9092,7 @@ ProgramNode {
           "start": 1426,
           "type": "NoEscape",
         },
-        Final {
+        TextNode {
           "end": 1643,
           "loc": Object {
             "end": Object {
@@ -9128,7 +9128,7 @@ ProgramNode {
           "start": 1643,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1657,
           "loc": Object {
             "end": Object {
@@ -9185,7 +9185,7 @@ ProgramNode {
       "start": 1226,
       "type": "Escape",
     },
-    Final {
+    TextNode {
       "end": 1672,
       "loc": Object {
         "end": Object {
@@ -9233,7 +9233,7 @@ ProgramNode {
       "start": 1672,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1692,
       "loc": Object {
         "end": Object {
@@ -9252,7 +9252,7 @@ ProgramNode {
     },
     EscapeNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 1761,
           "loc": Object {
             "end": Object {
@@ -9288,7 +9288,7 @@ ProgramNode {
           "start": 1761,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1766,
           "loc": Object {
             "end": Object {
@@ -9332,7 +9332,7 @@ ProgramNode {
           "start": 1766,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 1777,
           "loc": Object {
             "end": Object {
@@ -9351,7 +9351,7 @@ ProgramNode {
         },
         EscapeNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 1825,
               "loc": Object {
                 "end": Object {
@@ -9387,7 +9387,7 @@ ProgramNode {
               "start": 1825,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1830,
               "loc": Object {
                 "end": Object {
@@ -9431,7 +9431,7 @@ ProgramNode {
               "start": 1830,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 1841,
               "loc": Object {
                 "end": Object {
@@ -9514,7 +9514,7 @@ ProgramNode {
           "start": 1777,
           "type": "Escape",
         },
-        Final {
+        TextNode {
           "end": 1852,
           "loc": Object {
             "end": Object {
@@ -9631,7 +9631,7 @@ ProgramNode {
       "start": 1692,
       "type": "Escape",
     },
-    Final {
+    TextNode {
       "end": 1863,
       "loc": Object {
         "end": Object {
@@ -10895,7 +10895,7 @@ ProgramNode {
       "start": 0,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 18,
       "loc": Object {
         "end": Object {
@@ -10914,7 +10914,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 45,
           "loc": Object {
             "end": Object {
@@ -10961,7 +10961,7 @@ ProgramNode {
       "start": 18,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 52,
       "loc": Object {
         "end": Object {
@@ -10980,7 +10980,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 79,
           "loc": Object {
             "end": Object {
@@ -11027,7 +11027,7 @@ ProgramNode {
       "start": 52,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 86,
       "loc": Object {
         "end": Object {
@@ -11166,7 +11166,7 @@ Array [
 exports[`flush.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    FlushNode {
       "end": 8,
       "loc": Object {
         "end": Object {
@@ -11181,7 +11181,7 @@ ProgramNode {
       "start": 0,
       "type": "Flush",
     },
-    Final {
+    TextNode {
       "end": 10,
       "loc": Object {
         "end": Object {
@@ -11246,7 +11246,7 @@ ProgramNode {
   "body": Array [
     FunctionNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 22,
           "loc": Object {
             "end": Object {
@@ -11299,7 +11299,7 @@ ProgramNode {
           "start": 22,
           "type": "Return",
         },
-        Final {
+        TextNode {
           "end": 44,
           "loc": Object {
             "end": Object {
@@ -11348,7 +11348,7 @@ ProgramNode {
       "start": 0,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 57,
       "loc": Object {
         "end": Object {
@@ -11399,7 +11399,7 @@ ProgramNode {
       "start": 57,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 72,
       "loc": Object {
         "end": Object {
@@ -11519,7 +11519,7 @@ ProgramNode {
   "body": Array [
     FunctionNode {
       "body": Array [
-        Final {
+        CommentNode {
           "end": 32,
           "loc": Object {
             "end": Object {
@@ -11535,7 +11535,7 @@ ProgramNode {
           "text": " ... ",
           "type": "Comment",
         },
-        Final {
+        TextNode {
           "end": 35,
           "loc": Object {
             "end": Object {
@@ -11582,7 +11582,7 @@ ProgramNode {
           "start": 35,
           "type": "Local",
         },
-        Final {
+        TextNode {
           "end": 54,
           "loc": Object {
             "end": Object {
@@ -11601,7 +11601,7 @@ ProgramNode {
         },
         ListNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 78,
               "loc": Object {
                 "end": Object {
@@ -11647,7 +11647,7 @@ ProgramNode {
               "start": 78,
               "type": "Local",
             },
-            Final {
+            TextNode {
               "end": 100,
               "loc": Object {
                 "end": Object {
@@ -11696,7 +11696,7 @@ ProgramNode {
           "start": 54,
           "type": "List",
         },
-        Final {
+        TextNode {
           "end": 111,
           "loc": Object {
             "end": Object {
@@ -11715,7 +11715,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 136,
               "loc": Object {
                 "end": Object {
@@ -11767,7 +11767,7 @@ ProgramNode {
               "start": 136,
               "type": "Return",
             },
-            Final {
+            TextNode {
               "end": 164,
               "loc": Object {
                 "end": Object {
@@ -11820,7 +11820,7 @@ ProgramNode {
           "start": 111,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 171,
           "loc": Object {
             "end": Object {
@@ -11865,7 +11865,7 @@ ProgramNode {
       "start": 0,
       "type": "Function",
     },
-    Final {
+    TextNode {
       "end": 184,
       "loc": Object {
         "end": Object {
@@ -11916,7 +11916,7 @@ ProgramNode {
       "start": 184,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 199,
       "loc": Object {
         "end": Object {
@@ -11977,7 +11977,7 @@ ProgramNode {
       "start": 199,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 222,
       "loc": Object {
         "end": Object {
@@ -12032,7 +12032,7 @@ ProgramNode {
       "start": 222,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 237,
       "loc": Object {
         "end": Object {
@@ -12330,7 +12330,7 @@ ProgramNode {
       "start": 0,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 8,
       "loc": Object {
         "end": Object {
@@ -12368,7 +12368,7 @@ ProgramNode {
       "start": 8,
       "type": "Include",
     },
-    Final {
+    TextNode {
       "end": 49,
       "loc": Object {
         "end": Object {
@@ -12388,7 +12388,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 67,
           "loc": Object {
             "end": Object {
@@ -12407,7 +12407,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 86,
               "loc": Object {
                 "end": Object {
@@ -12451,7 +12451,7 @@ ProgramNode {
               "start": 86,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 99,
               "loc": Object {
                 "end": Object {
@@ -12495,7 +12495,7 @@ ProgramNode {
           "start": 67,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 108,
           "loc": Object {
             "end": Object {
@@ -12548,7 +12548,7 @@ ProgramNode {
           "start": 108,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 128,
           "loc": Object {
             "end": Object {
@@ -12593,7 +12593,7 @@ ProgramNode {
       "start": 49,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 136,
       "loc": Object {
         "end": Object {
@@ -12641,7 +12641,7 @@ ProgramNode {
       "start": 136,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 180,
       "loc": Object {
         "end": Object {
@@ -12887,7 +12887,7 @@ ProgramNode {
       "start": 0,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 19,
       "loc": Object {
         "end": Object {
@@ -12907,7 +12907,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 35,
           "loc": Object {
             "end": Object {
@@ -12951,7 +12951,7 @@ ProgramNode {
       "start": 19,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 44,
       "loc": Object {
         "end": Object {
@@ -12997,7 +12997,7 @@ ProgramNode {
       "start": 44,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 69,
       "loc": Object {
         "end": Object {
@@ -13016,7 +13016,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 84,
           "loc": Object {
             "end": Object {
@@ -13094,7 +13094,7 @@ ProgramNode {
       "start": 69,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 107,
       "loc": Object {
         "end": Object {
@@ -13113,7 +13113,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 124,
           "loc": Object {
             "end": Object {
@@ -13157,7 +13157,7 @@ ProgramNode {
       "start": 107,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 138,
       "loc": Object {
         "end": Object {
@@ -13177,7 +13177,7 @@ ProgramNode {
     },
     ConditionNode {
       "alternate": Array [
-        Final {
+        TextNode {
           "end": 166,
           "loc": Object {
             "end": Object {
@@ -13195,7 +13195,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 154,
           "loc": Object {
             "end": Object {
@@ -13239,7 +13239,7 @@ ProgramNode {
       "start": 138,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 175,
       "loc": Object {
         "end": Object {
@@ -13258,7 +13258,7 @@ ProgramNode {
     },
     ConditionNode {
       "alternate": Array [
-        Final {
+        TextNode {
           "end": 203,
           "loc": Object {
             "end": Object {
@@ -13276,7 +13276,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 192,
           "loc": Object {
             "end": Object {
@@ -13320,7 +13320,7 @@ ProgramNode {
       "start": 175,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 213,
       "loc": Object {
         "end": Object {
@@ -13342,7 +13342,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 262,
               "loc": Object {
                 "end": Object {
@@ -13360,7 +13360,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 250,
               "loc": Object {
                 "end": Object {
@@ -13406,7 +13406,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 229,
           "loc": Object {
             "end": Object {
@@ -13450,7 +13450,7 @@ ProgramNode {
       "start": 213,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 271,
       "loc": Object {
         "end": Object {
@@ -13471,7 +13471,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 320,
               "loc": Object {
                 "end": Object {
@@ -13489,7 +13489,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 308,
               "loc": Object {
                 "end": Object {
@@ -13535,7 +13535,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 287,
           "loc": Object {
             "end": Object {
@@ -13579,7 +13579,7 @@ ProgramNode {
       "start": 271,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 329,
       "loc": Object {
         "end": Object {
@@ -13600,7 +13600,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 378,
               "loc": Object {
                 "end": Object {
@@ -13618,7 +13618,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 366,
               "loc": Object {
                 "end": Object {
@@ -13664,7 +13664,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 346,
           "loc": Object {
             "end": Object {
@@ -13708,7 +13708,7 @@ ProgramNode {
       "start": 329,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 387,
       "loc": Object {
         "end": Object {
@@ -13729,7 +13729,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 436,
               "loc": Object {
                 "end": Object {
@@ -13747,7 +13747,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 425,
               "loc": Object {
                 "end": Object {
@@ -13793,7 +13793,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 404,
           "loc": Object {
             "end": Object {
@@ -13837,7 +13837,7 @@ ProgramNode {
       "start": 387,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 446,
       "loc": Object {
         "end": Object {
@@ -13859,7 +13859,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 483,
               "loc": Object {
                 "end": Object {
@@ -13905,7 +13905,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 462,
           "loc": Object {
             "end": Object {
@@ -13949,7 +13949,7 @@ ProgramNode {
       "start": 446,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 492,
       "loc": Object {
         "end": Object {
@@ -13970,7 +13970,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 529,
               "loc": Object {
                 "end": Object {
@@ -14016,7 +14016,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 509,
           "loc": Object {
             "end": Object {
@@ -14060,7 +14060,7 @@ ProgramNode {
       "start": 492,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 538,
       "loc": Object {
         "end": Object {
@@ -14081,7 +14081,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 576,
               "loc": Object {
                 "end": Object {
@@ -14127,7 +14127,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 555,
           "loc": Object {
             "end": Object {
@@ -14171,7 +14171,7 @@ ProgramNode {
       "start": 538,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 589,
       "loc": Object {
         "end": Object {
@@ -14192,7 +14192,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 634,
               "loc": Object {
                 "end": Object {
@@ -14239,7 +14239,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 606,
           "loc": Object {
             "end": Object {
@@ -14283,7 +14283,7 @@ ProgramNode {
       "start": 589,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 646,
       "loc": Object {
         "end": Object {
@@ -14301,7 +14301,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 744,
       "loc": Object {
         "end": Object {
@@ -14317,7 +14317,7 @@ ProgramNode {
       "text": " Same with pre-calculable results, just in case later the dead code will be optimized out: ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 747,
       "loc": Object {
         "end": Object {
@@ -14336,7 +14336,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 763,
           "loc": Object {
             "end": Object {
@@ -14381,7 +14381,7 @@ ProgramNode {
       "start": 747,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 772,
       "loc": Object {
         "end": Object {
@@ -14400,7 +14400,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 789,
           "loc": Object {
             "end": Object {
@@ -14445,7 +14445,7 @@ ProgramNode {
       "start": 772,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 802,
       "loc": Object {
         "end": Object {
@@ -14464,7 +14464,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 817,
           "loc": Object {
             "end": Object {
@@ -14543,7 +14543,7 @@ ProgramNode {
       "start": 802,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 840,
       "loc": Object {
         "end": Object {
@@ -14562,7 +14562,7 @@ ProgramNode {
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 857,
           "loc": Object {
             "end": Object {
@@ -14607,7 +14607,7 @@ ProgramNode {
       "start": 840,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 871,
       "loc": Object {
         "end": Object {
@@ -14627,7 +14627,7 @@ ProgramNode {
     },
     ConditionNode {
       "alternate": Array [
-        Final {
+        TextNode {
           "end": 899,
           "loc": Object {
             "end": Object {
@@ -14645,7 +14645,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 887,
           "loc": Object {
             "end": Object {
@@ -14690,7 +14690,7 @@ ProgramNode {
       "start": 871,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 908,
       "loc": Object {
         "end": Object {
@@ -14709,7 +14709,7 @@ ProgramNode {
     },
     ConditionNode {
       "alternate": Array [
-        Final {
+        TextNode {
           "end": 936,
           "loc": Object {
             "end": Object {
@@ -14727,7 +14727,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 925,
           "loc": Object {
             "end": Object {
@@ -14772,7 +14772,7 @@ ProgramNode {
       "start": 908,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 946,
       "loc": Object {
         "end": Object {
@@ -14794,7 +14794,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 995,
               "loc": Object {
                 "end": Object {
@@ -14812,7 +14812,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 983,
               "loc": Object {
                 "end": Object {
@@ -14859,7 +14859,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 962,
           "loc": Object {
             "end": Object {
@@ -14904,7 +14904,7 @@ ProgramNode {
       "start": 946,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1004,
       "loc": Object {
         "end": Object {
@@ -14925,7 +14925,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1053,
               "loc": Object {
                 "end": Object {
@@ -14943,7 +14943,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1041,
               "loc": Object {
                 "end": Object {
@@ -14990,7 +14990,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1020,
           "loc": Object {
             "end": Object {
@@ -15035,7 +15035,7 @@ ProgramNode {
       "start": 1004,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1062,
       "loc": Object {
         "end": Object {
@@ -15056,7 +15056,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1111,
               "loc": Object {
                 "end": Object {
@@ -15074,7 +15074,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1099,
               "loc": Object {
                 "end": Object {
@@ -15121,7 +15121,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1079,
           "loc": Object {
             "end": Object {
@@ -15166,7 +15166,7 @@ ProgramNode {
       "start": 1062,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1120,
       "loc": Object {
         "end": Object {
@@ -15187,7 +15187,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1169,
               "loc": Object {
                 "end": Object {
@@ -15205,7 +15205,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1158,
               "loc": Object {
                 "end": Object {
@@ -15252,7 +15252,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1137,
           "loc": Object {
             "end": Object {
@@ -15297,7 +15297,7 @@ ProgramNode {
       "start": 1120,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1179,
       "loc": Object {
         "end": Object {
@@ -15319,7 +15319,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1216,
               "loc": Object {
                 "end": Object {
@@ -15366,7 +15366,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1195,
           "loc": Object {
             "end": Object {
@@ -15411,7 +15411,7 @@ ProgramNode {
       "start": 1179,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1225,
       "loc": Object {
         "end": Object {
@@ -15432,7 +15432,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1262,
               "loc": Object {
                 "end": Object {
@@ -15479,7 +15479,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1242,
           "loc": Object {
             "end": Object {
@@ -15524,7 +15524,7 @@ ProgramNode {
       "start": 1225,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1271,
       "loc": Object {
         "end": Object {
@@ -15545,7 +15545,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1309,
               "loc": Object {
                 "end": Object {
@@ -15592,7 +15592,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1288,
           "loc": Object {
             "end": Object {
@@ -15637,7 +15637,7 @@ ProgramNode {
       "start": 1271,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1322,
       "loc": Object {
         "end": Object {
@@ -15658,7 +15658,7 @@ ProgramNode {
       "alternate": Array [
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1367,
               "loc": Object {
                 "end": Object {
@@ -15706,7 +15706,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1339,
           "loc": Object {
             "end": Object {
@@ -15751,7 +15751,7 @@ ProgramNode {
       "start": 1322,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1379,
       "loc": Object {
         "end": Object {
@@ -15769,7 +15769,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1432,
       "loc": Object {
         "end": Object {
@@ -15785,7 +15785,7 @@ ProgramNode {
       "text": " Varying branch choice of the same AST nodes: ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1433,
       "loc": Object {
         "end": Object {
@@ -15804,7 +15804,7 @@ ProgramNode {
     },
     ListNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 1461,
           "loc": Object {
             "end": Object {
@@ -15823,7 +15823,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1474,
               "loc": Object {
                 "end": Object {
@@ -15867,7 +15867,7 @@ ProgramNode {
           "start": 1461,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1483,
           "loc": Object {
             "end": Object {
@@ -15886,7 +15886,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1496,
               "loc": Object {
                 "end": Object {
@@ -15930,7 +15930,7 @@ ProgramNode {
           "start": 1483,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1505,
           "loc": Object {
             "end": Object {
@@ -15949,7 +15949,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1518,
               "loc": Object {
                 "end": Object {
@@ -15993,7 +15993,7 @@ ProgramNode {
           "start": 1505,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1527,
           "loc": Object {
             "end": Object {
@@ -16012,7 +16012,7 @@ ProgramNode {
         },
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1557,
               "loc": Object {
                 "end": Object {
@@ -16030,7 +16030,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1543,
               "loc": Object {
                 "end": Object {
@@ -16074,7 +16074,7 @@ ProgramNode {
           "start": 1527,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1566,
           "loc": Object {
             "end": Object {
@@ -16093,7 +16093,7 @@ ProgramNode {
         },
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1596,
               "loc": Object {
                 "end": Object {
@@ -16111,7 +16111,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1582,
               "loc": Object {
                 "end": Object {
@@ -16155,7 +16155,7 @@ ProgramNode {
           "start": 1566,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1605,
           "loc": Object {
             "end": Object {
@@ -16174,7 +16174,7 @@ ProgramNode {
         },
         ConditionNode {
           "alternate": Array [
-            Final {
+            TextNode {
               "end": 1635,
               "loc": Object {
                 "end": Object {
@@ -16192,7 +16192,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1621,
               "loc": Object {
                 "end": Object {
@@ -16236,7 +16236,7 @@ ProgramNode {
           "start": 1605,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1659,
           "loc": Object {
             "end": Object {
@@ -16259,7 +16259,7 @@ ProgramNode {
               "alternate": Array [
                 ConditionNode {
                   "alternate": Array [
-                    Final {
+                    TextNode {
                       "end": 1714,
                       "loc": Object {
                         "end": Object {
@@ -16277,7 +16277,7 @@ ProgramNode {
                     },
                   ],
                   "consequent": Array [
-                    Final {
+                    TextNode {
                       "end": 1706,
                       "loc": Object {
                         "end": Object {
@@ -16323,7 +16323,7 @@ ProgramNode {
                 },
               ],
               "consequent": Array [
-                Final {
+                TextNode {
                   "end": 1689,
                   "loc": Object {
                     "end": Object {
@@ -16369,7 +16369,7 @@ ProgramNode {
             },
           ],
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 1672,
               "loc": Object {
                 "end": Object {
@@ -16413,7 +16413,7 @@ ProgramNode {
           "start": 1659,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 1721,
           "loc": Object {
             "end": Object {
@@ -16483,7 +16483,7 @@ ProgramNode {
       "start": 1433,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 1731,
       "loc": Object {
         "end": Object {
@@ -16501,7 +16501,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1746,
       "loc": Object {
         "end": Object {
@@ -16517,7 +16517,7 @@ ProgramNode {
       "text": " nested ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1747,
       "loc": Object {
         "end": Object {
@@ -16538,7 +16538,7 @@ ProgramNode {
       "body": Array [
         ListNode {
           "body": Array [
-            Final {
+            TextNode {
               "end": 1794,
               "loc": Object {
                 "end": Object {
@@ -16592,7 +16592,7 @@ ProgramNode {
               "start": 1794,
               "type": "Assign",
             },
-            Final {
+            TextNode {
               "end": 1816,
               "loc": Object {
                 "end": Object {
@@ -16613,7 +16613,7 @@ ProgramNode {
               "alternate": Array [
                 ConditionNode {
                   "alternate": Array [
-                    Final {
+                    TextNode {
                       "end": 2089,
                       "loc": Object {
                         "end": Object {
@@ -16635,7 +16635,7 @@ ProgramNode {
                       "alternate": Array [
                         ConditionNode {
                           "alternate": Array [
-                            Final {
+                            TextNode {
                               "end": 2172,
                               "loc": Object {
                                 "end": Object {
@@ -16671,7 +16671,7 @@ ProgramNode {
                               "start": 2172,
                               "type": "Interpolation",
                             },
-                            Final {
+                            TextNode {
                               "end": 2181,
                               "loc": Object {
                                 "end": Object {
@@ -16690,7 +16690,7 @@ ProgramNode {
                             },
                           ],
                           "consequent": Array [
-                            Final {
+                            TextNode {
                               "end": 2146,
                               "loc": Object {
                                 "end": Object {
@@ -16726,7 +16726,7 @@ ProgramNode {
                               "start": 2146,
                               "type": "Interpolation",
                             },
-                            Final {
+                            TextNode {
                               "end": 2155,
                               "loc": Object {
                                 "end": Object {
@@ -16772,7 +16772,7 @@ ProgramNode {
                         },
                       ],
                       "consequent": Array [
-                        Final {
+                        TextNode {
                           "end": 2111,
                           "loc": Object {
                             "end": Object {
@@ -16808,7 +16808,7 @@ ProgramNode {
                           "start": 2111,
                           "type": "Interpolation",
                         },
-                        Final {
+                        TextNode {
                           "end": 2120,
                           "loc": Object {
                             "end": Object {
@@ -16852,7 +16852,7 @@ ProgramNode {
                       "start": 2089,
                       "type": "Condition",
                     },
-                    Final {
+                    TextNode {
                       "end": 2192,
                       "loc": Object {
                         "end": Object {
@@ -16871,7 +16871,7 @@ ProgramNode {
                     },
                     ConditionNode {
                       "consequent": Array [
-                        Final {
+                        TextNode {
                           "end": 2229,
                           "loc": Object {
                             "end": Object {
@@ -16934,7 +16934,7 @@ ProgramNode {
                       "start": 2192,
                       "type": "Condition",
                     },
-                    Final {
+                    TextNode {
                       "end": 2238,
                       "loc": Object {
                         "end": Object {
@@ -16953,7 +16953,7 @@ ProgramNode {
                     },
                   ],
                   "consequent": Array [
-                    Final {
+                    TextNode {
                       "end": 1969,
                       "loc": Object {
                         "end": Object {
@@ -16975,7 +16975,7 @@ ProgramNode {
                       "alternate": Array [
                         ConditionNode {
                           "alternate": Array [
-                            Final {
+                            TextNode {
                               "end": 2052,
                               "loc": Object {
                                 "end": Object {
@@ -17011,7 +17011,7 @@ ProgramNode {
                               "start": 2052,
                               "type": "Interpolation",
                             },
-                            Final {
+                            TextNode {
                               "end": 2061,
                               "loc": Object {
                                 "end": Object {
@@ -17030,7 +17030,7 @@ ProgramNode {
                             },
                           ],
                           "consequent": Array [
-                            Final {
+                            TextNode {
                               "end": 2026,
                               "loc": Object {
                                 "end": Object {
@@ -17066,7 +17066,7 @@ ProgramNode {
                               "start": 2026,
                               "type": "Interpolation",
                             },
-                            Final {
+                            TextNode {
                               "end": 2035,
                               "loc": Object {
                                 "end": Object {
@@ -17112,7 +17112,7 @@ ProgramNode {
                         },
                       ],
                       "consequent": Array [
-                        Final {
+                        TextNode {
                           "end": 1991,
                           "loc": Object {
                             "end": Object {
@@ -17148,7 +17148,7 @@ ProgramNode {
                           "start": 1991,
                           "type": "Interpolation",
                         },
-                        Final {
+                        TextNode {
                           "end": 2000,
                           "loc": Object {
                             "end": Object {
@@ -17192,7 +17192,7 @@ ProgramNode {
                       "start": 1969,
                       "type": "Condition",
                     },
-                    Final {
+                    TextNode {
                       "end": 2070,
                       "loc": Object {
                         "end": Object {
@@ -17239,7 +17239,7 @@ ProgramNode {
                 },
               ],
               "consequent": Array [
-                Final {
+                TextNode {
                   "end": 1840,
                   "loc": Object {
                     "end": Object {
@@ -17261,7 +17261,7 @@ ProgramNode {
                   "alternate": Array [
                     ConditionNode {
                       "alternate": Array [
-                        Final {
+                        TextNode {
                           "end": 1923,
                           "loc": Object {
                             "end": Object {
@@ -17297,7 +17297,7 @@ ProgramNode {
                           "start": 1923,
                           "type": "Interpolation",
                         },
-                        Final {
+                        TextNode {
                           "end": 1932,
                           "loc": Object {
                             "end": Object {
@@ -17316,7 +17316,7 @@ ProgramNode {
                         },
                       ],
                       "consequent": Array [
-                        Final {
+                        TextNode {
                           "end": 1897,
                           "loc": Object {
                             "end": Object {
@@ -17352,7 +17352,7 @@ ProgramNode {
                           "start": 1897,
                           "type": "Interpolation",
                         },
-                        Final {
+                        TextNode {
                           "end": 1906,
                           "loc": Object {
                             "end": Object {
@@ -17398,7 +17398,7 @@ ProgramNode {
                     },
                   ],
                   "consequent": Array [
-                    Final {
+                    TextNode {
                       "end": 1862,
                       "loc": Object {
                         "end": Object {
@@ -17434,7 +17434,7 @@ ProgramNode {
                       "start": 1862,
                       "type": "Interpolation",
                     },
-                    Final {
+                    TextNode {
                       "end": 1871,
                       "loc": Object {
                         "end": Object {
@@ -17478,7 +17478,7 @@ ProgramNode {
                   "start": 1840,
                   "type": "Condition",
                 },
-                Final {
+                TextNode {
                   "end": 1941,
                   "loc": Object {
                     "end": Object {
@@ -17523,7 +17523,7 @@ ProgramNode {
               "start": 1816,
               "type": "Condition",
             },
-            Final {
+            TextNode {
               "end": 2245,
               "loc": Object {
                 "end": Object {
@@ -17636,7 +17636,7 @@ ProgramNode {
       "start": 1747,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 2263,
       "loc": Object {
         "end": Object {
@@ -20363,7 +20363,7 @@ ProgramNode {
       "start": 0,
       "type": "Import",
     },
-    Final {
+    TextNode {
       "end": 25,
       "loc": Object {
         "end": Object {
@@ -20413,7 +20413,7 @@ ProgramNode {
       "start": 25,
       "type": "Import",
     },
-    Final {
+    TextNode {
       "end": 50,
       "loc": Object {
         "end": Object {
@@ -20493,7 +20493,7 @@ Array [
 exports[`include.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 79,
       "loc": Object {
         "end": Object {
@@ -20531,7 +20531,7 @@ ProgramNode {
       "start": 79,
       "type": "Include",
     },
-    Final {
+    TextNode {
       "end": 158,
       "loc": Object {
         "end": Object {
@@ -20569,7 +20569,7 @@ ProgramNode {
       "start": 158,
       "type": "Include",
     },
-    Final {
+    TextNode {
       "end": 229,
       "loc": Object {
         "end": Object {
@@ -20607,7 +20607,7 @@ ProgramNode {
       "start": 229,
       "type": "Include",
     },
-    Final {
+    TextNode {
       "end": 301,
       "loc": Object {
         "end": Object {
@@ -20645,7 +20645,7 @@ ProgramNode {
       "start": 301,
       "type": "Include",
     },
-    Final {
+    TextNode {
       "end": 343,
       "loc": Object {
         "end": Object {
@@ -20777,7 +20777,7 @@ Array [
 exports[`list.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 21,
       "loc": Object {
         "end": Object {
@@ -20796,7 +20796,7 @@ ProgramNode {
     },
     ListNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 59,
           "loc": Object {
             "end": Object {
@@ -20848,7 +20848,7 @@ ProgramNode {
           "start": 59,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 93,
           "loc": Object {
             "end": Object {
@@ -20892,7 +20892,7 @@ ProgramNode {
           "start": 93,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 118,
           "loc": Object {
             "end": Object {
@@ -20936,7 +20936,7 @@ ProgramNode {
           "start": 118,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 141,
           "loc": Object {
             "end": Object {
@@ -20980,7 +20980,7 @@ ProgramNode {
           "start": 141,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 156,
           "loc": Object {
             "end": Object {
@@ -21000,7 +21000,7 @@ ProgramNode {
       ],
       "end": 48,
       "fallback": Array [
-        Final {
+        TextNode {
           "end": 176,
           "loc": Object {
             "end": Object {
@@ -21049,7 +21049,7 @@ ProgramNode {
       "start": 21,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 185,
       "loc": Object {
         "end": Object {
@@ -21237,7 +21237,7 @@ ProgramNode {
   "body": Array [
     MacroNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 21,
           "loc": Object {
             "end": Object {
@@ -21273,7 +21273,7 @@ ProgramNode {
           "start": 21,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 30,
           "loc": Object {
             "end": Object {
@@ -21318,7 +21318,7 @@ ProgramNode {
       "start": 0,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 41,
       "loc": Object {
         "end": Object {
@@ -21357,7 +21357,7 @@ ProgramNode {
       "start": 41,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 57,
       "loc": Object {
         "end": Object {
@@ -21478,7 +21478,7 @@ ProgramNode {
   "body": Array [
     MacroNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 21,
           "loc": Object {
             "end": Object {
@@ -21514,7 +21514,7 @@ ProgramNode {
           "start": 21,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 30,
           "loc": Object {
             "end": Object {
@@ -21559,7 +21559,7 @@ ProgramNode {
       "start": 0,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 41,
       "loc": Object {
         "end": Object {
@@ -21579,7 +21579,7 @@ ProgramNode {
     },
     MacroCallNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 60,
           "loc": Object {
             "end": Object {
@@ -21618,7 +21618,7 @@ test
       "start": 41,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 68,
       "loc": Object {
         "end": Object {
@@ -21759,7 +21759,7 @@ ProgramNode {
   "body": Array [
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 15,
           "loc": Object {
             "end": Object {
@@ -21778,7 +21778,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 30,
               "loc": Object {
                 "end": Object {
@@ -21815,7 +21815,7 @@ ProgramNode {
           "start": 15,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 41,
           "loc": Object {
             "end": Object {
@@ -21834,7 +21834,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 69,
               "loc": Object {
                 "end": Object {
@@ -21872,7 +21872,7 @@ ProgramNode {
           "start": 41,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 80,
           "loc": Object {
             "end": Object {
@@ -21930,7 +21930,7 @@ ProgramNode {
           "start": 80,
           "type": "Condition",
         },
-        Final {
+        TextNode {
           "end": 101,
           "loc": Object {
             "end": Object {
@@ -21967,7 +21967,7 @@ ProgramNode {
       "start": 0,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 108,
       "loc": Object {
         "end": Object {
@@ -22161,7 +22161,7 @@ Array [
 exports[`setting.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 791,
       "loc": Object {
         "end": Object {
@@ -22194,7 +22194,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 792,
       "loc": Object {
         "end": Object {
@@ -22239,7 +22239,7 @@ ProgramNode {
       "start": 792,
       "type": "Setting",
     },
-    Final {
+    TextNode {
       "end": 818,
       "loc": Object {
         "end": Object {
@@ -22286,7 +22286,7 @@ ProgramNode {
       "start": 818,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 834,
       "loc": Object {
         "end": Object {
@@ -22339,7 +22339,7 @@ ProgramNode {
       "start": 834,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 854,
       "loc": Object {
         "end": Object {
@@ -22393,7 +22393,7 @@ ProgramNode {
       "start": 854,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 874,
       "loc": Object {
         "end": Object {
@@ -22463,7 +22463,7 @@ ProgramNode {
       "start": 874,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 917,
       "loc": Object {
         "end": Object {
@@ -22534,7 +22534,7 @@ ProgramNode {
       "start": 917,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 964,
       "loc": Object {
         "end": Object {
@@ -22571,7 +22571,7 @@ ProgramNode {
       "start": 964,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 973,
       "loc": Object {
         "end": Object {
@@ -22618,7 +22618,7 @@ ProgramNode {
       "start": 973,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 992,
       "loc": Object {
         "end": Object {
@@ -22665,7 +22665,7 @@ ProgramNode {
       "start": 992,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1012,
       "loc": Object {
         "end": Object {
@@ -22709,7 +22709,7 @@ ProgramNode {
       "start": 1012,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1024,
       "loc": Object {
         "end": Object {
@@ -22752,7 +22752,7 @@ ProgramNode {
       "start": 1024,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1036,
       "loc": Object {
         "end": Object {
@@ -22811,7 +22811,7 @@ ProgramNode {
       "start": 1036,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1061,
       "loc": Object {
         "end": Object {
@@ -22869,7 +22869,7 @@ ProgramNode {
       "start": 1061,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1086,
       "loc": Object {
         "end": Object {
@@ -22914,7 +22914,7 @@ ProgramNode {
       "start": 1086,
       "type": "Setting",
     },
-    Final {
+    TextNode {
       "end": 1124,
       "loc": Object {
         "end": Object {
@@ -22958,7 +22958,7 @@ ProgramNode {
       "start": 1124,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1136,
       "loc": Object {
         "end": Object {
@@ -23001,7 +23001,7 @@ ProgramNode {
       "start": 1136,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1148,
       "loc": Object {
         "end": Object {
@@ -23046,7 +23046,7 @@ ProgramNode {
       "start": 1148,
       "type": "Setting",
     },
-    Final {
+    TextNode {
       "end": 1179,
       "loc": Object {
         "end": Object {
@@ -23105,7 +23105,7 @@ ProgramNode {
       "start": 1179,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1197,
       "loc": Object {
         "end": Object {
@@ -23163,7 +23163,7 @@ ProgramNode {
       "start": 1197,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1215,
       "loc": Object {
         "end": Object {
@@ -23208,7 +23208,7 @@ ProgramNode {
       "start": 1215,
       "type": "Setting",
     },
-    Final {
+    TextNode {
       "end": 1255,
       "loc": Object {
         "end": Object {
@@ -23283,7 +23283,7 @@ ProgramNode {
       "start": 1255,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1290,
       "loc": Object {
         "end": Object {
@@ -23357,7 +23357,7 @@ ProgramNode {
       "start": 1290,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1325,
       "loc": Object {
         "end": Object {
@@ -23849,7 +23849,7 @@ Array [
 exports[`stop.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    StopNode {
       "end": 7,
       "loc": Object {
         "end": Object {
@@ -23865,7 +23865,7 @@ ProgramNode {
       "start": 0,
       "type": "Stop",
     },
-    Final {
+    TextNode {
       "end": 8,
       "loc": Object {
         "end": Object {
@@ -23957,7 +23957,7 @@ ProgramNode {
       "start": 0,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 25,
       "loc": Object {
         "end": Object {
@@ -24022,7 +24022,7 @@ ProgramNode {
       "cases": Array [
         SwitchCaseNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 57,
               "loc": Object {
                 "end": Object {
@@ -24040,7 +24040,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            BreakNode {
               "end": 65,
               "loc": Object {
                 "end": Object {
@@ -24055,7 +24055,7 @@ ProgramNode {
               "start": 57,
               "type": "Break",
             },
-            Final {
+            TextNode {
               "end": 69,
               "loc": Object {
                 "end": Object {
@@ -24085,7 +24085,7 @@ ProgramNode {
         },
         SwitchCaseNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 109,
               "loc": Object {
                 "end": Object {
@@ -24103,7 +24103,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            BreakNode {
               "end": 117,
               "loc": Object {
                 "end": Object {
@@ -24118,7 +24118,7 @@ ProgramNode {
               "start": 109,
               "type": "Break",
             },
-            Final {
+            TextNode {
               "end": 121,
               "loc": Object {
                 "end": Object {
@@ -24148,7 +24148,7 @@ ProgramNode {
         },
         SwitchCaseNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 167,
               "loc": Object {
                 "end": Object {
@@ -24166,7 +24166,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            BreakNode {
               "end": 175,
               "loc": Object {
                 "end": Object {
@@ -24181,7 +24181,7 @@ ProgramNode {
               "start": 167,
               "type": "Break",
             },
-            Final {
+            TextNode {
               "end": 179,
               "loc": Object {
                 "end": Object {
@@ -24209,9 +24209,9 @@ ProgramNode {
           "start": 121,
           "type": "SwitchCase",
         },
-        Final {
+        SwitchDefaultNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 208,
               "loc": Object {
                 "end": Object {
@@ -24247,7 +24247,7 @@ ProgramNode {
               "start": 208,
               "type": "Interpolation",
             },
-            Final {
+            TextNode {
               "end": 226,
               "loc": Object {
                 "end": Object {
@@ -24264,7 +24264,7 @@ ProgramNode {
     ",
               "type": "Text",
             },
-            Final {
+            BreakNode {
               "end": 234,
               "loc": Object {
                 "end": Object {
@@ -24279,7 +24279,7 @@ ProgramNode {
               "start": 226,
               "type": "Break",
             },
-            Final {
+            TextNode {
               "end": 236,
               "loc": Object {
                 "end": Object {
@@ -24321,7 +24321,7 @@ ProgramNode {
       "start": 0,
       "type": "Switch",
     },
-    Final {
+    TextNode {
       "end": 247,
       "loc": Object {
         "end": Object {
@@ -24579,7 +24579,7 @@ Array [
 exports[`whitesoacestripping.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 2,
       "loc": Object {
         "end": Object {
@@ -24626,7 +24626,7 @@ ProgramNode {
       "start": 2,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 21,
       "loc": Object {
         "end": Object {
@@ -24646,7 +24646,7 @@ ProgramNode {
     },
     ListNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 41,
           "loc": Object {
             "end": Object {
@@ -24682,7 +24682,7 @@ ProgramNode {
           "start": 41,
           "type": "Interpolation",
         },
-        Final {
+        TextNode {
           "end": 46,
           "loc": Object {
             "end": Object {
@@ -24731,7 +24731,7 @@ ProgramNode {
       "start": 21,
       "type": "List",
     },
-    Final {
+    TextNode {
       "end": 56,
       "loc": Object {
         "end": Object {
@@ -24779,7 +24779,7 @@ ProgramNode {
       "start": 56,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 72,
       "loc": Object {
         "end": Object {
@@ -24826,7 +24826,7 @@ ProgramNode {
       "start": 72,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 89,
       "loc": Object {
         "end": Object {
@@ -24846,7 +24846,7 @@ ProgramNode {
     },
     MacroCallNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 100,
           "loc": Object {
             "end": Object {
@@ -24881,7 +24881,7 @@ ProgramNode {
       "start": 89,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 107,
       "loc": Object {
         "end": Object {
@@ -24916,7 +24916,7 @@ ProgramNode {
       "start": 107,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 115,
       "loc": Object {
         "end": Object {
@@ -24952,7 +24952,7 @@ ProgramNode {
       "start": 115,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 128,
       "loc": Object {
         "end": Object {
@@ -24971,7 +24971,7 @@ a
 ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 144,
       "loc": Object {
         "end": Object {
@@ -24987,7 +24987,7 @@ a
       "text": " comment ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 147,
       "loc": Object {
         "end": Object {
@@ -25268,7 +25268,7 @@ b
 exports[`whitespace-trim.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    CommentNode {
       "end": 791,
       "loc": Object {
         "end": Object {
@@ -25301,7 +25301,7 @@ ProgramNode {
 ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 794,
       "loc": Object {
         "end": Object {
@@ -25318,7 +25318,7 @@ ProgramNode {
 LB",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 799,
       "loc": Object {
         "end": Object {
@@ -25333,7 +25333,7 @@ LB",
       "start": 794,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 804,
       "loc": Object {
         "end": Object {
@@ -25350,7 +25350,7 @@ LB",
   LB",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 809,
       "loc": Object {
         "end": Object {
@@ -25365,7 +25365,7 @@ LB",
       "start": 804,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 813,
       "loc": Object {
         "end": Object {
@@ -25382,7 +25382,7 @@ LB",
 	LB",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 818,
       "loc": Object {
         "end": Object {
@@ -25397,7 +25397,7 @@ LB",
       "start": 813,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 821,
       "loc": Object {
         "end": Object {
@@ -25414,7 +25414,7 @@ LB",
 LB",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 826,
       "loc": Object {
         "end": Object {
@@ -25429,7 +25429,7 @@ LB",
       "start": 821,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 837,
       "loc": Object {
         "end": Object {
@@ -25447,7 +25447,7 @@ LB",
   IC1",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 842,
       "loc": Object {
         "end": Object {
@@ -25462,7 +25462,7 @@ LB",
       "start": 837,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 848,
       "loc": Object {
         "end": Object {
@@ -25479,7 +25479,7 @@ LB",
   IC2",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 853,
       "loc": Object {
         "end": Object {
@@ -25494,7 +25494,7 @@ LB",
       "start": 848,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 856,
       "loc": Object {
         "end": Object {
@@ -25511,7 +25511,7 @@ LB",
 C1",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 861,
       "loc": Object {
         "end": Object {
@@ -25526,7 +25526,7 @@ C1",
       "start": 856,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 864,
       "loc": Object {
         "end": Object {
@@ -25543,7 +25543,7 @@ C1",
 C2",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 869,
       "loc": Object {
         "end": Object {
@@ -25558,7 +25558,7 @@ C2",
       "start": 864,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 876,
       "loc": Object {
         "end": Object {
@@ -25575,7 +25575,7 @@ C2",
   ICS ",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 881,
       "loc": Object {
         "end": Object {
@@ -25590,7 +25590,7 @@ C2",
       "start": 876,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 886,
       "loc": Object {
         "end": Object {
@@ -25607,7 +25607,7 @@ C2",
 CS1 ",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 891,
       "loc": Object {
         "end": Object {
@@ -25622,7 +25622,7 @@ CS1 ",
       "start": 886,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 898,
       "loc": Object {
         "end": Object {
@@ -25639,7 +25639,7 @@ CS1 ",
   CS2 ",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 902,
       "loc": Object {
         "end": Object {
@@ -25654,7 +25654,7 @@ CS1 ",
       "start": 898,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 907,
       "loc": Object {
         "end": Object {
@@ -25671,7 +25671,7 @@ CS1 ",
   C3",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 911,
       "loc": Object {
         "end": Object {
@@ -25686,7 +25686,7 @@ CS1 ",
       "start": 907,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 916,
       "loc": Object {
         "end": Object {
@@ -25703,7 +25703,7 @@ CS1 ",
   C1",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 920,
       "loc": Object {
         "end": Object {
@@ -25718,7 +25718,7 @@ CS1 ",
       "start": 916,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 932,
       "loc": Object {
         "end": Object {
@@ -25738,7 +25738,7 @@ B
   C1",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 936,
       "loc": Object {
         "end": Object {
@@ -25753,7 +25753,7 @@ B
       "start": 932,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 947,
       "loc": Object {
         "end": Object {
@@ -25772,7 +25772,7 @@ C1
   C2",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 951,
       "loc": Object {
         "end": Object {
@@ -25787,7 +25787,7 @@ C1
       "start": 947,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 962,
       "loc": Object {
         "end": Object {
@@ -25805,7 +25805,7 @@ C1
   IC",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 967,
       "loc": Object {
         "end": Object {
@@ -25820,7 +25820,7 @@ C1
       "start": 962,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 978,
       "loc": Object {
         "end": Object {
@@ -25838,7 +25838,7 @@ C1
   IC",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 983,
       "loc": Object {
         "end": Object {
@@ -25853,7 +25853,7 @@ C1
       "start": 978,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 988,
       "loc": Object {
         "end": Object {
@@ -25870,7 +25870,7 @@ C1
   CB",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 993,
       "loc": Object {
         "end": Object {
@@ -25885,7 +25885,7 @@ C1
       "start": 988,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 997,
       "loc": Object {
         "end": Object {
@@ -25952,7 +25952,7 @@ C1
       "start": 997,
       "type": "Macro",
     },
-    Final {
+    TextNode {
       "end": 1023,
       "loc": Object {
         "end": Object {
@@ -26018,7 +26018,7 @@ C1
       "start": 1028,
       "type": "MacroCall",
     },
-    Final {
+    LtNode {
       "end": 1045,
       "loc": Object {
         "end": Object {
@@ -26033,7 +26033,7 @@ C1
       "start": 1040,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 1046,
       "loc": Object {
         "end": Object {
@@ -26079,7 +26079,7 @@ C1
       "start": 1046,
       "type": "MacroCall",
     },
-    Final {
+    LtNode {
       "end": 1063,
       "loc": Object {
         "end": Object {
@@ -26114,7 +26114,7 @@ C1
       "start": 1063,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1069,
       "loc": Object {
         "end": Object {
@@ -26160,7 +26160,7 @@ C1
       "start": 1069,
       "type": "MacroCall",
     },
-    Final {
+    LtNode {
       "end": 1086,
       "loc": Object {
         "end": Object {
@@ -26195,7 +26195,7 @@ C1
       "start": 1086,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1092,
       "loc": Object {
         "end": Object {
@@ -26241,7 +26241,7 @@ C1
       "start": 1092,
       "type": "MacroCall",
     },
-    Final {
+    LtNode {
       "end": 1109,
       "loc": Object {
         "end": Object {
@@ -26276,7 +26276,7 @@ C1
       "start": 1109,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1115,
       "loc": Object {
         "end": Object {
@@ -26342,7 +26342,7 @@ C1
       "start": 1127,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1133,
       "loc": Object {
         "end": Object {
@@ -26379,7 +26379,7 @@ C1
       "start": 1133,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1140,
       "loc": Object {
         "end": Object {
@@ -26424,7 +26424,7 @@ C1
       "start": 1140,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1158,
       "loc": Object {
         "end": Object {
@@ -26439,7 +26439,7 @@ C1
       "start": 1153,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1159,
       "loc": Object {
         "end": Object {
@@ -26485,7 +26485,7 @@ C1
       "start": 1159,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1177,
       "loc": Object {
         "end": Object {
@@ -26520,7 +26520,7 @@ C1
       "start": 1177,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1183,
       "loc": Object {
         "end": Object {
@@ -26586,7 +26586,7 @@ C1
       "start": 1188,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1205,
       "loc": Object {
         "end": Object {
@@ -26601,7 +26601,7 @@ C1
       "start": 1200,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1206,
       "loc": Object {
         "end": Object {
@@ -26647,7 +26647,7 @@ C1
       "start": 1206,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1223,
       "loc": Object {
         "end": Object {
@@ -26682,7 +26682,7 @@ C1
       "start": 1223,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1229,
       "loc": Object {
         "end": Object {
@@ -26728,7 +26728,7 @@ C1
       "start": 1229,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 1243,
       "loc": Object {
         "end": Object {
@@ -26744,7 +26744,7 @@ C1
       "text": " ",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 1248,
       "loc": Object {
         "end": Object {
@@ -26779,7 +26779,7 @@ C1
       "start": 1248,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1254,
       "loc": Object {
         "end": Object {
@@ -26825,7 +26825,7 @@ C1
       "start": 1254,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 1268,
       "loc": Object {
         "end": Object {
@@ -26841,7 +26841,7 @@ C1
       "text": " ",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 1273,
       "loc": Object {
         "end": Object {
@@ -26876,7 +26876,7 @@ C1
       "start": 1273,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1279,
       "loc": Object {
         "end": Object {
@@ -26922,7 +26922,7 @@ C1
       "start": 1279,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 1293,
       "loc": Object {
         "end": Object {
@@ -26938,7 +26938,7 @@ C1
       "text": " ",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1297,
       "loc": Object {
         "end": Object {
@@ -26973,7 +26973,7 @@ C1
       "start": 1297,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1303,
       "loc": Object {
         "end": Object {
@@ -27019,7 +27019,7 @@ C1
       "start": 1303,
       "type": "MacroCall",
     },
-    Final {
+    TNode {
       "end": 1319,
       "loc": Object {
         "end": Object {
@@ -27034,7 +27034,7 @@ C1
       "start": 1315,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1320,
       "loc": Object {
         "end": Object {
@@ -27080,7 +27080,7 @@ C1
       "start": 1320,
       "type": "MacroCall",
     },
-    Final {
+    TNode {
       "end": 1336,
       "loc": Object {
         "end": Object {
@@ -27095,7 +27095,7 @@ C1
       "start": 1332,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1337,
       "loc": Object {
         "end": Object {
@@ -27161,7 +27161,7 @@ C1
       "start": 1349,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1355,
       "loc": Object {
         "end": Object {
@@ -27178,7 +27178,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    NtNode {
       "end": 1360,
       "loc": Object {
         "end": Object {
@@ -27222,7 +27222,7 @@ C1
       "start": 1360,
       "type": "MacroCall",
     },
-    Final {
+    TextNode {
       "end": 1372,
       "loc": Object {
         "end": Object {
@@ -27268,7 +27268,7 @@ C1
       "start": 1372,
       "type": "MacroCall",
     },
-    Final {
+    NtNode {
       "end": 1388,
       "loc": Object {
         "end": Object {
@@ -27283,7 +27283,7 @@ C1
       "start": 1383,
       "type": "Nt",
     },
-    Final {
+    TextNode {
       "end": 1389,
       "loc": Object {
         "end": Object {
@@ -27329,7 +27329,7 @@ C1
       "start": 1389,
       "type": "MacroCall",
     },
-    Final {
+    TNode {
       "end": 1405,
       "loc": Object {
         "end": Object {
@@ -27344,7 +27344,7 @@ C1
       "start": 1401,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1406,
       "loc": Object {
         "end": Object {
@@ -27410,7 +27410,7 @@ C1
       "start": 1418,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1424,
       "loc": Object {
         "end": Object {
@@ -27476,7 +27476,7 @@ C1
       "start": 1436,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1442,
       "loc": Object {
         "end": Object {
@@ -27522,7 +27522,7 @@ C1
       "start": 1442,
       "type": "MacroCall",
     },
-    Final {
+    TNode {
       "end": 1458,
       "loc": Object {
         "end": Object {
@@ -27557,7 +27557,7 @@ C1
       "start": 1458,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1464,
       "loc": Object {
         "end": Object {
@@ -27623,7 +27623,7 @@ C1
       "start": 1477,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1483,
       "loc": Object {
         "end": Object {
@@ -27689,7 +27689,7 @@ C1
       "start": 1488,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1505,
       "loc": Object {
         "end": Object {
@@ -27704,7 +27704,7 @@ C1
       "start": 1500,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1506,
       "loc": Object {
         "end": Object {
@@ -27770,7 +27770,7 @@ C1
       "start": 1519,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1525,
       "loc": Object {
         "end": Object {
@@ -27807,7 +27807,7 @@ C1
       "start": 1525,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 1532,
       "loc": Object {
         "end": Object {
@@ -27852,7 +27852,7 @@ C1
       "start": 1532,
       "type": "MacroCall",
     },
-    Final {
+    RtNode {
       "end": 1549,
       "loc": Object {
         "end": Object {
@@ -27867,7 +27867,7 @@ C1
       "start": 1544,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1550,
       "loc": Object {
         "end": Object {
@@ -27933,7 +27933,7 @@ C1
       "start": 1562,
       "type": "Interpolation",
     },
-    Final {
+    LtNode {
       "end": 1572,
       "loc": Object {
         "end": Object {
@@ -27948,7 +27948,7 @@ C1
       "start": 1567,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 1576,
       "loc": Object {
         "end": Object {
@@ -27966,7 +27966,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 1581,
       "loc": Object {
         "end": Object {
@@ -27981,7 +27981,7 @@ C1
       "start": 1576,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 1591,
       "loc": Object {
         "end": Object {
@@ -27998,7 +27998,7 @@ C1
   IC1",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 1596,
       "loc": Object {
         "end": Object {
@@ -28013,7 +28013,7 @@ C1
       "start": 1591,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1597,
       "loc": Object {
         "end": Object {
@@ -28060,7 +28060,7 @@ C1
       "start": 1597,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1613,
       "loc": Object {
         "end": Object {
@@ -28076,7 +28076,7 @@ C1
       "text": " ",
       "type": "Text",
     },
-    Final {
+    CommentNode {
       "end": 1636,
       "loc": Object {
         "end": Object {
@@ -28092,7 +28092,7 @@ C1
       "text": " just a comment ",
       "type": "Comment",
     },
-    Final {
+    TextNode {
       "end": 1641,
       "loc": Object {
         "end": Object {
@@ -28109,7 +28109,7 @@ C1
   C2",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1645,
       "loc": Object {
         "end": Object {
@@ -28124,7 +28124,7 @@ C1
       "start": 1641,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1646,
       "loc": Object {
         "end": Object {
@@ -28171,7 +28171,7 @@ C1
       "start": 1646,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1668,
       "loc": Object {
         "end": Object {
@@ -28189,7 +28189,7 @@ C1
 1",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1672,
       "loc": Object {
         "end": Object {
@@ -28204,7 +28204,7 @@ C1
       "start": 1668,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1673,
       "loc": Object {
         "end": Object {
@@ -28251,7 +28251,7 @@ C1
       "start": 1673,
       "type": "Assign",
     },
-    Final {
+    TextNode {
       "end": 1695,
       "loc": Object {
         "end": Object {
@@ -28270,7 +28270,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1699,
       "loc": Object {
         "end": Object {
@@ -28285,7 +28285,7 @@ C1
       "start": 1695,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1701,
       "loc": Object {
         "end": Object {
@@ -28302,7 +28302,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1705,
       "loc": Object {
         "end": Object {
@@ -28317,7 +28317,7 @@ C1
       "start": 1701,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1708,
       "loc": Object {
         "end": Object {
@@ -28334,7 +28334,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    LtNode {
       "end": 1713,
       "loc": Object {
         "end": Object {
@@ -28349,7 +28349,7 @@ C1
       "start": 1708,
       "type": "Lt",
     },
-    Final {
+    TextNode {
       "end": 1719,
       "loc": Object {
         "end": Object {
@@ -28367,7 +28367,7 @@ C1
 ",
       "type": "Text",
     },
-    Final {
+    RtNode {
       "end": 1724,
       "loc": Object {
         "end": Object {
@@ -28382,7 +28382,7 @@ C1
       "start": 1719,
       "type": "Rt",
     },
-    Final {
+    TextNode {
       "end": 1736,
       "loc": Object {
         "end": Object {
@@ -28432,7 +28432,7 @@ a
       "start": 1736,
       "type": "Assign",
     },
-    Final {
+    TNode {
       "end": 1755,
       "loc": Object {
         "end": Object {
@@ -28447,7 +28447,7 @@ a
       "start": 1751,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1757,
       "loc": Object {
         "end": Object {
@@ -28464,7 +28464,7 @@ a
 b",
       "type": "Text",
     },
-    Final {
+    TNode {
       "end": 1761,
       "loc": Object {
         "end": Object {
@@ -28479,7 +28479,7 @@ b",
       "start": 1757,
       "type": "T",
     },
-    Final {
+    TextNode {
       "end": 1768,
       "loc": Object {
         "end": Object {
@@ -28500,7 +28500,7 @@ c
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 1781,
           "loc": Object {
             "end": Object {
@@ -28517,7 +28517,7 @@ c
   ",
           "type": "Text",
         },
-        Final {
+        TNode {
           "end": 1785,
           "loc": Object {
             "end": Object {
@@ -28532,7 +28532,7 @@ c
           "start": 1781,
           "type": "T",
         },
-        Final {
+        TextNode {
           "end": 1789,
           "loc": Object {
             "end": Object {
@@ -28569,7 +28569,7 @@ c
       "start": 1768,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1800,
       "loc": Object {
         "end": Object {
@@ -28589,7 +28589,7 @@ c
     },
     ConditionNode {
       "consequent": Array [
-        Final {
+        CommentNode {
           "end": 1833,
           "loc": Object {
             "end": Object {
@@ -28605,7 +28605,7 @@ c
           "text": " just a comment ",
           "type": "Comment",
         },
-        Final {
+        TextNode {
           "end": 1841,
           "loc": Object {
             "end": Object {
@@ -28622,7 +28622,7 @@ c
     foo",
           "type": "Text",
         },
-        Final {
+        TNode {
           "end": 1845,
           "loc": Object {
             "end": Object {
@@ -28637,7 +28637,7 @@ c
           "start": 1841,
           "type": "T",
         },
-        Final {
+        TextNode {
           "end": 1846,
           "loc": Object {
             "end": Object {
@@ -28674,7 +28674,7 @@ c
       "start": 1800,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 1853,
       "loc": Object {
         "end": Object {

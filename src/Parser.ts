@@ -141,6 +141,7 @@ export class Parser extends ParserLocation {
       case NodeType.CloseDirective:
       case NodeType.OpenDirective:
         if (token.text in Directives) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           return Directives[token.text as any] as NodeNames;
         }
         break;

@@ -3,7 +3,7 @@
 exports[`assigment.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 14,
       "loc": Object {
         "end": Object {
@@ -20,7 +20,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    TextNode {
       "end": 28,
       "loc": Object {
         "end": Object {
@@ -167,7 +167,7 @@ Array [
 exports[`assigment_error.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 13,
       "loc": Object {
         "end": Object {
@@ -265,7 +265,7 @@ Array [
 exports[`assign.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 10,
       "loc": Object {
         "end": Object {
@@ -363,7 +363,7 @@ Array [
 exports[`assign_empty.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 12,
       "loc": Object {
         "end": Object {
@@ -461,7 +461,7 @@ Array [
 exports[`assign_invalid_char.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 19,
       "loc": Object {
         "end": Object {
@@ -479,7 +479,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    TextNode {
       "end": 30,
       "loc": Object {
         "end": Object {
@@ -627,7 +627,7 @@ Array [
 exports[`ast.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 18,
       "loc": Object {
         "end": Object {
@@ -644,7 +644,7 @@ ProgramNode {
   ",
       "type": "Text",
     },
-    Final {
+    TextNode {
       "end": 42,
       "loc": Object {
         "end": Object {
@@ -661,7 +661,7 @@ ProgramNode {
     ",
       "type": "Text",
     },
-    Final {
+    TextNode {
       "end": 60,
       "loc": Object {
         "end": Object {
@@ -708,7 +708,7 @@ ProgramNode {
           "line": 2,
         },
       },
-      "message": "Unexpected parameter in OpenDirective",
+      "message": "Unexpected parameter in NoAutoEsc",
       "start": 18,
     },
     ParseError {
@@ -723,7 +723,7 @@ ProgramNode {
           "line": 3,
         },
       },
-      "message": "Unexpected parameter in OpenDirective",
+      "message": "Unexpected parameter in AutoEsc",
       "start": 42,
     },
   ],
@@ -833,7 +833,7 @@ Array [
         "line": 2,
       },
     },
-    "message": "Unexpected parameter in OpenDirective",
+    "message": "Unexpected parameter in NoAutoEsc",
     "start": 18,
   },
   ParseError {
@@ -848,7 +848,7 @@ Array [
         "line": 3,
       },
     },
-    "message": "Unexpected parameter in OpenDirective",
+    "message": "Unexpected parameter in AutoEsc",
     "start": 42,
   },
 ]
@@ -859,7 +859,7 @@ ProgramNode {
   "body": Array [
     ListNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 13,
           "loc": Object {
             "end": Object {
@@ -877,7 +877,7 @@ ProgramNode {
 ",
           "type": "Text",
         },
-        Final {
+        TextNode {
           "end": 29,
           "loc": Object {
             "end": Object {
@@ -1046,7 +1046,7 @@ ProgramNode {
   "body": Array [
     ConditionNode {
       "alternate": Array [
-        Final {
+        TextNode {
           "end": 20,
           "loc": Object {
             "end": Object {
@@ -1063,7 +1063,7 @@ ProgramNode {
   ",
           "type": "Text",
         },
-        Final {
+        TextNode {
           "end": 30,
           "loc": Object {
             "end": Object {
@@ -1082,7 +1082,7 @@ ProgramNode {
         },
       ],
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 10,
           "loc": Object {
             "end": Object {
@@ -1118,7 +1118,7 @@ ProgramNode {
       "start": 0,
       "type": "Condition",
     },
-    Final {
+    TextNode {
       "end": 37,
       "loc": Object {
         "end": Object {
@@ -1273,7 +1273,7 @@ Array [
 exports[`else.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 8,
       "loc": Object {
         "end": Object {
@@ -1391,7 +1391,7 @@ ProgramNode {
       "start": 25,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 40,
       "loc": Object {
         "end": Object {
@@ -1539,7 +1539,7 @@ ProgramNode {
   "body": Array [
     EscapeNode {
       "body": Array [
-        Final {
+        TextNode {
           "end": 20,
           "loc": Object {
             "end": Object {
@@ -1689,7 +1689,7 @@ ProgramNode {
       "start": 23,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 38,
       "loc": Object {
         "end": Object {
@@ -1837,7 +1837,7 @@ ProgramNode {
   "body": Array [
     ConditionNode {
       "consequent": Array [
-        Final {
+        TextNode {
           "end": 12,
           "loc": Object {
             "end": Object {
@@ -1856,7 +1856,7 @@ ProgramNode {
         },
         ConditionNode {
           "consequent": Array [
-            Final {
+            TextNode {
               "end": 22,
               "loc": Object {
                 "end": Object {
@@ -2031,7 +2031,7 @@ ProgramNode {
       "start": 11,
       "type": "Interpolation",
     },
-    Final {
+    TextNode {
       "end": 28,
       "loc": Object {
         "end": Object {
@@ -2177,7 +2177,7 @@ Array [
 exports[`noescape2.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 30,
       "loc": Object {
         "end": Object {
@@ -2461,7 +2461,7 @@ Array [
 exports[`not_closable2.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 16,
       "loc": Object {
         "end": Object {
@@ -2617,7 +2617,7 @@ Array [
 exports[`recover.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 11,
       "loc": Object {
         "end": Object {
@@ -2715,7 +2715,7 @@ Array [
 exports[`setting.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 41,
       "loc": Object {
         "end": Object {
@@ -2813,7 +2813,7 @@ Array [
 exports[`stop.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    StopNode {
       "end": 9,
       "loc": Object {
         "end": Object {
@@ -2829,7 +2829,7 @@ ProgramNode {
       "start": 0,
       "type": "Stop",
     },
-    Final {
+    TextNode {
       "end": 10,
       "loc": Object {
         "end": Object {
@@ -2846,7 +2846,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    StopNode {
       "end": 17,
       "loc": Object {
         "end": Object {
@@ -2862,7 +2862,7 @@ ProgramNode {
       "start": 10,
       "type": "Stop",
     },
-    Final {
+    TextNode {
       "end": 19,
       "loc": Object {
         "end": Object {
@@ -2880,7 +2880,7 @@ ProgramNode {
 ",
       "type": "Text",
     },
-    Final {
+    TextNode {
       "end": 28,
       "loc": Object {
         "end": Object {
@@ -3167,7 +3167,7 @@ Array [
 exports[`switch_case.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 8,
       "loc": Object {
         "end": Object {
@@ -3265,7 +3265,7 @@ Array [
 exports[`switch_default.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 11,
       "loc": Object {
         "end": Object {
@@ -3363,7 +3363,7 @@ Array [
 exports[`unknown_directive.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
-    Final {
+    TextNode {
       "end": 7,
       "loc": Object {
         "end": Object {
