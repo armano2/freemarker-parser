@@ -1,10 +1,10 @@
 import AbstractTokenizer from './AbstractTokenizer';
 import ECharCodes from './enum/CharCodes';
 import {
-  EBinaryOps,
-  ELiterals,
-  EOperators,
-  EUnaryOps,
+  BinaryOps,
+  Literals,
+  Operators,
+  UnaryOps,
   maxBinaryOps,
   maxUnaryOps,
 } from './enum/Operators';
@@ -12,19 +12,19 @@ import ParamNames from './enum/ParamNames';
 import ParseError from './errors/ParseError';
 import {
   AllParamTypes,
-  IArrayExpression,
-  IAssignmentExpression,
-  IBinaryExpression,
-  IBuiltInExpression,
-  ICallExpression,
-  IIdentifier,
-  ILiteral,
-  ILogicalExpression,
-  IMapExpression,
-  IMapExpressionValues,
-  IMemberExpression,
-  IUnaryExpression,
-  IUpdateExpression,
+  ArrayExpression,
+  AssignmentExpression,
+  BinaryExpression,
+  BuiltInExpression,
+  CallExpression,
+  Identifier,
+  Literal,
+  LogicalExpression,
+  MapExpression,
+  MapExpressionValues,
+  MemberExpression,
+  UnaryExpression,
+  UpdateExpression,
 } from './interface/Params';
 import {
   isDecimalDigit,
@@ -63,32 +63,36 @@ import {
 // - Missing value test: name?? or (user.name)??
 // - Assignment operators: =, +=, -=, *=, /=, %=, ++, --
 
-interface IBiopInfo {
-  value: EOperators;
+interface BiopInfo {
+  value: Operators;
   prec: number;
 }
 
-function isIBiopInfo(object: any): object is IBiopInfo {
-  return object && 'prec' in object;
+function isIBiopInfo(
+  object: AllParamTypes | BiopInfo | undefined,
+): object is BiopInfo {
+  return !!object && 'prec' in object;
 }
 
-function isAllParamTypes(object: any): object is AllParamTypes {
-  return object && 'type' in object;
+function isAllParamTypes(
+  object: AllParamTypes | BiopInfo | undefined,
+): object is AllParamTypes {
+  return !!object && 'type' in object;
 }
 
 /**
  * Returns the precedence of a binary operator or `0` if it isn't a binary operator
  * @param opVal
  */
-function binaryPrecedence(opVal: EOperators): number {
-  return EBinaryOps[opVal] || 0;
+function binaryPrecedence(opVal: Operators): number {
+  return BinaryOps[opVal] || 0;
 }
 
 function createAssignmentExpression(
   operator: string,
   left: AllParamTypes,
   right: AllParamTypes,
-): IAssignmentExpression {
+): AssignmentExpression {
   return { type: ParamNames.AssignmentExpression, operator, left, right };
 }
 
@@ -96,15 +100,15 @@ function createBuiltInExpression(
   operator: string,
   left: AllParamTypes,
   right: AllParamTypes,
-): IBuiltInExpression {
+): BuiltInExpression {
   return { type: ParamNames.BuiltInExpression, operator, left, right };
 }
 
 function createUpdateExpression(
   operator: string,
   argument: AllParamTypes,
-  prefix: boolean = true,
-): IUpdateExpression {
+  prefix = true,
+): UpdateExpression {
   return { type: ParamNames.UpdateExpression, operator, argument, prefix };
 }
 
@@ -113,26 +117,26 @@ function createUpdateExpression(
  * Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
  */
 function createBinaryExpression(
-  operator: EOperators,
+  operator: Operators,
   left: AllParamTypes,
   right: AllParamTypes,
 ):
-  | IBinaryExpression
-  | ILogicalExpression
-  | IAssignmentExpression
-  | IBuiltInExpression {
+  | BinaryExpression
+  | LogicalExpression
+  | AssignmentExpression
+  | BuiltInExpression {
   switch (operator) {
-    case EOperators.EQUALS:
-    case EOperators.PLUS_EQUALS:
-    case EOperators.MINUS_EQUALS:
-    case EOperators.TIMES_EQUALS:
-    case EOperators.DIV_EQUALS:
-    case EOperators.MOD_EQUALS:
+    case Operators.EQUALS:
+    case Operators.PLUS_EQUALS:
+    case Operators.MINUS_EQUALS:
+    case Operators.TIMES_EQUALS:
+    case Operators.DIV_EQUALS:
+    case Operators.MOD_EQUALS:
       return createAssignmentExpression(operator, left, right);
-    case EOperators.BUILT_IN:
+    case Operators.BUILT_IN:
       return createBuiltInExpression(operator, left, right);
-    case EOperators.OR:
-    case EOperators.AND:
+    case Operators.OR:
+    case Operators.AND:
       return { type: ParamNames.LogicalExpression, operator, left, right };
     default:
       return { type: ParamNames.BinaryExpression, operator, left, right };
@@ -142,8 +146,8 @@ function createBinaryExpression(
 function createUnaryExpression(
   operator: string,
   argument: AllParamTypes | null,
-  prefix: boolean = true,
-): IUnaryExpression | IUpdateExpression {
+  prefix = true,
+): UnaryExpression | UpdateExpression {
   if (!argument) {
     throw new ParseError(
       `Missing argument in ${prefix ? 'before' : 'after'} '${operator}'`,
@@ -151,8 +155,8 @@ function createUnaryExpression(
     );
   }
   switch (operator) {
-    case EOperators.PLUS_PLUS:
-    case EOperators.MINUS_MINUS:
+    case Operators.PLUS_PLUS:
+    case Operators.MINUS_MINUS:
       return createUpdateExpression(operator, argument, prefix);
     default:
       return { type: ParamNames.UnaryExpression, operator, argument, prefix };
@@ -211,7 +215,7 @@ export class ParamsParser extends AbstractTokenizer {
   /**
    * Push `index` up to the next non-space character
    */
-  protected parseSpaces() {
+  protected parseSpaces(): void {
     let ch = this.charCodeAt(this.index);
     // space or tab
     while (isWhitespace(ch)) {
@@ -225,14 +229,14 @@ export class ParamsParser extends AbstractTokenizer {
    * and move down from 3 to 2 to 1 character until a matching binary operation is found
    * then, return that binary operation
    */
-  protected parseBinaryOp(): EOperators | null {
+  protected parseBinaryOp(): Operators | null {
     this.parseSpaces();
     let toCheck = this.template.substr(this.index, maxBinaryOps);
     let tcLen = toCheck.length;
     while (tcLen > 0) {
-      if (toCheck in EBinaryOps) {
+      if (toCheck in BinaryOps) {
         this.index += tcLen;
-        return toCheck as EOperators;
+        return toCheck as Operators;
       }
       toCheck = toCheck.substr(0, --tcLen);
     }
@@ -245,7 +249,7 @@ export class ParamsParser extends AbstractTokenizer {
    */
   protected parseBinaryExpression(): AllParamTypes | null {
     let node;
-    let biop: EOperators | null;
+    let biop: Operators | null;
     let prec;
     let biopInfo;
     let fbiop;
@@ -263,7 +267,7 @@ export class ParamsParser extends AbstractTokenizer {
       return left;
     }
 
-    if (biop === EOperators.PLUS_PLUS || biop === EOperators.MINUS_MINUS) {
+    if (biop === Operators.PLUS_PLUS || biop === Operators.MINUS_MINUS) {
       return createUnaryExpression(biop, left, false);
     }
 
@@ -281,7 +285,7 @@ export class ParamsParser extends AbstractTokenizer {
         end: this.index,
       });
     }
-    const stack: Array<AllParamTypes | IBiopInfo> = [left, biopInfo, right];
+    const stack: Array<AllParamTypes | BiopInfo> = [left, biopInfo, right];
 
     /**
      * Properly deal with precedence using
@@ -380,7 +384,7 @@ export class ParamsParser extends AbstractTokenizer {
       let toCheck = this.template.substr(this.index, maxUnaryOps);
       let tcLen = toCheck.length;
       while (tcLen > 0) {
-        if (toCheck in EUnaryOps) {
+        if (toCheck in UnaryOps) {
           this.index += tcLen;
           return createUnaryExpression(toCheck, this.parseToken(), true);
         }
@@ -394,7 +398,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
    * keep track of everything in the numeric literal and then calling `parseFloat` on that string
    */
-  protected parseNumericLiteral(): ILiteral {
+  protected parseNumericLiteral(): Literal {
     let rawName = '';
     while (isDecimalDigit(this.charCodeAt(this.index))) {
       rawName += this.charAt(this.index++);
@@ -436,7 +440,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Parses a string literal, staring with single or double quotes with basic support for escape codes
    * e.g. `"hello world"`, `'this is\nJSEP'`
    */
-  protected parseStringLiteral(): ILiteral {
+  protected parseStringLiteral(): Literal {
     let str = '';
     const quote = this.charAt(this.index++);
     let closed = false;
@@ -476,7 +480,7 @@ export class ParamsParser extends AbstractTokenizer {
    * Also, this function checks if that identifier is a literal:
    * (e.g. `true`, `false`, `null`) or `this`
    */
-  protected parseIdentifier(): IIdentifier | ILiteral {
+  protected parseIdentifier(): Identifier | Literal {
     let ch = this.charCodeAt(this.index);
     const start = this.index;
 
@@ -499,10 +503,10 @@ export class ParamsParser extends AbstractTokenizer {
     }
     const identifier = this.template.slice(start, this.index);
 
-    if (identifier in ELiterals) {
+    if (identifier in Literals) {
       return {
         type: ParamNames.Literal,
-        value: ELiterals[identifier],
+        value: Literals[identifier],
         raw: identifier,
       };
     } else {
@@ -585,14 +589,14 @@ export class ParamsParser extends AbstractTokenizer {
           computed: false,
           object: node,
           property: this.parseIdentifier(),
-        } as IMemberExpression;
+        } as MemberExpression;
       } else if (chI === ECharCodes.OpenBracket) {
         node = {
           type: ParamNames.MemberExpression,
           computed: true,
           object: node,
           property: this.parseExpression(),
-        } as IMemberExpression;
+        } as MemberExpression;
         this.parseSpaces();
         chI = this.charCodeAt(this.index);
         if (chI !== ECharCodes.CloseBracket) {
@@ -608,7 +612,7 @@ export class ParamsParser extends AbstractTokenizer {
           type: ParamNames.CallExpression,
           arguments: this.parseArguments(ECharCodes.CloseParenthesis),
           callee: node,
-        } as ICallExpression;
+        } as CallExpression;
       }
       this.parseSpaces();
       chI = this.charCodeAt(this.index);
@@ -643,7 +647,7 @@ export class ParamsParser extends AbstractTokenizer {
    * This function assumes that it needs to gobble the opening bracket
    * and then tries to gobble the expressions as arguments.
    */
-  protected parseArray(): IArrayExpression {
+  protected parseArray(): ArrayExpression {
     this.index++;
     return {
       type: ParamNames.ArrayExpression,
@@ -656,10 +660,10 @@ export class ParamsParser extends AbstractTokenizer {
    * This function assumes that it needs to gobble the opening brace
    * and then tries to gobble the expressions as arguments.
    */
-  protected parseMap(): IMapExpression {
+  protected parseMap(): MapExpression {
     let ch: number;
     let closed = false;
-    const elements: IMapExpressionValues[] = [];
+    const elements: MapExpressionValues[] = [];
     ++this.index;
     while (this.index < this.length) {
       this.parseSpaces();

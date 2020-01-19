@@ -1,15 +1,15 @@
 import NodeNames from '../enum/NodeNames';
 import ParamNames from '../enum/ParamNames';
-import { AllParamTypes, IExpression } from '../interface/Params';
-import { IToken } from '../interface/Tokens';
+import { AllParamTypes, Expression } from '../interface/Params';
+import { Token } from '../interface/Tokens';
 import AbstractAssign from './abstract/AbstractAssign';
 import AbstractNode from './abstract/AbstractNode';
 
 export default class AssignNode extends AbstractAssign {
-  public params?: IExpression[];
+  public params?: Expression[];
   public body?: AbstractNode[];
 
-  constructor(token: IToken) {
+  constructor(token: Token) {
     super(NodeNames.Assign, token);
     this.params = this.checkParams(token);
 
@@ -23,7 +23,7 @@ export default class AssignNode extends AbstractAssign {
 
   protected isAssignmentExpressionSingle(
     param: AllParamTypes,
-    token: IToken,
+    token: Token,
   ): AllParamTypes {
     if (param.type === ParamNames.Identifier) {
       return param;
@@ -33,7 +33,7 @@ export default class AssignNode extends AbstractAssign {
 
   protected isAssignmentExpression(
     param: AllParamTypes,
-    token: IToken,
+    token: Token,
   ): AllParamTypes {
     if (param.type === ParamNames.UpdateExpression && !param.prefix) {
       return param;

@@ -1,9 +1,9 @@
 import { Tokenizer } from '../src';
-import { IToken } from '../src/interface/Tokens';
+import { Token } from '../src/interface/Tokens';
 
 const tokenizer = new Tokenizer();
 
-function parse(text: string): IToken[] {
+function parse(text: string): Token[] {
   try {
     return tokenizer.parse(text);
   } catch (e) {

@@ -1,9 +1,9 @@
 import ParseError from '../errors/ParseError';
 import { AllParamTypes } from '../interface/Params';
-import { IToken } from '../interface/Tokens';
+import { Token } from '../interface/Tokens';
 import { ParamsParser } from '../ParamsParser';
 
-export function paramParser(token: IToken): AllParamTypes | undefined {
+export function paramParser(token: Token): AllParamTypes | undefined {
   if (token.params) {
     const parser = new ParamsParser(token.params);
     try {

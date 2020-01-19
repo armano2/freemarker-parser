@@ -1,12 +1,12 @@
 import ECharCodes from './enum/CharCodes';
-import { ISourceLocation } from './interface/ISourceLocation';
-import { ILoc } from './interface/Tokens';
+import { SourceLocation } from './interface/SourceLocation';
+import { Location } from './interface/Tokens';
 
 export abstract class ParserLocation {
   protected offsets: number[] = [0];
-  protected template: string = '';
+  protected template = '';
 
-  public parse(template: string) {
+  public parse(template: string): void {
     this.template = template || '';
 
     const offsets = [0];
@@ -33,7 +33,7 @@ export abstract class ParserLocation {
     this.offsets = offsets;
   }
 
-  protected findLowerIndexInRangeArray(value: number) {
+  protected findLowerIndexInRangeArray(value: number): number {
     if (value >= this.offsets[this.offsets.length - 1]) {
       return this.offsets.length - 1;
     }
@@ -57,14 +57,14 @@ export abstract class ParserLocation {
     return min;
   }
 
-  protected addLocation(node: ILoc) {
+  protected addLocation(node: Location): void {
     node.loc = {
       start: this.locationForIndex(node.start),
       end: this.locationForIndex(node.end),
     };
   }
 
-  protected locationForIndex(index: number): ISourceLocation {
+  protected locationForIndex(index: number): SourceLocation {
     if (index < 0 || index >= this.template.length || isNaN(index)) {
       return { line: 0, column: 0 };
     }

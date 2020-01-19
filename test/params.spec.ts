@@ -1,8 +1,9 @@
-import { EOperators } from '../src/enum/Operators';
+import { Operators } from '../src/enum/Operators';
 import ParamNames from '../src/enum/ParamNames';
 import { ParamsParser } from '../src/ParamsParser';
+import { AllParamTypes } from '../src/interface/Params';
 
-function parse(template: string) {
+function parse(template: string): AllParamTypes {
   const parser = new ParamsParser(template);
   return parser.parseExpressions();
 }
@@ -12,7 +13,7 @@ describe('params parser', () => {
     const result = parse('a + 1');
     const expected = {
       type: ParamNames.BinaryExpression,
-      operator: EOperators.PLUS,
+      operator: Operators.PLUS,
       left: {
         type: ParamNames.Identifier,
         name: 'a',
@@ -65,7 +66,7 @@ describe('params parser', () => {
     const result = parse('++foo');
     const expected = {
       type: ParamNames.UpdateExpression,
-      operator: EOperators.PLUS_PLUS,
+      operator: Operators.PLUS_PLUS,
       prefix: true,
       argument: {
         type: ParamNames.Identifier,
@@ -79,7 +80,7 @@ describe('params parser', () => {
     const result = parse('foo++');
     const expected = {
       type: ParamNames.UpdateExpression,
-      operator: EOperators.PLUS_PLUS,
+      operator: Operators.PLUS_PLUS,
       prefix: false,
       argument: {
         type: ParamNames.Identifier,
@@ -97,7 +98,7 @@ describe('params parser', () => {
         type: ParamNames.Identifier,
         name: 'foo',
       },
-      operator: EOperators.BUILT_IN,
+      operator: Operators.BUILT_IN,
       right: {
         type: ParamNames.Identifier,
         name: 'toUpperCase',
@@ -177,7 +178,7 @@ describe('params parser', () => {
         type: ParamNames.Identifier,
         name: 'foo',
       },
-      operator: EOperators.BUILT_IN,
+      operator: Operators.BUILT_IN,
       right: {
         type: ParamNames.CallExpression,
         arguments: [

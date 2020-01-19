@@ -1,12 +1,12 @@
 import NodeNames from '../enum/NodeNames';
-import { IExpression } from '../interface/Params';
-import { IToken } from '../interface/Tokens';
+import { Expression } from '../interface/Params';
+import { Token } from '../interface/Tokens';
 import AbstractAssign from './abstract/AbstractAssign';
 
 export default class FtlNode extends AbstractAssign {
-  public params?: IExpression[];
+  public params?: Expression[];
 
-  constructor(token: IToken) {
+  constructor(token: Token) {
     super(NodeNames.Assign, token);
     this.params = this.checkParams(token);
   }

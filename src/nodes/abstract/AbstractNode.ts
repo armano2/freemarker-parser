@@ -1,8 +1,8 @@
 import NodeNames from '../../enum/NodeNames';
 import ParseError from '../../errors/ParseError';
-import { ILoc } from '../../interface/Tokens';
+import { Location } from '../../interface/Tokens';
 
-export default abstract class AbstractNode implements ILoc {
+export default abstract class AbstractNode implements Location {
   public type: NodeNames;
   public start: number;
   public end: number;
@@ -11,7 +11,7 @@ export default abstract class AbstractNode implements ILoc {
     return false;
   }
 
-  protected constructor(type: NodeNames, token: ILoc) {
+  protected constructor(type: NodeNames, token: Location) {
     this.type = type;
     this.start = token.start;
     this.end = token.end;

@@ -1,9 +1,9 @@
 import ParseError from './errors/ParseError';
 
-import { IOptions } from './interface/IOptions';
-import { IToken } from './interface/Tokens';
+import { Options } from './interface/Options';
+import { Token } from './interface/Tokens';
 
-import { ENodeType } from './Symbols';
+import { NodeType } from './Symbols';
 import { Tokenizer } from './Tokenizer';
 
 import { Directives } from './enum/Directives';
@@ -17,20 +17,20 @@ import Nodes from './utils/Nodes';
 
 import defaultConfig from './defaultConfig';
 
-export interface IParserReturn {
+export interface ParserReturn {
   ast: ProgramNode;
-  tokens: IToken[];
+  tokens: Token[];
 }
 
 export class Parser extends ParserLocation {
-  protected options: IOptions = defaultConfig;
+  protected options: Options = defaultConfig;
 
-  public parse(template: string, options: IOptions = {}): IParserReturn {
+  public parse(template: string, options: Options = {}): ParserReturn {
     super.parse(template);
     const ast = new ProgramNode(0, template.length - 1);
     const stack: AbstractNode[] = [];
     let parent: AbstractNode = ast;
-    let tokens: IToken[] = [];
+    let tokens: Token[] = [];
 
     this.addLocation(parent);
 
@@ -51,14 +51,14 @@ export class Parser extends ParserLocation {
       return { ast, tokens };
     }
 
-    let token: IToken | null = null;
+    let token: Token | null = null;
     for (token of tokens) {
       try {
         const tokenType = this.tokenToNodeType(token);
 
         if (
-          token.type === ENodeType.CloseDirective ||
-          token.type === ENodeType.CloseMacro
+          token.type === NodeType.CloseDirective ||
+          token.type === NodeType.CloseMacro
         ) {
           if (token.params) {
             ast.addError(
@@ -98,7 +98,7 @@ export class Parser extends ParserLocation {
     return { ast, tokens };
   }
 
-  protected addLocationToProgram(parent: ProgramNode) {
+  protected addLocationToProgram(parent: ProgramNode): void {
     if (this.options.parseLocation) {
       if (parent.errors) {
         for (const node of parent.errors) {
@@ -108,7 +108,7 @@ export class Parser extends ParserLocation {
     }
   }
 
-  protected addNodeChild(parent: AbstractNode, token: IToken): AbstractNode {
+  protected addNodeChild(parent: AbstractNode, token: Token): AbstractNode {
     const tokenType = this.tokenToNodeType(token);
 
     const node: AbstractNode = Nodes[tokenType](token, parent);
@@ -136,22 +136,22 @@ export class Parser extends ParserLocation {
     return false;
   }
 
-  protected tokenToNodeType(token: IToken): NodeNames {
+  protected tokenToNodeType(token: Token): NodeNames {
     switch (token.type) {
-      case ENodeType.CloseDirective:
-      case ENodeType.OpenDirective:
+      case NodeType.CloseDirective:
+      case NodeType.OpenDirective:
         if (token.text in Directives) {
           return Directives[token.text as any] as NodeNames;
         }
         break;
-      case ENodeType.Interpolation:
+      case NodeType.Interpolation:
         return NodeNames.Interpolation;
-      case ENodeType.Text:
+      case NodeType.Text:
         return NodeNames.Text;
-      case ENodeType.CloseMacro:
-      case ENodeType.OpenMacro:
+      case NodeType.CloseMacro:
+      case NodeType.OpenMacro:
         return NodeNames.MacroCall;
-      case ENodeType.Comment:
+      case NodeType.Comment:
         return NodeNames.Comment;
     }
     throw new ParseError(

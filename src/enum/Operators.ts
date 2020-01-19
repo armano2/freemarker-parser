@@ -1,16 +1,4 @@
-export interface IBinaryOperators {
-  [n: string]: number;
-}
-
-export interface IUnaryOperators {
-  [n: string]: boolean;
-}
-
-export interface ILiteralOperators {
-  [n: string]: boolean;
-}
-
-export enum EOperators {
+export enum Operators {
   FALSE = 'false',
   TRUE = 'true',
   RAW_STRING = '"',
@@ -68,66 +56,66 @@ export enum EOperators {
 }
 
 // Store the values to return for the various literals we may encounter
-export const ELiterals: ILiteralOperators = {
-  [EOperators.TRUE]: true,
-  [EOperators.FALSE]: false,
+export const Literals: Record<string, boolean> = {
+  [Operators.TRUE]: true,
+  [Operators.FALSE]: false,
 };
 
 // Use a quickly-accessible map to store all of the unary operators
-export const EUnaryOps: IUnaryOperators = {
-  [EOperators.MINUS]: true,
-  [EOperators.TIMES]: true,
-  [EOperators.EXCLAM]: true,
-  [EOperators.PLUS]: true,
-  [EOperators.MINUS_MINUS]: true,
-  [EOperators.PLUS_PLUS]: true,
+export const UnaryOps: Record<string, boolean> = {
+  [Operators.MINUS]: true,
+  [Operators.TIMES]: true,
+  [Operators.EXCLAM]: true,
+  [Operators.PLUS]: true,
+  [Operators.MINUS_MINUS]: true,
+  [Operators.PLUS_PLUS]: true,
 };
 
 /**
  * @see http://en.wikipedia.org/wiki/Order_of_operations#Programming_language
  */
-export const EBinaryOps: IBinaryOperators = {
+export const BinaryOps: Record<string, number> = {
   // Assignment operators (right to left)
-  [EOperators.EQUALS]: 0,
-  [EOperators.PLUS_EQUALS]: 0,
-  [EOperators.MINUS_EQUALS]: 0,
-  [EOperators.TIMES_EQUALS]: 0,
-  [EOperators.DIV_EQUALS]: 0,
-  [EOperators.MOD_EQUALS]: 0,
-  [EOperators.PLUS_PLUS]: 0,
-  [EOperators.MINUS_MINUS]: 0,
+  [Operators.EQUALS]: 0,
+  [Operators.PLUS_EQUALS]: 0,
+  [Operators.MINUS_EQUALS]: 0,
+  [Operators.TIMES_EQUALS]: 0,
+  [Operators.DIV_EQUALS]: 0,
+  [Operators.MOD_EQUALS]: 0,
+  [Operators.PLUS_PLUS]: 0,
+  [Operators.MINUS_MINUS]: 0,
 
   // Logical OR
-  [EOperators.OR]: 1,
+  [Operators.OR]: 1,
 
   // Logical AND
-  [EOperators.AND]: 2,
+  [Operators.AND]: 2,
 
   // Comparisons: equal and not equal
-  [EOperators.DOUBLE_EQUALS]: 6,
-  [EOperators.NOT_EQUALS]: 6,
+  [Operators.DOUBLE_EQUALS]: 6,
+  [Operators.NOT_EQUALS]: 6,
 
   // Comparisons: less-than and greater-than
-  [EOperators.NATURAL_GT]: 7,
-  [EOperators.NATURAL_LT]: 7,
-  [EOperators.NATURAL_GTE]: 7,
-  [EOperators.NATURAL_LTE]: 7,
+  [Operators.NATURAL_GT]: 7,
+  [Operators.NATURAL_LT]: 7,
+  [Operators.NATURAL_GTE]: 7,
+  [Operators.NATURAL_LTE]: 7,
 
-  [EOperators.ESCAPED_GT]: 7,
-  [EOperators.ESCAPED_LT]: 7,
-  [EOperators.ESCAPED_GTE]: 7,
-  [EOperators.ESCAPED_LTE]: 7,
+  [Operators.ESCAPED_GT]: 7,
+  [Operators.ESCAPED_LT]: 7,
+  [Operators.ESCAPED_GTE]: 7,
+  [Operators.ESCAPED_LTE]: 7,
 
   // unary operators
-  [EOperators.PLUS]: 9,
-  [EOperators.MINUS]: 9,
-  [EOperators.TIMES]: 10,
-  [EOperators.DIVIDE]: 10,
-  [EOperators.PERCENT]: 10,
+  [Operators.PLUS]: 9,
+  [Operators.MINUS]: 9,
+  [Operators.TIMES]: 10,
+  [Operators.DIVIDE]: 10,
+  [Operators.PERCENT]: 10,
 
   // Custom
-  [EOperators.BUILT_IN]: 11,
-};
+  [Operators.BUILT_IN]: 11,
+} as const;
 
 // Get return the longest key length of any object
 export function getMaxKeyLength(obj: object): number {
@@ -142,5 +130,5 @@ export function getMaxKeyLength(obj: object): number {
   return maxLen;
 }
 
-export const maxBinaryOps = getMaxKeyLength(EBinaryOps);
-export const maxUnaryOps = getMaxKeyLength(EUnaryOps);
+export const maxBinaryOps = getMaxKeyLength(BinaryOps);
+export const maxUnaryOps = getMaxKeyLength(UnaryOps);

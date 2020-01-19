@@ -1,7 +1,7 @@
 export default abstract class AbstractTokenizer {
-  protected template: string = '';
-  protected length: number = 0;
-  protected index: number = 0;
+  protected template = '';
+  protected length = 0;
+  protected index = 0;
 
   protected charAt(i: number): string {
     return this.template.charAt(i);

@@ -2,25 +2,25 @@ import AbstractTokenizer from './AbstractTokenizer';
 import defaultConfig from './defaultConfig';
 import ECharCodes from './enum/CharCodes';
 import ParseError from './errors/ParseError';
-import { IOptions } from './interface/IOptions';
-import { IToken } from './interface/Tokens';
-import { ENodeType, ISymbol } from './Symbols';
+import { Options } from './interface/Options';
+import { Token } from './interface/Tokens';
+import { NodeType, ParseSymbol } from './Symbols';
 import { isLetter, isWhitespace } from './utils/Chars';
 
-interface INextPos {
+interface NextPos {
   pos: number;
   text: string;
 }
 
-interface IParams {
+interface Params {
   paramText: string;
   endToken: string;
 }
 
 export class Tokenizer extends AbstractTokenizer {
-  protected tokens: IToken[] = [];
-  protected options: IOptions;
-  protected symbols: ISymbol[];
+  protected tokens: Token[] = [];
+  protected options: Options;
+  protected symbols: ParseSymbol[];
 
   protected get openTag(): ECharCodes {
     return this.options.squareTags ? ECharCodes.OpenBracket : ECharCodes.Less;
@@ -32,7 +32,7 @@ export class Tokenizer extends AbstractTokenizer {
       : ECharCodes.Greater;
   }
 
-  constructor(options: IOptions = {}) {
+  constructor(options: Options = {}) {
     super();
 
     this.options = {
@@ -47,34 +47,34 @@ export class Tokenizer extends AbstractTokenizer {
       {
         startToken: `${openTag}#--`,
         endToken: [`--${closeTag}`],
-        type: ENodeType.Comment,
+        type: NodeType.Comment,
       },
       {
         startToken: `${openTag}/#`,
         endToken: [`${closeTag}`],
-        type: ENodeType.CloseDirective,
+        type: NodeType.CloseDirective,
       },
       {
         startToken: `${openTag}#`,
         endToken: [`${closeTag}`, `/${closeTag}`],
-        type: ENodeType.OpenDirective,
+        type: NodeType.OpenDirective,
       },
       {
         startToken: `${openTag}/@`,
         endToken: [`${closeTag}`],
-        type: ENodeType.CloseMacro,
+        type: NodeType.CloseMacro,
       },
       {
         startToken: `${openTag}@`,
         endToken: [`${closeTag}`, `/${closeTag}`],
-        type: ENodeType.OpenMacro,
+        type: NodeType.OpenMacro,
       },
       // tslint:disable-next-line:no-invalid-template-strings
-      { startToken: '${', endToken: ['}'], type: ENodeType.Interpolation },
+      { startToken: '${', endToken: ['}'], type: NodeType.Interpolation },
     ];
   }
 
-  public parse(template: string): IToken[] {
+  public parse(template: string): Token[] {
     super.init(template);
 
     this.tokens = [];
@@ -85,7 +85,7 @@ export class Tokenizer extends AbstractTokenizer {
     return this.tokens;
   }
 
-  protected getNextPos(items: string[]): INextPos {
+  protected getNextPos(items: string[]): NextPos {
     let pos = -1;
     let text = '';
     for (const item of items) {
@@ -99,7 +99,7 @@ export class Tokenizer extends AbstractTokenizer {
   }
 
   protected parseTagName(): string {
-    let text: string = '';
+    let text = '';
     let ch: number = this.charCodeAt(this.index);
 
     while (this.index < this.template.length) {
@@ -131,9 +131,9 @@ export class Tokenizer extends AbstractTokenizer {
     return text;
   }
 
-  protected getToken(): ISymbol | null {
-    let symbol: ISymbol | null = null;
-    let startPos: number = 0;
+  protected getToken(): ParseSymbol | null {
+    let symbol: ParseSymbol | null = null;
+    let startPos = 0;
     for (const item of this.symbols) {
       const n = this.template.indexOf(item.startToken, this.index);
       if (n === this.index && (!symbol || n < startPos)) {
@@ -144,8 +144,8 @@ export class Tokenizer extends AbstractTokenizer {
     return symbol || null;
   }
 
-  protected parseTemplate() {
-    let text: string = '';
+  protected parseTemplate(): void {
+    let text = '';
     const startPos = this.index;
     let ch: number;
     while (this.index < this.length) {
@@ -154,7 +154,7 @@ export class Tokenizer extends AbstractTokenizer {
         const token = this.getToken();
         if (token) {
           if (text.length > 0) {
-            this.addToken(ENodeType.Text, startPos, this.index, text);
+            this.addToken(NodeType.Text, startPos, this.index, text);
             text = '';
           }
 
@@ -162,15 +162,15 @@ export class Tokenizer extends AbstractTokenizer {
           this.index += token.startToken.length;
 
           switch (token.type) {
-            case ENodeType.Comment:
+            case NodeType.Comment:
               return this.parseComment(token, start);
-            case ENodeType.OpenDirective:
-            case ENodeType.OpenMacro:
+            case NodeType.OpenDirective:
+            case NodeType.OpenMacro:
               return this.parseOpenDirectiveOrMacro(token, start);
-            case ENodeType.CloseDirective:
-            case ENodeType.CloseMacro:
+            case NodeType.CloseDirective:
+            case NodeType.CloseMacro:
               return this.parseCloseDirectiveOrMacro(token, start);
-            case ENodeType.Interpolation:
+            case NodeType.Interpolation:
               return this.parseInterpolation(token, start);
           }
         }
@@ -179,18 +179,18 @@ export class Tokenizer extends AbstractTokenizer {
       ++this.index;
     }
 
-    return this.addToken(ENodeType.Text, startPos, this.index, text);
+    return this.addToken(NodeType.Text, startPos, this.index, text);
   }
 
   protected addToken(
-    type: ENodeType,
+    type: NodeType,
     start: number,
     end: number,
     text: string,
     startTag?: string,
     endTag?: string,
     params?: string,
-  ) {
+  ): void {
     this.tokens.push({
       type,
       start,
@@ -202,7 +202,7 @@ export class Tokenizer extends AbstractTokenizer {
     });
   }
 
-  protected parseComment(symbol: ISymbol, start: number) {
+  protected parseComment(symbol: ParseSymbol, start: number): void {
     const end = this.getNextPos(symbol.endToken);
     if (end.pos === -1) {
       throw new ReferenceError(`Unclosed comment`);
@@ -220,7 +220,7 @@ export class Tokenizer extends AbstractTokenizer {
     );
   }
 
-  protected parseInterpolation(symbol: ISymbol, start: number) {
+  protected parseInterpolation(symbol: ParseSymbol, start: number): void {
     const params = this.parseParams(symbol.endToken);
     this.addToken(
       symbol.type,
@@ -233,7 +233,10 @@ export class Tokenizer extends AbstractTokenizer {
     );
   }
 
-  protected parseOpenDirectiveOrMacro(symbol: ISymbol, start: number) {
+  protected parseOpenDirectiveOrMacro(
+    symbol: ParseSymbol,
+    start: number,
+  ): void {
     const typeString = this.parseTagName();
     if (typeString.length === 0) {
       throw new ParseError(`${symbol.type} name cannot be empty`, {
@@ -254,7 +257,10 @@ export class Tokenizer extends AbstractTokenizer {
     );
   }
 
-  protected parseCloseDirectiveOrMacro(symbol: ISymbol, start: number) {
+  protected parseCloseDirectiveOrMacro(
+    symbol: ParseSymbol,
+    start: number,
+  ): void {
     const typeString = this.parseTagName();
     if (typeString.length === 0) {
       throw new ParseError(`${symbol.type} name cannot be empty`, {
@@ -279,8 +285,8 @@ export class Tokenizer extends AbstractTokenizer {
   // as the first > will close the #if tag. To work that around, write <#if x gt 0> or <#if gte 0>.
   // Also note that if the comparison occurs inside parentheses, you will have no such problem,
   // like <#if foo.bar(x > 0)> works as expected.
-  protected parseParams(endTags: string[]): IParams {
-    let paramText: string = '';
+  protected parseParams(endTags: string[]): Params {
+    let paramText = '';
     const start = this.index;
     const stack: number[] = [];
     let closeCode: number | undefined;

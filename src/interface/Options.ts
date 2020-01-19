@@ -1,4 +1,4 @@
-export interface IOptions {
+export interface Options {
   squareTags?: boolean;
   // squareInterpolation? : boolean // TODO: unsupported
   // hashInterpolation? : boolean // TODO: unsupported

@@ -1,4 +1,4 @@
-export enum ENodeType {
+export enum NodeType {
   Program = 'Program',
   OpenDirective = 'OpenDirective',
   CloseDirective = 'CloseDirective',
@@ -9,8 +9,8 @@ export enum ENodeType {
   Comment = 'Comment',
 }
 
-export interface ISymbol {
+export interface ParseSymbol {
   startToken: string;
   endToken: string[];
-  type: ENodeType;
+  type: NodeType;
 }

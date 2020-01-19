@@ -4,12 +4,11 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x, 13.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -17,13 +16,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build, and test
-        run: |
-          npm ci
-          npm run lint
-          npm run format-check
-          npm run build
-          npm test
+      - name: Install
+        run: yarn --ignore-engines --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+      - name: Check format
+        run: yarn format-check
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
         env:
           CI: true
       - name: Codecov

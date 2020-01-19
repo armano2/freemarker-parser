@@ -1,6 +1,6 @@
 import NodeNames from '../enum/NodeNames';
 import ParseError from '../errors/ParseError';
-import { IToken } from '../interface/Tokens';
+import { Token } from '../interface/Tokens';
 
 import AbstractNode from '../nodes/abstract/AbstractNode';
 import AssignNode from '../nodes/AssignNode';
@@ -37,12 +37,12 @@ import SwitchNode from '../nodes/SwitchNode';
 import TextNode from '../nodes/TextNode';
 import TNode from '../nodes/TNode';
 
-export interface INodes {
-  [n: string]: (token: IToken, parent: AbstractNode) => AbstractNode;
+export interface NodeSelector {
+  [n: string]: (token: Token, parent: AbstractNode) => AbstractNode;
 }
 
-const Nodes: INodes = {
-  [NodeNames.Else](token: IToken, parent: AbstractNode): AbstractNode {
+const Nodes: NodeSelector = {
+  [NodeNames.Else](token: Token, parent: AbstractNode): AbstractNode {
     if (parent instanceof ConditionNode && !parent.alternate) {
       parent.alternate = [];
       return parent;
@@ -55,13 +55,10 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.Condition](token: IToken): ConditionNode {
+  [NodeNames.Condition](token: Token): ConditionNode {
     return new ConditionNode(token);
   },
-  [NodeNames.ConditionElse](
-    token: IToken,
-    parent: AbstractNode,
-  ): ConditionNode {
+  [NodeNames.ConditionElse](token: Token, parent: AbstractNode): ConditionNode {
     if (parent instanceof ConditionNode && !parent.alternate) {
       parent.alternate = [];
       return new ConditionNode(token);
@@ -71,7 +68,7 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.Recover](token: IToken, parent: AbstractNode): AbstractNode {
+  [NodeNames.Recover](token: Token, parent: AbstractNode): AbstractNode {
     if (parent instanceof AttemptNode) {
       if (!parent.fallback) {
         parent.fallback = [];
@@ -83,7 +80,7 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.SwitchCase](token: IToken, parent: AbstractNode): AbstractNode {
+  [NodeNames.SwitchCase](token: Token, parent: AbstractNode): AbstractNode {
     if (parent instanceof SwitchNode) {
       parent.cases.push(new SwitchCaseNode(token));
       return parent;
@@ -93,7 +90,7 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.SwitchDefault](token: IToken, parent: AbstractNode): AbstractNode {
+  [NodeNames.SwitchDefault](token: Token, parent: AbstractNode): AbstractNode {
     if (parent instanceof SwitchNode) {
       parent.cases.push(new SwitchDefaultNode(token));
       return parent;
@@ -103,82 +100,82 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.Global](token: IToken): GlobalNode {
+  [NodeNames.Global](token: Token): GlobalNode {
     return new GlobalNode(token);
   },
-  [NodeNames.Local](token: IToken): LocalNode {
+  [NodeNames.Local](token: Token): LocalNode {
     return new LocalNode(token);
   },
-  [NodeNames.Assign](token: IToken): AssignNode {
+  [NodeNames.Assign](token: Token): AssignNode {
     return new AssignNode(token);
   },
-  [NodeNames.Function](token: IToken): FunctionNode {
+  [NodeNames.Function](token: Token): FunctionNode {
     return new FunctionNode(token);
   },
-  [NodeNames.Return](token: IToken): ReturnNode {
+  [NodeNames.Return](token: Token): ReturnNode {
     return new ReturnNode(token);
   },
-  [NodeNames.Attempt](token: IToken): AttemptNode {
+  [NodeNames.Attempt](token: Token): AttemptNode {
     return new AttemptNode(token);
   },
-  [NodeNames.List](token: IToken): ListNode {
+  [NodeNames.List](token: Token): ListNode {
     return new ListNode(token);
   },
-  [NodeNames.Macro](token: IToken): MacroNode {
+  [NodeNames.Macro](token: Token): MacroNode {
     return new MacroNode(token);
   },
-  [NodeNames.Include](token: IToken): IncludeNode {
+  [NodeNames.Include](token: Token): IncludeNode {
     return new IncludeNode(token);
   },
-  [NodeNames.Interpolation](token: IToken): InterpolationNode {
+  [NodeNames.Interpolation](token: Token): InterpolationNode {
     return new InterpolationNode(token);
   },
-  [NodeNames.Text](token: IToken): TextNode {
+  [NodeNames.Text](token: Token): TextNode {
     return new TextNode(token);
   },
-  [NodeNames.MacroCall](token: IToken): MacroCallNode {
+  [NodeNames.MacroCall](token: Token): MacroCallNode {
     return new MacroCallNode(token);
   },
-  [NodeNames.Comment](token: IToken): CommentNode {
+  [NodeNames.Comment](token: Token): CommentNode {
     return new CommentNode(token);
   },
-  [NodeNames.Switch](token: IToken): SwitchNode {
+  [NodeNames.Switch](token: Token): SwitchNode {
     return new SwitchNode(token);
   },
-  [NodeNames.Break](token: IToken): BreakNode {
+  [NodeNames.Break](token: Token): BreakNode {
     return new BreakNode(token);
   },
-  [NodeNames.Compress](token: IToken): CompressNode {
+  [NodeNames.Compress](token: Token): CompressNode {
     return new CompressNode(token);
   },
-  [NodeNames.Import](token: IToken): ImportNode {
+  [NodeNames.Import](token: Token): ImportNode {
     return new ImportNode(token);
   },
-  [NodeNames.Stop](token: IToken): StopNode {
+  [NodeNames.Stop](token: Token): StopNode {
     return new StopNode(token);
   },
-  [NodeNames.Setting](token: IToken): SettingNode {
+  [NodeNames.Setting](token: Token): SettingNode {
     return new SettingNode(token);
   },
-  [NodeNames.Rt](token: IToken): RtNode {
+  [NodeNames.Rt](token: Token): RtNode {
     return new RtNode(token);
   },
-  [NodeNames.Lt](token: IToken): LtNode {
+  [NodeNames.Lt](token: Token): LtNode {
     return new LtNode(token);
   },
-  [NodeNames.Nt](token: IToken): NtNode {
+  [NodeNames.Nt](token: Token): NtNode {
     return new NtNode(token);
   },
-  [NodeNames.T](token: IToken): TNode {
+  [NodeNames.T](token: Token): TNode {
     return new TNode(token);
   },
-  [NodeNames.Flush](token: IToken): FlushNode {
+  [NodeNames.Flush](token: Token): FlushNode {
     return new FlushNode(token);
   },
-  [NodeNames.Escape](token: IToken): EscapeNode {
+  [NodeNames.Escape](token: Token): EscapeNode {
     return new EscapeNode(token);
   },
-  [NodeNames.NoEscape](token: IToken, parent: AbstractNode): NoEscapeNode {
+  [NodeNames.NoEscape](token: Token, parent: AbstractNode): NoEscapeNode {
     if (parent instanceof EscapeNode || parent instanceof NoEscapeNode) {
       return new NoEscapeNode(token);
     }
@@ -187,16 +184,16 @@ const Nodes: INodes = {
       token,
     );
   },
-  [NodeNames.Ftl](token: IToken): FtlNode {
+  [NodeNames.Ftl](token: Token): FtlNode {
     return new FtlNode(token);
   },
-  [NodeNames.AutoEsc](token: IToken): AutoEscNode {
+  [NodeNames.AutoEsc](token: Token): AutoEscNode {
     return new AutoEscNode(token);
   },
-  [NodeNames.NoAutoEsc](token: IToken): NoAutoEscNode {
+  [NodeNames.NoAutoEsc](token: Token): NoAutoEscNode {
     return new NoAutoEscNode(token);
   },
-  [NodeNames.OutputFormat](token: IToken): OutputFormatNode {
+  [NodeNames.OutputFormat](token: Token): OutputFormatNode {
     return new OutputFormatNode(token);
   },
 };

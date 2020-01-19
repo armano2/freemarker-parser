@@ -1,14 +1,14 @@
 import NodeNames from '../enum/NodeNames';
 import ParamNames from '../enum/ParamNames';
 import ParseError from '../errors/ParseError';
-import { IAssignmentExpression } from '../interface/Params';
-import { IToken } from '../interface/Tokens';
+import { AssignmentExpression } from '../interface/Params';
+import { Token } from '../interface/Tokens';
 import AbstractAssign from './abstract/AbstractAssign';
 
 export default class SettingNode extends AbstractAssign {
-  public expression: IAssignmentExpression;
+  public expression: AssignmentExpression;
 
-  constructor(token: IToken) {
+  constructor(token: Token) {
     super(NodeNames.Setting, token);
     const params = this.checkParams(token);
 

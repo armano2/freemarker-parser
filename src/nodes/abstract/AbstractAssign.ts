@@ -1,12 +1,12 @@
 import ParamNames from '../../enum/ParamNames';
 import ParseError from '../../errors/ParseError';
 import { AllParamTypes } from '../../interface/Params';
-import { IToken } from '../../interface/Tokens';
+import { Token } from '../../interface/Tokens';
 import { paramParser } from '../../utils/Params';
 import AbstractBodyNode from './AbstractBodyNode';
 
 export default abstract class AbstractAssign extends AbstractBodyNode {
-  protected checkParams(token: IToken): AllParamTypes[] {
+  protected checkParams(token: Token): AllParamTypes[] {
     const params = paramParser(token);
     if (params) {
       const result = [];
@@ -24,14 +24,14 @@ export default abstract class AbstractAssign extends AbstractBodyNode {
 
   protected isAssignmentExpressionSingle(
     param: AllParamTypes,
-    token: IToken,
+    token: Token,
   ): AllParamTypes {
     return this.isAssignmentExpression(param, token);
   }
 
   protected isAssignmentExpression(
     param: AllParamTypes,
-    token: IToken,
+    token: Token,
   ): AllParamTypes {
     if (param.type === ParamNames.AssignmentExpression) {
       return param;

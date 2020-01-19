@@ -1,5 +1,5 @@
 import ECharCodes from '../enum/CharCodes';
-import { EBinaryOps } from '../enum/Operators';
+import { BinaryOps } from '../enum/Operators';
 
 export function isDecimalDigit(ch: number): boolean {
   return ch >= ECharCodes._0 && ch <= ECharCodes._9; // 0...9
@@ -28,7 +28,7 @@ export function isIdentifierStart(ch: number): boolean {
     ch === ECharCodes.$ ||
     ch === ECharCodes.Underscore || // `$` and `_`
       ch >= 128) &&
-    !EBinaryOps[String.fromCharCode(ch)]
+    !BinaryOps[String.fromCharCode(ch)]
   );
 }
 
@@ -40,6 +40,6 @@ export function isIdentifierPart(ch: number): boolean {
     ch === ECharCodes.$ ||
     ch === ECharCodes.Underscore || // `$` and `_`
       ch >= 128) &&
-    !EBinaryOps[String.fromCharCode(ch)]
+    !BinaryOps[String.fromCharCode(ch)]
   );
 }

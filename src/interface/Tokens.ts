@@ -1,17 +1,17 @@
-import { ENodeType } from '../Symbols';
-import { ISourceLocation } from './ISourceLocation';
+import { NodeType } from '../Symbols';
+import { SourceLocation } from './SourceLocation';
 
-export interface ILoc {
+export interface Location {
   start: number;
   end: number;
   loc?: {
-    start: ISourceLocation;
-    end: ISourceLocation;
+    start: SourceLocation;
+    end: SourceLocation;
   };
 }
 
-export interface IToken extends ILoc {
-  type: ENodeType;
+export interface Token extends Location {
+  type: NodeType;
   startTag?: string;
   endTag?: string;
   params?: string;

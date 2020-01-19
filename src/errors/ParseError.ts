@@ -1,16 +1,16 @@
-import { ISourceLocation } from '../interface/ISourceLocation';
-import { ILoc } from '../interface/Tokens';
+import { SourceLocation } from '../interface/SourceLocation';
+import { Location } from '../interface/Tokens';
 
-export default class ParseError implements ILoc {
+export default class ParseError implements Location {
   public message: string;
   public start: number;
   public end: number;
   public loc?: {
-    start: ISourceLocation;
-    end: ISourceLocation;
+    start: SourceLocation;
+    end: SourceLocation;
   };
 
-  constructor(message: string, el: ILoc) {
+  constructor(message: string, el: Location) {
     this.message = message;
     this.start = el.start;
     this.end = el.end;

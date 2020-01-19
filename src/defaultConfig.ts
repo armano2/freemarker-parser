@@ -1,6 +1,6 @@
-import { IOptions } from './interface/IOptions';
+import { Options } from './interface/Options';
 
-const defaultConfig: IOptions = {
+const defaultConfig: Options = {
   squareTags: false,
   parseLocation: true,
 };

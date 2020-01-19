@@ -1,106 +1,106 @@
 import ParamNames from '../enum/ParamNames';
 
-export interface IExpression {
+export interface Expression {
   type: ParamNames;
 }
 
-export interface ICompound extends IExpression {
+export interface Compound extends Expression {
   type: ParamNames.Compound;
   body: AllParamTypes[];
 }
 
-export interface ILiteral extends IExpression {
+export interface Literal extends Expression {
   type: ParamNames.Literal;
-  value: any;
+  value: string | number | boolean | null;
   raw: string;
 }
 
-export interface IArrayExpression extends IExpression {
+export interface ArrayExpression extends Expression {
   type: ParamNames.ArrayExpression;
   elements: AllParamTypes[];
 }
 
-export interface IIdentifier extends IExpression {
+export interface Identifier extends Expression {
   type: ParamNames.Identifier;
   name: string;
 }
 
-export interface IBinaryExpression extends IExpression {
+export interface BinaryExpression extends Expression {
   type: ParamNames.BinaryExpression;
   operator: string;
   left: AllParamTypes;
   right: AllParamTypes;
 }
 
-export interface ILogicalExpression extends IExpression {
+export interface LogicalExpression extends Expression {
   type: ParamNames.LogicalExpression;
   operator: string;
   left: AllParamTypes;
   right: AllParamTypes;
 }
 
-export interface IUnaryExpression extends IExpression {
+export interface UnaryExpression extends Expression {
   type: ParamNames.UnaryExpression;
   operator: string;
   argument: AllParamTypes;
   prefix: boolean;
 }
 
-export interface IMemberExpression extends IExpression {
+export interface MemberExpression extends Expression {
   type: ParamNames.MemberExpression;
   computed: boolean;
   object: AllParamTypes;
   property: AllParamTypes | null;
 }
 
-export interface ICallExpression extends IExpression {
+export interface CallExpression extends Expression {
   type: ParamNames.CallExpression;
   arguments: AllParamTypes[];
   callee: AllParamTypes;
 }
 
-export interface IAssignmentExpression extends IExpression {
+export interface AssignmentExpression extends Expression {
   type: ParamNames.AssignmentExpression;
   operator: string;
   left: AllParamTypes;
   right: AllParamTypes;
 }
 
-export interface IBuiltInExpression {
+export interface BuiltInExpression {
   type: ParamNames.BuiltInExpression;
   operator: string;
   left: AllParamTypes;
   right: AllParamTypes;
 }
 
-export interface IUpdateExpression extends IExpression {
+export interface UpdateExpression extends Expression {
   type: ParamNames.UpdateExpression;
   operator: string;
   prefix: boolean;
   argument: AllParamTypes;
 }
 
-export interface IMapExpressionValues {
-  key: ILiteral;
+export interface MapExpressionValues {
+  key: Literal;
   value: AllParamTypes;
 }
 
-export interface IMapExpression extends IExpression {
+export interface MapExpression extends Expression {
   type: ParamNames.MapExpression;
-  elements: IMapExpressionValues[];
+  elements: MapExpressionValues[];
 }
 
 export type AllParamTypes =
-  | ILiteral
-  | IArrayExpression
-  | IIdentifier
-  | IBinaryExpression
-  | ILogicalExpression
-  | IUnaryExpression
-  | IBuiltInExpression
-  | IMemberExpression
-  | ICallExpression
-  | ICompound
-  | IAssignmentExpression
-  | IUpdateExpression
-  | IMapExpression;
+  | Literal
+  | ArrayExpression
+  | Identifier
+  | BinaryExpression
+  | LogicalExpression
+  | UnaryExpression
+  | BuiltInExpression
+  | MemberExpression
+  | CallExpression
+  | Compound
+  | AssignmentExpression
+  | UpdateExpression
+  | MapExpression;

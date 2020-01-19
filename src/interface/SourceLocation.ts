@@ -1,4 +1,4 @@
-export interface ISourceLocation {
+export interface SourceLocation {
   line: number;
   column: number;
 }

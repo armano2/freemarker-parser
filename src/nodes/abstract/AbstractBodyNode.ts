@@ -7,7 +7,7 @@ export default abstract class AbstractBodyNode extends AbstractNode {
     return Boolean(this.body);
   }
 
-  public addToNode(child: AbstractNode) {
+  public addToNode(child: AbstractNode): void {
     if (this.body) {
       this.body.push(child);
     } else {

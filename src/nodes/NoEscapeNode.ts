@@ -1,11 +1,11 @@
 import noParams from '../decorators/noParams';
 import NodeNames from '../enum/NodeNames';
-import { IToken } from '../interface/Tokens';
+import { Token } from '../interface/Tokens';
 import AbstractBodyNode from './abstract/AbstractBodyNode';
 
 @noParams
 export default class NoEscapeNode extends AbstractBodyNode {
-  constructor(token: IToken) {
+  constructor(token: Token) {
     super(NodeNames.NoEscape, token);
     this.body = [];
   }
