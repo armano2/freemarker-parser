@@ -18,6 +18,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install
         run: yarn --ignore-engines --frozen-lockfile
+      - run: git diff --quiet --exit-code
       - name: Lint
         run: yarn lint
       - name: Check format
