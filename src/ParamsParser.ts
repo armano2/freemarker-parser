@@ -267,7 +267,11 @@ export class ParamsParser extends AbstractTokenizer {
       return left;
     }
 
-    if (biop === Operators.PLUS_PLUS || biop === Operators.MINUS_MINUS) {
+    if (
+      biop === Operators.PLUS_PLUS ||
+      biop === Operators.MINUS_MINUS ||
+      biop === Operators.EXISTS
+    ) {
       return createUnaryExpression(biop, left, false);
     }
 

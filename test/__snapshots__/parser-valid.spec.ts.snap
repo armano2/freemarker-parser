@@ -10862,6 +10862,168 @@ Array [
 ]
 `;
 
+exports[`exists.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    AssignNode {
+      "end": 15,
+      "loc": Object {
+        "end": Object {
+          "column": 16,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Array [
+        Object {
+          "left": Object {
+            "name": "x",
+            "type": "Identifier",
+          },
+          "operator": "=",
+          "right": Object {
+            "raw": "1",
+            "type": "Literal",
+            "value": 1,
+          },
+          "type": "AssignmentExpression",
+        },
+      ],
+      "start": 0,
+      "type": "Assign",
+    },
+    TextNode {
+      "end": 19,
+      "loc": Object {
+        "end": Object {
+          "column": 3,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 16,
+          "line": 1,
+        },
+      },
+      "start": 15,
+      "text": "
+
+- ",
+      "type": "Text",
+    },
+    ConditionNode {
+      "consequent": Array [
+        TextNode {
+          "end": 32,
+          "loc": Object {
+            "end": Object {
+              "column": 16,
+              "line": 3,
+            },
+            "start": Object {
+              "column": 12,
+              "line": 3,
+            },
+          },
+          "start": 28,
+          "text": "good",
+          "type": "Text",
+        },
+      ],
+      "end": 28,
+      "loc": Object {
+        "end": Object {
+          "column": 12,
+          "line": 3,
+        },
+        "start": Object {
+          "column": 3,
+          "line": 3,
+        },
+      },
+      "params": Object {
+        "argument": Object {
+          "name": "x",
+          "type": "Identifier",
+        },
+        "operator": "??",
+        "prefix": false,
+        "type": "UnaryExpression",
+      },
+      "start": 19,
+      "type": "Condition",
+    },
+  ],
+  "end": 37,
+  "loc": Object {
+    "end": Object {
+      "column": 21,
+      "line": 3,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`exists.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 15,
+    "endTag": ">",
+    "params": "x = 1",
+    "start": 0,
+    "startTag": "<#",
+    "text": "assign",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 19,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 15,
+    "startTag": undefined,
+    "text": "
+
+- ",
+    "type": "Text",
+  },
+  Object {
+    "end": 28,
+    "endTag": ">",
+    "params": "x??",
+    "start": 19,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 32,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 28,
+    "startTag": undefined,
+    "text": "good",
+    "type": "Text",
+  },
+  Object {
+    "end": 38,
+    "endTag": ">",
+    "params": undefined,
+    "start": 32,
+    "startTag": "</#",
+    "text": "if",
+    "type": "CloseDirective",
+  },
+]
+`;
+
 exports[`expresion.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [
