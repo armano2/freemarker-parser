@@ -16,7 +16,7 @@ exports[`errors missing close tag in directive 1`] = `"OpenDirective name cannot
 
 exports[`errors missing close tag in macro 1`] = `"OpenMacro name cannot be empty [2-2]"`;
 
-exports[`errors unclosed comment 1`] = `"Unclosed comment [undefined-undefined]"`;
+exports[`errors unclosed comment 1`] = `"Unclosed comment"`;
 
 exports[`unclosed directive 1`] = `"Unclosed directive or macro [5-6]"`;
 

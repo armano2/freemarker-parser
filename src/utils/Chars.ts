@@ -25,8 +25,8 @@ export function isWhitespace(ch: number): boolean {
 export function isIdentifierStart(ch: number): boolean {
   return (
     (isLetter(ch) ||
-    ch === ECharCodes.$ ||
-    ch === ECharCodes.Underscore || // `$` and `_`
+      ch === ECharCodes.$ ||
+      ch === ECharCodes.Underscore || // `$` and `_`
       ch >= 128) &&
     !BinaryOps[String.fromCharCode(ch)]
   );
@@ -36,9 +36,9 @@ export function isIdentifierStart(ch: number): boolean {
 export function isIdentifierPart(ch: number): boolean {
   return (
     (isLetter(ch) ||
-    isDecimalDigit(ch) ||
-    ch === ECharCodes.$ ||
-    ch === ECharCodes.Underscore || // `$` and `_`
+      isDecimalDigit(ch) ||
+      ch === ECharCodes.$ ||
+      ch === ECharCodes.Underscore || // `$` and `_`
       ch >= 128) &&
     !BinaryOps[String.fromCharCode(ch)]
   );

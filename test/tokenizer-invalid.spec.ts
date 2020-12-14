@@ -1,4 +1,5 @@
 import { Tokenizer } from '../src';
+import ParseError from '../src/errors/ParseError';
 import { Token } from '../src/interface/Tokens';
 
 const tokenizer = new Tokenizer();
@@ -7,7 +8,11 @@ function parse(text: string): Token[] {
   try {
     return tokenizer.parse(text);
   } catch (e) {
-    throw new Error(`${e.message} [${e.start}-${e.end}]`);
+    if (e instanceof ParseError) {
+      throw new Error(`${e.message} [${e.start}-${e.end}]`);
+    } else {
+      throw e;
+    }
   }
 }
 

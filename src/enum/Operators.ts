@@ -118,7 +118,7 @@ export const BinaryOps: Record<string, number> = {
 } as const;
 
 // Get return the longest key length of any object
-export function getMaxKeyLength(obj: object): number {
+export function getMaxKeyLength<T>(obj: T): number {
   let maxLen = 0;
   let len;
   for (const key of Object.keys(obj)) {

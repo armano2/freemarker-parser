@@ -9,10 +9,14 @@ export function paramParser(token: Token): AllParamTypes | undefined {
     try {
       return parser.parseExpressions();
     } catch (e) {
-      throw new ParseError(e.message, {
-        start: token.start + e.start,
-        end: token.start + e.end,
-      });
+      if (e instanceof ParseError) {
+        throw new ParseError(e.message, {
+          start: token.start + e.start,
+          end: token.start + e.end,
+        });
+      } else {
+        throw e;
+      }
     }
   } else {
     return undefined;

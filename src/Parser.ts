@@ -141,8 +141,10 @@ export class Parser extends ParserLocation {
       case NodeType.CloseDirective:
       case NodeType.OpenDirective:
         if (token.text in Directives) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return Directives[token.text as any] as NodeTypes;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          return (Directives[
+            token.text as keyof typeof Directives
+          ] as unknown) as NodeTypes;
         }
         break;
       case NodeType.Interpolation:

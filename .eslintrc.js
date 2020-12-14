@@ -7,6 +7,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
+  ignorePatterns: ['.eslintrc.js'],
   parserOptions: {
     sourceType: 'module',
     ecmaFeatures: {
@@ -30,20 +31,12 @@ module.exports = {
       env: {
         jest: true,
       },
-      extends: ['plugin:jest/recommended'],
+      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
       rules: {
         'jest/no-disabled-tests': 'warn',
-        'jest/no-focused-tests': 'error',
-        'jest/no-alias-methods': 'error',
-        'jest/no-identical-title': 'error',
-        'jest/no-jasmine-globals': 'error',
-        'jest/no-jest-import': 'error',
-        'jest/no-test-prefixes': 'error',
-        'jest/no-test-callback': 'error',
         'jest/no-test-return-statement': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/prefer-spy-on': 'error',
-        'jest/valid-expect': 'error',
       },
     },
   ],
