@@ -69,6 +69,7 @@ export const UnaryOps: Record<string, boolean> = {
   [Operators.PLUS]: true,
   [Operators.MINUS_MINUS]: true,
   [Operators.PLUS_PLUS]: true,
+  [Operators.EXISTS]: true,
 };
 
 /**
@@ -84,6 +85,7 @@ export const BinaryOps: Record<string, number> = {
   [Operators.MOD_EQUALS]: 0,
   [Operators.PLUS_PLUS]: 0,
   [Operators.MINUS_MINUS]: 0,
+  [Operators.EXISTS]: 0,
 
   // Logical OR
   [Operators.OR]: 1,

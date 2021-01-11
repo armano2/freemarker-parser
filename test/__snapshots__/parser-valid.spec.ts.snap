@@ -10862,6 +10862,204 @@ Array [
 ]
 `;
 
+exports[`exists.ftl should have correct ast 1`] = `
+ProgramNode {
+  "body": Array [
+    ConditionNode {
+      "consequent": Array [
+        TextNode {
+          "end": 13,
+          "loc": Object {
+            "end": Object {
+              "column": 14,
+              "line": 1,
+            },
+            "start": Object {
+              "column": 10,
+              "line": 1,
+            },
+          },
+          "start": 9,
+          "text": "good",
+          "type": "Text",
+        },
+      ],
+      "end": 9,
+      "loc": Object {
+        "end": Object {
+          "column": 10,
+          "line": 1,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+        },
+      },
+      "params": Object {
+        "argument": Object {
+          "name": "x",
+          "type": "Identifier",
+        },
+        "operator": "??",
+        "prefix": false,
+        "type": "UnaryExpression",
+      },
+      "start": 0,
+      "type": "Condition",
+    },
+    TextNode {
+      "end": 20,
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 20,
+          "line": 1,
+        },
+      },
+      "start": 19,
+      "text": "
+",
+      "type": "Text",
+    },
+    ConditionNode {
+      "consequent": Array [
+        TextNode {
+          "end": 38,
+          "loc": Object {
+            "end": Object {
+              "column": 19,
+              "line": 2,
+            },
+            "start": Object {
+              "column": 15,
+              "line": 2,
+            },
+          },
+          "start": 34,
+          "text": "good",
+          "type": "Text",
+        },
+      ],
+      "end": 34,
+      "loc": Object {
+        "end": Object {
+          "column": 15,
+          "line": 2,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 2,
+        },
+      },
+      "params": Object {
+        "left": Object {
+          "argument": Object {
+            "name": "x",
+            "type": "Identifier",
+          },
+          "operator": "??",
+          "prefix": false,
+          "type": "UnaryExpression",
+        },
+        "operator": "&&",
+        "right": Object {
+          "name": "y",
+          "type": "Identifier",
+        },
+        "type": "LogicalExpression",
+      },
+      "start": 20,
+      "type": "Condition",
+    },
+  ],
+  "end": 43,
+  "loc": Object {
+    "end": Object {
+      "column": 24,
+      "line": 2,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  "start": 0,
+  "type": "Program",
+}
+`;
+
+exports[`exists.ftl should have correct tokens 1`] = `
+Array [
+  Object {
+    "end": 9,
+    "endTag": ">",
+    "params": "x??",
+    "start": 0,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 13,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 9,
+    "startTag": undefined,
+    "text": "good",
+    "type": "Text",
+  },
+  Object {
+    "end": 19,
+    "endTag": ">",
+    "params": undefined,
+    "start": 13,
+    "startTag": "</#",
+    "text": "if",
+    "type": "CloseDirective",
+  },
+  Object {
+    "end": 20,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 19,
+    "startTag": undefined,
+    "text": "
+",
+    "type": "Text",
+  },
+  Object {
+    "end": 34,
+    "endTag": ">",
+    "params": "x?? && y",
+    "start": 20,
+    "startTag": "<#",
+    "text": "if",
+    "type": "OpenDirective",
+  },
+  Object {
+    "end": 38,
+    "endTag": undefined,
+    "params": undefined,
+    "start": 34,
+    "startTag": undefined,
+    "text": "good",
+    "type": "Text",
+  },
+  Object {
+    "end": 44,
+    "endTag": ">",
+    "params": undefined,
+    "start": 38,
+    "startTag": "</#",
+    "text": "if",
+    "type": "CloseDirective",
+  },
+]
+`;
+
 exports[`expresion.ftl should have correct ast 1`] = `
 ProgramNode {
   "body": Array [

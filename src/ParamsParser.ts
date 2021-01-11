@@ -258,17 +258,23 @@ export class ParamsParser extends AbstractTokenizer {
     let i;
 
     // First, try to get the leftmost thing
-    // Then, check to see if there's a binary operator operating on that leftmost thing
+    // Then, get the operator following the leftmost thing
     left = this.parseToken();
     biop = this.parseBinaryOp();
+
+    // If the operator is a unary operator, create a unary expression with the leftmost thing
+    if (
+      biop === Operators.PLUS_PLUS ||
+      biop === Operators.MINUS_MINUS ||
+      biop === Operators.EXISTS
+    ) {
+      left = createUnaryExpression(biop, left, false);
+      biop = this.parseBinaryOp();
+    }
 
     // If there wasn't a binary operator, just return the leftmost node
     if (!biop) {
       return left;
-    }
-
-    if (biop === Operators.PLUS_PLUS || biop === Operators.MINUS_MINUS) {
-      return createUnaryExpression(biop, left, false);
     }
 
     // Otherwise, we need to start a stack to properly place the binary operations in their
