@@ -3,9 +3,8 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
@@ -23,8 +22,6 @@ jobs:
         run: yarn lint
       - name: Check format
         run: yarn format-check
-      - name: Build
-        run: yarn build
       - name: Test
         run: yarn test
         env:
@@ -34,3 +31,22 @@ jobs:
         with:
           file: ./coverage/lcov.info
           flags: unittests
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install
+        run: yarn --ignore-engines --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: Release
+        if: ${{ github.ref == 'master' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn semantic-release
