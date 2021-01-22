@@ -1,6 +1,5 @@
 test/resource/**/*
-dist
-types
+lib
 coverage
 coverage.xml
 *.snap

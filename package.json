@@ -3,17 +3,17 @@
   "version": "1.1.6",
   "description": "Freemarker Parser is a javascript implementation of the Freemarker",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "test": "jest --coverage",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "format-check": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "lint": "eslint . --ext .js,.ts",
     "lint-fix": "eslint . --ext .js,.ts --fix",
-    "watch": "tsc --watch"
+    "watch": "tsc -b --watch"
   },
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "repository": {
     "type": "git",

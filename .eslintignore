@@ -1,6 +1,5 @@
 .github
 test/resource/**/*
-dist
-types
+lib
 coverage
 jest.config.js

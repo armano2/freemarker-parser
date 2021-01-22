@@ -65,5 +65,4 @@ jspm_packages/
 *.ipr
 
 # Project specific
-types/
-dist/
+lib/
