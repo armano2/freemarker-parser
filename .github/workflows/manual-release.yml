@@ -1,21 +1,21 @@
-name: Node CI
-
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
-
     steps:
       - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      - name: Verify head of master hasn't changed
+        run: |
+          # We ensure that the latest commit on master is still the one we expected when
+          # we started the release job, otherwise we exit
+          if [ "$GITHUB_SHA" != "$(git rev-parse --verify HEAD)" ]; then
+              echo "ERROR: The commit SHA at the HEAD of master has changed"
+              echo "Expected: $GITHUB_SHA"
+              echo "Actual: $(git rev-parse --verify HEAD)"
+              exit 1;
+          fi
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -32,24 +32,11 @@ jobs:
       - name: Install
         run: yarn --ignore-engines --frozen-lockfile
 
-      - run: git diff --quiet --exit-code
-      - name: Lint
-        run: yarn lint
-
-      - name: Check format
-        run: yarn format-check
-
       - name: Build
         run: yarn build
 
-      - name: Test
-        run: yarn test
+      - name: Release
         env:
-          CI: true
-
-      - name: Codecov
-        uses: codecov/codecov-action@v1.0.15
-        with:
-          file: ./coverage/lcov.info
-          flags: unittests
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
